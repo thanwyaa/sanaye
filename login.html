@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول - منصة ثانية ثانوي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container { width: 100%; max-width: 520px; padding: 20px; }
+        .card {
+            background: white;
+            border-radius: 45px;
+            padding: 45px 35px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+        }
+        .logo { text-align: center; margin-bottom: 25px; }
+        .logo img {
+            width: 85px; height: 85px;
+            border-radius: 22px;
+            object-fit: cover;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        h1 { text-align: center; color: #1e293b; font-size: 26px; font-weight: 800; }
+        .subtitle { text-align: center; color: #64748b; margin-bottom: 30px; font-size: 13px; }
+        .input-group { margin-bottom: 18px; }
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #334155;
+            font-weight: 600;
+            font-size: 13px;
+        }
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #e2e8f0;
+            border-radius: 20px;
+            font-size: 15px;
+            font-family: 'Cairo', sans-serif;
+            background: #f8fafc;
+        }
+        .input-group input:focus, .input-group select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            background: white;
+        }
+        .row-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        .btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+            border: none;
+            border-radius: 35px;
+            font-size: 17px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .btn:hover { transform: scale(1.02); box-shadow: 0 8px 20px rgba(59,130,246,0.4); }
+        .switch {
+            text-align: center;
+            margin-top: 25px;
+            color: #64748b;
+        }
+        .switch a {
+            color: #3b82f6;
+            text-decoration: none;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .error {
+            background: #fee2e2;
+            color: #dc2626;
+            padding: 12px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            font-size: 13px;
+            display: none;
+            text-align: center;
+        }
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 25px 0;
+            color: #cbd5e1;
+        }
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #e2e8f0;
+        }
+        .divider span { padding: 0 15px; font-size: 12px; }
+        @media (max-width: 600px) {
+            .card { padding: 30px 25px; }
+            .row-2 { grid-template-columns: 1fr; gap: 0; }
+            h1 { font-size: 22px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="logo">
+                <img src="https://videotourl.com/images/1778390932765-44a348ea-5376-4709-8a60-652399630ae0.jpg" alt="شعار المنصة">
+            </div>
+            <h1>منصة ثانية ثانوي</h1>
+            <div class="subtitle">الرسمية - الترم الثاني 2026</div>
+            <div id="errorMsg" class="error"></div>
+            
+            <form id="authForm">
+                <div id="loginSection">
+                    <div class="input-group">
+                        <label><i class="fas fa-envelope"></i> البريد الإلكتروني</label>
+                        <input type="email" id="loginEmail" required placeholder="example@email.com">
+                    </div>
+                    <div class="input-group">
+                        <label><i class="fas fa-lock"></i> كلمة المرور</label>
+                        <input type="password" id="loginPassword" required placeholder="••••••••">
+                    </div>
+                </div>
+
+                <div id="registerSection" style="display: none;">
+                    <div class="input-group">
+                        <label><i class="fas fa-user"></i> الاسم الكامل</label>
+                        <input type="text" id="regName" placeholder="مثال: محمد أحمد">
+                    </div>
+                    <div class="row-2">
+                        <div class="input-group">
+                            <label><i class="fas fa-venus-mars"></i> الجنس</label>
+                            <select id="regGender">
+                                <option value="ذكر">👨 ذكر</option>
+                                <option value="أنثى">👩 أنثى</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label><i class="fas fa-mosque"></i> النوع</label>
+                            <select id="regType">
+                                <option value="عام">📚 عام</option>
+                                <option value="أزهري">🕌 أزهري</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row-2">
+                        <div class="input-group">
+                            <label><i class="fas fa-chart-line"></i> الشعبة</label>
+                            <select id="regSection">
+                                <option value="علمي">🔬 علمي</option>
+                                <option value="أدبي">📖 أدبي</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label><i class="fas fa-flask"></i> المادة المفضلة</label>
+                            <select id="regMaterial">
+                                <option value="رياضة">🧮 رياضة</option>
+                                <option value="فيزياء">⚡ فيزياء</option>
+                                <option value="كيمياء">🧪 كيمياء</option>
+                                <option value="عربي">📖 عربي</option>
+                                <option value="إنجليزي">🇬🇧 إنجليزي</option>
+                                <option value="تاريخ">🏛️ تاريخ</option>
+                                <option value="فلسفة">💭 فلسفة</option>
+                                <option value="علم نفس">🧠 علم نفس</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label><i class="fas fa-envelope"></i> البريد الإلكتروني</label>
+                        <input type="email" id="regEmail" required placeholder="example@email.com">
+                    </div>
+                    <div class="input-group">
+                        <label><i class="fas fa-lock"></i> كلمة المرور</label>
+                        <input type="password" id="regPassword" required placeholder="•••••••• (6 أحرف على الأقل)">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn" id="submitBtn">
+                    <i class="fas fa-sign-in-alt"></i> تسجيل الدخول
+                </button>
+
+                <div class="divider"><span>أو</span></div>
+
+                <div class="switch">
+                    ليس لديك حساب؟ <a id="switchBtn">إنشاء حساب جديد</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyB3Z8iHqNNfWEWrwIfP15x3hlh65GEZ0mQ",
+            authDomain: "sanaayee.firebaseapp.com",
+            databaseURL: "https://sanaayee-default-rtdb.firebaseio.com",
+            projectId: "sanaayee",
+            storageBucket: "sanaayee.firebasestorage.app",
+            messagingSenderId: "1048456368002",
+            appId: "1:1048456368002:web:e37c8e2b7ebba18ef2499b",
+            measurementId: "G-XCYY1H22CQ"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        let isLoginMode = true;
+        const loginSection = document.getElementById('loginSection');
+        const registerSection = document.getElementById('registerSection');
+        const submitBtn = document.getElementById('submitBtn');
+        const switchBtn = document.getElementById('switchBtn');
+        const errorMsg = document.getElementById('errorMsg');
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) window.location.href = 'index.html';
+        });
+
+        switchBtn.addEventListener('click', () => {
+            isLoginMode = !isLoginMode;
+            if (isLoginMode) {
+                loginSection.style.display = 'block';
+                registerSection.style.display = 'none';
+                submitBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> تسجيل الدخول';
+                switchBtn.textContent = 'إنشاء حساب جديد';
+            } else {
+                loginSection.style.display = 'none';
+                registerSection.style.display = 'block';
+                submitBtn.innerHTML = '<i class="fas fa-user-plus"></i> إنشاء حساب';
+                switchBtn.textContent = 'لديك حساب؟ تسجيل الدخول';
+            }
+            errorMsg.style.display = 'none';
+        });
+
+        document.getElementById('authForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            errorMsg.style.display = 'none';
+
+            if (isLoginMode) {
+                const email = document.getElementById('loginEmail').value;
+                const password = document.getElementById('loginPassword').value;
+                try {
+                    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                    const userDoc = await getDoc(doc(db, "users", userCredential.user.uid));
+                    if (userDoc.exists() && userDoc.data().isBanned) {
+                        await auth.signOut();
+                        errorMsg.textContent = '❌ حسابك محظور. تواصل مع الإدارة.';
+                        errorMsg.style.display = 'block';
+                        return;
+                    }
+                    window.location.href = 'index.html';
+                } catch (error) {
+                    errorMsg.textContent = '❌ البريد الإلكتروني أو كلمة المرور غير صحيحة';
+                    errorMsg.style.display = 'block';
+                }
+            } else {
+                const name = document.getElementById('regName').value;
+                const email = document.getElementById('regEmail').value;
+                const password = document.getElementById('regPassword').value;
+                const gender = document.getElementById('regGender').value;
+                const type = document.getElementById('regType').value;
+                const section = document.getElementById('regSection').value;
+                const material = document.getElementById('regMaterial').value;
+
+                if (!name) {
+                    errorMsg.textContent = '❌ من فضلك أدخل اسمك';
+                    errorMsg.style.display = 'block';
+                    return;
+                }
+                if (password.length < 6) {
+                    errorMsg.textContent = '❌ كلمة المرور يجب أن تكون 6 أحرف على الأقل';
+                    errorMsg.style.display = 'block';
+                    return;
+                }
+
+                try {
+                    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                    await setDoc(doc(db, "users", userCredential.user.uid), {
+                        name: name,
+                        email: email,
+                        gender: gender,
+                        type: type,
+                        section: section,
+                        favoriteMaterial: material,
+                        isAdmin: false,
+                        isBanned: false,
+                        createdAt: new Date().toISOString()
+                    });
+                    window.location.href = 'index.html';
+                } catch (error) {
+                    if (error.code === 'auth/email-already-in-use') {
+                        errorMsg.textContent = '❌ هذا البريد الإلكتروني مستخدم بالفعل';
+                    } else if (error.code === 'auth/weak-password') {
+                        errorMsg.textContent = '❌ كلمة المرور ضعيفة، استخدم 6 أحرف على الأقل';
+                    } else {
+                        errorMsg.textContent = '❌ حدث خطأ، حاول مرة أخرى';
+                    }
+                    errorMsg.style.display = 'block';
+                }
+            }
+        });
+    </script>
+</body>
+</html>
