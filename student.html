@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة الطالب - منصة ثانية ثانوي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Cairo', sans-serif; background: #f1f5f9; }
+        .header { background: #0f172a; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
+        .logo-area { display: flex; align-items: center; gap: 12px; }
+        .logo-img { width: 45px; height: 45px; border-radius: 12px; object-fit: cover; }
+        .logo-text h2 { color: white; font-size: 18px; }
+        .logo-text p { color: #94a3b8; font-size: 11px; }
+        .user-info { display: flex; align-items: center; gap: 15px; }
+        .user-name { color: white; font-weight: 600; }
+        .logout-btn { background: #ef4444; border: none; padding: 6px 16px; border-radius: 25px; color: white; cursor: pointer; font-weight: 600; }
+        .container { padding: 25px 5%; max-width: 1400px; margin: 0 auto; }
+        .tabs { display: flex; gap: 10px; background: white; padding: 8px; border-radius: 60px; margin-bottom: 25px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .tab-btn { flex: 1; padding: 12px; border: none; background: transparent; border-radius: 50px; font-size: 16px; font-weight: 700; cursor: pointer; font-family: 'Cairo', sans-serif; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .tab-btn.active { background: linear-gradient(135deg, #3b82f6, #2563eb); color: white; box-shadow: 0 3px 10px rgba(59,130,246,0.3); }
+        .pane { display: none; }
+        .pane.active { display: block; }
+        .section-title { font-size: 22px; font-weight: 800; color: #1e293b; margin-bottom: 20px; border-right: 4px solid #3b82f6; padding-right: 15px; }
+        .books-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+        .book-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.08); transition: 0.3s; cursor: pointer; }
+        .book-card:hover { transform: translateY(-5px); }
+        .book-cover { height: 130px; background: linear-gradient(135deg, #667eea, #764ba2); display: flex; align-items: center; justify-content: center; position: relative; }
+        .book-cover i { font-size: 50px; color: rgba(255,255,255,0.9); }
+        .book-badge { position: absolute; top: 12px; right: 12px; background: rgba(0,0,0,0.6); padding: 3px 10px; border-radius: 20px; font-size: 10px; color: white; }
+        .book-info { padding: 16px; }
+        .book-title { font-size: 16px; font-weight: 800; color: #1e293b; }
+        .book-category { font-size: 11px; color: #3b82f6; margin: 5px 0; }
+        .download-area { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
+        .download-count { font-size: 11px; color: #94a3b8; }
+        .download-btn { background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; padding: 6px 18px; border-radius: 25px; font-size: 12px; font-weight: 600; cursor: pointer; }
+        .create-room-btn { background: linear-gradient(135deg, #3b82f6, #2563eb); color: white; border: none; padding: 12px 25px; border-radius: 40px; font-weight: 700; cursor: pointer; margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
+        .rooms-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
+        .room-card { background: white; border-radius: 20px; padding: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.08); }
+        .room-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .room-title { font-size: 18px; font-weight: 800; color: #1e293b; }
+        .room-badge { padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; }
+        .room-badge.male { background: #3b82f6; color: white; }
+        .room-badge.female { background: #ec489a; color: white; }
+        .room-badge.mix { background: #8b5cf6; color: white; }
+        .room-creator { font-size: 13px; color: #64748b; margin-bottom: 10px; }
+        .room-stats { display: flex; gap: 15px; margin-bottom: 15px; font-size: 12px; color: #64748b; }
+        .join-room-btn { width: 100%; background: #3b82f6; color: white; border: none; padding: 10px; border-radius: 30px; font-weight: 700; cursor: pointer; }
+        .join-room-btn:disabled { opacity: 0.5; cursor: not-allowed; background: #94a3b8; }
+        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); justify-content: center; align-items: center; z-index: 1000; backdrop-filter: blur(5px); }
+        .modal-content { background: white; border-radius: 30px; padding: 30px; width: 90%; max-width: 400px; text-align: center; }
+        .modal-content input, .modal-content select { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #e2e8f0; border-radius: 12px; font-family: 'Cairo', sans-serif; }
+        .modal-content button { margin-top: 10px; }
+        .loading { text-align: center; padding: 50px; color: #64748b; }
+        .room-chat { background: #1e293b; border-radius: 20px; margin-top: 20px; overflow: hidden; }
+        .chat-messages { height: 300px; overflow-y: auto; padding: 15px; background: #0f172a; }
+        .chat-message { margin-bottom: 12px; color: #cbd5e1; font-size: 14px; }
+        .chat-message strong { color: #3b82f6; }
+        .chat-input-area { display: flex; gap: 10px; padding: 15px; background: #1e293b; }
+        .chat-input { flex: 1; padding: 12px; border: none; border-radius: 25px; background: #334155; color: white; font-family: 'Cairo', sans-serif; }
+        .chat-send { background: #3b82f6; border: none; padding: 10px 20px; border-radius: 25px; color: white; cursor: pointer; }
+        footer { background: #0f172a; color: #94a3b8; text-align: center; padding: 25px; margin-top: 50px; }
+        @media (max-width: 768px) { .tabs { flex-wrap: wrap; border-radius: 20px; } .tab-btn { padding: 10px; font-size: 13px; } }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo-area"><img src="https://videotourl.com/images/1778390932765-44a348ea-5376-4709-8a60-652399630ae0.jpg" class="logo-img"><div class="logo-text"><h2>منصة ثانية ثانوي</h2><p>الرسمية - الترم الثاني 2026</p></div></div>
+        <div class="user-info"><span id="userName" class="user-name"></span><button id="logoutBtn" class="logout-btn"><i class="fas fa-sign-out-alt"></i> خروج</button></div>
+    </div>
+    <div class="container">
+        <div class="tabs"><button class="tab-btn active" data-tab="books"><i class="fas fa-book"></i> المكتبة</button><button class="tab-btn" data-tab="rooms"><i class="fas fa-video"></i> غرف المذاكرة</button></div>
+        <div id="booksPane" class="pane active"><div class="section-title"><i class="fas fa-book-open"></i> جميع الكتب والمراجعات</div><div id="booksGrid" class="books-grid"><div class="loading">📖 جاري تحميل الكتب...</div></div></div>
+        <div id="roomsPane" class="pane"><div class="section-title"><i class="fas fa-door-open"></i> غرف المذاكرة النشطة</div><button id="createRoomBtn" class="create-room-btn"><i class="fas fa-plus-circle"></i> إنشاء غرفة جديدة</button><div id="roomsGrid" class="rooms-grid"><div class="loading">🎧 جاري تحميل الغرف...</div></div></div>
+    </div>
+    <div id="roomModal" class="modal"><div class="modal-content"><h3>إنشاء غرفة مذاكرة</h3><input type="text" id="roomName" placeholder="اسم الغرفة (مثال: مراجعة الفيزياء)"><select id="roomType"><option value="mix">👥 مختلط (جميع الطلاب)</option><option value="male">🚹 للذكور فقط</option><option value="female">🚺 للإناث فقط</option></select><button id="confirmCreateRoom" style="background:#3b82f6; color:white; border:none; padding:10px; border-radius:12px; width:100%; font-weight:700;">إنشاء الغرفة</button><button id="closeModal" style="background:#64748b; margin-top:10px;">إلغاء</button></div></div>
+    <div id="roomChatModal" class="modal"><div class="modal-content" style="max-width:500px;"><h3 id="chatRoomTitle"></h3><div class="room-chat"><div id="chatMessages" class="chat-messages"></div><div class="chat-input-area"><input type="text" id="chatInput" class="chat-input" placeholder="اكتب رسالتك..."><button id="sendChatBtn" class="chat-send"><i class="fas fa-paper-plane"></i></button></div></div><button id="closeChatModal" style="background:#64748b; margin-top:15px; padding:10px; border-radius:12px; border:none; color:white;">إغلاق الغرفة</button></div></div>
+    <footer><p>جميع الحقوق محفوظة © منصة ثانية ثانوي الرسمية 2026</p><p style="font-size:12px; margin-top:8px;">🤍 الدال على الخير كفاعله</p></footer>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore, collection, getDocs, addDoc, updateDoc, doc, increment, onSnapshot, query, where, orderBy, serverTimestamp, deleteDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        const firebaseConfig = { apiKey: "AIzaSyB3Z8iHqNNfWEWrwIfP15x3hlh65GEZ0mQ", authDomain: "sanaayee.firebaseapp.com", databaseURL: "https://sanaayee-default-rtdb.firebaseio.com", projectId: "sanaayee", storageBucket: "sanaayee.firebasestorage.app", messagingSenderId: "1048456368002", appId: "1:1048456368002:web:e37c8e2b7ebba18ef2499b", measurementId: "G-XCYY1H22CQ" };
+        const app = initializeApp(firebaseConfig); const auth = getAuth(app); const db = getFirestore(app);
+        let currentUser = null, currentUserData = null, currentRoomListener = null, currentRoomId = null;
+        onAuthStateChanged(auth, async (user) => { if (!user) { window.location.href = 'index.html'; return; } currentUser = user; const usersSnap = await getDocs(collection(db, "users")); usersSnap.forEach(doc => { if (doc.id === user.uid) { currentUserData = doc.data(); document.getElementById('userName').innerHTML = `👋 ${currentUserData.name}`; } }); if (currentUserData?.isBanned) { await signOut(auth); window.location.href = 'index.html'; } loadBooks(); loadRooms(); });
+        document.getElementById('logoutBtn').addEventListener('click', async () => { await signOut(auth); window.location.href = 'index.html'; });
+        document.querySelectorAll('.tab-btn').forEach(btn => { btn.addEventListener('click', () => { document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); document.querySelectorAll('.pane').forEach(pane => pane.classList.remove('active')); document.getElementById(btn.dataset.tab + 'Pane').classList.add('active'); if (btn.dataset.tab === 'rooms') loadRooms(); }); });
+        async function loadBooks() { try { const booksSnap = await getDocs(query(collection(db, "books"), orderBy("downloads", "desc"))); const grid = document.getElementById('booksGrid'); if (booksSnap.empty) { grid.innerHTML = '<div class="loading">📚 لا توجد كتب حالياً، سيتم إضافتها قريباً</div>'; return; } grid.innerHTML = ''; booksSnap.forEach(docSnap => { const book = docSnap.data(); grid.innerHTML += `<div class="book-card"><div class="book-cover"><i class="fas ${book.icon || 'fa-book'}"></i><span class="book-badge">${book.category || 'كتب'}</span></div><div class="book-info"><div class="book-title">${book.title}</div><div class="book-category"><i class="fas fa-tag"></i> ${book.subcategory || 'كتاب مدرسي'}</div><div class="download-area"><span class="download-count"><i class="fas fa-download"></i> ${book.downloads || 0}</span><button class="download-btn" data-id="${docSnap.id}" data-url="${book.url}"><i class="fas fa-download"></i> تحميل</button></div></div></div>`; }); document.querySelectorAll('.download-btn').forEach(btn => { btn.addEventListener('click', async (e) => { e.stopPropagation(); const id = btn.dataset.id, url = btn.dataset.url; window.open(url, '_blank'); await updateDoc(doc(db, "books", id), { downloads: increment(1) }); await addDoc(collection(db, "logs"), { userId: currentUser.uid, userName: currentUserData.name, action: "تحميل كتاب", bookId: id, timestamp: serverTimestamp() }); loadBooks(); }); }); } catch(e){ console.error(e); } }
+        function loadRooms() { const roomsQuery = query(collection(db, "rooms"), where("isActive", "==", true)); onSnapshot(roomsQuery, (snapshot) => { const grid = document.getElementById('roomsGrid'); if (snapshot.empty) { grid.innerHTML = '<div class="loading">🚪 لا توجد غرف مذاكرة نشطة حالياً<br>كن أول من ينشئ غرفة!</div>'; return; } grid.innerHTML = ''; snapshot.forEach(docSnap => { const room = docSnap.data(); let typeClass = '', typeText = ''; if (room.type === 'male') { typeClass = 'male'; typeText = '🚹 للذكور فقط'; } else if (room.type === 'female') { typeClass = 'female'; typeText = '🚺 للإناث فقط'; } else { typeClass = 'mix'; typeText = '👥 مختلط'; } let canJoin = true; if (room.type === 'male' && currentUserData?.gender !== 'ذكر') canJoin = false; if (room.type === 'female' && currentUserData?.gender !== 'أنثى') canJoin = false; grid.innerHTML += `<div class="room-card"><div class="room-header"><span class="room-title">${room.name}</span><span class="room-badge ${typeClass}">${typeText}</span></div><div class="room-creator"><i class="fas fa-crown"></i> ${room.createdBy || 'مجهول'}</div><div class="room-stats"><span><i class="fas fa-users"></i> ${room.participants?.length || 1} مشارك</span><span><i class="fas fa-clock"></i> ${new Date(room.createdAt?.toDate()).toLocaleTimeString()}</span></div><button class="join-room-btn" data-id="${docSnap.id}" data-name="${room.name}" data-type="${room.type}" ${!canJoin ? 'disabled' : ''}><i class="fas fa-sign-in-alt"></i> دخول الغرفة</button></div>`; }); document.querySelectorAll('.join-room-btn').forEach(btn => { btn.addEventListener('click', () => { if (!currentUser) return; const roomId = btn.dataset.id, roomName = btn.dataset.name, roomType = btn.dataset.type; if ((roomType === 'male' && currentUserData?.gender !== 'ذكر') || (roomType === 'female' && currentUserData?.gender !== 'أنثى')) { alert('⛔ هذه الغرفة مخصصة للجنس الآخر فقط'); return; } openRoomChat(roomId, roomName); }); }); }); }
+        async function openRoomChat(roomId, roomName) { if (currentRoomListener) currentRoomListener(); currentRoomId = roomId; document.getElementById('chatRoomTitle').innerText = `💬 ${roomName}`; document.getElementById('roomChatModal').style.display = 'flex'; const messagesDiv = document.getElementById('chatMessages'); const messagesQuery = query(collection(db, "rooms", roomId, "messages"), orderBy("timestamp", "asc")); currentRoomListener = onSnapshot(messagesQuery, (snapshot) => { messagesDiv.innerHTML = ''; snapshot.forEach(docSnap => { const msg = docSnap.data(); messagesDiv.innerHTML += `<div class="chat-message"><strong>${msg.userName}</strong> (${new Date(msg.timestamp?.toDate()).toLocaleTimeString()}): ${msg.text}</div>`; }); messagesDiv.scrollTop = messagesDiv.scrollHeight; }); document.getElementById('sendChatBtn').onclick = async () => { const input = document.getElementById('chatInput'); const text = input.value.trim(); if (!text) return; await addDoc(collection(db, "rooms", roomId, "messages"), { userId: currentUser.uid, userName: currentUserData.name, text: text, timestamp: serverTimestamp() }); input.value = ''; }; document.getElementById('chatInput').onkeypress = (e) => { if (e.key === 'Enter') document.getElementById('sendChatBtn').click(); }; await addDoc(collection(db, "logs"), { userId: currentUser.uid, userName: currentUserData.name, action: "دخول غرفة", roomId: roomId, roomName: roomName, timestamp: serverTimestamp() }); }
+        document.getElementById('closeChatModal').addEventListener('click', () => { if (currentRoomListener) currentRoomListener(); currentRoomListener = null; document.getElementById('roomChatModal').style.display = 'none'; });
+        const modal = document.getElementById('roomModal'); document.getElementById('createRoomBtn').onclick = () => modal.style.display = 'flex'; document.getElementById('closeModal').onclick = () => modal.style.display = 'none'; document.getElementById('confirmCreateRoom').onclick = async () => { const name = document.getElementById('roomName').value; const type = document.getElementById('roomType').value; if (!name) { alert('الرجاء إدخال اسم الغرفة'); return; } await addDoc(collection(db, "rooms"), { name, type, createdBy: currentUserData.name, createdByUid: currentUser.uid, createdAt: serverTimestamp(), isActive: true, participants: [currentUser.uid] }); await addDoc(collection(db, "logs"), { userId: currentUser.uid, userName: currentUserData.name, action: "إنشاء غرفة", roomName: name, roomType: type, timestamp: serverTimestamp() }); modal.style.display = 'none'; document.getElementById('roomName').value = ''; alert('✅ تم إنشاء الغرفة بنجاح!'); };
+        window.onclick = (e) => { if (e.target === modal) modal.style.display = 'none'; if (e.target === document.getElementById('roomChatModal')) document.getElementById('roomChatModal').style.display = 'none'; };
+    </script>
+</body>
+</html>
