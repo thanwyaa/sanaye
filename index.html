@@ -3,230 +3,561 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة ثانية ثانوي الرسمية</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <title>منصة ثانية ثانوي الرسمية | المكتبة والغرف</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root { --primary: #0f172a; --secondary: #3b82f6; --accent: #fbbf24; --bg: #f8fafc; --text: #1e293b; --card: #ffffff; }
-        body.theme-red-black { --primary: #000; --secondary: #e11d48; --bg: #000; --text: #fff; --card: #111; }
-        body.theme-purple { --primary: #2e1065; --secondary: #a855f7; --bg: #0f0720; --text: #f5f3ff; --card: #1e1b4b; }
-        body.theme-gold { --primary: #451a03; --secondary: #d97706; --accent: #facc15; }
-        body.dark-mode { --bg: #0f172a; --text: #f1f5f9; --card: #1e293b; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: #f0f4f8;
+            min-height: 100vh;
+        }
+        /* هيدر فخم */
+        .hero {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            padding: 25px 5% 50px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 80%, rgba(59,130,246,0.15) 0%, transparent 70%);
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+        .logo-area { display: flex; align-items: center; gap: 15px; }
+        .logo-img {
+            width: 55px; height: 55px;
+            border-radius: 15px;
+            object-fit: cover;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        .logo-text h1 { color: white; font-size: 22px; font-weight: 800; }
+        .logo-text p { color: #94a3b8; font-size: 12px; }
+        .login-btn {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 40px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .user-info { display: flex; align-items: center; gap: 12px; }
+        .user-name { color: white; font-weight: 600; font-size: 14px; }
+        .logout-btn {
+            background: rgba(239,68,68,0.8);
+            color: white;
+            border: none;
+            padding: 6px 16px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 12px;
+        }
+        .hero-content { text-align: center; margin-top: 30px; position: relative; z-index: 2; }
+        .hero-content h2 { color: white; font-size: 32px; font-weight: 800; }
+        .hero-content p { color: #cbd5e1; font-size: 16px; margin-top: 8px; }
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 25px;
+        }
+        .stat-item { text-align: center; }
+        .stat-number { color: #fbbf24; font-size: 26px; font-weight: 800; }
+        .stat-label { color: #94a3b8; font-size: 13px; }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; transition: 0.3s; }
-        body { background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
+        /* تبويبات */
+        .tabs-container {
+            padding: 20px 5% 0;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .tabs {
+            display: flex;
+            gap: 5px;
+            background: white;
+            padding: 8px;
+            border-radius: 60px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .tab-btn {
+            flex: 1;
+            padding: 14px 20px;
+            border: none;
+            background: transparent;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Cairo', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .tab-btn i { font-size: 18px; }
+        .tab-btn.active {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+            box-shadow: 0 5px 15px rgba(59,130,246,0.3);
+        }
+        
+        /* المحتوى */
+        .content-pane {
+            display: none;
+            padding: 30px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .content-pane.active { display: block; }
+        
+        .section-title {
+            font-size: 24px;
+            font-weight: 800;
+            color: #1e293b;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-right: 4px solid #3b82f6;
+            padding-right: 15px;
+        }
+        
+        /* الكتب */
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .book-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .book-card:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(0,0,0,0.12); }
+        .book-cover {
+            height: 140px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        .book-cover i { font-size: 50px; color: rgba(255,255,255,0.9); }
+        .book-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(0,0,0,0.6);
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 10px;
+            color: white;
+        }
+        .book-info { padding: 16px; }
+        .book-title { font-size: 16px; font-weight: 800; color: #1e293b; margin-bottom: 5px; }
+        .book-category { font-size: 11px; color: #3b82f6; font-weight: 600; margin-bottom: 10px; }
+        .download-area {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .download-count { font-size: 11px; color: #94a3b8; }
+        .download-btn {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            border: none;
+            padding: 6px 16px;
+            border-radius: 25px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+        }
 
-        .lantern { position: fixed; top: 0; font-size: 40px; z-index: 2000; display: none; animation: swing 3s infinite ease-in-out; transform-origin: top; }
-        @keyframes swing { 0%, 100% { transform: rotate(-10deg); } 50% { transform: rotate(10deg); } }
-
-        .alert-strip { background: var(--primary); color: #fff; padding: 12px 0; border-bottom: 3px solid var(--accent); overflow: hidden; }
-        .marquee { display: flex; white-space: nowrap; animation: scroll 20s linear infinite; font-weight: 900; }
-        @keyframes scroll { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
-
-        .pulse-btn { display: inline-block; padding: 4px 12px; color: #fff; font-weight: bold; animation: pulse-anim 1.5s infinite; margin-left: 10px; font-size: 0.9rem; vertical-align: middle; }
-        @keyframes pulse-anim { 0%, 100% { transform: scale(0.9); opacity: 0.8; } 50% { transform: scale(1.1); opacity: 1; } }
-        .shape-star { clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); padding: 15px !important; }
-
-        header { background: var(--card); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
-        #site-logo { width: 45px; height: 45px; border-radius: 8px; object-fit: cover; }
-
-        .main-container { padding: 30px 5%; max-width: 1200px; margin: 0 auto; }
-        .grid-layout { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-
-        .folder-btn { background: var(--card); border-radius: 20px; padding: 40px; text-align: center; cursor: pointer; box-shadow: 0 8px 20px rgba(0,0,0,0.05); }
-        .folder-btn i { font-size: 3.5rem; color: var(--secondary); margin-bottom: 15px; display: block; }
-
-        .admin-modal { display: none; position: fixed; inset: 0; background: #f1f5f9; z-index: 9999; padding: 20px; overflow-y: auto; color: #1e293b; }
-        .admin-card { background: #fff; border-radius: 15px; padding: 20px; margin-bottom: 20px; border: 1px solid #cbd5e1; }
-        .item-row { display: flex; justify-content: space-between; align-items: center; padding: 10px; border-bottom: 1px solid #eee; }
-        input, select { width: 100%; padding: 12px; margin: 8px 0; border-radius: 10px; border: 1px solid #ccc; font-weight: bold; }
-        .btn-admin { background: #10b981; color: #fff; border: none; padding: 15px; border-radius: 10px; width: 100%; cursor: pointer; font-weight: 900; margin-top: 5px; }
-
-        footer { background: var(--primary); color: #fff; padding: 40px 5%; text-align: center; margin-top: 50px; border-top: 4px solid var(--accent); }
+        /* الغرف */
+        .rooms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+        }
+        .room-card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+        }
+        .room-card:hover { transform: translateY(-3px); }
+        .room-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .room-title { font-size: 18px; font-weight: 800; color: #1e293b; }
+        .room-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+        .room-badge.male { background: #3b82f6; color: white; }
+        .room-badge.female { background: #ec489a; color: white; }
+        .room-badge.mix { background: #8b5cf6; color: white; }
+        .room-creator {
+            font-size: 13px;
+            color: #64748b;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .room-stats {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            font-size: 12px;
+            color: #64748b;
+        }
+        .join-room-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 30px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .join-room-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        
+        .loading { text-align: center; padding: 50px; color: #64748b; }
+        
+        /* مودال */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+        .modal-content {
+            background: white;
+            border-radius: 30px;
+            padding: 35px;
+            width: 90%;
+            max-width: 380px;
+            text-align: center;
+        }
+        .modal-content h3 { font-size: 22px; margin-bottom: 10px; }
+        .modal-content p { color: #64748b; margin-bottom: 25px; }
+        .modal-buttons { display: flex; gap: 15px; justify-content: center; }
+        .modal-btn {
+            padding: 10px 25px;
+            border: none;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .modal-btn.primary { background: linear-gradient(135deg, #3b82f6, #2563eb); color: white; }
+        .modal-btn.secondary { background: #e2e8f0; color: #334155; }
+        
+        footer {
+            background: #0f172a;
+            color: #94a3b8;
+            text-align: center;
+            padding: 25px;
+            margin-top: 40px;
+        }
+        @media (max-width: 768px) {
+            .hero-content h2 { font-size: 22px; }
+            .tabs { flex-wrap: wrap; border-radius: 20px; }
+            .tab-btn { padding: 10px; font-size: 13px; }
+        }
     </style>
 </head>
-<body class="default">
-
-    <div class="lantern" id="L1" style="right: 20px;">🏮</div>
-    <div class="lantern" id="L2" style="left: 20px;">🏮</div>
-
-    <div class="alert-strip"><div class="marquee"><span id="pulse-area"></span><span id="alert-text">..</span></div></div>
-
-    <header>
-        <div style="display:flex; align-items:center; gap:10px;">
-            <img id="site-logo" src="">
-            <h2 id="site-name-display" style="font-weight:900; color:var(--secondary)"></h2>
+<body>
+    <div class="hero">
+        <div class="navbar">
+            <div class="logo-area">
+                <img src="https://videotourl.com/images/1778390932765-44a348ea-5376-4709-8a60-652399630ae0.jpg" alt="شعار المنصة" class="logo-img">
+                <div class="logo-text">
+                    <h1>منصة ثانية ثانوي</h1>
+                    <p>الرسمية - الترم الثاني 2026</p>
+                </div>
+            </div>
+            <div id="authSection">
+                <button class="login-btn" id="showLoginBtn"><i class="fas fa-user"></i> تسجيل دخول</button>
+            </div>
         </div>
-        <button onclick="toggleDayNight()" style="background:none; border:none; font-size:1.5rem; cursor:pointer;">🌓</button>
-    </header>
-
-    <div class="main-container">
-        <div id="home-screen" class="grid-layout"></div>
-        <div id="content-screen" style="display:none;">
-            <button onclick="showHome()" style="padding:10px 20px; background:var(--secondary); color:#fff; border:none; border-radius:10px; cursor:pointer; margin-bottom:20px;">🔙 رجوع</button>
-            <div id="books-grid" class="grid-layout"></div>
+        <div class="hero-content">
+            <h2>📚 مكتبة و غرف مذاكرة مباشرة</h2>
+            <p>كتب مدرسية - كتب خارجية - مراجعات - ملخصات - غرف صوتية</p>
+            <div class="stats">
+                <div class="stat-item"><div class="stat-number" id="booksCount">0</div><div class="stat-label">كتاب</div></div>
+                <div class="stat-item"><div class="stat-number" id="downloadsCount">0</div><div class="stat-label">تحميل</div></div>
+                <div class="stat-item"><div class="stat-number" id="roomsCount">0</div><div class="stat-label">غرفة نشطة</div></div>
+            </div>
         </div>
+    </div>
+
+    <div class="tabs-container">
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="books"><i class="fas fa-book"></i> المكتبة</button>
+            <button class="tab-btn" data-tab="rooms"><i class="fas fa-video"></i> غرف المذاكرة</button>
+        </div>
+    </div>
+
+    <div id="booksPane" class="content-pane active">
+        <div class="section-title"><i class="fas fa-book-open"></i><span>جميع الكتب والمراجعات</span></div>
+        <div id="booksGrid" class="books-grid"><div class="loading">📖 جاري تحميل الكتب...</div></div>
+    </div>
+
+    <div id="roomsPane" class="content-pane">
+        <div class="section-title"><i class="fas fa-door-open"></i><span>غرف المذاكرة النشطة</span></div>
+        <div id="roomsGrid" class="rooms-grid"><div class="loading">🎧 جاري تحميل الغرف...</div></div>
     </div>
 
     <footer>
-        <div class="social-icons" style="margin-bottom:15px;">
-            <a id="admin-gate" style="color:white; font-size:2rem; cursor:pointer; margin:0 10px;"><i class="fab fa-youtube"></i></a>
-            <a href="#" id="tg-link" style="color:white; font-size:2rem; margin:0 10px;"><i class="fab fa-telegram"></i></a>
-            <a href="#" id="wa-link" style="color:white; font-size:2rem; margin:0 10px;"><i class="fab fa-whatsapp"></i></a>
-        </div>
-        <p>جميع الحقوق محفوظة لمنصة ثانية ثانوي رسمية 2026</p>
+        <p>جميع الحقوق محفوظة © منصة ثانية ثانوي الرسمية 2026</p>
+        <p style="font-size: 12px; margin-top: 8px;">🤍 الدال على الخير كفاعله</p>
     </footer>
 
-    <div id="admin-panel" class="admin-modal">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-            <h2>إدارة الإمبراطورية 👑</h2>
-            <button onclick="closeAdmin()" style="background:red; color:white; padding:10px 20px; border-radius:10px; border:none;">إغلاق</button>
-        </div>
-
-        <div class="admin-card">
-            <h3>📊 الإحصائيات: زوار الموقع (<b id="stat-v">0</b>)</h3>
-            <div id="stat-books"></div>
-        </div>
-
-        <div class="admin-card">
-            <h3>🔔 التحكم في زر التنبيه</h3>
-            <input type="text" id="adm-p-text" placeholder="اكتب النص هنا (مثلاً: هام جداً 🔥)">
-            <input type="color" id="adm-p-color">
-            <select id="adm-p-shape">
-                <option value="4px">مربع</option>
-                <option value="50%">دائرة</option>
-                <option value="star">نجمة</option>
-            </select>
-            <button class="btn-admin" onclick="savePulse()">تحديث زر التنبيه</button>
-        </div>
-
-        <div class="admin-card">
-            <h3>📂 إدارة الأقسام (حذف/تعديل)</h3>
-            <div id="tabs-manager"></div>
-            <hr style="margin:15px 0">
-            <input type="text" id="new-tab-name" placeholder="اسم قسم جديد">
-            <button class="btn-admin" style="background:orange" onclick="addTab()">إضافة القسم</button>
-        </div>
-
-        <div class="admin-card">
-            <h3>📁 إضافة كتاب/ملف جديد</h3>
-            <input type="text" id="bk-title" placeholder="عنوان الكتاب">
-            <input type="text" id="bk-link" placeholder="رابط التحميل">
-            <input type="text" id="bk-img" placeholder="رابط الغلاف">
-            <select id="bk-target"></select>
-            <button class="btn-admin" onclick="addBook()">نشر الملف</button>
-        </div>
-
-        <div class="admin-card">
-            <h3>🎨 مظهر المنصة</h3>
-            <input type="text" id="adm-name" placeholder="اسم المنصة">
-            <input type="text" id="adm-logo" placeholder="رابط اللوجو">
-            <select id="adm-theme">
-                <option value="default">الأزرق</option>
-                <option value="theme-red-black">أحمر × أسود</option>
-                <option value="theme-purple">أرجواني</option>
-                <option value="theme-gold">ذهبي</option>
-            </select>
-            <button class="btn-admin" onclick="saveGeneral()">حفظ المظهر</button>
+    <!-- مودال تسجيل الدخول -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <i class="fas fa-lock" style="font-size: 45px; color: #3b82f6; margin-bottom: 15px;"></i>
+            <h3>مطلوب تسجيل الدخول</h3>
+            <p>للوصول إلى الكتب والغرف، يرجى تسجيل الدخول أولاً</p>
+            <div class="modal-buttons">
+                <button class="modal-btn primary" onclick="window.location.href='login.html'">تسجيل الدخول</button>
+                <button class="modal-btn secondary" id="closeModal">إغلاق</button>
+            </div>
         </div>
     </div>
 
-    <script>
-        // الباسورد الصعب جداً
-        const MASTER_KEY = "Empire_#2026_@Security_Global";
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore, collection, getDocs, query, orderBy, updateDoc, doc, increment, onSnapshot, where } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-        let db = JSON.parse(localStorage.getItem('empire_final_db')) || {
-            conf: { name: "منصة ثانية ثانوي", logo: "", alert: "مرحباً بكم", theme: "default", pText: "جديد 🔥", pColor: "#ff0000", pShape: "4px" },
-            stats: { visitors: 0 },
-            tabs: ["مذكرات", "كتب خارجية"],
-            books: []
+        const firebaseConfig = {
+            apiKey: "AIzaSyB3Z8iHqNNfWEWrwIfP15x3hlh65GEZ0mQ",
+            authDomain: "sanaayee.firebaseapp.com",
+            databaseURL: "https://sanaayee-default-rtdb.firebaseio.com",
+            projectId: "sanaayee",
+            storageBucket: "sanaayee.firebasestorage.app",
+            messagingSenderId: "1048456368002",
+            appId: "1:1048456368002:web:e37c8e2b7ebba18ef2499b",
+            measurementId: "G-XCYY1H22CQ"
         };
 
-        if(!sessionStorage.getItem('v')) { db.stats.visitors++; sessionStorage.setItem('v', '1'); sync(); }
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
 
-        function sync() { localStorage.setItem('empire_final_db', JSON.stringify(db)); render(); }
+        let currentUser = null;
+        let currentUserGender = null;
+        let allBooks = [];
 
-        let taps = 0;
-        document.getElementById('admin-gate').onclick = () => {
-            taps++; setTimeout(() => taps = 0, 2000);
-            if(taps >= 10) {
-                if(prompt("كلمة السر المعقدة:") === MASTER_KEY) { 
-                    document.getElementById('admin-panel').style.display = 'block'; 
-                    loadAdmin(); 
-                } else { alert("ممنوع الدخول!"); }
-                taps = 0;
+        // التحقق من حالة تسجيل الدخول
+        onAuthStateChanged(auth, async (user) => {
+            currentUser = user;
+            const authSection = document.getElementById('authSection');
+            if (user) {
+                // جلب بيانات المستخدم
+                const usersSnap = await getDocs(collection(db, "users"));
+                usersSnap.forEach(doc => {
+                    if (doc.id === user.uid) {
+                        currentUserGender = doc.data().gender;
+                        authSection.innerHTML = `
+                            <div class="user-info">
+                                <span class="user-name">👋 ${doc.data().name}</span>
+                                <button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> خروج</button>
+                            </div>
+                        `;
+                        document.getElementById('logoutBtn')?.addEventListener('click', async () => {
+                            await signOut(auth);
+                            window.location.reload();
+                        });
+                    }
+                });
+            } else {
+                currentUserGender = null;
+                authSection.innerHTML = `<button class="login-btn" id="showLoginBtn"><i class="fas fa-user"></i> تسجيل دخول</button>`;
+                document.getElementById('showLoginBtn')?.addEventListener('click', () => {
+                    window.location.href = 'login.html';
+                });
             }
-        };
+            loadBooks();
+            loadRooms();
+        });
 
-        function render() {
-            const c = db.conf;
-            document.body.className = c.theme + (localStorage.getItem('dark') === '1' ? ' dark-mode' : '');
-            document.getElementById('site-name-display').innerText = c.name;
-            document.getElementById('site-logo').src = c.logo;
-            
-            const pulse = document.getElementById('pulse-area');
-            if(c.pText.trim() !== "") {
-                pulse.innerHTML = `<span class="pulse-btn ${c.pShape === 'star' ? 'shape-star' : ''}" style="background:${c.pColor}; border-radius:${c.pShape === 'star' ? '0' : c.pShape}">${c.pText}</span>`;
-            } else { pulse.innerHTML = ""; }
-
-            document.getElementById('home-screen').innerHTML = db.tabs.map(t => `<div class="folder-btn" onclick="openTab('${t}')"><i class="fas fa-folder-open"></i><h2>${t}</h2></div>`).join('');
+        // تحميل الكتب
+        async function loadBooks() {
+            try {
+                const booksQuery = query(collection(db, "books"), orderBy("downloads", "desc"));
+                const snapshot = await getDocs(booksQuery);
+                allBooks = [];
+                snapshot.forEach(doc => {
+                    allBooks.push({ id: doc.id, ...doc.data() });
+                });
+                document.getElementById('booksCount').innerText = allBooks.length;
+                const totalDownloads = allBooks.reduce((sum, b) => sum + (b.downloads || 0), 0);
+                document.getElementById('downloadsCount').innerText = totalDownloads;
+                displayBooks();
+            } catch (error) {
+                document.getElementById('booksGrid').innerHTML = '<div class="loading">⚠️ حدث خطأ في تحميل الكتب</div>';
+            }
         }
 
-        function openTab(t) {
-            document.getElementById('home-screen').style.display = 'none';
-            document.getElementById('content-screen').style.display = 'block';
-            document.getElementById('books-grid').innerHTML = db.books.filter(b => b.tab === t).map(b => `
-                <div style="background:var(--card); border-radius:15px; overflow:hidden; display:flex; height:150px; box-shadow:0 5px 10px rgba(0,0,0,0.1);">
-                    <img src="${b.img}" style="width:30%; object-fit:cover;">
-                    <div style="padding:15px; display:flex; flex-direction:column; justify-content:space-between; width:70%;">
-                        <h3>${b.title}</h3>
-                        <a href="${b.link}" onclick="track(${db.books.indexOf(b)})" target="_blank" style="background:var(--secondary); color:white; text-align:center; padding:8px; border-radius:8px; text-decoration:none;">تحميل</a>
+        function displayBooks() {
+            const grid = document.getElementById('booksGrid');
+            if (allBooks.length === 0) {
+                grid.innerHTML = '<div class="loading">📚 لا توجد كتب حالياً</div>';
+                return;
+            }
+            grid.innerHTML = allBooks.map(book => `
+                <div class="book-card">
+                    <div class="book-cover">
+                        <i class="fas ${book.icon || 'fa-book'}"></i>
+                        <span class="book-badge">${book.category || 'كتب'}</span>
+                    </div>
+                    <div class="book-info">
+                        <div class="book-title">${book.title}</div>
+                        <div class="book-category"><i class="fas fa-tag"></i> ${book.subcategory || 'كتاب مدرسي'}</div>
+                        <div class="download-area">
+                            <span class="download-count"><i class="fas fa-download"></i> ${book.downloads || 0}</span>
+                            <button class="download-btn" data-id="${book.id}" data-url="${book.url}">
+                                <i class="fas fa-download"></i> تحميل
+                            </button>
+                        </div>
                     </div>
                 </div>
             `).join('');
-        }
-
-        function track(i) { db.books[i].clicks = (db.books[i].clicks || 0) + 1; sync(); }
-
-        function loadAdmin() {
-            document.getElementById('stat-v').innerText = db.stats.visitors;
-            document.getElementById('adm-p-text').value = db.conf.pText;
-            document.getElementById('adm-p-color').value = db.conf.pColor;
-            document.getElementById('adm-name').value = db.conf.name;
-            document.getElementById('adm-logo').value = db.conf.logo;
-            document.getElementById('bk-target').innerHTML = db.tabs.map(t => `<option value="${t}">${t}</option>`).join('');
             
-            // إدارة الأقسام
-            document.getElementById('tabs-manager').innerHTML = db.tabs.map((t, i) => `
-                <div class="item-row">
-                    <input type="text" value="${t}" onchange="renameTab(${i}, this.value)" style="width:70%">
-                    <button onclick="delTab(${i})" style="color:red; background:none; border:none; cursor:pointer;">❌ حذف</button>
-                </div>
-            `).join('');
-
-            document.getElementById('stat-books').innerHTML = db.books.map((b, i) => `
-                <div class="item-row"><span>${b.title}</span> <b>${b.clicks || 0} تحميل</b> <button onclick="delBook(${i})" style="color:red; border:none; background:none;">حذف</button></div>
-            `).join('');
+            document.querySelectorAll('.download-btn').forEach(btn => {
+                btn.addEventListener('click', async (e) => {
+                    e.stopPropagation();
+                    if (!currentUser) {
+                        document.getElementById('loginModal').style.display = 'flex';
+                        return;
+                    }
+                    const bookId = btn.dataset.id;
+                    const url = btn.dataset.url;
+                    window.open(url, '_blank');
+                    await updateDoc(doc(db, "books", bookId), { downloads: increment(1) });
+                    loadBooks();
+                });
+            });
         }
 
-        function savePulse() { db.conf.pText = document.getElementById('adm-p-text').value; db.conf.pColor = document.getElementById('adm-p-color').value; db.conf.pShape = document.getElementById('adm-p-shape').value; sync(); alert("تم!"); }
-        function saveGeneral() { db.conf.name = document.getElementById('adm-name').value; db.conf.logo = document.getElementById('adm-logo').value; db.conf.theme = document.getElementById('adm-theme').value; sync(); alert("تم الحفظ!"); }
-        function addTab() { let n = document.getElementById('new-tab-name').value; if(n){db.tabs.push(n); sync(); loadAdmin();} }
-        function delTab(i) { if(confirm("حذف القسم بكل ما فيه؟")){ db.books = db.books.filter(b => b.tab !== db.tabs[i]); db.tabs.splice(i,1); sync(); loadAdmin(); } }
-        function renameTab(i, newV) { db.books.forEach(b => { if(b.tab === db.tabs[i]) b.tab = newV; }); db.tabs[i] = newV; sync(); }
-        function addBook() { db.books.unshift({ title: document.getElementById('bk-title').value, link: document.getElementById('bk-link').value, img: document.getElementById('bk-img').value, tab: document.getElementById('bk-target').value, clicks: 0 }); sync(); loadAdmin(); alert("تم النشر!"); }
-        function delBook(i) { db.books.splice(i,1); sync(); loadAdmin(); }
-        function resetStats() { db.stats.visitors = 0; db.books.forEach(b => b.clicks = 0); sync(); loadAdmin(); }
-        function showHome() { document.getElementById('home-screen').style.display='grid'; document.getElementById('content-screen').style.display='none'; }
-        function closeAdmin() { document.getElementById('admin-panel').style.display='none'; }
-        function toggleDayNight() { localStorage.setItem('dark', localStorage.getItem('dark') === '1' ? '0' : '1'); render(); }
+        // تحميل الغرف (مباشر)
+        function loadRooms() {
+            const roomsQuery = query(collection(db, "rooms"), where("isActive", "==", true));
+            onSnapshot(roomsQuery, (snapshot) => {
+                const rooms = [];
+                snapshot.forEach(doc => {
+                    rooms.push({ id: doc.id, ...doc.data() });
+                });
+                document.getElementById('roomsCount').innerText = rooms.length;
+                displayRooms(rooms);
+            });
+        }
 
-        render();
+        function displayRooms(rooms) {
+            const grid = document.getElementById('roomsGrid');
+            if (rooms.length === 0) {
+                grid.innerHTML = '<div class="loading">🚪 لا توجد غرف مذاكرة نشطة حالياً<br>كن أول من ينشئ غرفة!</div>';
+                return;
+            }
+            
+            grid.innerHTML = rooms.map(room => {
+                let typeText = '', typeClass = '';
+                if (room.type === 'male') { typeText = '🚹 للذكور فقط'; typeClass = 'male'; }
+                else if (room.type === 'female') { typeText = '🚺 للإناث فقط'; typeClass = 'female'; }
+                else { typeText = '👥 مختلط'; typeClass = 'mix'; }
+                
+                let canJoin = true;
+                if (!currentUser) canJoin = false;
+                else if (room.type === 'male' && currentUserGender !== 'ذكر') canJoin = false;
+                else if (room.type === 'female' && currentUserGender !== 'أنثى') canJoin = false;
+                
+                return `
+                    <div class="room-card">
+                        <div class="room-header">
+                            <span class="room-title">${room.name}</span>
+                            <span class="room-badge ${typeClass}">${typeText}</span>
+                        </div>
+                        <div class="room-creator">
+                            <i class="fas fa-crown"></i> ${room.createdBy || 'مجهول'}
+                        </div>
+                        <div class="room-stats">
+                            <span><i class="fas fa-users"></i> ${room.participants?.length || 1} مشارك</span>
+                            <span><i class="fas fa-clock"></i> ${new Date(room.createdAt).toLocaleTimeString()}</span>
+                        </div>
+                        <button class="join-room-btn" data-room='${JSON.stringify(room)}' ${!canJoin ? 'disabled' : ''}>
+                            <i class="fas fa-sign-in-alt"></i> دخول الغرفة
+                        </button>
+                    </div>
+                `;
+            }).join('');
+            
+            document.querySelectorAll('.join-room-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    if (!currentUser) {
+                        document.getElementById('loginModal').style.display = 'flex';
+                        return;
+                    }
+                    const room = JSON.parse(btn.dataset.room);
+                    alert(`🎧 جاري الدخول إلى غرفة: ${room.name}\n\n📢 سيتم تفعيل الصوت والميكروفون قريباً!\nحالياً تم تسجيل دخولك إلى الغرفة.`);
+                });
+            });
+        }
+
+        // التبويبات
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                document.querySelectorAll('.content-pane').forEach(pane => pane.classList.remove('active'));
+                const tab = btn.dataset.tab;
+                document.getElementById(tab === 'books' ? 'booksPane' : 'roomsPane').classList.add('active');
+                if (tab === 'rooms') loadRooms();
+            });
+        });
+
+        document.getElementById('closeModal')?.addEventListener('click', () => {
+            document.getElementById('loginModal').style.display = 'none';
+        });
+        window.onclick = (e) => {
+            if (e.target === document.getElementById('loginModal')) {
+                document.getElementById('loginModal').style.display = 'none';
+            }
+        };
     </script>
 </body>
 </html>
-public class Main {
-    public static void main(String[] args){
-    //start coding
-    }
-}
