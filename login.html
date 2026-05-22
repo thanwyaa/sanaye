@@ -21,8 +21,6 @@
     .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
     .btn-login { width: 100%; padding: 15px; background: #ffd700; color: #0f172a; border: none; border-radius: 40px; font-size: 20px; font-weight: bold; font-family: 'Lalezar', cursive; cursor: pointer; margin-top: 10px; transition: 0.3s; }
     .btn-login:hover { background: #ffaa00; transform: scale(1.02); }
-    .mode-toggle { text-align: center; margin-top: 20px; color: #94a3b8; cursor: pointer; }
-    .mode-toggle i { margin-left: 8px; }
     @media (max-width: 500px) { .login-container { padding: 30px 25px; } .row-2 { grid-template-columns: 1fr; gap: 0; } h1 { font-size: 24px; } }
   </style>
 </head>
@@ -74,18 +72,13 @@
     </div>
     <button type="submit" class="btn-login"><i class="fas fa-sign-in-alt"></i> دخول</button>
   </form>
-  <div class="mode-toggle" id="darkModeToggle">
-    <i class="fas fa-moon"></i> الوضع الليلي
-  </div>
 </div>
 
 <script>
-  // التحقق من وجود طالب مسجل
   if(localStorage.getItem('currentStudent')) {
     window.location.href = 'student.html';
   }
   
-  // تسجيل الدخول
   document.getElementById('loginForm').addEventListener('submit', function(e) {
     e.preventDefault();
     const studentData = {
@@ -94,7 +87,8 @@
       section: document.getElementById('studentSection').value,
       gender: document.getElementById('studentGender').value,
       type: document.getElementById('studentType').value,
-      loginTime: new Date().toISOString()
+      loginTime: new Date().toISOString(),
+      date: new Date().toDateString()
     };
     if(!studentData.name || studentData.name.trim() === '') {
       alert('من فضلك أدخل اسمك');
@@ -102,30 +96,16 @@
     }
     localStorage.setItem('currentStudent', JSON.stringify(studentData));
     
-    // حفظ في قائمة الطلاب (للأدمن)
     let allStudents = JSON.parse(localStorage.getItem('allStudents')) || [];
     allStudents.push(studentData);
     localStorage.setItem('allStudents', JSON.stringify(allStudents));
     
+    // تسجيل دخول اليوم
+    let todayLogins = JSON.parse(localStorage.getItem('todayLogins')) || [];
+    todayLogins.push({ name: studentData.name, time: new Date().toLocaleString(), grade: studentData.grade });
+    localStorage.setItem('todayLogins', JSON.stringify(todayLogins));
+    
     window.location.href = 'student.html';
-  });
-  
-  // الوضع الليلي
-  let darkMode = localStorage.getItem('darkMode') === 'true';
-  function applyTheme() {
-    if(darkMode) {
-      document.body.style.background = "linear-gradient(135deg, #0f172a, #0f172a)";
-      document.querySelector('.login-container').style.background = "#0f172a";
-    } else {
-      document.body.style.background = "linear-gradient(135deg, #0f172a, #1e1b4b)";
-      document.querySelector('.login-container').style.background = "#1e293b";
-    }
-  }
-  applyTheme();
-  document.getElementById('darkModeToggle').addEventListener('click', () => {
-    darkMode = !darkMode;
-    localStorage.setItem('darkMode', darkMode);
-    applyTheme();
   });
 </script>
 </body>
