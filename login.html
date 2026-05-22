@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تسجيل الدخول - منصة الثانوية الرسمية بلس</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Lalezar&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Lalezar', cursive; background: linear-gradient(135deg, #0f172a, #1e1b4b); min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px; }
+    .login-container { background: #1e293b; border-radius: 50px; padding: 50px 40px; width: 100%; max-width: 500px; box-shadow: 0 25px 50px rgba(0,0,0,0.3); border: 1px solid #ffd70030; }
+    .logo { text-align: center; margin-bottom: 20px; }
+    .logo img { width: 90px; height: 90px; border-radius: 25px; }
+    h1 { text-align: center; color: #ffd700; font-size: 28px; margin-bottom: 5px; }
+    .sub { text-align: center; color: #94a3b8; margin-bottom: 30px; font-size: 14px; }
+    .input-group { margin-bottom: 20px; }
+    .input-group label { display: block; color: #ffd700; margin-bottom: 8px; font-size: 16px; }
+    .input-group input, .input-group select { width: 100%; padding: 14px 16px; background: #0f172a; border: 1px solid #334155; border-radius: 30px; color: #fff; font-size: 16px; font-family: 'Lalezar', cursive; }
+    .input-group input:focus, .input-group select:focus { outline: none; border-color: #ffd700; }
+    .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+    .btn-login { width: 100%; padding: 15px; background: #ffd700; color: #0f172a; border: none; border-radius: 40px; font-size: 20px; font-weight: bold; font-family: 'Lalezar', cursive; cursor: pointer; margin-top: 10px; transition: 0.3s; }
+    .btn-login:hover { background: #ffaa00; transform: scale(1.02); }
+    .mode-toggle { text-align: center; margin-top: 20px; color: #94a3b8; cursor: pointer; }
+    .mode-toggle i { margin-left: 8px; }
+    @media (max-width: 500px) { .login-container { padding: 30px 25px; } .row-2 { grid-template-columns: 1fr; gap: 0; } h1 { font-size: 24px; } }
+  </style>
+</head>
+<body>
+<div class="login-container">
+  <div class="logo">
+    <img src="https://i.ibb.co/v6TBWQF7/1779439519874-5afe5a49-b538-4888-abbc-b0142eeca273.png" alt="شعار المنصة">
+  </div>
+  <h1>منصة الثانوية الرسمية بلس</h1>
+  <div class="sub">تسجيل الدخول</div>
+  
+  <form id="loginForm">
+    <div class="input-group">
+      <label><i class="fas fa-user"></i> الاسم كاملاً</label>
+      <input type="text" id="studentName" required placeholder="مثال: أحمد محمد علي">
+    </div>
+    <div class="row-2">
+      <div class="input-group">
+        <label><i class="fas fa-graduation-cap"></i> الصف</label>
+        <select id="studentGrade">
+          <option value="اولى ثانوي">أولى ثانوي</option>
+          <option value="تانية ثانوي" selected>تانية ثانوي</option>
+          <option value="تالتة ثانوي">تالتة ثانوي</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <label><i class="fas fa-chart-line"></i> الشعبة</label>
+        <select id="studentSection">
+          <option value="علمي">علمي</option>
+          <option value="ادبي">أدبي</option>
+        </select>
+      </div>
+    </div>
+    <div class="row-2">
+      <div class="input-group">
+        <label><i class="fas fa-venus-mars"></i> الجنس</label>
+        <select id="studentGender">
+          <option value="ذكر">ذكر</option>
+          <option value="انثى">أنثى</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <label><i class="fas fa-mosque"></i> النوع</label>
+        <select id="studentType">
+          <option value="عام">عام</option>
+          <option value="ازهري">أزهري</option>
+        </select>
+      </div>
+    </div>
+    <button type="submit" class="btn-login"><i class="fas fa-sign-in-alt"></i> دخول</button>
+  </form>
+  <div class="mode-toggle" id="darkModeToggle">
+    <i class="fas fa-moon"></i> الوضع الليلي
+  </div>
+</div>
+
+<script>
+  // التحقق من وجود طالب مسجل
+  if(localStorage.getItem('currentStudent')) {
+    window.location.href = 'student.html';
+  }
+  
+  // تسجيل الدخول
+  document.getElementById('loginForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const studentData = {
+      name: document.getElementById('studentName').value,
+      grade: document.getElementById('studentGrade').value,
+      section: document.getElementById('studentSection').value,
+      gender: document.getElementById('studentGender').value,
+      type: document.getElementById('studentType').value,
+      loginTime: new Date().toISOString()
+    };
+    if(!studentData.name || studentData.name.trim() === '') {
+      alert('من فضلك أدخل اسمك');
+      return;
+    }
+    localStorage.setItem('currentStudent', JSON.stringify(studentData));
+    
+    // حفظ في قائمة الطلاب (للأدمن)
+    let allStudents = JSON.parse(localStorage.getItem('allStudents')) || [];
+    allStudents.push(studentData);
+    localStorage.setItem('allStudents', JSON.stringify(allStudents));
+    
+    window.location.href = 'student.html';
+  });
+  
+  // الوضع الليلي
+  let darkMode = localStorage.getItem('darkMode') === 'true';
+  function applyTheme() {
+    if(darkMode) {
+      document.body.style.background = "linear-gradient(135deg, #0f172a, #0f172a)";
+      document.querySelector('.login-container').style.background = "#0f172a";
+    } else {
+      document.body.style.background = "linear-gradient(135deg, #0f172a, #1e1b4b)";
+      document.querySelector('.login-container').style.background = "#1e293b";
+    }
+  }
+  applyTheme();
+  document.getElementById('darkModeToggle').addEventListener('click', () => {
+    darkMode = !darkMode;
+    localStorage.setItem('darkMode', darkMode);
+    applyTheme();
+  });
+</script>
+</body>
+</html>
