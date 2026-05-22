@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الطالب - منصة الثانوية الرسمية بلس</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Lalezar&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Lalezar', cursive; background: #0f172a; min-height: 100vh; transition: 0.3s; }
+    body.dark { background: #0a0a0a; }
+    body.dark .card, body.dark .book-card, body.dark .header, body.dark .feature, body.dark .quiz-box { background: #1a1a1a !important; }
+    .container { max-width: 1300px; margin: auto; padding: 20px; }
+    .header { background: #1e293b; border-radius: 30px; padding: 20px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+    .logo-area { display: flex; align-items: center; gap: 15px; }
+    .logo-area img { height: 50px; border-radius: 15px; }
+    .logo-area h2 { color: #ffd700; font-size: 20px; }
+    .student-info p { color: #fff; }
+    .student-info strong { color: #ffd700; }
+    .logout-btn { background: #ef4444; color: #fff; border: none; padding: 10px 20px; border-radius: 25px; cursor: pointer; font-family: 'Lalezar'; }
+    .search-box { margin-bottom: 30px; }
+    .search-box input { width: 100%; padding: 15px 20px; border-radius: 50px; border: none; background: #1e293b; color: #fff; font-family: 'Lalezar'; font-size: 16px; }
+    body.dark .search-box input { background: #1a1a1a; }
+    .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px,1fr)); gap: 15px; margin-bottom: 40px; }
+    .feature { background: #1e293b; padding: 15px; border-radius: 20px; text-align: center; cursor: pointer; transition: 0.3s; }
+    .feature i { color: #ffd700; font-size: 28px; }
+    .feature p { margin-top: 8px; color: #fff; }
+    .section-title { color: #ffd700; font-size: 28px; margin: 30px 0 20px; border-right: 4px solid #ffd700; padding-right: 15px; }
+    .grade-section { margin-bottom: 40px; }
+    .grade-title { background: #334155; display: inline-block; padding: 8px 25px; border-radius: 30px; margin-bottom: 20px; color: #ffd700; }
+    .books-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr)); gap: 20px; }
+    .book-card { background: #1e293b; border-radius: 25px; overflow: hidden; transition: 0.3s; }
+    .book-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
+    .book-cover { width: 100%; height: 150px; background: #334155; display: flex; align-items: center; justify-content: center; font-size: 50px; color: #ffd700; }
+    .book-info { padding: 15px; }
+    .book-info h3 { color: #ffd700; font-size: 18px; }
+    .book-info p { color: #94a3b8; font-size: 12px; margin: 5px 0; }
+    .book-type { background: #334155; color: #ffd700; padding: 3px 12px; border-radius: 15px; font-size: 12px; display: inline-block; }
+    .download-btn { display: block; margin-top: 12px; background: #ffd700; color: #0f172a; text-align: center; padding: 8px; border-radius: 25px; text-decoration: none; font-weight: bold; }
+    .quiz-box { background: #1e293b; border-radius: 25px; padding: 25px; margin-top: 30px; margin-bottom: 30px; }
+    .quiz-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 20px; margin-top: 15px; }
+    .quiz-row select { padding: 12px; border-radius: 25px; background: #0f172a; border: none; color: #fff; font-family: 'Lalezar'; }
+    .submit-quiz { background: #ffd700; color: #0f172a; border: none; padding: 12px 25px; border-radius: 30px; margin-top: 20px; cursor: pointer; font-weight: bold; font-family: 'Lalezar'; }
+    .mode-toggle { position: fixed; bottom: 20px; left: 20px; background: #ffd700; color: #0f172a; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 24px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); z-index: 100; }
+    @media (max-width: 700px) { .header { flex-direction: column; gap: 15px; text-align: center; } .logo-area { flex-direction: column; } .section-title { font-size: 22px; } }
+  </style>
+</head>
+<body>
+<div class="container" id="app"></div>
+<div class="mode-toggle" id="darkModeToggle"><i class="fas fa-moon"></i></div>
+
+<script>
+  // التحقق من تسجيل الدخول
+  let currentStudent = JSON.parse(localStorage.getItem('currentStudent'));
+  if(!currentStudent) {
+    window.location.href = 'login.html';
+  }
+  
+  // بيانات الكتب (هتقدر تضيف منها كتير)
+  let books = [
+    { title: "اللغة العربية - الفصل الأول", grade: "تانية ثانوي", type: "كتاب مدرسي", author: "وزارة التربية", link: "#" },
+    { title: "ملخص الفيزياء", grade: "تانية ثانوي", type: "ملخص", author: "أستاذ محمد", link: "#" },
+    { title: "مراجعة الكيمياء", grade: "تانية ثانوي", type: "مراجعة", author: "أستاذ أحمد", link: "#" },
+    { title: "كتاب الرياضيات", grade: "اولى ثانوي", type: "كتاب مدرسي", author: "وزارة التربية", link: "#" },
+    { title: "ملخص الأحياء", grade: "اولى ثانوي", type: "ملخص", author: "أستاذ سامي", link: "#" },
+    { title: "مراجعة التاريخ", grade: "تالتة ثانوي", type: "مراجعة", author: "أستاذ خالد", link: "#" },
+    { title: "اللغة الإنجليزية", grade: "تالتة ثانوي", type: "كتاب خارجي", author: "Longman", link: "#" }
+  ];
+  
+  const grades = ['اولى ثانوي', 'تانية ثانوي', 'تالتة ثانوي'];
+  
+  function renderApp() {
+    const darkMode = localStorage.getItem('darkMode') === 'true';
+    if(darkMode) document.body.classList.add('dark');
+    else document.body.classList.remove('dark');
+    
+    const app = document.getElementById('app');
+    app.innerHTML = `
+      <!-- الهيدر -->
+      <div class="header">
+        <div class="logo-area">
+          <img src="https://i.ibb.co/v6TBWQF7/1779439519874-5afe5a49-b538-4888-abbc-b0142eeca273.png" alt="شعار المنصة">
+          <h2>منصة الثانوية الرسمية بلس</h2>
+        </div>
+        <div class="student-info">
+          <p>مرحباً <strong>${currentStudent.name}</strong></p>
+          <p style="font-size:12px;">${currentStudent.grade} - ${currentStudent.section} - ${currentStudent.type}</p>
+        </div>
+        <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> خروج</button>
+      </div>
+      
+      <!-- بحث -->
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="🔍 ابحث عن كتاب أو ملخص...">
+      </div>
+      
+      <!-- مميزات -->
+      <div class="features">
+        <div class="feature" onclick="scrollToSection('books')"><i class="fas fa-book"></i><p>الكتب</p></div>
+        <div class="feature" onclick="scrollToSection('quiz')"><i class="fas fa-star"></i><p>التقييمات</p></div>
+        <div class="feature" onclick="window.location.href='admin.html'"><i class="fas fa-chalkboard-user"></i><p>لوحة الأدمن</p></div>
+      </div>
+      
+      <!-- الكتب -->
+      <div id="books-section">
+        <h2 class="section-title">📚 المكتبة الرقمية</h2>
+        ${grades.map(grade => `
+          <div class="grade-section">
+            <div class="grade-title">📖 ${grade}</div>
+            <div class="books-grid" data-grade="${grade}">
+              ${books.filter(b => b.grade === grade).map(book => `
+                <div class="book-card" data-title="${book.title.toLowerCase()}">
+                  <div class="book-cover"><i class="fas fa-book-open"></i></div>
+                  <div class="book-info">
+                    <h3>${book.title}</h3>
+                    <p>${book.author}</p>
+                    <span class="book-type">${book.type}</span>
+                    <a href="${book.link}" target="_blank" class="download-btn"><i class="fas fa-download"></i> تحميل</a>
+                  </div>
+                </div>
+              `).join('')}
+              ${books.filter(b => b.grade === grade).length === 0 ? '<p style="color:#94a3b8;">لا توجد كتب بعد</p>' : ''}
+            </div>
+          </div>
+        `).join('')}
+      </div>
+      
+      <!-- التقييمات الأسبوعية -->
+      <div id="quiz-section">
+        <h2 class="section-title">📝 التقييمات الأسبوعية</h2>
+        <div class="quiz-box">
+          <p style="margin-bottom:10px;">شاركنا رأيك ليساعدنا على التطوير</p>
+          <div class="quiz-row">
+            <div><label>مستوى الاستفادة</label><select id="quiz1"><option>ممتاز</option><option>جيد جداً</option><option>جيد</option><option>متوسط</option><option>ضعيف</option></select></div>
+            <div><label>هل توصي المنصة لزملائك؟</label><select id="quiz2"><option>نعم بالتأكيد</option><option>ربما</option><option>لا</option></select></div>
+          </div>
+          <button class="submit-quiz" onclick="submitQuiz()"><i class="fas fa-paper-plane"></i> إرسال التقييم</button>
+        </div>
+      </div>
+    `;
+    
+    // تفعيل البحث
+    const searchInput = document.getElementById('searchInput');
+    if(searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        const term = e.target.value.toLowerCase();
+        document.querySelectorAll('.book-card').forEach(card => {
+          const title = card.getAttribute('data-title') || '';
+          card.style.display = title.includes(term) ? 'block' : 'none';
+        });
+      });
+    }
+  }
+  
+  function scrollToSection(section) {
+    document.getElementById(`${section}-section`).scrollIntoView({ behavior: 'smooth' });
+  }
+  
+  function submitQuiz() {
+    const quiz1 = document.getElementById('quiz1')?.value;
+    const quiz2 = document.getElementById('quiz2')?.value;
+    alert(`شكراً لتقييمك!\nالاستفادة: ${quiz1}\nالتوصية: ${quiz2}`);
+  }
+  
+  function logout() {
+    localStorage.removeItem('currentStudent');
+    window.location.href = 'login.html';
+  }
+  
+  // الوضع الليلي
+  let darkMode = localStorage.getItem('darkMode') === 'true';
+  function applyTheme() {
+    if(darkMode) document.body.classList.add('dark');
+    else document.body.classList.remove('dark');
+  }
+  applyTheme();
+  document.getElementById('darkModeToggle').addEventListener('click', () => {
+    darkMode = !darkMode;
+    localStorage.setItem('darkMode', darkMode);
+    applyTheme();
+    renderApp();
+  });
+  
+  renderApp();
+</script>
+</body>
+</html>
