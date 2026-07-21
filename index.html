@@ -5,80 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>الثانوية الرسمية بلس | أكبر مكتبة تعليمية عربية مجانية</title>
     
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="منصة الثانوية الرسمية بلس - أكبر مكتبة تعليمية عربية مجانية لطلاب أولى بكالوريا، ثانية بكالوريا، ثالثة ثانوي. كتب، ملخصات، امتحانات، وبنك أسئلة.">
-    <meta name="keywords" content="الثانوية الرسمية بلس, أولى بكالوريا, ثانية بكالوريا, ثالثة ثانوي, كتب, ملخصات, امتحانات">
+    <meta name="description" content="منصة الثانوية الرسمية بلس - أكبر مكتبة تعليمية عربية مجانية">
     <meta name="robots" content="index, follow">
-    <meta name="author" content="الثانوية الرسمية بلس">
-    
-    <!-- Open Graph -->
-    <meta property="og:title" content="الثانوية الرسمية بلس | أكبر مكتبة تعليمية عربية مجانية">
-    <meta property="og:description" content="منصة تعليمية متكاملة لطلاب الثانوية العامة">
+    <meta property="og:title" content="الثانوية الرسمية بلس">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://thanawya-official-plus.com">
     <meta property="og:image" content="https://cdn.phototourl.com/free/2026-07-21-1dd4b984-ed08-4a40-aead-9ef086ebbd45.jpg">
     
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="الثانوية الرسمية بلس">
-    <meta name="twitter:description" content="أكبر مكتبة تعليمية عربية مجانية للثانوية العامة">
-    <meta name="twitter:image" content="https://cdn.phototourl.com/free/2026-07-21-1dd4b984-ed08-4a40-aead-9ef086ebbd45.jpg">
-    
-    <!-- Canonical -->
-    <link rel="canonical" href="https://thanawya-official-plus.com/">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="https://cdn.phototourl.com/free/2026-07-21-1dd4b984-ed08-4a40-aead-9ef086ebbd45.jpg">
-    
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
-    <!-- Schema.org JSON-LD -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "EducationalOrganization",
-        "name": "الثانوية الرسمية بلس",
-        "description": "أكبر مكتبة تعليمية عربية مجانية لطلاب الثانوية العامة",
-        "url": "https://thanawya-official-plus.com",
-        "logo": "https://cdn.phototourl.com/free/2026-07-21-1dd4b984-ed08-4a40-aead-9ef086ebbd45.jpg"
-    }
-    </script>
-    
     <style>
-        /* ========================================
-                   CSS - الثانوية الرسمية بلس
-                   ======================================== */
-        
-        /* ---------- CSS Variables ---------- */
+        /* ===== CSS Variables ===== */
         :root {
             --bg-primary: #ffffff;
-            --bg-secondary: #f8fafc;
+            --bg-secondary: #f0f4f8;
             --bg-card: #ffffff;
-            --text-primary: #0f172a;
-            --text-secondary: #475569;
+            --text-primary: #0a1628;
+            --text-secondary: #334155;
             --text-muted: #94a3b8;
             --border-color: #e2e8f0;
             --grade-1: #22c55e;
             --grade-1-dark: #16a34a;
-            --grade-1-light: #dcfce7;
             --grade-2: #3b82f6;
             --grade-2-dark: #2563eb;
-            --grade-2-light: #dbeafe;
             --grade-3: #ef4444;
             --grade-3-dark: #dc2626;
-            --grade-3-light: #fecaca;
             --gold: #f59e0b;
             --gold-dark: #d97706;
-            --gold-light: #fbbf24;
             --purple: #8b5cf6;
-            --purple-light: #a78bfa;
-            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
             --shadow-md: 0 4px 20px rgba(0,0,0,0.08);
             --shadow-lg: 0 10px 40px rgba(0,0,0,0.12);
             --shadow-xl: 0 20px 60px rgba(0,0,0,0.16);
@@ -87,26 +45,23 @@
             --radius-lg: 24px;
             --radius-xl: 32px;
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-slow: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             --font-primary: 'Cairo', sans-serif;
-            --font-secondary: 'Tajawal', sans-serif;
         }
         
         [data-theme="dark"] {
-            --bg-primary: #0f172a;
-            --bg-secondary: #1e293b;
-            --bg-card: #1e293b;
+            --bg-primary: #0a1628;
+            --bg-secondary: #0f1a2e;
+            --bg-card: #162040;
             --text-primary: #f1f5f9;
             --text-secondary: #94a3b8;
             --text-muted: #64748b;
-            --border-color: #334155;
-            --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
+            --border-color: #1e293b;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
             --shadow-md: 0 4px 20px rgba(0,0,0,0.4);
             --shadow-lg: 0 10px 40px rgba(0,0,0,0.5);
             --shadow-xl: 0 20px 60px rgba(0,0,0,0.6);
         }
         
-        /* ---------- Reset ---------- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; scroll-padding-top: 80px; }
         body {
@@ -116,51 +71,34 @@
             line-height: 1.6;
             transition: var(--transition);
             overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
         }
         a { text-decoration: none; color: inherit; }
-        button { cursor: pointer; border: none; background: none; font-family: inherit; font-size: inherit; }
+        button { cursor: pointer; border: none; background: none; font-family: inherit; }
         img { max-width: 100%; display: block; }
         .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
         
-        /* ---------- Scrollbar ---------- */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: var(--bg-secondary); }
         ::-webkit-scrollbar-thumb { background: var(--text-muted); border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--text-secondary); }
         
-        /* ---------- Selection ---------- */
-        ::selection { background: var(--grade-2); color: white; }
-        
-        /* ========================================
-                   GLASSMORPHISM
-                   ======================================== */
+        /* ===== GLASSMORPHISM ===== */
         .glass {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255,255,255,0.08);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-        }
-        [data-theme="dark"] .glass {
-            background: rgba(15, 23, 42, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255,255,255,0.1);
         }
         
-        /* ========================================
-                   NAVBAR
-                   ======================================== */
+        /* ===== NAVBAR ===== */
         .navbar {
             position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-            padding: 16px 0;
-            background: rgba(255, 255, 255, 0.85);
+            padding: 14px 0;
+            background: rgba(255,255,255,0.85);
             backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border-color);
             transition: var(--transition);
         }
-        [data-theme="dark"] .navbar {
-            background: rgba(15, 23, 42, 0.85);
-        }
+        [data-theme="dark"] .navbar { background: rgba(10,22,40,0.85); }
         .navbar.scrolled { padding: 10px 0; box-shadow: var(--shadow-sm); }
         .nav-container {
             display: flex; align-items: center; justify-content: space-between;
@@ -170,7 +108,7 @@
             display: flex; align-items: center; gap: 12px; flex-shrink: 0;
         }
         .nav-logo img {
-            width: 42px; height: 42px; border-radius: 12px; object-fit: cover;
+            width: 40px; height: 40px; border-radius: 10px; object-fit: cover;
         }
         .nav-logo span {
             font-size: 20px; font-weight: 800;
@@ -190,13 +128,12 @@
         }
         .nav-search input:focus {
             border-color: var(--grade-2);
-            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+            box-shadow: 0 0 0 4px rgba(59,130,246,0.15);
         }
         .nav-search input::placeholder { color: var(--text-muted); }
         .nav-search .search-icon {
             position: absolute; right: 18px; top: 50%;
             transform: translateY(-50%); color: var(--text-muted);
-            pointer-events: none;
         }
         .nav-search .search-results {
             position: absolute; top: calc(100% + 8px); right: 0; left: 0;
@@ -220,8 +157,7 @@
         .search-result-item .result-info h4 { font-size: 14px; font-weight: 600; }
         .search-result-item .result-info p { font-size: 12px; color: var(--text-muted); }
         .search-result-item .result-badge {
-            font-size: 11px; padding: 2px 10px; border-radius: 60px;
-            font-weight: 600;
+            font-size: 11px; padding: 2px 10px; border-radius: 60px; font-weight: 600;
         }
         .result-badge.book { background: var(--grade-2-light); color: var(--grade-2-dark); }
         .result-badge.summary { background: var(--grade-1-light); color: var(--grade-1-dark); }
@@ -245,7 +181,7 @@
         }
         .nav-actions .btn-register:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+            box-shadow: 0 4px 15px rgba(59,130,246,0.3);
         }
         .nav-actions .btn-icon {
             width: 40px; height: 40px; border-radius: 50%;
@@ -254,9 +190,7 @@
             transition: var(--transition); border: 1px solid var(--border-color);
             font-size: 18px; position: relative;
         }
-        .nav-actions .btn-icon:hover {
-            background: var(--border-color); transform: scale(1.05);
-        }
+        .nav-actions .btn-icon:hover { background: var(--border-color); transform: scale(1.05); }
         .nav-actions .user-avatar {
             width: 40px; height: 40px; border-radius: 50%;
             background: linear-gradient(135deg, var(--grade-1), var(--grade-2));
@@ -265,9 +199,7 @@
             cursor: pointer; transition: var(--transition);
             border: 2px solid transparent;
         }
-        .nav-actions .user-avatar:hover {
-            transform: scale(1.05); border-color: var(--gold);
-        }
+        .nav-actions .user-avatar:hover { transform: scale(1.05); border-color: var(--gold); }
         .nav-actions .user-avatar img {
             width: 100%; height: 100%; border-radius: 50%; object-fit: cover;
         }
@@ -277,9 +209,7 @@
             border-radius: 50%; border: 2px solid var(--bg-primary);
         }
         
-        /* ========================================
-                   HERO
-                   ======================================== */
+        /* ===== HERO ===== */
         .hero {
             padding: 140px 0 80px;
             background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
@@ -289,22 +219,21 @@
         .hero::before {
             content: ''; position: absolute; top: -50%; right: -20%;
             width: 600px; height: 600px;
-            background: radial-gradient(circle, rgba(34, 197, 94, 0.06) 0%, transparent 70%);
-            border-radius: 50%; pointer-events: none;
+            background: radial-gradient(circle, rgba(34,197,94,0.06) 0%, transparent 70%);
+            border-radius: 50%;
         }
         .hero::after {
             content: ''; position: absolute; bottom: -30%; left: -10%;
             width: 500px; height: 500px;
-            background: radial-gradient(circle, rgba(59, 130, 246, 0.05) 0%, transparent 70%);
-            border-radius: 50%; pointer-events: none;
+            background: radial-gradient(circle, rgba(59,130,246,0.05) 0%, transparent 70%);
+            border-radius: 50%;
         }
         .hero-container {
             display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
             align-items: center; position: relative; z-index: 1;
         }
         .hero-content h1 {
-            font-size: 52px; font-weight: 900; line-height: 1.1;
-            margin-bottom: 16px; letter-spacing: -1px;
+            font-size: 52px; font-weight: 900; line-height: 1.1; margin-bottom: 16px;
         }
         .hero-content h1 .highlight {
             background: linear-gradient(135deg, var(--grade-1), var(--grade-2), var(--purple));
@@ -321,12 +250,12 @@
             background: linear-gradient(135deg, var(--grade-2), var(--grade-2-dark));
             color: white; font-weight: 700; font-size: 17px;
             transition: var(--transition);
-            box-shadow: 0 8px 30px rgba(59, 130, 246, 0.3);
+            box-shadow: 0 8px 30px rgba(59,130,246,0.3);
             display: inline-flex; align-items: center; gap: 10px;
         }
         .btn-primary:hover {
             transform: translateY(-3px);
-            box-shadow: 0 12px 40px rgba(59, 130, 246, 0.4);
+            box-shadow: 0 12px 40px rgba(59,130,246,0.4);
         }
         .btn-secondary {
             padding: 16px 36px; border-radius: 60px;
@@ -348,13 +277,11 @@
         }
         .hero-stats .stat-label { font-size: 14px; color: var(--text-muted); }
         .hero-image {
-            position: relative; display: flex; justify-content: center;
-            align-items: center;
+            position: relative; display: flex; justify-content: center; align-items: center;
         }
         .hero-image img {
             width: 100%; max-width: 560px; border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-xl); object-fit: cover;
-            aspect-ratio: 1/1;
+            box-shadow: var(--shadow-xl); object-fit: cover; aspect-ratio: 1/1;
         }
         .hero-image .floating-badge {
             position: absolute; bottom: -20px; left: -20px;
@@ -373,9 +300,7 @@
             display: block; font-size: 18px; color: var(--text-primary);
         }
         
-        /* ========================================
-                   SECTIONS
-                   ======================================== */
+        /* ===== SECTIONS ===== */
         .section { padding: 80px 0; }
         .section-header {
             display: flex; justify-content: space-between; align-items: center;
@@ -390,13 +315,9 @@
             display: flex; align-items: center; gap: 8px;
             transition: var(--transition);
         }
-        .section-header .see-all:hover {
-            gap: 14px; color: var(--grade-2-dark);
-        }
+        .section-header .see-all:hover { gap: 14px; color: var(--grade-2-dark); }
         
-        /* ========================================
-                   GRADES
-                   ======================================== */
+        /* ===== GRADES ===== */
         .grades-grid {
             display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px;
         }
@@ -409,31 +330,27 @@
             position: relative;
         }
         .grade-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-lg);
+            transform: translateY(-8px); box-shadow: var(--shadow-lg);
         }
         .grade-card .card-image {
             height: 200px; overflow: hidden; position: relative;
         }
         .grade-card .card-image img {
             width: 100%; height: 100%; object-fit: cover;
-            transition: var(--transition-slow);
+            transition: var(--transition);
         }
         .grade-card:hover .card-image img { transform: scale(1.05); }
         .grade-card .card-image .grade-badge {
             position: absolute; top: 16px; right: 16px;
             padding: 6px 16px; border-radius: 60px; color: white;
             font-weight: 700; font-size: 13px;
-            backdrop-filter: blur(8px); background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(8px); background: rgba(0,0,0,0.3);
         }
         .grade-card .card-body { padding: 24px; }
-        .grade-card .card-body h3 {
-            font-size: 22px; font-weight: 800; margin-bottom: 8px;
-        }
+        .grade-card .card-body h3 { font-size: 22px; font-weight: 800; margin-bottom: 8px; }
         .grade-card .card-body .card-stats {
             display: flex; gap: 16px; font-size: 14px;
-            color: var(--text-secondary); margin-bottom: 16px;
-            flex-wrap: wrap;
+            color: var(--text-secondary); margin-bottom: 16px; flex-wrap: wrap;
         }
         .grade-card .card-body .card-stats span {
             display: flex; align-items: center; gap: 6px;
@@ -444,31 +361,26 @@
             display: inline-flex; align-items: center; gap: 8px;
         }
         .grade-card .card-body .btn-grade:hover { transform: translateX(-4px); }
-        
         .grade-1 .grade-badge { background: var(--grade-1); }
         .grade-1 .btn-grade { background: var(--grade-1); }
         .grade-1 .btn-grade:hover { background: var(--grade-1-dark); }
         .grade-1 .card-image { border-bottom: 4px solid var(--grade-1); }
-        
         .grade-2 .grade-badge { background: var(--grade-2); }
         .grade-2 .btn-grade { background: var(--grade-2); }
         .grade-2 .btn-grade:hover { background: var(--grade-2-dark); }
         .grade-2 .card-image { border-bottom: 4px solid var(--grade-2); }
-        
         .grade-3 .grade-badge { background: var(--grade-3); }
         .grade-3 .btn-grade { background: var(--grade-3); }
         .grade-3 .btn-grade:hover { background: var(--grade-3-dark); }
         .grade-3 .card-image { border-bottom: 4px solid var(--grade-3); }
         
-        /* ========================================
-                   BOOKS GRID
-                   ======================================== */
+        /* ===== BOOKS GRID ===== */
         .books-grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 24px;
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 28px;
         }
         .book-card {
-            background: var(--bg-card); border-radius: var(--radius-md);
+            background: var(--bg-card); border-radius: var(--radius-lg);
             overflow: hidden; box-shadow: var(--shadow-sm);
             border: 1px solid var(--border-color);
             transition: var(--transition);
@@ -476,29 +388,37 @@
             position: relative;
         }
         .book-card:hover {
-            transform: translateY(-6px);
-            box-shadow: var(--shadow-md);
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
         }
         .book-card .book-cover {
-            height: 160px;
+            height: 180px;
             background: linear-gradient(135deg, var(--bg-secondary), var(--border-color));
             display: flex; align-items: center; justify-content: center;
-            font-size: 48px; position: relative; overflow: hidden;
+            font-size: 56px; position: relative; overflow: hidden;
         }
         .book-card .book-cover img {
             width: 100%; height: 100%; object-fit: cover;
         }
         .book-card .book-cover .book-badge {
-            position: absolute; top: 10px; left: 10px;
-            background: var(--gold); color: white;
-            padding: 4px 12px; border-radius: 60px;
+            position: absolute; top: 12px; left: 12px;
+            padding: 4px 14px; border-radius: 60px;
             font-size: 11px; font-weight: 700;
             display: flex; align-items: center; gap: 4px;
         }
+        .book-card .book-cover .book-badge.featured {
+            background: var(--gold); color: white;
+        }
+        .book-card .book-cover .book-badge.recommended {
+            background: var(--grade-2); color: white;
+        }
+        .book-card .book-cover .book-badge.new {
+            background: var(--purple); color: white;
+        }
         .book-card .book-cover .book-actions-overlay {
             position: absolute; bottom: 0; left: 0; right: 0;
-            padding: 16px;
-            background: linear-gradient(transparent, rgba(0, 0, 0, 0.6));
+            padding: 20px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
             display: flex; gap: 8px; justify-content: center;
             opacity: 0; transform: translateY(20px);
             transition: var(--transition);
@@ -507,28 +427,29 @@
             opacity: 1; transform: translateY(0);
         }
         .book-card .book-actions-overlay button {
-            padding: 6px 14px; border-radius: 60px; color: white;
+            padding: 6px 16px; border-radius: 60px; color: white;
             font-size: 12px; font-weight: 600;
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255,255,255,0.2);
             backdrop-filter: blur(8px);
             transition: var(--transition);
             display: flex; align-items: center; gap: 6px;
         }
         .book-card .book-actions-overlay button:hover {
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(255,255,255,0.35);
         }
-        .book-card .book-info { padding: 16px; }
+        .book-card .book-info { padding: 20px; }
         .book-card .book-info h4 {
-            font-size: 16px; font-weight: 700; margin-bottom: 4px;
-            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+            font-size: 17px; font-weight: 700; margin-bottom: 6px;
+            display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+            overflow: hidden;
         }
         .book-card .book-info .book-meta {
             font-size: 13px; color: var(--text-secondary);
             display: flex; justify-content: space-between; align-items: center;
-            flex-wrap: wrap; gap: 4px;
+            flex-wrap: wrap; gap: 6px;
         }
         .book-card .book-info .book-subject {
-            background: var(--bg-secondary); padding: 2px 10px;
+            background: var(--bg-secondary); padding: 2px 12px;
             border-radius: 60px; font-size: 11px; color: var(--text-muted);
         }
         .book-card .book-info .book-rating { color: var(--gold-dark); font-size: 13px; }
@@ -537,200 +458,185 @@
             display: flex; align-items: center; gap: 4px;
         }
         
-        /* ========================================
-                   SKELETON LOADER
-                   ======================================== */
-        .skeleton {
-            background: var(--bg-card); border-radius: var(--radius-md);
-            overflow: hidden; border: 1px solid var(--border-color);
-            animation: pulse 1.5s ease-in-out infinite;
-        }
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-        .skeleton .skeleton-cover {
-            height: 160px; background: var(--bg-secondary);
-        }
-        .skeleton .skeleton-info { padding: 16px; }
-        .skeleton .skeleton-line {
-            height: 14px; background: var(--bg-secondary);
-            border-radius: 4px; margin-bottom: 8px;
-        }
-        .skeleton .skeleton-line.short { width: 60%; }
-        .skeleton .skeleton-line.last { width: 40%; margin-bottom: 0; }
-        
-        /* ========================================
-                   EMPTY STATE
-                   ======================================== */
-        .empty-state {
-            text-align: center; padding: 60px 20px;
-            background: var(--bg-card); border-radius: var(--radius-lg);
-            border: 2px dashed var(--border-color);
-            grid-column: 1 / -1;
-        }
-        .empty-state .empty-icon { font-size: 64px; margin-bottom: 16px; }
-        .empty-state h3 { font-size: 22px; font-weight: 800; margin-bottom: 8px; }
-        .empty-state p { color: var(--text-secondary); font-size: 16px; }
-        
-        /* ========================================
-                   BOOK DETAILS MODAL
-                   ======================================== */
-        .book-modal-overlay {
+        /* ===== BOOK PAGE ===== */
+        .book-page-overlay {
             position: fixed; inset: 0;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(20px);
-            z-index: 10000; display: none;
-            align-items: center; justify-content: center;
-            padding: 20px; overflow-y: auto;
+            background: var(--bg-primary);
+            z-index: 9999;
+            display: none;
+            overflow-y: auto;
+            padding: 20px;
         }
-        .book-modal-overlay.active { display: flex; }
-        .book-modal {
-            background: var(--bg-card);
-            border-radius: var(--radius-lg);
-            max-width: 900px; width: 100%;
-            max-height: 90vh; overflow-y: auto;
-            padding: 40px; box-shadow: var(--shadow-xl);
-            border: 1px solid var(--border-color);
-            animation: modalIn 0.4s ease forwards;
+        .book-page-overlay.active { display: block; }
+        .book-page {
+            max-width: 1000px; margin: 0 auto; padding: 20px;
         }
-        @keyframes modalIn {
-            from { transform: scale(0.95); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-        .book-modal-close {
+        .book-page .book-page-close {
             position: sticky; top: 0; float: left;
-            width: 40px; height: 40px; border-radius: 50%;
+            width: 44px; height: 44px; border-radius: 50%;
             background: var(--bg-secondary);
             border: 1px solid var(--border-color);
-            font-size: 20px; display: flex; align-items: center;
-            justify-content: center; transition: var(--transition);
+            font-size: 22px;
+            display: flex; align-items: center; justify-content: center;
+            transition: var(--transition);
             z-index: 10;
+            margin-bottom: 20px;
         }
-        .book-modal-close:hover { background: var(--border-color); }
-        .book-modal .book-header {
-            display: grid; grid-template-columns: 200px 1fr;
-            gap: 30px; margin-bottom: 30px;
+        .book-page .book-page-close:hover { background: var(--border-color); }
+        .book-page .book-header {
+            display: grid; grid-template-columns: 280px 1fr;
+            gap: 40px; margin-bottom: 40px;
         }
-        .book-modal .book-cover-large {
+        .book-page .book-cover-large {
             width: 100%; aspect-ratio: 3/4;
-            border-radius: var(--radius-md);
+            border-radius: var(--radius-lg);
             background: var(--bg-secondary);
             display: flex; align-items: center; justify-content: center;
-            font-size: 80px; border: 1px solid var(--border-color);
+            font-size: 100px;
+            border: 1px solid var(--border-color);
             overflow: hidden;
+            box-shadow: var(--shadow-md);
         }
-        .book-modal .book-cover-large img {
+        .book-page .book-cover-large img {
             width: 100%; height: 100%; object-fit: cover;
         }
-        .book-modal .book-info-large h2 {
-            font-size: 28px; font-weight: 800; margin-bottom: 8px;
+        .book-page .book-info-large h1 {
+            font-size: 32px; font-weight: 800; margin-bottom: 12px;
         }
-        .book-modal .book-meta-large {
+        .book-page .book-meta-large {
             display: flex; flex-wrap: wrap; gap: 12px;
-            color: var(--text-secondary); font-size: 14px;
-            margin-bottom: 12px;
+            color: var(--text-secondary); font-size: 15px;
+            margin-bottom: 16px;
         }
-        .book-modal .book-meta-large span {
-            background: var(--bg-secondary); padding: 4px 14px;
+        .book-page .book-meta-large span {
+            background: var(--bg-secondary); padding: 6px 16px;
             border-radius: 60px;
         }
-        .book-modal .book-description {
-            color: var(--text-secondary); margin-bottom: 16px; line-height: 1.8;
+        .book-page .book-description {
+            color: var(--text-secondary); margin-bottom: 20px;
+            line-height: 1.8; font-size: 16px;
         }
-        .book-modal .book-stats-large {
-            display: flex; gap: 24px; flex-wrap: wrap;
-            margin-bottom: 20px; padding: 16px;
+        .book-page .book-stats-large {
+            display: flex; gap: 32px; flex-wrap: wrap;
+            margin-bottom: 24px; padding: 20px;
             background: var(--bg-secondary);
             border-radius: var(--radius-md);
         }
-        .book-modal .book-stats-large .stat { text-align: center; }
-        .book-modal .book-stats-large .stat .num {
-            font-size: 20px; font-weight: 800;
+        .book-page .book-stats-large .stat { text-align: center; }
+        .book-page .book-stats-large .stat .num {
+            font-size: 24px; font-weight: 800;
         }
-        .book-modal .book-stats-large .stat .label {
-            font-size: 12px; color: var(--text-muted);
+        .book-page .book-stats-large .stat .label {
+            font-size: 13px; color: var(--text-muted);
         }
-        .book-modal .book-actions-large {
-            display: flex; flex-wrap: wrap; gap: 10px;
-            margin-bottom: 24px;
+        .book-page .book-actions-large {
+            display: flex; flex-wrap: wrap; gap: 12px;
+            margin-bottom: 30px;
         }
-        .book-modal .book-actions-large button {
-            padding: 10px 24px; border-radius: 60px;
-            font-weight: 600; font-size: 14px;
+        .book-page .book-actions-large button {
+            padding: 12px 28px; border-radius: 60px;
+            font-weight: 600; font-size: 15px;
             transition: var(--transition);
-            display: inline-flex; align-items: center; gap: 8px;
+            display: inline-flex; align-items: center; gap: 10px;
             border: 1px solid var(--border-color);
             background: var(--bg-secondary);
             color: var(--text-primary);
         }
-        .book-modal .book-actions-large button:hover {
+        .book-page .book-actions-large button:hover {
             transform: translateY(-2px);
             box-shadow: var(--shadow-md);
         }
-        .book-modal .book-actions-large .btn-download {
+        .book-page .book-actions-large .btn-download {
             background: linear-gradient(135deg, var(--grade-2), var(--grade-2-dark));
             color: white; border: none;
         }
-        .book-modal .book-actions-large .btn-download:hover {
-            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+        .book-page .book-actions-large .btn-download:hover {
+            box-shadow: 0 8px 30px rgba(59,130,246,0.4);
         }
-        .book-modal .book-actions-large .btn-share {
+        .book-page .book-actions-large .btn-share {
             background: var(--purple); color: white; border: none;
         }
-        .book-modal .book-actions-large .btn-share:hover {
-            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
+        .book-page .book-actions-large .btn-share:hover {
+            box-shadow: 0 8px 30px rgba(139,92,246,0.4);
         }
-        .book-modal .book-actions-large .btn-favorite.active {
+        .book-page .book-actions-large .btn-favorite.active {
             color: var(--grade-3);
         }
+        .book-page .book-actions-large .btn-preview {
+            background: var(--gold); color: white; border: none;
+        }
+        .book-page .book-actions-large .btn-preview:hover {
+            box-shadow: 0 8px 30px rgba(245,158,11,0.4);
+        }
         
-        /* ========================================
-                   COMMENTS
-                   ======================================== */
+        /* ===== SHARE DROPDOWN ===== */
+        .share-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .share-dropdown .share-menu {
+            display: none;
+            position: absolute; top: calc(100% + 8px); right: 0;
+            background: var(--bg-card); border: 1px solid var(--border-color);
+            border-radius: var(--radius-md); box-shadow: var(--shadow-lg);
+            min-width: 200px; padding: 8px; z-index: 100;
+        }
+        .share-dropdown .share-menu.active { display: block; }
+        .share-dropdown .share-menu button {
+            display: flex; align-items: center; gap: 12px;
+            padding: 10px 16px; width: 100%;
+            border-radius: var(--radius-sm); transition: var(--transition);
+            background: none; border: none; color: var(--text-primary);
+            font-family: inherit; font-size: 14px; cursor: pointer;
+        }
+        .share-dropdown .share-menu button:hover { background: var(--bg-secondary); }
+        .share-dropdown .share-menu button i { width: 20px; }
+        .share-dropdown .share-menu .copy-link-btn {
+            border-top: 1px solid var(--border-color); margin-top: 4px; padding-top: 8px;
+        }
+        
+        /* ===== COMMENTS ===== */
         .comments-section {
             margin-top: 30px; border-top: 1px solid var(--border-color);
             padding-top: 24px;
         }
         .comments-section h3 {
-            font-size: 20px; font-weight: 700; margin-bottom: 16px;
+            font-size: 22px; font-weight: 700; margin-bottom: 20px;
             display: flex; align-items: center; gap: 10px;
         }
         .comment-form {
             display: flex; flex-direction: column; gap: 12px;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
         }
         .comment-form textarea {
-            padding: 12px 16px; border: 2px solid var(--border-color);
+            padding: 14px 18px; border: 2px solid var(--border-color);
             border-radius: var(--radius-md); background: var(--bg-secondary);
             color: var(--text-primary); font-family: inherit;
-            font-size: 15px; resize: vertical; min-height: 80px;
+            font-size: 15px; resize: vertical; min-height: 100px;
             transition: var(--transition); outline: none;
         }
         .comment-form textarea:focus {
             border-color: var(--grade-2);
-            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+            box-shadow: 0 0 0 4px rgba(59,130,246,0.1);
         }
         .comment-form .comment-rating {
             display: flex; gap: 8px; align-items: center;
         }
         .comment-form .comment-rating .star {
-            font-size: 28px; cursor: pointer;
+            font-size: 30px; cursor: pointer;
             color: var(--text-muted); transition: var(--transition);
         }
-        .comment-form .comment-rating .star.active {
-            color: var(--gold-dark);
-        }
+        .comment-form .comment-rating .star.active { color: var(--gold-dark); }
         .comment-form .comment-rating .star:hover { transform: scale(1.2); }
         .comment-form button {
-            padding: 12px 28px; border-radius: 60px;
+            padding: 12px 32px; border-radius: 60px;
             background: linear-gradient(135deg, var(--grade-2), var(--grade-2-dark));
             color: white; font-weight: 700; transition: var(--transition);
             align-self: flex-start;
         }
         .comment-form button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+            box-shadow: 0 8px 25px rgba(59,130,246,0.3);
         }
         .comment-item {
             padding: 16px 0; border-bottom: 1px solid var(--border-color);
@@ -757,21 +663,54 @@
             color: var(--gold-dark); margin-right: 48px; font-size: 14px;
         }
         .comment-item .comment-badge {
-            background: var(--gold); padding: 2px 10px;
+            background: var(--gold); padding: 2px 12px;
             border-radius: 60px; font-size: 11px; font-weight: 700;
             margin-right: 8px;
         }
+        .comment-item .pending-badge {
+            background: var(--text-muted); padding: 2px 12px;
+            border-radius: 60px; font-size: 11px; font-weight: 700;
+            color: white;
+            margin-right: 8px;
+        }
         
-        /* ========================================
-                   POPUP
-                   ======================================== */
+        /* ===== EMPTY STATE ===== */
+        .empty-state {
+            text-align: center; padding: 60px 20px;
+            background: var(--bg-card); border-radius: var(--radius-lg);
+            border: 2px dashed var(--border-color);
+            grid-column: 1 / -1;
+        }
+        .empty-state .empty-icon { font-size: 64px; margin-bottom: 16px; }
+        .empty-state h3 { font-size: 22px; font-weight: 800; margin-bottom: 8px; }
+        .empty-state p { color: var(--text-secondary); font-size: 16px; }
+        
+        /* ===== SKELETON ===== */
+        .skeleton {
+            background: var(--bg-card); border-radius: var(--radius-lg);
+            overflow: hidden; border: 1px solid var(--border-color);
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .skeleton .skeleton-cover { height: 180px; background: var(--bg-secondary); }
+        .skeleton .skeleton-info { padding: 20px; }
+        .skeleton .skeleton-line {
+            height: 14px; background: var(--bg-secondary);
+            border-radius: 4px; margin-bottom: 8px;
+        }
+        .skeleton .skeleton-line.short { width: 60%; }
+        .skeleton .skeleton-line.last { width: 40%; margin-bottom: 0; }
+        
+        /* ===== POPUP ===== */
         .popup-overlay {
             position: fixed; inset: 0;
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(0,0,0,0.6);
             backdrop-filter: blur(16px);
-            z-index: 9999; display: none;
-            align-items: center; justify-content: center;
-            padding: 20px;
+            z-index: 99999; display: none;
+            align-items: center; justify-content: center; padding: 20px;
         }
         .popup-overlay.active { display: flex; }
         .popup {
@@ -780,6 +719,10 @@
             text-align: center; box-shadow: var(--shadow-xl);
             transform: scale(0.9); animation: modalIn 0.5s ease forwards;
             border: 1px solid var(--border-color);
+        }
+        @keyframes modalIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
         }
         .popup .popup-icon { font-size: 56px; margin-bottom: 12px; }
         .popup h2 { font-size: 24px; font-weight: 800; margin-bottom: 8px; }
@@ -801,7 +744,7 @@
         }
         .popup .popup-actions .btn-register:hover {
             transform: scale(1.02);
-            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+            box-shadow: 0 4px 20px rgba(59,130,246,0.3);
         }
         .popup .popup-actions .btn-later {
             padding: 10px; border-radius: 60px;
@@ -810,16 +753,13 @@
         }
         .popup .popup-actions .btn-later:hover { color: var(--text-secondary); }
         
-        /* ========================================
-                   UPLOAD SUMMARY MODAL
-                   ======================================== */
+        /* ===== UPLOAD MODAL ===== */
         .upload-modal-overlay {
             position: fixed; inset: 0;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0,0,0,0.7);
             backdrop-filter: blur(20px);
-            z-index: 10001; display: none;
-            align-items: center; justify-content: center;
-            padding: 20px;
+            z-index: 99998; display: none;
+            align-items: center; justify-content: center; padding: 20px;
         }
         .upload-modal-overlay.active { display: flex; }
         .upload-modal {
@@ -838,23 +778,20 @@
         }
         .upload-modal .form-group { margin-bottom: 16px; }
         .upload-modal .form-group label {
-            display: block; font-weight: 600; margin-bottom: 6px;
-            font-size: 14px;
+            display: block; font-weight: 600; margin-bottom: 6px; font-size: 14px;
         }
         .upload-modal .form-group input,
         .upload-modal .form-group select {
             width: 100%; padding: 12px 16px;
-            border: 2px solid var(--border-color);
-            border-radius: var(--radius-md);
-            background: var(--bg-secondary);
-            color: var(--text-primary); font-family: inherit;
-            font-size: 15px; transition: var(--transition);
+            border: 2px solid var(--border-color); border-radius: var(--radius-md);
+            background: var(--bg-secondary); color: var(--text-primary);
+            font-family: inherit; font-size: 15px; transition: var(--transition);
             outline: none;
         }
         .upload-modal .form-group input:focus,
         .upload-modal .form-group select:focus {
             border-color: var(--grade-2);
-            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+            box-shadow: 0 0 0 4px rgba(59,130,246,0.1);
         }
         .upload-modal .form-group input[type="file"] {
             padding: 10px; border: 2px dashed var(--border-color);
@@ -873,19 +810,15 @@
         }
         .upload-modal .upload-actions .btn-submit:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(34, 197, 94, 0.3);
+            box-shadow: 0 8px 25px rgba(34,197,94,0.3);
         }
         .upload-modal .upload-actions .btn-cancel {
             background: var(--bg-secondary); color: var(--text-primary);
             border: 1px solid var(--border-color);
         }
-        .upload-modal .upload-actions .btn-cancel:hover {
-            background: var(--border-color);
-        }
+        .upload-modal .upload-actions .btn-cancel:hover { background: var(--border-color); }
         
-        /* ========================================
-                   FOOTER
-                   ======================================== */
+        /* ===== FOOTER ===== */
         .footer {
             background: var(--bg-primary); border-top: 1px solid var(--border-color);
             padding: 60px 0 30px;
@@ -914,12 +847,9 @@
         .footer ul { list-style: none; }
         .footer ul li { margin-bottom: 10px; }
         .footer ul li a {
-            color: var(--text-secondary); transition: var(--transition);
-            font-size: 15px;
+            color: var(--text-secondary); transition: var(--transition); font-size: 15px;
         }
-        .footer ul li a:hover {
-            color: var(--text-primary); padding-right: 4px;
-        }
+        .footer ul li a:hover { color: var(--text-primary); padding-right: 4px; }
         .footer-social {
             display: flex; gap: 12px; margin-top: 16px; flex-wrap: wrap;
         }
@@ -945,24 +875,7 @@
         }
         .footer-bottom .links a:hover { color: var(--text-primary); }
         
-        /* ========================================
-                   ANIMATIONS
-                   ======================================== */
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-fade-up {
-            animation: fadeUp 0.8s ease forwards; opacity: 0;
-        }
-        .delay-1 { animation-delay: 0.1s; }
-        .delay-2 { animation-delay: 0.2s; }
-        .delay-3 { animation-delay: 0.3s; }
-        .delay-4 { animation-delay: 0.4s; }
-        
-        /* ========================================
-                   RESPONSIVE
-                   ======================================== */
+        /* ===== RESPONSIVE ===== */
         @media (max-width: 1024px) {
             .hero-container { grid-template-columns: 1fr; text-align: center; }
             .hero-content p { margin: 0 auto 32px; }
@@ -971,8 +884,8 @@
             .hero-image img { max-width: 400px; }
             .grades-grid { grid-template-columns: 1fr 1fr; }
             .footer-grid { grid-template-columns: 1fr 1fr; }
-            .book-modal .book-header { grid-template-columns: 1fr; }
-            .book-modal .book-cover-large { max-width: 200px; margin: 0 auto; }
+            .book-page .book-header { grid-template-columns: 1fr; }
+            .book-page .book-cover-large { max-width: 220px; margin: 0 auto; }
         }
         @media (max-width: 768px) {
             .nav-search { display: none; }
@@ -985,16 +898,15 @@
             .hero-image .floating-badge {
                 bottom: -10px; left: 10px; padding: 12px 16px;
             }
-            .hero-image .floating-badge i { font-size: 20px; }
-            .hero-image .floating-badge div strong { font-size: 15px; }
             .grades-grid { grid-template-columns: 1fr; }
             .books-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
             .section-header h2 { font-size: 24px; }
             .footer-grid { grid-template-columns: 1fr; }
             .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
-            .book-modal { padding: 24px; }
-            .book-modal .book-stats-large { flex-wrap: wrap; gap: 12px; }
-            .book-modal .book-actions-large button { flex: 1; min-width: 120px; }
+            .book-page .book-header { grid-template-columns: 1fr; }
+            .book-page .book-cover-large { max-width: 180px; }
+            .book-page .book-info-large h1 { font-size: 24px; }
+            .book-page .book-actions-large button { flex: 1; min-width: 120px; }
             .nav-actions .btn-auth { padding: 8px 16px; font-size: 13px; }
             .nav-actions .btn-register span { display: none; }
             .nav-logo span { font-size: 16px; }
@@ -1002,20 +914,19 @@
         }
         @media (max-width: 480px) {
             .books-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
-            .book-card .book-cover { height: 120px; font-size: 32px; }
+            .book-card .book-cover { height: 140px; font-size: 40px; }
             .book-card .book-info h4 { font-size: 14px; }
             .container { padding: 0 16px; }
             .popup { padding: 32px 24px; }
             .upload-modal { padding: 24px; }
-            .book-modal { padding: 16px; }
+            .book-page { padding: 12px; }
+            .book-page .book-actions-large button { padding: 10px 16px; font-size: 13px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- ========================================
-    NAVBAR
-    ======================================== -->
+    <!-- ===== NAVBAR ===== -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
             <div class="nav-logo">
@@ -1023,109 +934,59 @@
                 <span>الثانوية الرسمية بلس</span>
             </div>
             <div class="nav-search">
-                <input type="text" id="searchInput" placeholder="ابحث عن كتاب، مذكرة، امتحان، مادة..." autocomplete="off">
+                <input type="text" id="searchInput" placeholder="ابحث عن كتاب، مذكرة، امتحان..." autocomplete="off">
                 <span class="search-icon"><i class="fas fa-search"></i></span>
                 <div class="search-results" id="searchResults"></div>
             </div>
             <div class="nav-actions">
-                <button class="btn-icon theme-toggle" id="themeToggle" aria-label="تغيير الوضع">
-                    <i class="fas fa-moon theme-icon"></i>
-                </button>
-                <button class="btn-icon notification-badge" aria-label="الإشعارات">
-                    <i class="fas fa-bell"></i>
-                </button>
+                <button class="btn-icon theme-toggle" id="themeToggle"><i class="fas fa-moon theme-icon"></i></button>
+                <button class="btn-icon notification-badge"><i class="fas fa-bell"></i></button>
                 <div id="authButtons">
-                    <button class="btn-auth btn-login" id="loginBtn">
-                        <i class="fas fa-sign-in-alt"></i> تسجيل الدخول
-                    </button>
-                    <button class="btn-auth btn-register" id="registerBtn">
-                        <i class="fas fa-user-plus"></i> <span>إنشاء حساب</span>
-                    </button>
+                    <button class="btn-auth btn-login" id="loginBtn"><i class="fas fa-sign-in-alt"></i> تسجيل الدخول</button>
+                    <button class="btn-auth btn-register" id="registerBtn"><i class="fas fa-user-plus"></i> <span>إنشاء حساب</span></button>
                 </div>
                 <div id="userActions" style="display:none; position:relative;">
-                    <div class="user-avatar" id="userAvatar">
-                        <i class="fas fa-user"></i>
-                    </div>
+                    <div class="user-avatar" id="userAvatar"><i class="fas fa-user"></i></div>
                     <div class="user-menu" id="userMenu" style="display:none; position:absolute; top:calc(100%+8px); left:0; background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius-md); box-shadow:var(--shadow-lg); min-width:200px; padding:8px; z-index:100;">
-                        <div class="user-menu-item" data-page="profile" style="padding:10px 16px; display:flex; align-items:center; gap:12px; border-radius:var(--radius-sm); transition:var(--transition); cursor:pointer;">
-                            <i class="fas fa-user"></i> الملف الشخصي
-                        </div>
-                        <div class="user-menu-item" data-page="favorites" style="padding:10px 16px; display:flex; align-items:center; gap:12px; border-radius:var(--radius-sm); transition:var(--transition); cursor:pointer;">
-                            <i class="fas fa-bookmark"></i> المفضلة
-                        </div>
-                        <div class="user-menu-item" data-page="upload" style="padding:10px 16px; display:flex; align-items:center; gap:12px; border-radius:var(--radius-sm); transition:var(--transition); cursor:pointer;">
-                            <i class="fas fa-upload"></i> أرسل ملخصك
-                        </div>
-                        <div class="user-menu-item" data-page="achievements" style="padding:10px 16px; display:flex; align-items:center; gap:12px; border-radius:var(--radius-sm); transition:var(--transition); cursor:pointer;">
-                            <i class="fas fa-trophy"></i> إنجازاتي
-                        </div>
-                        <div class="user-menu-item logout" id="logoutBtn" style="padding:10px 16px; display:flex; align-items:center; gap:12px; border-radius:var(--radius-sm); transition:var(--transition); cursor:pointer; color:var(--grade-3); border-top:1px solid var(--border-color); margin-top:4px; padding-top:8px;">
-                            <i class="fas fa-sign-out-alt"></i> تسجيل الخروج
-                        </div>
+                        <div class="user-menu-item" data-page="profile" style="padding:10px 16px; display:flex; align-items:center; gap:12px; border-radius:var(--radius-sm); transition:var(--transition); cursor:pointer;"><i class="fas fa-user"></i> الملف الشخصي</div>
+                        <div class="user-menu-item" data-page="favorites" style="padding:10px 16px; display:flex; align-items:center; gap:12px; border-radius:var(--radius-sm); transition:var(--transition); cursor:pointer;"><i class="fas fa-bookmark"></i> المفضلة</div>
+                        <div class="user-menu-item" data-page="upload" style="padding:10px 16px; display:flex; align-items:center; gap:12px; border-radius:var(--radius-sm); transition:var(--transition); cursor:pointer;"><i class="fas fa-upload"></i> أرسل ملخصك</div>
+                        <div class="user-menu-item" data-page="achievements" style="padding:10px 16px; display:flex; align-items:center; gap:12px; border-radius:var(--radius-sm); transition:var(--transition); cursor:pointer;"><i class="fas fa-trophy"></i> إنجازاتي</div>
+                        <div class="user-menu-item logout" id="logoutBtn" style="padding:10px 16px; display:flex; align-items:center; gap:12px; border-radius:var(--radius-sm); transition:var(--transition); cursor:pointer; color:var(--grade-3); border-top:1px solid var(--border-color); margin-top:4px; padding-top:8px;"><i class="fas fa-sign-out-alt"></i> تسجيل الخروج</div>
                     </div>
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- ========================================
-    HERO
-    ======================================== -->
+    <!-- ===== HERO ===== -->
     <section class="hero">
         <div class="container hero-container">
             <div class="hero-content animate-fade-up">
-                <h1>
-                    أكبر مكتبة<br>
-                    <span class="highlight">تعليمية عربية</span><br>
-                    مجانية
-                </h1>
-                <p>
-                    منصة الثانوية الرسمية بلس تجمع لك آلاف الكتب والملخصات والامتحانات
-                    لجميع صفوف الثانوية العامة في مكان واحد.
-                </p>
+                <h1>أكبر مكتبة<br><span class="highlight">تعليمية عربية</span><br>مجانية</h1>
+                <p>منصة الثانوية الرسمية بلس تجمع لك آلاف الكتب والملخصات والامتحانات لجميع صفوف الثانوية العامة في مكان واحد.</p>
                 <div class="hero-buttons">
-                    <button class="btn-primary" id="heroStartBtn">
-                        <i class="fas fa-rocket"></i> ابدأ الآن
-                    </button>
-                    <button class="btn-secondary" id="heroBrowseBtn">
-                        <i class="fas fa-book"></i> استكشف المكتبة
-                    </button>
+                    <button class="btn-primary" id="heroStartBtn"><i class="fas fa-rocket"></i> ابدأ الآن</button>
+                    <button class="btn-secondary" id="heroBrowseBtn"><i class="fas fa-book"></i> استكشف المكتبة</button>
                 </div>
                 <div class="hero-stats">
-                    <div class="stat-item">
-                        <div class="stat-number" id="statBooks">0</div>
-                        <div class="stat-label">كتاب</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number" id="statSummaries">0</div>
-                        <div class="stat-label">ملخص</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number" id="statExams">0</div>
-                        <div class="stat-label">امتحان</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number" id="statUsers">0</div>
-                        <div class="stat-label">طالب</div>
-                    </div>
+                    <div class="stat-item"><div class="stat-number" id="statBooks">0</div><div class="stat-label">كتاب</div></div>
+                    <div class="stat-item"><div class="stat-number" id="statSummaries">0</div><div class="stat-label">ملخص</div></div>
+                    <div class="stat-item"><div class="stat-number" id="statExams">0</div><div class="stat-label">امتحان</div></div>
+                    <div class="stat-item"><div class="stat-number" id="statUsers">0</div><div class="stat-label">طالب</div></div>
                 </div>
             </div>
             <div class="hero-image animate-fade-up delay-1">
                 <img src="https://cdn.phototourl.com/free/2026-07-21-1dd4b984-ed08-4a40-aead-9ef086ebbd45.jpg" alt="منصة الثانوية الرسمية بلس" loading="lazy">
                 <div class="floating-badge">
                     <i class="fas fa-star"></i>
-                    <div>
-                        <strong>4.8</strong>
-                        <span>تقييم الطلاب</span>
-                    </div>
+                    <div><strong>4.8</strong><span>تقييم الطلاب</span></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ========================================
-    GRADES
-    ======================================== -->
+    <!-- ===== GRADES ===== -->
     <section class="section" style="background: var(--bg-secondary);">
         <div class="container">
             <div class="section-header animate-fade-up">
@@ -1182,9 +1043,7 @@
         </div>
     </section>
 
-    <!-- ========================================
-    LATEST BOOKS
-    ======================================== -->
+    <!-- ===== LATEST BOOKS ===== -->
     <section class="section" id="booksSection">
         <div class="container">
             <div class="section-header animate-fade-up">
@@ -1192,7 +1051,6 @@
                 <a href="#" class="see-all">عرض الكل <i class="fas fa-arrow-left"></i></a>
             </div>
             <div class="books-grid" id="latestBooks">
-                <!-- Skeleton Loaders -->
                 <div class="skeleton"><div class="skeleton-cover"></div><div class="skeleton-info"><div class="skeleton-line"></div><div class="skeleton-line short"></div><div class="skeleton-line last"></div></div></div>
                 <div class="skeleton"><div class="skeleton-cover"></div><div class="skeleton-info"><div class="skeleton-line"></div><div class="skeleton-line short"></div><div class="skeleton-line last"></div></div></div>
                 <div class="skeleton"><div class="skeleton-cover"></div><div class="skeleton-info"><div class="skeleton-line"></div><div class="skeleton-line short"></div><div class="skeleton-line last"></div></div></div>
@@ -1201,9 +1059,7 @@
         </div>
     </section>
 
-    <!-- ========================================
-    MOST DOWNLOADED
-    ======================================== -->
+    <!-- ===== MOST DOWNLOADED ===== -->
     <section class="section" style="background: var(--bg-secondary);">
         <div class="container">
             <div class="section-header animate-fade-up">
@@ -1219,9 +1075,7 @@
         </div>
     </section>
 
-    <!-- ========================================
-    TOP RATED
-    ======================================== -->
+    <!-- ===== TOP RATED ===== -->
     <section class="section">
         <div class="container">
             <div class="section-header animate-fade-up">
@@ -1237,9 +1091,7 @@
         </div>
     </section>
 
-    <!-- ========================================
-    LATEST SUMMARIES
-    ======================================== -->
+    <!-- ===== LATEST SUMMARIES ===== -->
     <section class="section" style="background: var(--bg-secondary);">
         <div class="container">
             <div class="section-header animate-fade-up">
@@ -1255,9 +1107,7 @@
         </div>
     </section>
 
-    <!-- ========================================
-    LATEST EXAMS
-    ======================================== -->
+    <!-- ===== LATEST EXAMS ===== -->
     <section class="section">
         <div class="container">
             <div class="section-header animate-fade-up">
@@ -1273,9 +1123,7 @@
         </div>
     </section>
 
-    <!-- ========================================
-    FOOTER
-    ======================================== -->
+    <!-- ===== FOOTER ===== -->
     <footer class="footer">
         <div class="container">
             <div class="footer-grid">
@@ -1284,15 +1132,13 @@
                         <img src="https://cdn.phototourl.com/free/2026-07-21-1dd4b984-ed08-4a40-aead-9ef086ebbd45.jpg" alt="الثانوية الرسمية بلس">
                         <span>الثانوية الرسمية بلس</span>
                     </div>
-                    <p>
-                        أكبر مكتبة تعليمية عربية مجانية لطلاب أولى بكالوريا، ثانية بكالوريا، وثالثة ثانوي.
-                    </p>
+                    <p>أكبر مكتبة تعليمية عربية مجانية لطلاب أولى بكالوريا، ثانية بكالوريا، وثالثة ثانوي.</p>
                     <div class="footer-social">
-                        <a href="#" aria-label="فيسبوك"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" aria-label="تويتر"><i class="fab fa-twitter"></i></a>
-                        <a href="#" aria-label="يوتيوب"><i class="fab fa-youtube"></i></a>
-                        <a href="#" aria-label="تليجرام"><i class="fab fa-telegram-plane"></i></a>
-                        <a href="#" aria-label="انستجرام"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-telegram-plane"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
                 <div>
@@ -1333,9 +1179,7 @@
         </div>
     </footer>
 
-    <!-- ========================================
-    POPUP
-    ======================================== -->
+    <!-- ===== POPUP ===== -->
     <div class="popup-overlay" id="popupOverlay">
         <div class="popup">
             <div class="popup-icon">✨</div>
@@ -1349,19 +1193,15 @@
         </div>
     </div>
 
-    <!-- ========================================
-    BOOK MODAL
-    ======================================== -->
-    <div class="book-modal-overlay" id="bookModal">
-        <div class="book-modal">
-            <button class="book-modal-close" id="bookModalClose"><i class="fas fa-times"></i></button>
-            <div class="book-modal-content" id="bookModalContent"></div>
+    <!-- ===== BOOK PAGE ===== -->
+    <div class="book-page-overlay" id="bookPage">
+        <div class="book-page">
+            <button class="book-page-close" id="bookPageClose"><i class="fas fa-times"></i></button>
+            <div id="bookPageContent"></div>
         </div>
     </div>
 
-    <!-- ========================================
-    UPLOAD MODAL
-    ======================================== -->
+    <!-- ===== UPLOAD MODAL ===== -->
     <div class="upload-modal-overlay" id="uploadModal">
         <div class="upload-modal">
             <h2>📎 أرفق ملخصك</h2>
@@ -1400,9 +1240,9 @@
         </div>
     </div>
 
-    <!-- ========================================
-    JAVASCRIPT
-    ======================================== -->
+    <!-- ======================================== -->
+    <!-- JAVASCRIPT -->
+    <!-- ======================================== -->
     <script type="importmap">
         {
             "imports": {
@@ -1419,35 +1259,13 @@
         // Firebase Configuration
         // ============================================================
         import { initializeApp } from "firebase/app";
+        import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
         import { 
-            getAuth, 
-            onAuthStateChanged, 
-            signOut 
-        } from "firebase/auth";
-        import { 
-            getFirestore, 
-            collection, 
-            query, 
-            orderBy, 
-            limit, 
-            getDocs, 
-            getCountFromServer,
-            where,
-            doc,
-            getDoc,
-            updateDoc,
-            addDoc,
-            serverTimestamp,
-            increment,
-            arrayUnion,
-            arrayRemove
+            getFirestore, collection, query, orderBy, limit, getDocs, 
+            getCountFromServer, where, doc, getDoc, updateDoc, addDoc,
+            serverTimestamp, increment, arrayUnion, arrayRemove
         } from "firebase/firestore";
-        import {
-            getStorage,
-            ref,
-            uploadBytes,
-            getDownloadURL
-        } from "firebase/storage";
+        import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAz9BfG1INB3shlCiMtK395SEo6sCkaZSI",
@@ -1488,14 +1306,15 @@
         const heroStartBtn = $('#heroStartBtn');
         const heroBrowseBtn = $('#heroBrowseBtn');
         const logoutBtn = $('#logoutBtn');
-        const bookModal = $('#bookModal');
-        const bookModalClose = $('#bookModalClose');
-        const bookModalContent = $('#bookModalContent');
+        const bookPage = $('#bookPage');
+        const bookPageClose = $('#bookPageClose');
+        const bookPageContent = $('#bookPageContent');
         const uploadModal = $('#uploadModal');
         const uploadForm = $('#uploadForm');
         const uploadCancel = $('#uploadCancel');
 
         let currentUser = null;
+        let currentBookId = null;
 
         // ============================================================
         // Theme
@@ -1566,26 +1385,31 @@
         });
 
         // ============================================================
-        // Book Modal
+        // Book Page
         // ============================================================
-        function openBookModal(bookId) {
+        function openBookPage(bookId) {
             if (!currentUser) { showPopup(); return; }
-            bookModal.classList.add('active');
+            currentBookId = bookId;
+            bookPage.classList.add('active');
             document.body.style.overflow = 'hidden';
-            loadBookDetails(bookId);
+            renderBookPage(bookId);
+            // تحديث URL
+            window.history.pushState({ bookId }, '', `/book/${bookId}`);
         }
 
-        function closeBookModal() {
-            bookModal.classList.remove('active');
+        function closeBookPage() {
+            bookPage.classList.remove('active');
             document.body.style.overflow = '';
+            currentBookId = null;
+            window.history.pushState({}, '', '/');
         }
 
-        if (bookModalClose) {
-            bookModalClose.addEventListener('click', closeBookModal);
+        if (bookPageClose) {
+            bookPageClose.addEventListener('click', closeBookPage);
         }
-        if (bookModal) {
-            bookModal.addEventListener('click', (e) => {
-                if (e.target === bookModal) closeBookModal();
+        if (bookPage) {
+            bookPage.addEventListener('click', (e) => {
+                if (e.target === bookPage) closeBookPage();
             });
         }
 
@@ -1614,299 +1438,255 @@
         }
 
         // ============================================================
-        // Load Book Details
+        // Render Book Page - صفحة كاملة وليست Modal
         // ============================================================
-        async function loadBookDetails(bookId) {
+        async function renderBookPage(bookId) {
             try {
                 const docRef = doc(db, 'books', bookId);
                 const docSnap = await getDoc(docRef);
                 if (!docSnap.exists()) {
                     showToast('الكتاب غير موجود', 'خطأ', 'error');
-                    closeBookModal();
+                    closeBookPage();
                     return;
                 }
                 const book = { id: docSnap.id, ...docSnap.data() };
-                renderBookDetails(book);
+                
+                const gradeNames = ['', 'أولى بكالوريا', 'ثانية بكالوريا', 'ثالثة ثانوي'];
+                const gradeColors = ['', 'var(--grade-1)', 'var(--grade-2)', 'var(--grade-3)'];
+                
+                // جلب التعليقات
+                const commentsQuery = query(collection(db, 'comments'), where('bookId', '==', bookId), where('isApproved', '==', true), orderBy('createdAt', 'desc'), limit(20));
+                const commentsSnap = await getDocs(commentsQuery);
+                const comments = [];
+                commentsSnap.forEach(doc => comments.push({ id: doc.id, ...doc.data() }));
+
+                bookPageContent.innerHTML = `
+                    <div class="book-header">
+                        <div class="book-cover-large">
+                            ${book.coverUrl ? `<img src="${book.coverUrl}" alt="${book.title}">` : (book.coverEmoji || '📖')}
+                        </div>
+                        <div class="book-info-large">
+                            <h1>${book.title || 'بدون عنوان'}</h1>
+                            <div class="book-meta-large">
+                                <span style="background: ${gradeColors[book.grade] || 'var(--bg-secondary)'}; color: white;">${gradeNames[book.grade] || 'غير محدد'}</span>
+                                <span>📚 ${book.subject || 'غير محدد'}</span>
+                                <span>📅 ${book.year || 'غير محدد'}</span>
+                                ${book.category ? `<span>📂 ${book.category}</span>` : ''}
+                                ${book.author ? `<span>✍️ ${book.author}</span>` : ''}
+                            </div>
+                            ${book.description ? `<div class="book-description">${book.description}</div>` : ''}
+                            <div class="book-stats-large">
+                                <div class="stat"><div class="num">${book.downloads || 0}</div><div class="label">📥 تحميل</div></div>
+                                <div class="stat"><div class="num">${book.views || 0}</div><div class="label">👁️ مشاهدة</div></div>
+                                <div class="stat"><div class="num">${book.rating || 0}</div><div class="label">⭐ تقييم الطلاب</div></div>
+                                ${book.adminRating ? `<div class="stat"><div class="num">⭐ ${book.adminRating}</div><div class="label">تقييم الإدارة</div></div>` : ''}
+                                <div class="stat"><div class="num">${book.commentsCount || 0}</div><div class="label">💬 تعليق</div></div>
+                                <div class="stat"><div class="num">${book.shares || 0}</div><div class="label">📤 مشاركة</div></div>
+                            </div>
+                            <div class="book-actions-large">
+                                ${book.pdfUrl ? `<button class="btn-download" data-id="${book.id}"><i class="fas fa-download"></i> تحميل</button>` : ''}
+                                ${book.pdfUrl ? `<button class="btn-preview" data-id="${book.id}"><i class="fas fa-eye"></i> معاينة</button>` : ''}
+                                <button class="btn-favorite" data-id="${book.id}"><i class="fas fa-heart"></i> مفضلة</button>
+                                <div class="share-dropdown">
+                                    <button class="btn-share" data-id="${book.id}"><i class="fas fa-share"></i> مشاركة <i class="fas fa-chevron-down" style="font-size:12px;"></i></button>
+                                    <div class="share-menu" data-id="${book.id}">
+                                        <button class="share-whatsapp"><i class="fab fa-whatsapp" style="color:#25D366;"></i> واتساب</button>
+                                        <button class="share-telegram"><i class="fab fa-telegram-plane" style="color:#0088cc;"></i> تليجرام</button>
+                                        <button class="share-facebook"><i class="fab fa-facebook" style="color:#1877f2;"></i> فيسبوك</button>
+                                        <button class="share-twitter"><i class="fab fa-twitter" style="color:#000;"></i> X</button>
+                                        <button class="share-copy copy-link-btn"><i class="fas fa-link"></i> نسخ الرابط</button>
+                                        <button class="share-qr"><i class="fas fa-qrcode"></i> QR Code</button>
+                                    </div>
+                                </div>
+                                <button class="btn-copy" data-id="${book.id}"><i class="fas fa-link"></i> نسخ الرابط</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="comments-section">
+                        <h3>💬 التعليقات</h3>
+                        <div id="commentsList">
+                            ${comments.length > 0 ? comments.map(c => `
+                                <div class="comment-item">
+                                    <div class="comment-header">
+                                        <div class="avatar">${c.userName ? c.userName.charAt(0) : '👤'}</div>
+                                        <span class="name">${c.userName || 'مستخدم'}</span>
+                                        <span class="date">${c.createdAt ? 'جديد' : ''}</span>
+                                        ${c.isFeatured ? '<span class="comment-badge">❤️ تعليق مميز</span>' : ''}
+                                    </div>
+                                    ${c.rating ? `<div class="comment-rating-display">${'⭐'.repeat(c.rating)}</div>` : ''}
+                                    <div class="comment-text">${c.text || ''}</div>
+                                </div>
+                            `).join('') : '<div class="empty-state" style="padding:20px;border:none;"><p style="font-size:14px;">لا توجد تعليقات بعد</p></div>'}
+                        </div>
+                        <div class="comment-form">
+                            <div class="comment-rating">
+                                <span style="font-weight:600;margin-left:8px;">تقييمك:</span>
+                                ${[1,2,3,4,5].map(i => `<span class="star" data-rating="${i}">⭐</span>`).join('')}
+                            </div>
+                            <textarea id="commentText" placeholder="اكتب تعليقك هنا..." rows="3"></textarea>
+                            <input type="hidden" id="commentRating" value="0">
+                            <button data-book-id="${book.id}" id="submitCommentBtn">نشر التعليق</button>
+                        </div>
+                    </div>
+                `;
+
+                // ===== Book Actions =====
+                // Download - تحميل حقيقي
+                bookPageContent.querySelector('.btn-download')?.addEventListener('click', async function() {
+                    if (!currentUser) { showPopup(); return; }
+                    try {
+                        const ref = doc(db, 'books', book.id);
+                        await updateDoc(ref, { downloads: increment(1) });
+                        if (book.pdfUrl) {
+                            window.open(book.pdfUrl, '_blank');
+                        } else {
+                            showToast('لا يوجد رابط للتحميل', 'تنبيه', 'error');
+                        }
+                    } catch (error) {
+                        showToast('حدث خطأ', 'خطأ', 'error');
+                    }
+                });
+
+                // Preview - معاينة PDF
+                bookPageContent.querySelector('.btn-preview')?.addEventListener('click', function() {
+                    if (book.pdfUrl) {
+                        window.open(book.pdfUrl, '_blank');
+                    } else {
+                        showToast('لا يوجد ملف للمعاينة', 'تنبيه', 'error');
+                    }
+                });
+
+                // Favorite
+                bookPageContent.querySelector('.btn-favorite')?.addEventListener('click', async function() {
+                    if (!currentUser) { showPopup(); return; }
+                    try {
+                        const userRef = doc(db, 'users', currentUser.uid);
+                        const userSnap = await getDoc(userRef);
+                        const favorites = userSnap.data()?.favorites || [];
+                        const isFav = favorites.includes(book.id);
+                        await updateDoc(userRef, {
+                            favorites: isFav ? arrayRemove(book.id) : arrayUnion(book.id)
+                        });
+                        this.classList.toggle('active');
+                        showToast(isFav ? 'تم الإزالة من المفضلة' : 'تم الإضافة إلى المفضلة', 'المفضلة', 'success');
+                    } catch (error) {
+                        showToast('حدث خطأ', 'خطأ', 'error');
+                    }
+                });
+
+                // Copy Link
+                bookPageContent.querySelector('.btn-copy')?.addEventListener('click', function() {
+                    const url = `${window.location.origin}/book/${book.id}`;
+                    navigator.clipboard.writeText(url).then(() => {
+                        showToast('تم نسخ رابط الكتاب', 'تم النسخ', 'success');
+                    }).catch(() => {
+                        showToast(url, 'رابط الكتاب', 'info');
+                    });
+                });
+
+                // ===== Share Dropdown =====
+                const shareBtn = bookPageContent.querySelector('.btn-share');
+                const shareMenu = bookPageContent.querySelector('.share-menu');
+                if (shareBtn && shareMenu) {
+                    shareBtn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        shareMenu.classList.toggle('active');
+                    });
+                    document.addEventListener('click', () => {
+                        shareMenu.classList.remove('active');
+                    });
+                    
+                    const url = `${window.location.origin}/book/${book.id}`;
+                    const text = `📚 ${book.title || 'كتاب'} - الثانوية الرسمية بلس`;
+                    
+                    shareMenu.querySelector('.share-whatsapp')?.addEventListener('click', () => {
+                        window.open(`https://wa.me/?text=${encodeURIComponent(text + '\n' + url)}`, '_blank');
+                        shareMenu.classList.remove('active');
+                    });
+                    shareMenu.querySelector('.share-telegram')?.addEventListener('click', () => {
+                        window.open(`https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`, '_blank');
+                        shareMenu.classList.remove('active');
+                    });
+                    shareMenu.querySelector('.share-facebook')?.addEventListener('click', () => {
+                        window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank');
+                        shareMenu.classList.remove('active');
+                    });
+                    shareMenu.querySelector('.share-twitter')?.addEventListener('click', () => {
+                        window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank');
+                        shareMenu.classList.remove('active');
+                    });
+                    shareMenu.querySelector('.share-copy')?.addEventListener('click', () => {
+                        navigator.clipboard.writeText(url).then(() => {
+                            showToast('تم نسخ رابط الكتاب', 'تم النسخ', 'success');
+                            shareMenu.classList.remove('active');
+                        });
+                    });
+                    shareMenu.querySelector('.share-qr')?.addEventListener('click', () => {
+                        showToast(`🔲 QR Code: ${url}`, 'QR Code', 'info');
+                        shareMenu.classList.remove('active');
+                    });
+                }
+
+                // ===== Comments =====
+                // Stars
+                bookPageContent.querySelectorAll('.comment-form .star').forEach(star => {
+                    star.addEventListener('click', function() {
+                        const rating = parseInt(this.dataset.rating);
+                        bookPageContent.querySelectorAll('.comment-form .star').forEach(s => {
+                            s.classList.toggle('active', parseInt(s.dataset.rating) <= rating);
+                        });
+                        document.getElementById('commentRating').value = rating;
+                    });
+                });
+
+                // Submit Comment
+                const submitBtn = document.getElementById('submitCommentBtn');
+                if (submitBtn) {
+                    submitBtn.addEventListener('click', async function() {
+                        if (!currentUser) { showPopup(); return; }
+                        const text = document.getElementById('commentText')?.value?.trim();
+                        const rating = parseInt(document.getElementById('commentRating')?.value || 0);
+                        
+                        if (!text) {
+                            showToast('يرجى كتابة تعليق', 'تنبيه', 'error');
+                            return;
+                        }
+
+                        try {
+                            await addDoc(collection(db, 'comments'), {
+                                bookId: book.id,
+                                userId: currentUser.uid,
+                                userName: currentUser.displayName || 'مستخدم',
+                                text: text,
+                                rating: rating,
+                                isApproved: false,
+                                isFeatured: false,
+                                likes: 0,
+                                createdAt: serverTimestamp()
+                            });
+
+                            const bookRef = doc(db, 'books', book.id);
+                            await updateDoc(bookRef, {
+                                commentsCount: increment(1)
+                            });
+
+                            showToast('تم إرسال تعليقك للمراجعة', 'شكراً لك', 'success');
+                            document.getElementById('commentText').value = '';
+                            document.getElementById('commentRating').value = '0';
+                            document.querySelectorAll('.comment-form .star').forEach(s => s.classList.remove('active'));
+                            
+                            // إعادة تحميل الصفحة لعرض التعليق الجديد
+                            renderBookPage(book.id);
+                        } catch (error) {
+                            showToast('حدث خطأ في إرسال التعليق', 'خطأ', 'error');
+                        }
+                    });
+                }
+
             } catch (error) {
-                console.error('Error loading book:', error);
+                console.error('Error rendering book page:', error);
                 showToast('حدث خطأ في تحميل الكتاب', 'خطأ', 'error');
             }
-        }
-
-        // ============================================================
-        // Render Book Details
-        // ============================================================
-        function renderBookDetails(book) {
-            const gradeNames = ['', 'أولى بكالوريا', 'ثانية بكالوريا', 'ثالثة ثانوي'];
-            const gradeColors = ['', 'var(--grade-1)', 'var(--grade-2)', 'var(--grade-3)'];
-            
-            bookModalContent.innerHTML = `
-                <div class="book-header">
-                    <div class="book-cover-large">
-                        ${book.coverUrl ? `<img src="${book.coverUrl}" alt="${book.title}">` : (book.coverEmoji || '📖')}
-                    </div>
-                    <div class="book-info-large">
-                        <h2>${book.title || 'بدون عنوان'}</h2>
-                        <div class="book-meta-large">
-                            <span style="background: ${gradeColors[book.grade] || 'var(--bg-secondary)'}; color: white;">${gradeNames[book.grade] || 'غير محدد'}</span>
-                            <span>📚 ${book.subject || 'غير محدد'}</span>
-                            <span>📅 ${book.year || 'غير محدد'}</span>
-                            ${book.category ? `<span>📂 ${book.category}</span>` : ''}
-                            ${book.author ? `<span>✍️ ${book.author}</span>` : ''}
-                        </div>
-                        ${book.description ? `<div class="book-description">${book.description}</div>` : ''}
-                        <div class="book-stats-large">
-                            <div class="stat"><div class="num">${book.downloads || 0}</div><div class="label">📥 تحميل</div></div>
-                            <div class="stat"><div class="num">${book.views || 0}</div><div class="label">👁️ مشاهدة</div></div>
-                            <div class="stat"><div class="num">${book.rating || 0}</div><div class="label">⭐ تقييم الطلاب</div></div>
-                            ${book.adminRating ? `<div class="stat"><div class="num">⭐ ${book.adminRating}</div><div class="label">تقييم الإدارة</div></div>` : ''}
-                            <div class="stat"><div class="num">${book.commentsCount || 0}</div><div class="label">💬 تعليق</div></div>
-                            <div class="stat"><div class="num">${book.shares || 0}</div><div class="label">📤 مشاركة</div></div>
-                        </div>
-                        <div class="book-actions-large">
-                            <button class="btn-download" data-id="${book.id}"><i class="fas fa-download"></i> تحميل</button>
-                            <button class="btn-preview" data-id="${book.id}"><i class="fas fa-eye"></i> معاينة</button>
-                            <button class="btn-favorite" data-id="${book.id}"><i class="fas fa-heart"></i> مفضلة</button>
-                            <button class="btn-share" data-id="${book.id}"><i class="fas fa-share"></i> مشاركة</button>
-                            <button class="btn-copy" data-id="${book.id}"><i class="fas fa-link"></i> نسخ الرابط</button>
-                            <button class="btn-qr" data-id="${book.id}"><i class="fas fa-qrcode"></i> QR</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="comments-section">
-                    <h3>💬 التعليقات</h3>
-                    <div id="commentsList">
-                        ${book.comments && book.comments.length > 0 ? book.comments.map(c => `
-                            <div class="comment-item">
-                                <div class="comment-header">
-                                    <div class="avatar">${c.userName ? c.userName.charAt(0) : '👤'}</div>
-                                    <span class="name">${c.userName || 'مستخدم'}</span>
-                                    <span class="date">${c.createdAt ? 'جديد' : ''}</span>
-                                    ${c.isFeatured ? '<span class="comment-badge">❤️ تعليق مميز</span>' : ''}
-                                </div>
-                                ${c.rating ? `<div class="comment-rating-display">${'⭐'.repeat(c.rating)}</div>` : ''}
-                                <div class="comment-text">${c.text || ''}</div>
-                            </div>
-                        `).join('') : '<div class="empty-state" style="padding:20px;border:none;"><p style="font-size:14px;">لا توجد تعليقات بعد</p></div>'}
-                    </div>
-                    <div class="comment-form">
-                        <div class="comment-rating">
-                            <span style="font-weight:600;margin-left:8px;">تقييمك:</span>
-                            ${[1,2,3,4,5].map(i => `<span class="star" data-rating="${i}">⭐</span>`).join('')}
-                        </div>
-                        <textarea id="commentText" placeholder="اكتب تعليقك هنا..." rows="3"></textarea>
-                        <input type="hidden" id="commentRating" value="0">
-                        <button data-book-id="${book.id}" id="submitCommentBtn">نشر التعليق</button>
-                    </div>
-                </div>
-            `;
-
-            // Book actions
-            bookModalContent.querySelectorAll('.btn-download').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    handleDownload(btn.dataset.id);
-                });
-            });
-            bookModalContent.querySelectorAll('.btn-preview').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    handlePreview(btn.dataset.id);
-                });
-            });
-            bookModalContent.querySelectorAll('.btn-favorite').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    handleFavorite(btn.dataset.id);
-                });
-            });
-            bookModalContent.querySelectorAll('.btn-share').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    handleShare(btn.dataset.id);
-                });
-            });
-            bookModalContent.querySelectorAll('.btn-copy').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    handleCopyLink(btn.dataset.id);
-                });
-            });
-            bookModalContent.querySelectorAll('.btn-qr').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    handleQR(btn.dataset.id);
-                });
-            });
-
-            // Stars
-            bookModalContent.querySelectorAll('.comment-form .star').forEach(star => {
-                star.addEventListener('click', function() {
-                    const rating = parseInt(this.dataset.rating);
-                    bookModalContent.querySelectorAll('.comment-form .star').forEach(s => {
-                        s.classList.toggle('active', parseInt(s.dataset.rating) <= rating);
-                    });
-                    document.getElementById('commentRating').value = rating;
-                });
-            });
-
-            // Submit comment
-            const submitBtn = document.getElementById('submitCommentBtn');
-            if (submitBtn) {
-                submitBtn.addEventListener('click', () => submitComment(submitBtn.dataset.bookId));
-            }
-        }
-
-        // ============================================================
-        // Book Actions
-        // ============================================================
-        async function handleDownload(bookId) {
-            if (!currentUser) { showPopup(); return; }
-            try {
-                const ref = doc(db, 'books', bookId);
-                await updateDoc(ref, { downloads: increment(1) });
-                showToast('جاري تحميل الملف...', 'جاري التحميل', 'info');
-                loadBookDetails(bookId);
-            } catch (error) {
-                showToast('حدث خطأ', 'خطأ', 'error');
-            }
-        }
-
-        function handlePreview(bookId) {
-            showToast('📖 معاينة الكتاب', 'معاينة', 'info');
-        }
-
-        async function handleFavorite(bookId) {
-            if (!currentUser) { showPopup(); return; }
-            try {
-                const userRef = doc(db, 'users', currentUser.uid);
-                const userSnap = await getDoc(userRef);
-                const favorites = userSnap.data()?.favorites || [];
-                const isFav = favorites.includes(bookId);
-                await updateDoc(userRef, {
-                    favorites: isFav ? arrayRemove(bookId) : arrayUnion(bookId)
-                });
-                showToast(isFav ? 'تم الإزالة من المفضلة' : 'تم الإضافة إلى المفضلة', 'المفضلة', 'success');
-            } catch (error) {
-                showToast('حدث خطأ', 'خطأ', 'error');
-            }
-        }
-
-        function handleShare(bookId) {
-            const url = `${window.location.origin}/book/${bookId}`;
-            if (navigator.share) {
-                navigator.share({ title: '📚 الثانوية الرسمية بلس', text: 'اكتشف هذا الكتاب', url: url });
-            } else {
-                navigator.clipboard.writeText(url).then(() => {
-                    showToast('تم نسخ رابط الكتاب', 'تم النسخ', 'success');
-                });
-            }
-        }
-
-        function handleCopyLink(bookId) {
-            const url = `${window.location.origin}/book/${bookId}`;
-            navigator.clipboard.writeText(url).then(() => {
-                showToast('تم نسخ رابط الكتاب', 'تم النسخ', 'success');
-            }).catch(() => {
-                showToast(url, 'رابط الكتاب', 'info');
-            });
-        }
-
-        function handleQR(bookId) {
-            const url = `${window.location.origin}/book/${bookId}`;
-            showToast(`🔲 QR Code: ${url}`, 'QR Code', 'info');
-        }
-
-        // ============================================================
-        // Submit Comment
-        // ============================================================
-        async function submitComment(bookId) {
-            if (!currentUser) { showPopup(); return; }
-            const text = document.getElementById('commentText')?.value?.trim();
-            const rating = parseInt(document.getElementById('commentRating')?.value || 0);
-            
-            if (!text) {
-                showToast('يرجى كتابة تعليق', 'تنبيه', 'error');
-                return;
-            }
-
-            try {
-                await addDoc(collection(db, 'comments'), {
-                    bookId: bookId,
-                    userId: currentUser.uid,
-                    userName: currentUser.displayName || 'مستخدم',
-                    text: text,
-                    rating: rating,
-                    isApproved: false,
-                    isFeatured: false,
-                    likes: 0,
-                    createdAt: serverTimestamp()
-                });
-
-                const bookRef = doc(db, 'books', bookId);
-                await updateDoc(bookRef, {
-                    commentsCount: increment(1)
-                });
-
-                showToast('تم إرسال تعليقك للمراجعة', 'شكراً لك', 'success');
-                document.getElementById('commentText').value = '';
-                document.getElementById('commentRating').value = '0';
-                document.querySelectorAll('.comment-form .star').forEach(s => s.classList.remove('active'));
-                
-                loadBookDetails(bookId);
-            } catch (error) {
-                showToast('حدث خطأ في إرسال التعليق', 'خطأ', 'error');
-            }
-        }
-
-        // ============================================================
-        // Upload Summary
-        // ============================================================
-        if (uploadForm) {
-            uploadForm.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                if (!currentUser) { showPopup(); return; }
-
-                const grade = document.getElementById('uploadGrade').value;
-                const subject = document.getElementById('uploadSubject').value.trim();
-                const unit = document.getElementById('uploadUnit').value.trim();
-                const lesson = document.getElementById('uploadLesson').value.trim();
-                const file = document.getElementById('uploadFile').files[0];
-
-                if (!grade || !subject || !lesson || !file) {
-                    showToast('يرجى ملء جميع الحقول', 'تنبيه', 'error');
-                    return;
-                }
-
-                try {
-                    const storageRef = ref(storage, `summaries/${currentUser.uid}/${Date.now()}_${file.name}`);
-                    await uploadBytes(storageRef, file);
-                    const fileUrl = await getDownloadURL(storageRef);
-
-                    await addDoc(collection(db, 'summaries'), {
-                        userId: currentUser.uid,
-                        userName: currentUser.displayName || 'مستخدم',
-                        grade: parseInt(grade),
-                        subject: subject,
-                        unit: unit,
-                        lesson: lesson,
-                        fileUrl: fileUrl,
-                        fileName: file.name,
-                        isApproved: false,
-                        downloads: 0,
-                        views: 0,
-                        rating: 0,
-                        adminRating: 0,
-                        createdAt: serverTimestamp()
-                    });
-
-                    showToast('تم إرسال ملخصك للمراجعة', 'شكراً لك', 'success');
-                    closeUploadModal();
-                } catch (error) {
-                    console.error('Upload error:', error);
-                    showToast('حدث خطأ في رفع الملف', 'خطأ', 'error');
-                }
-            });
         }
 
         // ============================================================
@@ -1931,9 +1711,9 @@
                 <div class="book-card" data-book-id="${book.id}">
                     <div class="book-cover">
                         ${book.coverUrl ? `<img src="${book.coverUrl}" alt="${book.title}">` : (book.coverEmoji || '📖')}
-                        ${book.rating >= 4.7 ? '<span class="book-badge"><i class="fas fa-star"></i> مميز</span>' : ''}
-                        ${book.isRecommended ? '<span class="book-badge" style="background:var(--grade-2);">✔ موصى به</span>' : ''}
-                        ${book.isFeatured ? '<span class="book-badge" style="background:var(--purple);">🔥 الأفضل</span>' : ''}
+                        ${book.rating >= 4.7 ? '<span class="book-badge featured"><i class="fas fa-star"></i> مميز</span>' : ''}
+                        ${book.isRecommended ? '<span class="book-badge recommended">✔ موصى به</span>' : ''}
+                        ${book.isFeatured ? '<span class="book-badge new">🔥 الأفضل</span>' : ''}
                         <div class="book-actions-overlay">
                             <button class="btn-preview" data-id="${book.id}"><i class="fas fa-eye"></i> معاينة</button>
                             <button class="btn-download" data-id="${book.id}"><i class="fas fa-download"></i> تحميل</button>
@@ -1953,25 +1733,42 @@
                 </div>
             `).join('');
 
-            // Add event listeners
+            // Events
             container.querySelectorAll('.book-card').forEach(card => {
                 card.addEventListener('click', (e) => {
                     if (e.target.closest('.book-actions-overlay')) return;
-                    openBookModal(card.dataset.bookId);
+                    openBookPage(card.dataset.bookId);
                 });
             });
 
             container.querySelectorAll('.btn-download').forEach(btn => {
-                btn.addEventListener('click', (e) => {
+                btn.addEventListener('click', async (e) => {
                     e.stopPropagation();
-                    handleDownload(btn.dataset.id);
+                    if (!currentUser) { showPopup(); return; }
+                    const id = btn.dataset.id;
+                    const docRef = doc(db, 'books', id);
+                    const docSnap = await getDoc(docRef);
+                    if (docSnap.exists() && docSnap.data().pdfUrl) {
+                        await updateDoc(docRef, { downloads: increment(1) });
+                        window.open(docSnap.data().pdfUrl, '_blank');
+                    } else {
+                        showToast('لا يوجد رابط للتحميل', 'تنبيه', 'error');
+                    }
                 });
             });
 
             container.querySelectorAll('.btn-preview').forEach(btn => {
-                btn.addEventListener('click', (e) => {
+                btn.addEventListener('click', async (e) => {
                     e.stopPropagation();
-                    handlePreview(btn.dataset.id);
+                    if (!currentUser) { showPopup(); return; }
+                    const id = btn.dataset.id;
+                    const docRef = doc(db, 'books', id);
+                    const docSnap = await getDoc(docRef);
+                    if (docSnap.exists() && docSnap.data().pdfUrl) {
+                        window.open(docSnap.data().pdfUrl, '_blank');
+                    } else {
+                        showToast('لا يوجد ملف للمعاينة', 'تنبيه', 'error');
+                    }
                 });
             });
         }
@@ -2135,7 +1932,7 @@
                                         </div>
                                     `).join('');
                                     searchResults.querySelectorAll('.search-result-item').forEach(item => {
-                                        item.addEventListener('click', () => openBookModal(item.dataset.id));
+                                        item.addEventListener('click', () => openBookPage(item.dataset.id));
                                     });
                                 }
                                 searchResults.classList.add('active');
@@ -2182,7 +1979,7 @@
             } else {
                 if (authButtons) authButtons.style.display = 'flex';
                 if (userActionsEl) userActionsEl.style.display = 'none';
-                closeBookModal();
+                closeBookPage();
                 closeUploadModal();
             }
         });
@@ -2257,6 +2054,76 @@
         });
 
         // ============================================================
+        // Upload Summary
+        // ============================================================
+        if (uploadForm) {
+            uploadForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                if (!currentUser) { showPopup(); return; }
+
+                const grade = document.getElementById('uploadGrade').value;
+                const subject = document.getElementById('uploadSubject').value.trim();
+                const unit = document.getElementById('uploadUnit').value.trim();
+                const lesson = document.getElementById('uploadLesson').value.trim();
+                const file = document.getElementById('uploadFile').files[0];
+
+                if (!grade || !subject || !lesson || !file) {
+                    showToast('يرجى ملء جميع الحقول', 'تنبيه', 'error');
+                    return;
+                }
+
+                try {
+                    const storageRef = ref(storage, `summaries/${currentUser.uid}/${Date.now()}_${file.name}`);
+                    await uploadBytes(storageRef, file);
+                    const fileUrl = await getDownloadURL(storageRef);
+
+                    await addDoc(collection(db, 'summaries'), {
+                        userId: currentUser.uid,
+                        userName: currentUser.displayName || 'مستخدم',
+                        grade: parseInt(grade),
+                        subject: subject,
+                        unit: unit,
+                        lesson: lesson,
+                        fileUrl: fileUrl,
+                        fileName: file.name,
+                        isApproved: false,
+                        downloads: 0,
+                        views: 0,
+                        rating: 0,
+                        adminRating: 0,
+                        createdAt: serverTimestamp()
+                    });
+
+                    showToast('تم إرسال ملخصك للمراجعة', 'شكراً لك', 'success');
+                    closeUploadModal();
+                } catch (error) {
+                    console.error('Upload error:', error);
+                    showToast('حدث خطأ في رفع الملف', 'خطأ', 'error');
+                }
+            });
+        }
+
+        // ============================================================
+        // Handle URL - /book/:id
+        // ============================================================
+        function handleUrl() {
+            const path = window.location.pathname;
+            const match = path.match(/^\/book\/(.+)$/);
+            if (match && currentUser) {
+                openBookPage(match[1]);
+            }
+        }
+
+        window.addEventListener('popstate', () => {
+            const path = window.location.pathname;
+            if (path === '/') {
+                closeBookPage();
+            } else {
+                handleUrl();
+            }
+        });
+
+        // ============================================================
         // Init
         // ============================================================
         async function init() {
@@ -2270,18 +2137,15 @@
                 loadGradeStats()
             ]);
 
+            // Check URL for book ID
+            handleUrl();
+
             console.log('✅ تم تحميل جميع البيانات بنجاح');
         }
 
-        // Make functions globally available for onclick
-        window.openBookModal = openBookModal;
-        window.closeBookModal = closeBookModal;
-        window.handleDownload = handleDownload;
-        window.handlePreview = handlePreview;
-        window.handleFavorite = handleFavorite;
-        window.handleShare = handleShare;
-        window.handleCopyLink = handleCopyLink;
-        window.handleQR = handleQR;
+        // Make functions global
+        window.openBookPage = openBookPage;
+        window.closeBookPage = closeBookPage;
 
         init();
     </script>
