@@ -1,0 +1,2093 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الثانوية الرسمية بلس | أكبر مكتبة تعليمية عربية مجانية</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="منصة الثانوية الرسمية بلس - أكبر مكتبة تعليمية عربية مجانية لطلاب أولى بكالوريا، ثانية بكالوريا، ثالثة ثانوي">
+    <meta name="keywords" content="الثانوية الرسمية بلس, أولى بكالوريا, ثانية بكالوريا, ثالثة ثانوي, كتب, ملخصات, امتحانات">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="الثانوية الرسمية بلس | أكبر مكتبة تعليمية عربية مجانية">
+    <meta property="og:description" content="منصة تعليمية متكاملة لطلاب الثانوية العامة">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://thanawya-official-plus.com">
+    <meta property="og:image" content="https://cdn.phototourl.com/free/2026-07-21-1dd4b984-ed08-4a40-aead-9ef086ebbd45.jpg">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="الثانوية الرسمية بلس">
+    <meta name="twitter:description" content="أكبر مكتبة تعليمية عربية مجانية للثانوية العامة">
+    <meta name="twitter:image" content="https://cdn.phototourl.com/free/2026-07-21-1dd4b984-ed08-4a40-aead-9ef086ebbd45.jpg">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* ===== CSS Variables ===== */
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-card: #ffffff;
+            --text-primary: #1f2937;
+            --text-secondary: #4b5563;
+            --text-muted: #9ca3af;
+            --border-color: #e5e7eb;
+            --grade-1: #22c55e;
+            --grade-1-dark: #16a34a;
+            --grade-2: #2563eb;
+            --grade-2-dark: #1d4ed8;
+            --grade-3: #ef4444;
+            --grade-3-dark: #dc2626;
+            --gold: #fbbf24;
+            --gold-dark: #f59e0b;
+            --purple: #8b5cf6;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+            --shadow-md: 0 4px 20px rgba(0,0,0,0.08);
+            --shadow-lg: 0 10px 40px rgba(0,0,0,0.12);
+            --shadow-xl: 0 20px 60px rgba(0,0,0,0.16);
+            --radius-sm: 8px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --radius-xl: 32px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --font-primary: 'Cairo', sans-serif;
+        }
+        
+        [data-theme="dark"] {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-card: #1e293b;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --border-color: #334155;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+            --shadow-md: 0 4px 20px rgba(0,0,0,0.4);
+            --shadow-lg: 0 10px 40px rgba(0,0,0,0.5);
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+        body {
+            font-family: var(--font-primary);
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: var(--transition);
+            overflow-x: hidden;
+        }
+        a { text-decoration: none; color: inherit; }
+        button { cursor: pointer; border: none; background: none; font-family: inherit; }
+        img { max-width: 100%; display: block; }
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+        
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-secondary); }
+        ::-webkit-scrollbar-thumb { background: var(--text-muted); border-radius: 4px; }
+        
+        /* ===== NAVBAR ===== */
+        .navbar {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            padding: 16px 0;
+            background: rgba(255,255,255,0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+        [data-theme="dark"] .navbar { background: rgba(15,23,42,0.85); }
+        .navbar.scrolled { padding: 10px 0; box-shadow: var(--shadow-sm); }
+        .nav-container {
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 20px; max-width: 1280px; margin: 0 auto; padding: 0 24px;
+        }
+        .nav-logo {
+            display: flex; align-items: center; gap: 12px; flex-shrink: 0;
+        }
+        .nav-logo img {
+            width: 42px; height: 42px; border-radius: 12px; object-fit: cover;
+        }
+        .nav-logo span {
+            font-size: 20px; font-weight: 800;
+            background: linear-gradient(135deg, var(--grade-1), var(--grade-2), var(--grade-3));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .nav-search {
+            flex: 1; max-width: 520px; position: relative;
+        }
+        .nav-search input {
+            width: 100%; padding: 12px 20px 12px 48px;
+            border: 2px solid var(--border-color); border-radius: 60px;
+            background: var(--bg-secondary); color: var(--text-primary);
+            font-size: 15px; font-family: inherit; transition: var(--transition);
+            outline: none;
+        }
+        .nav-search input:focus {
+            border-color: var(--grade-2);
+            box-shadow: 0 0 0 4px rgba(37,99,235,0.15);
+        }
+        .nav-search .search-icon {
+            position: absolute; right: 18px; top: 50%;
+            transform: translateY(-50%); color: var(--text-muted);
+        }
+        .nav-actions {
+            display: flex; align-items: center; gap: 8px; flex-shrink: 0;
+        }
+        .nav-actions .btn-auth {
+            padding: 10px 20px; border-radius: 60px; font-weight: 600; font-size: 14px;
+            transition: var(--transition);
+        }
+        .nav-actions .btn-login {
+            background: var(--bg-secondary); color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+        .nav-actions .btn-login:hover { background: var(--border-color); }
+        .nav-actions .btn-register {
+            background: linear-gradient(135deg, var(--grade-2), var(--grade-2-dark));
+            color: white;
+        }
+        .nav-actions .btn-register:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37,99,235,0.3);
+        }
+        .nav-actions .btn-icon {
+            width: 42px; height: 42px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            background: var(--bg-secondary); color: var(--text-secondary);
+            transition: var(--transition); border: 1px solid var(--border-color);
+            font-size: 18px; position: relative;
+        }
+        .nav-actions .btn-icon:hover { background: var(--border-color); transform: scale(1.05); }
+        .nav-actions .user-avatar {
+            width: 42px; height: 42px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--grade-1), var(--grade-2));
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-weight: 700; font-size: 16px;
+            cursor: pointer; transition: var(--transition);
+            border: 2px solid transparent;
+        }
+        .nav-actions .user-avatar:hover { transform: scale(1.05); border-color: var(--gold); }
+        .nav-actions .user-avatar img {
+            width: 100%; height: 100%; border-radius: 50%; object-fit: cover;
+        }
+        .notification-badge::after {
+            content: ''; position: absolute; top: 8px; right: 8px;
+            width: 8px; height: 8px; background: var(--grade-3);
+            border-radius: 50%; border: 2px solid var(--bg-primary);
+        }
+        .nav-actions .user-menu {
+            display: none; position: absolute; top: calc(100% + 8px); left: 0;
+            background: var(--bg-card); border: 1px solid var(--border-color);
+            border-radius: var(--radius-md); box-shadow: var(--shadow-lg);
+            min-width: 220px; padding: 8px; z-index: 100;
+        }
+        .nav-actions .user-menu.active { display: block; }
+        .user-menu-item {
+            padding: 10px 16px; display: flex; align-items: center; gap: 12px;
+            border-radius: var(--radius-sm); transition: var(--transition); cursor: pointer;
+        }
+        .user-menu-item:hover { background: var(--bg-secondary); }
+        .user-menu-item i { width: 20px; color: var(--text-muted); }
+        .user-menu-item.logout { color: var(--grade-3); border-top: 1px solid var(--border-color); margin-top: 4px; padding-top: 8px; }
+        
+        /* ===== HERO ===== */
+        .hero {
+            padding: 140px 0 80px;
+            background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+            position: relative; overflow: hidden;
+            min-height: 90vh; display: flex; align-items: center;
+        }
+        .hero::before {
+            content: ''; position: absolute; top: -50%; right: -20%;
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(34,197,94,0.08) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .hero::after {
+            content: ''; position: absolute; bottom: -30%; left: -10%;
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(37,99,235,0.06) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .hero-container {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
+            align-items: center; position: relative; z-index: 1;
+        }
+        .hero-content h1 {
+            font-size: 54px; font-weight: 900; line-height: 1.15; margin-bottom: 16px;
+        }
+        .hero-content h1 .highlight {
+            background: linear-gradient(135deg, var(--grade-1), var(--grade-2), var(--purple));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-content p {
+            font-size: 20px; color: var(--text-secondary);
+            max-width: 480px; margin-bottom: 32px; line-height: 1.7;
+        }
+        .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
+        .btn-primary {
+            padding: 16px 40px; border-radius: 60px;
+            background: linear-gradient(135deg, var(--grade-2), var(--grade-2-dark));
+            color: white; font-weight: 700; font-size: 17px;
+            transition: var(--transition);
+            box-shadow: 0 8px 30px rgba(37,99,235,0.35);
+            display: inline-flex; align-items: center; gap: 10px;
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(37,99,235,0.45);
+        }
+        .btn-secondary {
+            padding: 16px 36px; border-radius: 60px;
+            background: var(--bg-primary); color: var(--text-primary);
+            font-weight: 700; font-size: 17px;
+            border: 2px solid var(--border-color);
+            transition: var(--transition);
+            display: inline-flex; align-items: center; gap: 10px;
+        }
+        .btn-secondary:hover {
+            border-color: var(--text-primary); transform: translateY(-3px);
+        }
+        .hero-stats {
+            display: flex; gap: 40px; margin-top: 48px;
+        }
+        .hero-stats .stat-item { text-align: center; }
+        .hero-stats .stat-number {
+            font-size: 32px; font-weight: 800; color: var(--text-primary);
+        }
+        .hero-stats .stat-label { font-size: 14px; color: var(--text-muted); }
+        .hero-image {
+            position: relative; display: flex; justify-content: center; align-items: center;
+        }
+        .hero-image img {
+            width: 100%; max-width: 560px; border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-xl); object-fit: cover; aspect-ratio: 1/1;
+        }
+        .hero-image .floating-badge {
+            position: absolute; bottom: -20px; left: -20px;
+            background: var(--bg-card); padding: 16px 24px;
+            border-radius: var(--radius-md); box-shadow: var(--shadow-lg);
+            display: flex; align-items: center; gap: 12px;
+            border: 1px solid var(--border-color);
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .hero-image .floating-badge i { font-size: 28px; color: var(--gold); }
+        .hero-image .floating-badge div strong { display: block; font-size: 18px; color: var(--text-primary); }
+        
+        /* ===== SECTIONS ===== */
+        .section { padding: 80px 0; }
+        .section-header {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 40px;
+        }
+        .section-header h2 {
+            font-size: 32px; font-weight: 800;
+            display: flex; align-items: center; gap: 12px;
+        }
+        .section-header .see-all {
+            color: var(--grade-2); font-weight: 600;
+            display: flex; align-items: center; gap: 8px;
+            transition: var(--transition);
+        }
+        .section-header .see-all:hover { gap: 14px; color: var(--grade-2-dark); }
+        
+        /* ===== GRADES ===== */
+        .grades-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px;
+        }
+        .grade-card {
+            background: var(--bg-card); border-radius: var(--radius-lg);
+            overflow: hidden; box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+        }
+        .grade-card:hover {
+            transform: translateY(-8px); box-shadow: var(--shadow-lg);
+        }
+        .grade-card .card-image {
+            height: 200px; overflow: hidden; position: relative;
+        }
+        .grade-card .card-image img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: var(--transition);
+        }
+        .grade-card:hover .card-image img { transform: scale(1.05); }
+        .grade-card .card-image .grade-badge {
+            position: absolute; top: 16px; right: 16px;
+            padding: 6px 16px; border-radius: 60px; color: white;
+            font-weight: 700; font-size: 13px;
+            backdrop-filter: blur(8px); background: rgba(0,0,0,0.3);
+        }
+        .grade-card .card-body { padding: 24px; }
+        .grade-card .card-body h3 { font-size: 22px; font-weight: 800; margin-bottom: 8px; }
+        .grade-card .card-body .card-stats {
+            display: flex; gap: 16px; font-size: 14px;
+            color: var(--text-secondary); margin-bottom: 16px; flex-wrap: wrap;
+        }
+        .grade-card .card-body .card-stats span {
+            display: flex; align-items: center; gap: 6px;
+        }
+        .grade-card .card-body .btn-grade {
+            padding: 10px 28px; border-radius: 60px; color: white;
+            font-weight: 700; transition: var(--transition);
+            display: inline-flex; align-items: center; gap: 8px;
+        }
+        .grade-card .card-body .btn-grade:hover { transform: translateX(-4px); }
+        .grade-1 .grade-badge { background: var(--grade-1); }
+        .grade-1 .btn-grade { background: var(--grade-1); }
+        .grade-1 .btn-grade:hover { background: var(--grade-1-dark); }
+        .grade-1 .card-image { border-bottom: 4px solid var(--grade-1); }
+        .grade-2 .grade-badge { background: var(--grade-2); }
+        .grade-2 .btn-grade { background: var(--grade-2); }
+        .grade-2 .btn-grade:hover { background: var(--grade-2-dark); }
+        .grade-2 .card-image { border-bottom: 4px solid var(--grade-2); }
+        .grade-3 .grade-badge { background: var(--grade-3); }
+        .grade-3 .btn-grade { background: var(--grade-3); }
+        .grade-3 .btn-grade:hover { background: var(--grade-3-dark); }
+        .grade-3 .card-image { border-bottom: 4px solid var(--grade-3); }
+        
+        /* ===== BOOKS GRID ===== */
+        .books-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 24px;
+        }
+        .book-card {
+            background: var(--bg-card); border-radius: var(--radius-md);
+            overflow: hidden; box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            transition: var(--transition); cursor: pointer;
+        }
+        .book-card:hover {
+            transform: translateY(-6px); box-shadow: var(--shadow-md);
+        }
+        .book-card .book-cover {
+            height: 160px;
+            background: linear-gradient(135deg, var(--bg-secondary), var(--border-color));
+            display: flex; align-items: center; justify-content: center;
+            font-size: 48px; position: relative; overflow: hidden;
+        }
+        .book-card .book-cover img {
+            width: 100%; height: 100%; object-fit: cover;
+        }
+        .book-card .book-cover .book-badge {
+            position: absolute; top: 10px; left: 10px;
+            background: var(--gold); color: white;
+            padding: 4px 12px; border-radius: 60px;
+            font-size: 11px; font-weight: 700;
+            display: flex; align-items: center; gap: 4px;
+        }
+        .book-card .book-cover .book-actions-overlay {
+            position: absolute; bottom: 0; left: 0; right: 0;
+            padding: 16px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.6));
+            display: flex; gap: 8px; justify-content: center;
+            opacity: 0; transform: translateY(20px);
+            transition: var(--transition);
+        }
+        .book-card:hover .book-actions-overlay {
+            opacity: 1; transform: translateY(0);
+        }
+        .book-card .book-actions-overlay button {
+            padding: 6px 14px; border-radius: 60px; color: white;
+            font-size: 12px; font-weight: 600;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(8px);
+            transition: var(--transition);
+            display: flex; align-items: center; gap: 6px;
+        }
+        .book-card .book-actions-overlay button:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        .book-card .book-info { padding: 16px; }
+        .book-card .book-info h4 {
+            font-size: 16px; font-weight: 700; margin-bottom: 4px;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+        .book-card .book-info .book-meta {
+            font-size: 13px; color: var(--text-secondary);
+            display: flex; justify-content: space-between; align-items: center;
+            flex-wrap: wrap; gap: 4px;
+        }
+        .book-card .book-info .book-meta .book-subject {
+            background: var(--bg-secondary); padding: 2px 10px;
+            border-radius: 60px; font-size: 11px; color: var(--text-muted);
+        }
+        .book-card .book-info .book-rating { color: var(--gold-dark); font-size: 13px; }
+        .book-card .book-info .book-downloads {
+            font-size: 12px; color: var(--text-muted);
+            display: flex; align-items: center; gap: 4px;
+        }
+        
+        /* ===== EMPTY STATE ===== */
+        .empty-state {
+            text-align: center; padding: 60px 20px;
+            background: var(--bg-card); border-radius: var(--radius-lg);
+            border: 2px dashed var(--border-color);
+            grid-column: 1 / -1;
+        }
+        .empty-state .empty-icon { font-size: 64px; margin-bottom: 16px; }
+        .empty-state h3 { font-size: 22px; font-weight: 800; margin-bottom: 8px; }
+        .empty-state p { color: var(--text-secondary); font-size: 16px; }
+        
+        /* ===== COMMUNITY ===== */
+        .community-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 28px;
+        }
+        .community-card {
+            background: var(--bg-card); border-radius: var(--radius-md);
+            padding: 24px; border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+        }
+        .community-card h4 {
+            font-size: 18px; font-weight: 700; margin-bottom: 16px;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .community-item {
+            display: flex; align-items: center; gap: 12px;
+            padding: 10px 0; border-bottom: 1px solid var(--border-color);
+        }
+        .community-item:last-child { border-bottom: none; }
+        .community-item .avatar {
+            width: 36px; height: 36px; border-radius: 50%;
+            background: var(--bg-secondary);
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 700; flex-shrink: 0;
+        }
+        .community-item .content { flex: 1; }
+        .community-item .content .name { font-weight: 600; font-size: 14px; }
+        .community-item .content .detail { font-size: 13px; color: var(--text-secondary); }
+        .community-item .badge {
+            padding: 2px 12px; border-radius: 60px;
+            background: var(--gold); color: var(--text-primary);
+            font-size: 12px; font-weight: 700;
+        }
+        
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--bg-primary); border-top: 1px solid var(--border-color);
+            padding: 60px 0 30px;
+        }
+        .footer-grid {
+            display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px; margin-bottom: 40px;
+        }
+        .footer-brand p {
+            color: var(--text-secondary); font-size: 15px;
+            max-width: 300px; margin-top: 12px;
+        }
+        .footer-brand .logo {
+            display: flex; align-items: center; gap: 12px;
+        }
+        .footer-brand .logo img {
+            width: 40px; height: 40px; border-radius: 10px; object-fit: cover;
+        }
+        .footer-brand .logo span {
+            font-size: 20px; font-weight: 800;
+            background: linear-gradient(135deg, var(--grade-1), var(--grade-2), var(--grade-3));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .footer h4 { font-size: 16px; font-weight: 700; margin-bottom: 16px; }
+        .footer ul { list-style: none; }
+        .footer ul li { margin-bottom: 10px; }
+        .footer ul li a {
+            color: var(--text-secondary); transition: var(--transition); font-size: 15px;
+        }
+        .footer ul li a:hover {
+            color: var(--text-primary); padding-right: 4px;
+        }
+        .footer-social {
+            display: flex; gap: 12px; margin-top: 16px; flex-wrap: wrap;
+        }
+        .footer-social a {
+            width: 40px; height: 40px; border-radius: 50%;
+            background: var(--bg-secondary); display: flex;
+            align-items: center; justify-content: center;
+            color: var(--text-secondary); transition: var(--transition);
+            border: 1px solid var(--border-color);
+        }
+        .footer-social a:hover {
+            background: var(--grade-1); color: white;
+            border-color: var(--grade-1); transform: translateY(-3px);
+        }
+        .footer-bottom {
+            border-top: 1px solid var(--border-color); padding-top: 24px;
+            display: flex; justify-content: space-between; align-items: center;
+            font-size: 14px; color: var(--text-muted);
+        }
+        .footer-bottom .links { display: flex; gap: 24px; }
+        .footer-bottom .links a {
+            color: var(--text-muted); transition: var(--transition);
+        }
+        .footer-bottom .links a:hover { color: var(--text-primary); }
+        
+        /* ===== POPUP ===== */
+        .popup-overlay {
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(16px);
+            z-index: 9999; display: none;
+            align-items: center; justify-content: center; padding: 20px;
+        }
+        .popup-overlay.active { display: flex; }
+        .popup {
+            background: var(--bg-card); border-radius: var(--radius-lg);
+            padding: 48px; max-width: 420px; width: 100%;
+            text-align: center; box-shadow: var(--shadow-xl);
+            transform: scale(0.9); animation: popIn 0.5s ease forwards;
+            border: 1px solid var(--border-color);
+        }
+        @keyframes popIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .popup .popup-icon { font-size: 56px; margin-bottom: 12px; }
+        .popup h2 { font-size: 24px; font-weight: 800; margin-bottom: 8px; }
+        .popup p {
+            color: var(--text-secondary); margin-bottom: 24px; line-height: 1.7;
+        }
+        .popup .popup-actions { display: flex; flex-direction: column; gap: 12px; }
+        .popup .popup-actions .btn-login {
+            padding: 14px; border-radius: 60px;
+            background: var(--bg-secondary); color: var(--text-primary);
+            font-weight: 700; border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+        .popup .popup-actions .btn-login:hover { background: var(--border-color); }
+        .popup .popup-actions .btn-register {
+            padding: 14px; border-radius: 60px;
+            background: linear-gradient(135deg, var(--grade-2), var(--grade-2-dark));
+            color: white; font-weight: 700; transition: var(--transition);
+        }
+        .popup .popup-actions .btn-register:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 20px rgba(37,99,235,0.3);
+        }
+        .popup .popup-actions .btn-later {
+            padding: 10px; border-radius: 60px;
+            background: transparent; color: var(--text-muted);
+            font-weight: 400; font-size: 14px; transition: var(--transition);
+        }
+        .popup .popup-actions .btn-later:hover { color: var(--text-secondary); }
+        
+        /* ===== BOOK DETAILS MODAL ===== */
+        .book-modal-overlay {
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(20px);
+            z-index: 10000; display: none;
+            align-items: center; justify-content: center;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        .book-modal-overlay.active { display: flex; }
+        .book-modal {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            max-width: 900px; width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 40px;
+            box-shadow: var(--shadow-xl);
+            border: 1px solid var(--border-color);
+            animation: popIn 0.4s ease forwards;
+        }
+        .book-modal-close {
+            position: sticky; top: 0; float: left;
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            font-size: 20px;
+            display: flex; align-items: center; justify-content: center;
+            transition: var(--transition);
+            z-index: 10;
+        }
+        .book-modal-close:hover { background: var(--border-color); }
+        .book-modal-content {
+            margin-top: -20px;
+        }
+        .book-modal .book-header {
+            display: grid; grid-template-columns: 200px 1fr;
+            gap: 30px; margin-bottom: 30px;
+        }
+        .book-modal .book-cover-large {
+            width: 100%; aspect-ratio: 3/4;
+            border-radius: var(--radius-md);
+            background: var(--bg-secondary);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 80px;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+        .book-modal .book-cover-large img {
+            width: 100%; height: 100%; object-fit: cover;
+        }
+        .book-modal .book-info-large h2 {
+            font-size: 28px; font-weight: 800; margin-bottom: 8px;
+        }
+        .book-modal .book-info-large .book-meta-large {
+            display: flex; flex-wrap: wrap; gap: 12px;
+            color: var(--text-secondary); font-size: 14px;
+            margin-bottom: 12px;
+        }
+        .book-modal .book-info-large .book-meta-large span {
+            background: var(--bg-secondary); padding: 4px 14px;
+            border-radius: 60px;
+        }
+        .book-modal .book-info-large .book-description {
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            line-height: 1.8;
+        }
+        .book-modal .book-stats-large {
+            display: flex; gap: 24px; flex-wrap: wrap;
+            margin-bottom: 20px;
+            padding: 16px;
+            background: var(--bg-secondary);
+            border-radius: var(--radius-md);
+        }
+        .book-modal .book-stats-large .stat {
+            text-align: center;
+        }
+        .book-modal .book-stats-large .stat .num {
+            font-size: 20px; font-weight: 800;
+        }
+        .book-modal .book-stats-large .stat .label {
+            font-size: 12px; color: var(--text-muted);
+        }
+        .book-modal .book-actions-large {
+            display: flex; flex-wrap: wrap; gap: 10px;
+            margin-bottom: 24px;
+        }
+        .book-modal .book-actions-large button {
+            padding: 10px 24px; border-radius: 60px;
+            font-weight: 600; font-size: 14px;
+            transition: var(--transition);
+            display: inline-flex; align-items: center; gap: 8px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+        }
+        .book-modal .book-actions-large button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        .book-modal .book-actions-large .btn-download {
+            background: linear-gradient(135deg, var(--grade-2), var(--grade-2-dark));
+            color: white; border: none;
+        }
+        .book-modal .book-actions-large .btn-download:hover {
+            box-shadow: 0 8px 25px rgba(37,99,235,0.3);
+        }
+        .book-modal .book-actions-large .btn-favorite.active {
+            color: var(--grade-3);
+        }
+        .book-modal .book-actions-large .btn-share {
+            background: var(--purple);
+            color: white; border: none;
+        }
+        
+        /* ===== COMMENTS ===== */
+        .comments-section {
+            margin-top: 30px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 24px;
+        }
+        .comments-section h3 {
+            font-size: 20px; font-weight: 700; margin-bottom: 16px;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .comment-form {
+            display: flex; flex-direction: column; gap: 12px;
+            margin-bottom: 20px;
+        }
+        .comment-form textarea {
+            padding: 12px 16px;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-md);
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 15px;
+            resize: vertical;
+            min-height: 80px;
+            transition: var(--transition);
+            outline: none;
+        }
+        .comment-form textarea:focus {
+            border-color: var(--grade-2);
+            box-shadow: 0 0 0 4px rgba(37,99,235,0.1);
+        }
+        .comment-form .comment-rating {
+            display: flex; gap: 8px; align-items: center;
+        }
+        .comment-form .comment-rating .star {
+            font-size: 28px; cursor: pointer;
+            color: var(--text-muted);
+            transition: var(--transition);
+        }
+        .comment-form .comment-rating .star.active {
+            color: var(--gold-dark);
+        }
+        .comment-form .comment-rating .star:hover {
+            transform: scale(1.2);
+        }
+        .comment-form button {
+            padding: 12px 28px;
+            border-radius: 60px;
+            background: linear-gradient(135deg, var(--grade-2), var(--grade-2-dark));
+            color: white;
+            font-weight: 700;
+            transition: var(--transition);
+            align-self: flex-start;
+        }
+        .comment-form button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(37,99,235,0.3);
+        }
+        .comment-item {
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .comment-item:last-child { border-bottom: none; }
+        .comment-item .comment-header {
+            display: flex; align-items: center; gap: 12px;
+            margin-bottom: 6px;
+        }
+        .comment-item .comment-header .avatar {
+            width: 36px; height: 36px; border-radius: 50%;
+            background: var(--bg-secondary);
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 700;
+        }
+        .comment-item .comment-header .name {
+            font-weight: 600;
+        }
+        .comment-item .comment-header .date {
+            font-size: 12px; color: var(--text-muted);
+        }
+        .comment-item .comment-text {
+            color: var(--text-secondary);
+            margin-right: 48px;
+        }
+        .comment-item .comment-rating-display {
+            color: var(--gold-dark);
+            margin-right: 48px;
+            font-size: 14px;
+        }
+        .comment-item .comment-badge {
+            background: var(--gold);
+            padding: 2px 10px;
+            border-radius: 60px;
+            font-size: 11px;
+            font-weight: 700;
+            margin-right: 8px;
+        }
+        
+        /* ===== UPLOAD SUMMARY MODAL ===== */
+        .upload-modal-overlay {
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(20px);
+            z-index: 10001; display: none;
+            align-items: center; justify-content: center;
+            padding: 20px;
+        }
+        .upload-modal-overlay.active { display: flex; }
+        .upload-modal {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            max-width: 500px; width: 100%;
+            padding: 40px;
+            box-shadow: var(--shadow-xl);
+            border: 1px solid var(--border-color);
+            animation: popIn 0.4s ease forwards;
+        }
+        .upload-modal h2 {
+            font-size: 24px; font-weight: 800; margin-bottom: 8px;
+            text-align: center;
+        }
+        .upload-modal p {
+            color: var(--text-secondary); text-align: center;
+            margin-bottom: 24px;
+        }
+        .upload-modal .form-group {
+            margin-bottom: 16px;
+        }
+        .upload-modal .form-group label {
+            display: block; font-weight: 600; margin-bottom: 6px;
+            font-size: 14px;
+        }
+        .upload-modal .form-group input,
+        .upload-modal .form-group select {
+            width: 100%; padding: 12px 16px;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-md);
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 15px;
+            transition: var(--transition);
+            outline: none;
+        }
+        .upload-modal .form-group input:focus,
+        .upload-modal .form-group select:focus {
+            border-color: var(--grade-2);
+            box-shadow: 0 0 0 4px rgba(37,99,235,0.1);
+        }
+        .upload-modal .form-group input[type="file"] {
+            padding: 10px;
+            border: 2px dashed var(--border-color);
+            background: var(--bg-secondary);
+            cursor: pointer;
+        }
+        .upload-modal .upload-actions {
+            display: flex; gap: 12px; margin-top: 20px;
+        }
+        .upload-modal .upload-actions button {
+            flex: 1; padding: 12px;
+            border-radius: 60px;
+            font-weight: 700;
+            transition: var(--transition);
+        }
+        .upload-modal .upload-actions .btn-submit {
+            background: linear-gradient(135deg, var(--grade-1), var(--grade-1-dark));
+            color: white;
+        }
+        .upload-modal .upload-actions .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(34,197,94,0.3);
+        }
+        .upload-modal .upload-actions .btn-cancel {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+        .upload-modal .upload-actions .btn-cancel:hover {
+            background: var(--border-color);
+        }
+        
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-up {
+            animation: fadeUp 0.8s ease forwards; opacity: 0;
+        }
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .hero-container { grid-template-columns: 1fr; text-align: center; }
+            .hero-content p { margin: 0 auto 32px; }
+            .hero-buttons { justify-content: center; }
+            .hero-stats { justify-content: center; }
+            .grades-grid { grid-template-columns: 1fr 1fr; }
+            .community-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+            .book-modal .book-header {
+                grid-template-columns: 1fr;
+            }
+            .book-modal .book-cover-large {
+                max-width: 200px; margin: 0 auto;
+            }
+        }
+        @media (max-width: 768px) {
+            .nav-search { display: none; }
+            .hero { padding: 120px 0 60px; min-height: auto; }
+            .hero-content h1 { font-size: 36px; }
+            .hero-content p { font-size: 17px; }
+            .hero-stats { gap: 20px; flex-wrap: wrap; }
+            .hero-stats .stat-number { font-size: 24px; }
+            .grades-grid { grid-template-columns: 1fr; }
+            .books-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+            .section-header h2 { font-size: 24px; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+            .book-modal { padding: 24px; }
+            .book-modal .book-stats-large { flex-wrap: wrap; gap: 12px; }
+            .book-modal .book-actions-large button { flex: 1; min-width: 120px; }
+            .nav-actions .btn-auth { padding: 8px 16px; font-size: 13px; }
+            .nav-actions .btn-register span { display: none; }
+            .nav-logo span { font-size: 16px; }
+            .nav-logo img { width: 34px; height: 34px; }
+        }
+        @media (max-width: 480px) {
+            .books-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+            .book-card .book-cover { height: 120px; font-size: 32px; }
+            .book-card .book-info h4 { font-size: 14px; }
+            .container { padding: 0 16px; }
+            .popup { padding: 32px 24px; }
+            .upload-modal { padding: 24px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="https://cdn.phototourl.com/free/2026-07-21-1dd4b984-ed08-4a40-aead-9ef086ebbd45.jpg" alt="الثانوية الرسمية بلس">
+                <span>الثانوية الرسمية بلس</span>
+            </div>
+            <div class="nav-search">
+                <input type="text" id="searchInput" placeholder="ابحث عن كتاب، مذكرة، امتحان..." autocomplete="off">
+                <span class="search-icon"><i class="fas fa-search"></i></span>
+            </div>
+            <div class="nav-actions">
+                <button class="btn-icon theme-toggle" id="themeToggle"><i class="fas fa-moon theme-icon"></i></button>
+                <button class="btn-icon notification-badge" id="notifBtn"><i class="fas fa-bell"></i></button>
+                <div id="authButtons">
+                    <button class="btn-auth btn-login" id="loginBtn"><i class="fas fa-sign-in-alt"></i> تسجيل الدخول</button>
+                    <button class="btn-auth btn-register" id="registerBtn"><i class="fas fa-user-plus"></i> <span>إنشاء حساب</span></button>
+                </div>
+                <div id="userActions" style="display: none; position: relative;">
+                    <div class="user-avatar" id="userAvatar"><i class="fas fa-user"></i></div>
+                    <div class="user-menu" id="userMenu">
+                        <div class="user-menu-item" data-page="profile"><i class="fas fa-user"></i> الملف الشخصي</div>
+                        <div class="user-menu-item" data-page="favorites"><i class="fas fa-bookmark"></i> المفضلة</div>
+                        <div class="user-menu-item" data-page="upload"><i class="fas fa-upload"></i> أرسل ملخصك</div>
+                        <div class="user-menu-item" data-page="achievements"><i class="fas fa-trophy"></i> إنجازاتي</div>
+                        <div class="user-menu-item" data-page="history"><i class="fas fa-history"></i> سجل النشاط</div>
+                        <div class="user-menu-item logout" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> تسجيل الخروج</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero">
+        <div class="container hero-container">
+            <div class="hero-content animate-fade-up">
+                <h1>
+                    أكبر مكتبة<br>
+                    <span class="highlight">تعليمية عربية</span><br>
+                    مجانية
+                </h1>
+                <p>
+                    منصة الثانوية الرسمية بلس تجمع لك آلاف الكتب والملخصات والامتحانات
+                    لجميع صفوف الثانوية العامة في مكان واحد.
+                </p>
+                <div class="hero-buttons">
+                    <button class="btn-primary" id="heroStartBtn"><i class="fas fa-rocket"></i> ابدأ الآن</button>
+                    <button class="btn-secondary" id="heroBrowseBtn"><i class="fas fa-book"></i> استكشف المكتبة</button>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item"><div class="stat-number" id="statBooks">0</div><div class="stat-label">كتاب</div></div>
+                    <div class="stat-item"><div class="stat-number" id="statSummaries">0</div><div class="stat-label">ملخص</div></div>
+                    <div class="stat-item"><div class="stat-number" id="statExams">0</div><div class="stat-label">امتحان</div></div>
+                    <div class="stat-item"><div class="stat-number" id="statUsers">0</div><div class="stat-label">طالب</div></div>
+                </div>
+            </div>
+            <div class="hero-image animate-fade-up delay-1">
+                <img src="https://cdn.phototourl.com/free/2026-07-21-1dd4b984-ed08-4a40-aead-9ef086ebbd45.jpg" alt="منصة الثانوية الرسمية بلس" loading="lazy">
+                <div class="floating-badge">
+                    <i class="fas fa-star"></i>
+                    <div><strong>4.8</strong><span>تقييم الطلاب</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== GRADES ===== -->
+    <section class="section" style="background: var(--bg-secondary);">
+        <div class="container">
+            <div class="section-header animate-fade-up">
+                <h2>🎯 اختر صفك الدراسي</h2>
+                <a href="#" class="see-all">جميع الصفوف <i class="fas fa-arrow-left"></i></a>
+            </div>
+            <div class="grades-grid">
+                <div class="grade-card grade-1 animate-fade-up delay-1">
+                    <div class="card-image">
+                        <img src="https://cdn.phototourl.com/free/2026-07-21-d4bc3784-1377-4026-959b-a7320235824b.png" alt="أولى بكالوريا" loading="lazy">
+                        <span class="grade-badge">🟢 أولى بكالوريا</span>
+                    </div>
+                    <div class="card-body">
+                        <h3>أولى بكالوريا</h3>
+                        <div class="card-stats">
+                            <span><i class="fas fa-book"></i> <span class="grade-book-count">0</span></span>
+                            <span><i class="fas fa-file-alt"></i> <span class="grade-summary-count">0</span></span>
+                            <span><i class="fas fa-pencil-alt"></i> <span class="grade-exam-count">0</span></span>
+                        </div>
+                        <button class="btn-grade" data-grade="1">دخول <i class="fas fa-arrow-left"></i></button>
+                    </div>
+                </div>
+                <div class="grade-card grade-2 animate-fade-up delay-2">
+                    <div class="card-image">
+                        <img src="https://cdn.phototourl.com/free/2026-07-21-84dbfb87-9f34-4c32-a7c9-676e6c0fda9b.png" alt="ثانية بكالوريا" loading="lazy">
+                        <span class="grade-badge">🔵 ثانية بكالوريا</span>
+                    </div>
+                    <div class="card-body">
+                        <h3>ثانية بكالوريا</h3>
+                        <div class="card-stats">
+                            <span><i class="fas fa-book"></i> <span class="grade-book-count">0</span></span>
+                            <span><i class="fas fa-file-alt"></i> <span class="grade-summary-count">0</span></span>
+                            <span><i class="fas fa-pencil-alt"></i> <span class="grade-exam-count">0</span></span>
+                        </div>
+                        <button class="btn-grade" data-grade="2">دخول <i class="fas fa-arrow-left"></i></button>
+                    </div>
+                </div>
+                <div class="grade-card grade-3 animate-fade-up delay-3">
+                    <div class="card-image">
+                        <img src="https://cdn.phototourl.com/free/2026-07-21-ca704138-9452-4697-bcf4-ec14ad8c52c1.png" alt="ثالثة ثانوي" loading="lazy">
+                        <span class="grade-badge">🔴 ثالثة ثانوي</span>
+                    </div>
+                    <div class="card-body">
+                        <h3>ثالثة ثانوي</h3>
+                        <div class="card-stats">
+                            <span><i class="fas fa-book"></i> <span class="grade-book-count">0</span></span>
+                            <span><i class="fas fa-file-alt"></i> <span class="grade-summary-count">0</span></span>
+                            <span><i class="fas fa-pencil-alt"></i> <span class="grade-exam-count">0</span></span>
+                        </div>
+                        <button class="btn-grade" data-grade="3">دخول <i class="fas fa-arrow-left"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== LATEST BOOKS ===== -->
+    <section class="section" id="booksSection">
+        <div class="container">
+            <div class="section-header animate-fade-up">
+                <h2>📚 أحدث الكتب</h2>
+                <a href="#" class="see-all">عرض الكل <i class="fas fa-arrow-left"></i></a>
+            </div>
+            <div class="books-grid" id="latestBooks">
+                <div class="book-card" style="text-align: center; padding: 40px; color: var(--text-muted);">
+                    <i class="fas fa-spinner fa-spin" style="font-size: 32px;"></i>
+                    <p style="margin-top: 12px;">جاري تحميل الكتب...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== MOST DOWNLOADED ===== -->
+    <section class="section" style="background: var(--bg-secondary);">
+        <div class="container">
+            <div class="section-header animate-fade-up">
+                <h2>🔥 الأكثر تحميلاً</h2>
+                <a href="#" class="see-all">عرض الكل <i class="fas fa-arrow-left"></i></a>
+            </div>
+            <div class="books-grid" id="popularBooks">
+                <div class="book-card" style="text-align: center; padding: 40px; color: var(--text-muted);">
+                    <i class="fas fa-spinner fa-spin" style="font-size: 32px;"></i>
+                    <p style="margin-top: 12px;">جاري تحميل الكتب...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== TOP RATED ===== -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header animate-fade-up">
+                <h2>⭐ أعلى تقييماً</h2>
+                <a href="#" class="see-all">عرض الكل <i class="fas fa-arrow-left"></i></a>
+            </div>
+            <div class="books-grid" id="topRatedBooks">
+                <div class="book-card" style="text-align: center; padding: 40px; color: var(--text-muted);">
+                    <i class="fas fa-spinner fa-spin" style="font-size: 32px;"></i>
+                    <p style="margin-top: 12px;">جاري تحميل الكتب...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== LATEST SUMMARIES ===== -->
+    <section class="section" style="background: var(--bg-secondary);">
+        <div class="container">
+            <div class="section-header animate-fade-up">
+                <h2>📝 أحدث الملخصات</h2>
+                <a href="#" class="see-all">عرض الكل <i class="fas fa-arrow-left"></i></a>
+            </div>
+            <div class="books-grid" id="latestSummaries">
+                <div class="book-card" style="text-align: center; padding: 40px; color: var(--text-muted);">
+                    <i class="fas fa-spinner fa-spin" style="font-size: 32px;"></i>
+                    <p style="margin-top: 12px;">جاري تحميل الملخصات...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== LATEST EXAMS ===== -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header animate-fade-up">
+                <h2>🧪 أحدث الامتحانات</h2>
+                <a href="#" class="see-all">عرض الكل <i class="fas fa-arrow-left"></i></a>
+            </div>
+            <div class="books-grid" id="latestExams">
+                <div class="book-card" style="text-align: center; padding: 40px; color: var(--text-muted);">
+                    <i class="fas fa-spinner fa-spin" style="font-size: 32px;"></i>
+                    <p style="margin-top: 12px;">جاري تحميل الامتحانات...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== COMMUNITY ===== -->
+    <section class="section" style="background: var(--bg-secondary);">
+        <div class="container">
+            <div class="section-header animate-fade-up">
+                <h2>🏆 المجتمع التفاعلي</h2>
+            </div>
+            <div class="community-grid">
+                <div class="community-card animate-fade-up delay-1">
+                    <h4><i class="fas fa-trophy" style="color: var(--gold-dark);"></i> أفضل المساهمين</h4>
+                    <div id="topContributors">
+                        <div style="text-align: center; padding: 20px; color: var(--text-muted);">
+                            <i class="fas fa-spinner fa-spin" style="font-size: 24px;"></i>
+                            <p style="margin-top: 8px;">جاري التحميل...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="community-card animate-fade-up delay-2">
+                    <h4><i class="fas fa-comment-dots" style="color: var(--grade-2);"></i> أحدث التعليقات</h4>
+                    <div id="recentComments">
+                        <div style="text-align: center; padding: 20px; color: var(--text-muted);">
+                            <i class="fas fa-spinner fa-spin" style="font-size: 24px;"></i>
+                            <p style="margin-top: 8px;">جاري التحميل...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="logo">
+                        <img src="https://cdn.phototourl.com/free/2026-07-21-1dd4b984-ed08-4a40-aead-9ef086ebbd45.jpg" alt="الثانوية الرسمية بلس">
+                        <span>الثانوية الرسمية بلس</span>
+                    </div>
+                    <p>أكبر مكتبة تعليمية عربية مجانية لطلاب أولى بكالوريا، ثانية بكالوريا، وثالثة ثانوي.</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-telegram-plane"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4>الصفوف</h4>
+                    <ul>
+                        <li><a href="#" data-grade="1">أولى بكالوريا</a></li>
+                        <li><a href="#" data-grade="2">ثانية بكالوريا</a></li>
+                        <li><a href="#" data-grade="3">ثالثة ثانوي</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>المكتبة</h4>
+                    <ul>
+                        <li><a href="#">الكتب</a></li>
+                        <li><a href="#">الملخصات</a></li>
+                        <li><a href="#">الامتحانات</a></li>
+                        <li><a href="#">بنك الأسئلة</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>الحساب</h4>
+                    <ul>
+                        <li><a href="#" id="footerLogin">تسجيل الدخول</a></li>
+                        <li><a href="#" id="footerRegister">إنشاء حساب</a></li>
+                        <li><a href="#">المفضلة</a></li>
+                        <li><a href="#">المساهمات</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>© 2026 الثانوية الرسمية بلس. جميع الحقوق محفوظة</span>
+                <div class="links">
+                    <a href="#">سياسة الخصوصية</a>
+                    <a href="#">شروط الاستخدام</a>
+                    <a href="#">اتصل بنا</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== POPUP ===== -->
+    <div class="popup-overlay" id="popupOverlay">
+        <div class="popup">
+            <div class="popup-icon">✨</div>
+            <h2>مرحباً بك في الثانوية الرسمية بلس</h2>
+            <p>للاستفادة من جميع الخدمات<br>يرجى إنشاء حساب مجاني.</p>
+            <div class="popup-actions">
+                <button class="btn-login" id="popupLogin">تسجيل الدخول</button>
+                <button class="btn-register" id="popupRegister">إنشاء حساب</button>
+                <button class="btn-later" id="popupLater">لاحقاً</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== BOOK DETAILS MODAL ===== -->
+    <div class="book-modal-overlay" id="bookModal">
+        <div class="book-modal">
+            <button class="book-modal-close" id="bookModalClose"><i class="fas fa-times"></i></button>
+            <div class="book-modal-content" id="bookModalContent">
+                <!-- يتم تعبئته بواسطة JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== UPLOAD SUMMARY MODAL ===== -->
+    <div class="upload-modal-overlay" id="uploadModal">
+        <div class="upload-modal">
+            <h2>📎 أرفق ملخصك</h2>
+            <p>شارك ملخصك مع زملائك الطلاب</p>
+            <form id="uploadForm">
+                <div class="form-group">
+                    <label for="uploadGrade">الصف</label>
+                    <select id="uploadGrade" required>
+                        <option value="">اختر الصف</option>
+                        <option value="1">أولى بكالوريا</option>
+                        <option value="2">ثانية بكالوريا</option>
+                        <option value="3">ثالثة ثانوي</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="uploadSubject">المادة</label>
+                    <input type="text" id="uploadSubject" placeholder="مثال: فيزياء" required>
+                </div>
+                <div class="form-group">
+                    <label for="uploadUnit">الوحدة</label>
+                    <input type="text" id="uploadUnit" placeholder="مثال: الوحدة الأولى">
+                </div>
+                <div class="form-group">
+                    <label for="uploadLesson">الدرس</label>
+                    <input type="text" id="uploadLesson" placeholder="مثال: درس الحركة" required>
+                </div>
+                <div class="form-group">
+                    <label for="uploadFile">رفع الملف (صورة أو PDF)</label>
+                    <input type="file" id="uploadFile" accept=".pdf,.jpg,.jpeg,.png,.webp" required>
+                </div>
+                <div class="upload-actions">
+                    <button type="button" class="btn-cancel" id="uploadCancel">إلغاء</button>
+                    <button type="submit" class="btn-submit" id="uploadSubmit">إرسال</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ===== JAVASCRIPT ===== -->
+    <script type="importmap">
+        {
+            "imports": {
+                "firebase/app": "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js",
+                "firebase/auth": "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js",
+                "firebase/firestore": "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js",
+                "firebase/storage": "https://www.gstatic.com/firebasejs/12.0.0/firebase-storage.js"
+            }
+        }
+    </script>
+
+    <script type="module">
+        // ============================================================
+        // Firebase Configuration
+        // ============================================================
+        import { initializeApp } from "firebase/app";
+        import { 
+            getAuth, 
+            onAuthStateChanged, 
+            signOut,
+            signInWithEmailAndPassword 
+        } from "firebase/auth";
+        import { 
+            getFirestore, 
+            collection, 
+            query, 
+            orderBy, 
+            limit, 
+            getDocs, 
+            where,
+            doc,
+            getDoc,
+            setDoc,
+            updateDoc,
+            addDoc,
+            serverTimestamp,
+            increment,
+            deleteDoc,
+            arrayUnion,
+            arrayRemove
+        } from "firebase/firestore";
+        import {
+            getStorage,
+            ref,
+            uploadBytes,
+            getDownloadURL
+        } from "firebase/storage";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAz9BfG1INB3shlCiMtK395SEo6sCkaZSI",
+            authDomain: "thanawya-official-plus.firebaseapp.com",
+            projectId: "thanawya-official-plus",
+            storageBucket: "thanawya-official-plus.firebasestorage.app",
+            messagingSenderId: "883728724353",
+            appId: "1:883728724353:web:3f611e29d556d03c61b880",
+            measurementId: "G-1KN0QEZKWX"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const storage = getStorage(app);
+
+        // ============================================================
+        // DOM Refs
+        // ============================================================
+        const $ = (sel) => document.querySelector(sel);
+        const $$ = (sel) => document.querySelectorAll(sel);
+
+        const navbar = $('#navbar');
+        const themeToggle = $('#themeToggle');
+        const searchInput = $('#searchInput');
+        const loginBtn = $('#loginBtn');
+        const registerBtn = $('#registerBtn');
+        const footerLogin = $('#footerLogin');
+        const footerRegister = $('#footerRegister');
+        const userActions = $('#userActions');
+        const userAvatar = $('#userAvatar');
+        const userMenu = $('#userMenu');
+        const popupOverlay = $('#popupOverlay');
+        const popupLogin = $('#popupLogin');
+        const popupRegister = $('#popupRegister');
+        const popupLater = $('#popupLater');
+        const heroStartBtn = $('#heroStartBtn');
+        const heroBrowseBtn = $('#heroBrowseBtn');
+        const logoutBtn = $('#logoutBtn');
+        const bookModal = $('#bookModal');
+        const bookModalClose = $('#bookModalClose');
+        const bookModalContent = $('#bookModalContent');
+        const uploadModal = $('#uploadModal');
+        const uploadForm = $('#uploadForm');
+        const uploadCancel = $('#uploadCancel');
+
+        let currentUser = null;
+        let currentBookId = null;
+
+        // ============================================================
+        // Theme
+        // ============================================================
+        function getTheme() { return localStorage.getItem('theme') || 'light'; }
+        function setTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            const icon = themeToggle?.querySelector('.theme-icon');
+            if (icon) icon.className = theme === 'dark' ? 'fas fa-sun theme-icon' : 'fas fa-moon theme-icon';
+        }
+        if (themeToggle) themeToggle.addEventListener('click', () => setTheme(getTheme() === 'dark' ? 'light' : 'dark'));
+        setTheme(getTheme());
+
+        // ============================================================
+        // Toast System
+        // ============================================================
+        function showToast(message, title = 'تنبيه', type = 'info') {
+            const toast = document.createElement('div');
+            toast.style.cssText = `
+                position: fixed; bottom: 24px; right: 24px; left: 24px; max-width: 400px;
+                margin: 0 auto; padding: 16px 20px; border-radius: 16px;
+                background: var(--bg-card); border: 1px solid var(--border-color);
+                box-shadow: var(--shadow-lg); z-index: 99999;
+                display: flex; align-items: center; gap: 12px;
+                animation: slideUp 0.4s ease forwards;
+                direction: rtl; font-family: 'Cairo', sans-serif;
+            `;
+            if (type === 'error') toast.style.borderRight = '4px solid var(--grade-3)';
+            else if (type === 'success') toast.style.borderRight = '4px solid var(--grade-1)';
+            toast.innerHTML = `
+                <span style="font-size: 20px;">${type === 'error' ? '❌' : type === 'success' ? '✅' : 'ℹ️'}</span>
+                <div style="flex: 1;">
+                    <strong style="display: block; font-size: 14px;">${title}</strong>
+                    <span style="font-size: 13px; color: var(--text-secondary);">${message}</span>
+                </div>
+                <button onclick="this.parentElement.remove()" style="background:none;border:none;color:var(--text-muted);font-size:18px;cursor:pointer;">✕</button>
+            `;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 5000);
+        }
+
+        // ============================================================
+        // Popup
+        // ============================================================
+        function showPopup() {
+            popupOverlay?.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function hidePopup() {
+            popupOverlay?.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // ============================================================
+        // Book Modal
+        // ============================================================
+        function openBookModal(bookId) {
+            if (!currentUser) { showPopup(); return; }
+            currentBookId = bookId;
+            bookModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            loadBookDetails(bookId);
+        }
+
+        function closeBookModal() {
+            bookModal.classList.remove('active');
+            document.body.style.overflow = '';
+            currentBookId = null;
+        }
+
+        bookModalClose?.addEventListener('click', closeBookModal);
+        bookModal?.addEventListener('click', (e) => {
+            if (e.target === bookModal) closeBookModal();
+        });
+
+        // ============================================================
+        // Upload Modal
+        // ============================================================
+        function openUploadModal() {
+            if (!currentUser) { showPopup(); return; }
+            uploadModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeUploadModal() {
+            uploadModal.classList.remove('active');
+            document.body.style.overflow = '';
+            uploadForm.reset();
+        }
+
+        uploadCancel?.addEventListener('click', closeUploadModal);
+        uploadModal?.addEventListener('click', (e) => {
+            if (e.target === uploadModal) closeUploadModal();
+        });
+
+        // ============================================================
+        // Load Book Details
+        // ============================================================
+        async function loadBookDetails(bookId) {
+            try {
+                const docRef = doc(db, 'books', bookId);
+                const docSnap = await getDoc(docRef);
+                if (!docSnap.exists()) {
+                    showToast('الكتاب غير موجود', 'خطأ', 'error');
+                    closeBookModal();
+                    return;
+                }
+                const book = { id: docSnap.id, ...docSnap.data() };
+                renderBookDetails(book);
+            } catch (error) {
+                console.error('Error loading book:', error);
+                showToast('حدث خطأ في تحميل الكتاب', 'خطأ', 'error');
+            }
+        }
+
+        // ============================================================
+        // Render Book Details
+        // ============================================================
+        function renderBookDetails(book) {
+            const gradeNames = ['', 'أولى بكالوريا', 'ثانية بكالوريا', 'ثالثة ثانوي'];
+            const gradeColors = ['', 'var(--grade-1)', 'var(--grade-2)', 'var(--grade-3)'];
+            
+            bookModalContent.innerHTML = `
+                <div class="book-header">
+                    <div class="book-cover-large">
+                        ${book.coverImage ? `<img src="${book.coverImage}" alt="${book.title}">` : (book.coverEmoji || '📖')}
+                    </div>
+                    <div class="book-info-large">
+                        <h2>${book.title || 'بدون عنوان'}</h2>
+                        <div class="book-meta-large">
+                            <span style="background: ${gradeColors[book.grade] || 'var(--bg-secondary)'}; color: white;">${gradeNames[book.grade] || 'غير محدد'}</span>
+                            <span>📚 ${book.subject || 'غير محدد'}</span>
+                            <span>📅 ${book.year || 'غير محدد'}</span>
+                            ${book.category ? `<span>📂 ${book.category}</span>` : ''}
+                        </div>
+                        ${book.description ? `<div class="book-description">${book.description}</div>` : ''}
+                        <div class="book-stats-large">
+                            <div class="stat"><div class="num">${book.downloads || 0}</div><div class="label">📥 تحميل</div></div>
+                            <div class="stat"><div class="num">${book.views || 0}</div><div class="label">👁️ مشاهدة</div></div>
+                            <div class="stat"><div class="num">${book.rating || 0}</div><div class="label">⭐ تقييم</div></div>
+                            <div class="stat"><div class="num">${book.commentsCount || 0}</div><div class="label">💬 تعليق</div></div>
+                            <div class="stat"><div class="num">${book.shares || 0}</div><div class="label">📤 مشاركة</div></div>
+                        </div>
+                        <div class="book-actions-large">
+                            <button class="btn-download" onclick="handleDownload('${book.id}')"><i class="fas fa-download"></i> تحميل</button>
+                            <button class="btn-preview" onclick="handlePreview('${book.id}')"><i class="fas fa-eye"></i> معاينة</button>
+                            <button class="btn-favorite" onclick="handleFavorite('${book.id}')"><i class="fas fa-heart"></i> مفضلة</button>
+                            <button class="btn-share" onclick="handleShare('${book.id}')"><i class="fas fa-share"></i> مشاركة</button>
+                            <button class="btn-copy" onclick="handleCopyLink('${book.id}')"><i class="fas fa-link"></i> نسخ الرابط</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="comments-section">
+                    <h3>💬 التعليقات</h3>
+                    <div id="commentsList">
+                        ${book.comments && book.comments.length > 0 ? book.comments.map(c => `
+                            <div class="comment-item">
+                                <div class="comment-header">
+                                    <div class="avatar">${c.userName ? c.userName.charAt(0) : '👤'}</div>
+                                    <span class="name">${c.userName || 'مستخدم'}</span>
+                                    <span class="date">${c.createdAt ? 'جديد' : ''}</span>
+                                    ${c.isFeatured ? '<span class="comment-badge">❤️ تعليق مميز</span>' : ''}
+                                </div>
+                                ${c.rating ? `<div class="comment-rating-display">${'⭐'.repeat(c.rating)}</div>` : ''}
+                                <div class="comment-text">${c.text || ''}</div>
+                            </div>
+                        `).join('') : '<div class="empty-state" style="padding:20px;border:none;"><p style="font-size:14px;">لا توجد تعليقات بعد</p></div>'}
+                    </div>
+                    <div class="comment-form">
+                        <div class="comment-rating">
+                            <span style="font-weight:600;margin-left:8px;">تقييمك:</span>
+                            ${[1,2,3,4,5].map(i => `<span class="star" data-rating="${i}" onclick="setRating(${i})">⭐</span>`).join('')}
+                        </div>
+                        <textarea id="commentText" placeholder="اكتب تعليقك هنا..." rows="3"></textarea>
+                        <input type="hidden" id="commentRating" value="0">
+                        <button onclick="submitComment('${book.id}')">نشر التعليق</button>
+                    </div>
+                </div>
+            `;
+
+            // إضافة مستمع لأزرار التقييم
+            document.querySelectorAll('.comment-form .star').forEach(star => {
+                star.addEventListener('click', function() {
+                    const rating = parseInt(this.dataset.rating);
+                    document.querySelectorAll('.comment-form .star').forEach(s => {
+                        s.classList.toggle('active', parseInt(s.dataset.rating) <= rating);
+                    });
+                    document.getElementById('commentRating').value = rating;
+                });
+            });
+        }
+
+        // ============================================================
+        // Book Actions
+        // ============================================================
+        window.handleDownload = async function(bookId) {
+            if (!currentUser) { showPopup(); return; }
+            try {
+                const ref = doc(db, 'books', bookId);
+                await updateDoc(ref, { downloads: increment(1) });
+                showToast('جاري تحميل الملف...', 'جاري التحميل', 'info');
+                loadBookDetails(bookId);
+            } catch (error) {
+                showToast('حدث خطأ', 'خطأ', 'error');
+            }
+        };
+
+        window.handlePreview = function(bookId) {
+            showToast('📖 معاينة الكتاب', 'معاينة', 'info');
+        };
+
+        window.handleFavorite = async function(bookId) {
+            if (!currentUser) { showPopup(); return; }
+            try {
+                const userRef = doc(db, 'users', currentUser.uid);
+                const userSnap = await getDoc(userRef);
+                const favorites = userSnap.data()?.favorites || [];
+                const isFav = favorites.includes(bookId);
+                await updateDoc(userRef, {
+                    favorites: isFav ? arrayRemove(bookId) : arrayUnion(bookId)
+                });
+                showToast(isFav ? 'تم الإزالة من المفضلة' : 'تم الإضافة إلى المفضلة', 'المفضلة', 'success');
+            } catch (error) {
+                showToast('حدث خطأ', 'خطأ', 'error');
+            }
+        };
+
+        window.handleShare = function(bookId) {
+            const url = `${window.location.origin}/book/${bookId}`;
+            if (navigator.share) {
+                navigator.share({ title: '📚 الثانوية الرسمية بلس', text: 'اكتشف هذا الكتاب', url: url });
+            } else {
+                navigator.clipboard.writeText(url).then(() => {
+                    showToast('تم نسخ رابط الكتاب', 'تم النسخ', 'success');
+                });
+            }
+        };
+
+        window.handleCopyLink = function(bookId) {
+            const url = `${window.location.origin}/book/${bookId}`;
+            navigator.clipboard.writeText(url).then(() => {
+                showToast('تم نسخ رابط الكتاب', 'تم النسخ', 'success');
+            }).catch(() => {
+                showToast(url, 'رابط الكتاب', 'info');
+            });
+        };
+
+        // ============================================================
+        // Submit Comment
+        // ============================================================
+        window.submitComment = async function(bookId) {
+            if (!currentUser) { showPopup(); return; }
+            const text = document.getElementById('commentText')?.value?.trim();
+            const rating = parseInt(document.getElementById('commentRating')?.value || 0);
+            
+            if (!text) {
+                showToast('يرجى كتابة تعليق', 'تنبيه', 'error');
+                return;
+            }
+
+            try {
+                await addDoc(collection(db, 'comments'), {
+                    bookId: bookId,
+                    userId: currentUser.uid,
+                    userName: currentUser.displayName || 'مستخدم',
+                    text: text,
+                    rating: rating,
+                    isApproved: false,
+                    isFeatured: false,
+                    likes: 0,
+                    createdAt: serverTimestamp()
+                });
+
+                // تحديث عدد التعليقات في الكتاب
+                const bookRef = doc(db, 'books', bookId);
+                await updateDoc(bookRef, {
+                    commentsCount: increment(1)
+                });
+
+                showToast('تم إرسال تعليقك للمراجعة', 'شكراً لك', 'success');
+                document.getElementById('commentText').value = '';
+                document.getElementById('commentRating').value = '0';
+                document.querySelectorAll('.comment-form .star').forEach(s => s.classList.remove('active'));
+                
+                // تحديث صفحة الكتاب
+                loadBookDetails(bookId);
+            } catch (error) {
+                showToast('حدث خطأ في إرسال التعليق', 'خطأ', 'error');
+            }
+        };
+
+        // ============================================================
+        // Submit Upload Summary
+        // ============================================================
+        uploadForm?.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (!currentUser) { showPopup(); return; }
+
+            const grade = document.getElementById('uploadGrade').value;
+            const subject = document.getElementById('uploadSubject').value.trim();
+            const unit = document.getElementById('uploadUnit').value.trim();
+            const lesson = document.getElementById('uploadLesson').value.trim();
+            const file = document.getElementById('uploadFile').files[0];
+
+            if (!grade || !subject || !lesson || !file) {
+                showToast('يرجى ملء جميع الحقول', 'تنبيه', 'error');
+                return;
+            }
+
+            try {
+                // رفع الملف
+                const storageRef = ref(storage, `summaries/${currentUser.uid}/${Date.now()}_${file.name}`);
+                await uploadBytes(storageRef, file);
+                const fileUrl = await getDownloadURL(storageRef);
+
+                // حفظ في Firestore
+                await addDoc(collection(db, 'summaries'), {
+                    userId: currentUser.uid,
+                    userName: currentUser.displayName || 'مستخدم',
+                    grade: parseInt(grade),
+                    subject: subject,
+                    unit: unit,
+                    lesson: lesson,
+                    fileUrl: fileUrl,
+                    fileName: file.name,
+                    isApproved: false,
+                    downloads: 0,
+                    views: 0,
+                    rating: 0,
+                    adminRating: 0,
+                    createdAt: serverTimestamp()
+                });
+
+                showToast('تم إرسال ملخصك للمراجعة', 'شكراً لك', 'success');
+                closeUploadModal();
+            } catch (error) {
+                console.error('Upload error:', error);
+                showToast('حدث خطأ في رفع الملف', 'خطأ', 'error');
+            }
+        });
+
+        // ============================================================
+        // Render Books
+        // ============================================================
+        function renderBooks(containerId, books, title = '') {
+            const container = $(containerId);
+            if (!container) return;
+
+            if (!books || books.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">📚</div>
+                        <h3>لم تتم إضافة ${title || 'كتب'} بعد</h3>
+                        <p>سيكون المحتوى متاحاً قريباً</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = books.map(book => `
+                <div class="book-card" data-book-id="${book.id}" onclick="openBookModal('${book.id}')">
+                    <div class="book-cover">
+                        ${book.coverEmoji || '📖'}
+                        ${book.rating >= 4.7 ? '<span class="book-badge"><i class="fas fa-star"></i> مميز</span>' : ''}
+                        ${book.isRecommended ? '<span class="book-badge" style="background:var(--grade-2);">✔ موصى به</span>' : ''}
+                        ${book.isFeatured ? '<span class="book-badge" style="background:var(--purple);">🔥 الأفضل</span>' : ''}
+                        <div class="book-actions-overlay">
+                            <button onclick="event.stopPropagation();openBookModal('${book.id}')"><i class="fas fa-eye"></i> معاينة</button>
+                            <button onclick="event.stopPropagation();handleDownload('${book.id}')"><i class="fas fa-download"></i> تحميل</button>
+                        </div>
+                    </div>
+                    <div class="book-info">
+                        <h4>${book.title || 'بدون عنوان'}</h4>
+                        <div class="book-meta">
+                            <span class="book-subject">${book.subject || 'غير محدد'}</span>
+                            <span class="book-rating">⭐ ${book.rating || 0}</span>
+                        </div>
+                        <div class="book-meta" style="margin-top: 4px;">
+                            <span style="font-size: 12px; color: var(--text-muted);">${book.year || ''}</span>
+                            <span class="book-downloads"><i class="fas fa-download"></i> ${book.downloads || 0}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // ============================================================
+        // Load Data
+        // ============================================================
+        async function loadStats() {
+            try {
+                const booksSnap = await getDocs(collection(db, 'books'));
+                const summariesSnap = await getDocs(collection(db, 'summaries'));
+                const examsSnap = await getDocs(collection(db, 'exams'));
+                const usersSnap = await getDocs(collection(db, 'users'));
+
+                const statBooks = $('#statBooks');
+                const statSummaries = $('#statSummaries');
+                const statExams = $('#statExams');
+                const statUsers = $('#statUsers');
+
+                if (statBooks) statBooks.textContent = booksSnap.size || 0;
+                if (statSummaries) statSummaries.textContent = summariesSnap.size || 0;
+                if (statExams) statExams.textContent = examsSnap.size || 0;
+                if (statUsers) statUsers.textContent = usersSnap.size || 0;
+            } catch (error) {
+                console.error('Error loading stats:', error);
+            }
+        }
+
+        async function loadBooks() {
+            try {
+                const latestQuery = query(collection(db, 'books'), orderBy('createdAt', 'desc'), limit(4));
+                const latestSnap = await getDocs(latestQuery);
+                const latestBooks = [];
+                latestSnap.forEach(doc => latestBooks.push({ id: doc.id, ...doc.data() }));
+                renderBooks('#latestBooks', latestBooks, 'كتب');
+
+                const popularQuery = query(collection(db, 'books'), orderBy('downloads', 'desc'), limit(4));
+                const popularSnap = await getDocs(popularQuery);
+                const popularBooks = [];
+                popularSnap.forEach(doc => popularBooks.push({ id: doc.id, ...doc.data() }));
+                renderBooks('#popularBooks', popularBooks, 'كتب');
+
+                const ratedQuery = query(collection(db, 'books'), orderBy('rating', 'desc'), limit(4));
+                const ratedSnap = await getDocs(ratedQuery);
+                const ratedBooks = [];
+                ratedSnap.forEach(doc => ratedBooks.push({ id: doc.id, ...doc.data() }));
+                renderBooks('#topRatedBooks', ratedBooks, 'كتب');
+            } catch (error) {
+                console.error('Error loading books:', error);
+            }
+        }
+
+        async function loadSummaries() {
+            try {
+                const q = query(collection(db, 'summaries'), where('isApproved', '==', true), orderBy('createdAt', 'desc'), limit(4));
+                const snap = await getDocs(q);
+                const summaries = [];
+                snap.forEach(doc => summaries.push({ id: doc.id, ...doc.data() }));
+                renderBooks('#latestSummaries', summaries, 'ملخصات');
+            } catch (error) {
+                console.error('Error loading summaries:', error);
+            }
+        }
+
+        async function loadExams() {
+            try {
+                const q = query(collection(db, 'exams'), orderBy('createdAt', 'desc'), limit(4));
+                const snap = await getDocs(q);
+                const exams = [];
+                snap.forEach(doc => exams.push({ id: doc.id, ...doc.data() }));
+                renderBooks('#latestExams', exams, 'امتحانات');
+            } catch (error) {
+                console.error('Error loading exams:', error);
+            }
+        }
+
+        async function loadContributors() {
+            const container = $('#topContributors');
+            if (!container) return;
+
+            try {
+                const q = query(collection(db, 'users'), orderBy('points', 'desc'), limit(5));
+                const snap = await getDocs(q);
+                const users = [];
+                snap.forEach(doc => users.push({ id: doc.id, ...doc.data() }));
+
+                if (users.length === 0) {
+                    container.innerHTML = `
+                        <div class="empty-state" style="padding: 20px; border: none;">
+                            <div class="empty-icon" style="font-size: 32px;">🏆</div>
+                            <p style="font-size: 14px;">سيظهر ترتيب الطلاب بعد بدء التفاعل</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                container.innerHTML = users.map((u, i) => `
+                    <div class="community-item">
+                        <div class="avatar">${u.name ? u.name.charAt(0) : '👤'}</div>
+                        <div class="content">
+                            <div class="name">${u.name || 'مستخدم'}</div>
+                            <div class="detail">${u.points || 0} نقطة</div>
+                        </div>
+                        <span class="badge">${i === 0 ? '🏆' : i === 1 ? '⭐' : i === 2 ? '🔥' : '💎'}</span>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Error loading contributors:', error);
+            }
+        }
+
+        async function loadComments() {
+            const container = $('#recentComments');
+            if (!container) return;
+
+            try {
+                const q = query(collection(db, 'comments'), where('isApproved', '==', true), orderBy('createdAt', 'desc'), limit(5));
+                const snap = await getDocs(q);
+                const comments = [];
+                snap.forEach(doc => comments.push({ id: doc.id, ...doc.data() }));
+
+                if (comments.length === 0) {
+                    container.innerHTML = `
+                        <div class="empty-state" style="padding: 20px; border: none;">
+                            <div class="empty-icon" style="font-size: 32px;">💬</div>
+                            <p style="font-size: 14px;">لا توجد تعليقات معتمدة بعد</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                container.innerHTML = comments.map(c => `
+                    <div class="community-item">
+                        <div class="avatar">${c.userName ? c.userName.charAt(0) : '👤'}</div>
+                        <div class="content">
+                            <div class="name">${c.userName || 'مستخدم'}</div>
+                            <div class="detail">${c.text ? c.text.substring(0, 50) + (c.text.length > 50 ? '...' : '') : ''}</div>
+                        </div>
+                        <span style="font-size:12px;color:var(--text-muted);">${c.createdAt ? 'جديد' : ''}</span>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Error loading comments:', error);
+            }
+        }
+
+        async function loadGradeStats() {
+            try {
+                for (let grade = 1; grade <= 3; grade++) {
+                    const booksSnap = await getDocs(query(collection(db, 'books'), where('grade', '==', grade)));
+                    const summariesSnap = await getDocs(query(collection(db, 'summaries'), where('grade', '==', grade)));
+                    const examsSnap = await getDocs(query(collection(db, 'exams'), where('grade', '==', grade)));
+
+                    const card = document.querySelector(`.grade-${grade}`);
+                    if (card) {
+                        const bookCount = card.querySelector('.grade-book-count');
+                        const summaryCount = card.querySelector('.grade-summary-count');
+                        const examCount = card.querySelector('.grade-exam-count');
+                        if (bookCount) bookCount.textContent = booksSnap.size;
+                        if (summaryCount) summaryCount.textContent = summariesSnap.size;
+                        if (examCount) examCount.textContent = examsSnap.size;
+                    }
+                }
+            } catch (error) {
+                console.error('Error loading grade stats:', error);
+            }
+        }
+
+        // ============================================================
+        // Auth State
+        // ============================================================
+        onAuthStateChanged(auth, (user) => {
+            currentUser = user;
+            const authButtons = $('#authButtons');
+            const userActionsEl = $('#userActions');
+
+            if (user) {
+                if (authButtons) authButtons.style.display = 'none';
+                if (userActionsEl) {
+                    userActionsEl.style.display = 'block';
+                    const avatar = userActionsEl.querySelector('.user-avatar');
+                    if (avatar) {
+                        avatar.innerHTML = user.displayName ? user.displayName.charAt(0).toUpperCase() : '👤';
+                    }
+                }
+            } else {
+                if (authButtons) authButtons.style.display = 'flex';
+                if (userActionsEl) userActionsEl.style.display = 'none';
+                closeBookModal();
+                closeUploadModal();
+            }
+        });
+
+        // ============================================================
+        // Logout
+        // ============================================================
+        logoutBtn?.addEventListener('click', async () => {
+            try {
+                await signOut(auth);
+                showToast('تم تسجيل الخروج بنجاح', 'مع السلامة', 'success');
+            } catch (error) {
+                showToast('حدث خطأ أثناء تسجيل الخروج', 'خطأ', 'error');
+            }
+        });
+
+        // ============================================================
+        // Event Listeners
+        // ============================================================
+        loginBtn?.addEventListener('click', () => window.location.href = 'login.html');
+        registerBtn?.addEventListener('click', () => window.location.href = 'login.html?mode=register');
+        footerLogin?.addEventListener('click', () => window.location.href = 'login.html');
+        footerRegister?.addEventListener('click', () => window.location.href = 'login.html?mode=register');
+        heroStartBtn?.addEventListener('click', () => {
+            if (!currentUser) { showPopup(); return; }
+            document.getElementById('booksSection')?.scrollIntoView({ behavior: 'smooth' });
+        });
+        heroBrowseBtn?.addEventListener('click', () => {
+            document.getElementById('booksSection')?.scrollIntoView({ behavior: 'smooth' });
+        });
+
+        popupLogin?.addEventListener('click', () => {
+            hidePopup();
+            window.location.href = 'login.html';
+        });
+        popupRegister?.addEventListener('click', () => {
+            hidePopup();
+            window.location.href = 'login.html?mode=register';
+        });
+        popupLater?.addEventListener('click', hidePopup);
+
+        document.querySelectorAll('.btn-grade').forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (!currentUser) { showPopup(); return; }
+                const grade = btn.dataset.grade;
+                const names = ['', 'أولى بكالوريا', 'ثانية بكالوريا', 'ثالثة ثانوي'];
+                showToast(`📚 ${names[grade] || 'الصف'}`, 'جاري التحميل...', 'info');
+            });
+        });
+
+        // User Menu Items
+        document.querySelectorAll('.user-menu-item:not(.logout)').forEach(item => {
+            item.addEventListener('click', () => {
+                if (!currentUser) { showPopup(); return; }
+                const page = item.dataset.page;
+                if (page === 'upload') {
+                    openUploadModal();
+                } else {
+                    showToast(`🔜 سيتم فتح صفحة ${item.textContent.trim()} قريباً`, 'قريباً', 'info');
+                }
+            });
+        });
+
+        // Search
+        let searchTimeout;
+        searchInput?.addEventListener('input', async (e) => {
+            clearTimeout(searchTimeout);
+            const queryText = e.target.value.trim();
+            searchTimeout = setTimeout(async () => {
+                if (queryText.length > 1) {
+                    try {
+                        const booksRef = collection(db, 'books');
+                        const q = query(booksRef, where('title', '>=', queryText), where('title', '<=', queryText + '\uf8ff'), limit(5));
+                        const snap = await getDocs(q);
+                        const results = [];
+                        snap.forEach(doc => results.push({ id: doc.id, ...doc.data() }));
+                        if (results.length === 0) {
+                            showToast(`لا توجد نتائج للبحث عن "${queryText}"`, 'بحث', 'info');
+                        } else {
+                            showToast(`تم العثور على ${results.length} نتيجة`, 'بحث', 'success');
+                        }
+                    } catch (error) {
+                        console.error('Search error:', error);
+                    }
+                }
+            }, 300);
+        });
+
+        // ============================================================
+        // Init
+        // ============================================================
+        async function init() {
+            console.log('🚀 الثانوية الرسمية بلس - جاري التحميل...');
+            
+            await Promise.all([
+                loadStats(),
+                loadBooks(),
+                loadSummaries(),
+                loadExams(),
+                loadContributors(),
+                loadComments(),
+                loadGradeStats()
+            ]);
+
+            console.log('✅ تم تحميل جميع البيانات بنجاح');
+        }
+
+        // جعل الدوال متاحة عالمياً
+        window.openBookModal = openBookModal;
+        window.closeBookModal = closeBookModal;
+        window.openUploadModal = openUploadModal;
+        window.closeUploadModal = closeUploadModal;
+        window.handleDownload = handleDownload;
+        window.handlePreview = handlePreview;
+        window.handleFavorite = handleFavorite;
+        window.handleShare = handleShare;
+        window.handleCopyLink = handleCopyLink;
+        window.submitComment = submitComment;
+        window.setRating = function(rating) {
+            document.getElementById('commentRating').value = rating;
+            document.querySelectorAll('.comment-form .star').forEach(s => {
+                s.classList.toggle('active', parseInt(s.dataset.rating) <= rating);
+            });
+        };
+
+        // Run
+        init();
+    </script>
+</body>
+</html>
