@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول | الثانوية الرسمية بلس</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="تسجيل الدخول إلى منصة الثانوية الرسمية بلس - أكبر مكتبة تعليمية عربية مجانية">
+    <meta name="keywords" content="تسجيل الدخول, إنشاء حساب, الثانوية الرسمية بلس, تعليم, منصة تعليمية">
+    <meta name="robots" content="noindex, nofollow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="تسجيل الدخول | الثانوية الرسمية بلس">
+    <meta property="og:description" content="منصة تعليمية متكاملة لطلاب الثانوية العامة">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://thanawya-official-plus.com/login">
+    <meta property="og:image" content="https://cdn.phototourl.com/free/2026-07-21-1dd4b984-ed08-4a40-aead-9ef086ebbd45.jpg">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="تسجيل الدخول | الثانوية الرسمية بلس">
+    <meta name="twitter:description" content="منصة تعليمية متكاملة لطلاب الثانوية العامة">
+    <meta name="twitter:image" content="https://cdn.phototourl.com/free/2026-07-21-1dd4b984-ed08-4a40-aead-9ef086ebbd45.jpg">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* ========================================
+                   CSS - صفحة تسجيل الدخول
+                   ======================================== */
+        
+        /* ---------- CSS Variables ---------- */
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-card: #ffffff;
+            --text-primary: #1f2937;
+            --text-secondary: #4b5563;
+            --text-muted: #9ca3af;
+            --border-color: #e5e7eb;
+            --grade-1: #22c55e;
+            --grade-1-dark: #16a34a;
+            --grade-2: #2563eb;
+            --grade-2-dark: #1d4ed8;
+            --grade-3: #ef4444;
+            --shadow-md: 0 4px 20px rgba(0,0,0,0.08);
+            --shadow-lg: 0 10px 40px rgba(0,0,0,0.12);
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --font-primary: 'Cairo', sans-serif;
+        }
+        
+        [data-theme="dark"] {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-card: #1e293b;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --border-color: #334155;
+            --shadow-md: 0 4px 20px rgba(0,0,0,0.4);
+            --shadow-lg: 0 10px 40px rgba(0,0,0,0.5);
+        }
+        
+        /* ---------- Reset & Base ---------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-primary);
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            transition: var(--transition);
+        }
+        
+        /* ---------- Container ---------- */
+        .auth-container {
+            width: 100%;
+            max-width: 440px;
+            animation: fadeUp 0.6s ease forwards;
+        }
+        
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* ---------- Auth Card ---------- */
+        .auth-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: 40px 32px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+        
+        /* ---------- Logo ---------- */
+        .auth-logo {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        
+        .auth-logo img {
+            width: 64px;
+            height: 64px;
+            border-radius: 16px;
+            object-fit: cover;
+            margin-bottom: 12px;
+        }
+        
+        .auth-logo h1 {
+            font-size: 24px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--grade-1), var(--grade-2), var(--grade-3));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .auth-logo p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-top: 4px;
+        }
+        
+        /* ---------- Form ---------- */
+        .auth-form {
+            display: none;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .auth-form.active {
+            display: flex;
+        }
+        
+        .form-group {
+            position: relative;
+        }
+        
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--text-primary);
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-md);
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            font-size: 15px;
+            font-family: inherit;
+            transition: var(--transition);
+            outline: none;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: var(--grade-2);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+        }
+        
+        .form-group input::placeholder {
+            color: var(--text-muted);
+        }
+        
+        .form-group .toggle-password {
+            position: absolute;
+            left: 16px;
+            bottom: 14px;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .form-group .toggle-password:hover {
+            color: var(--text-primary);
+        }
+        
+        .form-error {
+            color: var(--grade-3);
+            font-size: 13px;
+            margin-top: 4px;
+            display: none;
+        }
+        
+        .form-error.active {
+            display: block;
+        }
+        
+        /* ---------- Buttons ---------- */
+        .btn-primary {
+            width: 100%;
+            padding: 14px;
+            border-radius: var(--radius-md);
+            background: linear-gradient(135deg, var(--grade-2), var(--grade-2-dark));
+            color: white;
+            font-weight: 700;
+            font-size: 16px;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.3);
+        }
+        
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .btn-google {
+            width: 100%;
+            padding: 14px;
+            border-radius: var(--radius-md);
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 16px;
+            border: 2px solid var(--border-color);
+            transition: var(--transition);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .btn-google:hover {
+            background: var(--border-color);
+            transform: translateY(-2px);
+        }
+        
+        .btn-google svg {
+            width: 20px;
+            height: 20px;
+        }
+        
+        /* ---------- Divider ---------- */
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin: 8px 0;
+        }
+        
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border-color);
+        }
+        
+        .divider span {
+            color: var(--text-muted);
+            font-size: 13px;
+            white-space: nowrap;
+        }
+        
+        /* ---------- Links ---------- */
+        .auth-links {
+            text-align: center;
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-top: 8px;
+        }
+        
+        .auth-links a {
+            color: var(--grade-2);
+            font-weight: 600;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        
+        .auth-links a:hover {
+            color: var(--grade-2-dark);
+            text-decoration: underline;
+        }
+        
+        /* ---------- Back to Home ---------- */
+        .back-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            font-size: 14px;
+            transition: var(--transition);
+            margin-bottom: 20px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        
+        .back-home:hover {
+            color: var(--text-primary);
+        }
+        
+        /* ---------- Success Message ---------- */
+        .success-message {
+            text-align: center;
+            padding: 20px;
+            display: none;
+        }
+        
+        .success-message.active {
+            display: block;
+        }
+        
+        .success-message .icon {
+            font-size: 64px;
+            color: var(--grade-1);
+            margin-bottom: 12px;
+        }
+        
+        .success-message h2 {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+        
+        .success-message p {
+            color: var(--text-secondary);
+        }
+        
+        /* ---------- Loading Spinner ---------- */
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 0.8s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* ---------- Toast ---------- */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            left: 24px;
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 16px 20px;
+            border-radius: var(--radius-md);
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-lg);
+            display: none;
+            align-items: center;
+            gap: 12px;
+            z-index: 1000;
+            animation: slideUp 0.4s ease forwards;
+            direction: rtl;
+            font-family: var(--font-primary);
+        }
+        
+        .toast.active {
+            display: flex;
+        }
+        
+        .toast.error {
+            border-right: 4px solid var(--grade-3);
+        }
+        
+        .toast.success {
+            border-right: 4px solid var(--grade-1);
+        }
+        
+        .toast .toast-icon {
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+        
+        .toast .toast-content {
+            flex: 1;
+        }
+        
+        .toast .toast-content strong {
+            display: block;
+            font-size: 14px;
+        }
+        
+        .toast .toast-content span {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+        
+        .toast .toast-close {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 18px;
+            padding: 4px;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* ---------- Responsive ---------- */
+        @media (max-width: 480px) {
+            .auth-card {
+                padding: 28px 20px;
+            }
+            
+            .auth-logo h1 {
+                font-size: 20px;
+            }
+            
+            .auth-logo img {
+                width: 56px;
+                height: 56px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="auth-container">
+        <!-- Back to Home -->
+        <a href="index.html" class="back-home">
+            <i class="fas fa-arrow-right"></i>
+            العودة إلى الرئيسية
+        </a>
+
+        <!-- Auth Card -->
+        <div class="auth-card">
+            <!-- Logo -->
+            <div class="auth-logo">
+                <img src="https://cdn.phototourl.com/free/2026-07-21-1dd4b984-ed08-4a40-aead-9ef086ebbd45.jpg" alt="الثانوية الرسمية بلس">
+                <h1>الثانوية الرسمية بلس</h1>
+                <p>تسجيل الدخول إلى منصتك التعليمية</p>
+            </div>
+
+            <!-- ====== FORM: LOGIN ====== -->
+            <form id="loginForm" class="auth-form active">
+                <div class="form-group">
+                    <label for="loginEmail">البريد الإلكتروني</label>
+                    <input type="email" id="loginEmail" placeholder="example@email.com" required autocomplete="email">
+                </div>
+                
+                <div class="form-group">
+                    <label for="loginPassword">كلمة المرور</label>
+                    <input type="password" id="loginPassword" placeholder="••••••••" required autocomplete="current-password">
+                    <button type="button" class="toggle-password" onclick="togglePassword('loginPassword')">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+                
+                <div class="form-error" id="loginError"></div>
+                
+                <button type="submit" class="btn-primary" id="loginBtn">
+                    <span id="loginBtnText">تسجيل الدخول</span>
+                    <span id="loginBtnSpinner" style="display:none;"><span class="spinner"></span></span>
+                </button>
+                
+                <button type="button" class="btn-google" id="googleBtn">
+                    <svg viewBox="0 0 48 48">
+                        <path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"/>
+                        <path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"/>
+                        <path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"/>
+                        <path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"/>
+                    </svg>
+                    تسجيل الدخول بواسطة Google
+                </button>
+                
+                <div class="divider"><span>أو</span></div>
+                
+                <div class="auth-links">
+                    ليس لديك حساب؟ <a onclick="switchForm('register')">إنشاء حساب جديد</a>
+                </div>
+                <div class="auth-links">
+                    <a onclick="switchForm('reset')">نسيت كلمة المرور؟</a>
+                </div>
+            </form>
+
+            <!-- ====== FORM: REGISTER ====== -->
+            <form id="registerForm" class="auth-form">
+                <div class="form-group">
+                    <label for="registerName">الاسم الكامل</label>
+                    <input type="text" id="registerName" placeholder="أحمد محمد" required autocomplete="name">
+                </div>
+                
+                <div class="form-group">
+                    <label for="registerEmail">البريد الإلكتروني</label>
+                    <input type="email" id="registerEmail" placeholder="example@email.com" required autocomplete="email">
+                </div>
+                
+                <div class="form-group">
+                    <label for="registerGrade">الصف الدراسي</label>
+                    <select id="registerGrade" required>
+                        <option value="">اختر الصف</option>
+                        <option value="1">🟢 أولى بكالوريا</option>
+                        <option value="2">🔵 ثانية بكالوريا</option>
+                        <option value="3">🔴 ثالثة ثانوي</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="registerPassword">كلمة المرور</label>
+                    <input type="password" id="registerPassword" placeholder="••••••••" required autocomplete="new-password">
+                    <button type="button" class="toggle-password" onclick="togglePassword('registerPassword')">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+                
+                <div class="form-group">
+                    <label for="registerConfirm">تأكيد كلمة المرور</label>
+                    <input type="password" id="registerConfirm" placeholder="••••••••" required autocomplete="new-password">
+                    <button type="button" class="toggle-password" onclick="togglePassword('registerConfirm')">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+                
+                <div class="form-error" id="registerError"></div>
+                
+                <button type="submit" class="btn-primary" id="registerBtn">
+                    <span id="registerBtnText">إنشاء حساب</span>
+                    <span id="registerBtnSpinner" style="display:none;"><span class="spinner"></span></span>
+                </button>
+                
+                <div class="divider"><span>أو</span></div>
+                
+                <button type="button" class="btn-google" id="googleRegisterBtn">
+                    <svg viewBox="0 0 48 48">
+                        <path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"/>
+                        <path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"/>
+                        <path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"/>
+                        <path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"/>
+                    </svg>
+                    إنشاء حساب بواسطة Google
+                </button>
+                
+                <div class="auth-links" style="margin-top: 12px;">
+                    لديك حساب بالفعل؟ <a onclick="switchForm('login')">تسجيل الدخول</a>
+                </div>
+            </form>
+
+            <!-- ====== FORM: RESET PASSWORD ====== -->
+            <form id="resetForm" class="auth-form">
+                <div class="form-group">
+                    <label for="resetEmail">البريد الإلكتروني</label>
+                    <input type="email" id="resetEmail" placeholder="example@email.com" required autocomplete="email">
+                </div>
+                
+                <div class="form-error" id="resetError"></div>
+                
+                <button type="submit" class="btn-primary" id="resetBtn">
+                    <span id="resetBtnText">إرسال رابط الاستعادة</span>
+                    <span id="resetBtnSpinner" style="display:none;"><span class="spinner"></span></span>
+                </button>
+                
+                <div class="auth-links" style="margin-top: 12px;">
+                    <a onclick="switchForm('login')">العودة إلى تسجيل الدخول</a>
+                </div>
+            </form>
+
+            <!-- ====== SUCCESS ====== -->
+            <div class="success-message" id="successMessage">
+                <div class="icon">✅</div>
+                <h2>تم بنجاح!</h2>
+                <p id="successText">سيتم توجيهك إلى الصفحة الرئيسية...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====== TOAST ====== -->
+    <div class="toast" id="toast">
+        <div class="toast-icon" id="toastIcon">ℹ️</div>
+        <div class="toast-content">
+            <strong id="toastTitle">تنبيه</strong>
+            <span id="toastMessage">هذه رسالة تجريبية</span>
+        </div>
+        <button class="toast-close" onclick="hideToast()"><i class="fas fa-times"></i></button>
+    </div>
+
+    <!-- ========================================
+    JAVASCRIPT - مع Firebase الحقيقي
+    ======================================== -->
+    <script type="importmap">
+        {
+            "imports": {
+                "firebase/app": "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js",
+                "firebase/auth": "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js",
+                "firebase/firestore": "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js"
+            }
+        }
+    </script>
+
+    <script type="module">
+        // ============================================================
+        // Firebase Configuration - REAL
+        // ============================================================
+        import { initializeApp } from "firebase/app";
+        import { 
+            getAuth, 
+            signInWithEmailAndPassword,
+            createUserWithEmailAndPassword,
+            signInWithPopup,
+            GoogleAuthProvider,
+            sendPasswordResetEmail,
+            onAuthStateChanged,
+            sendEmailVerification,
+            updateProfile
+        } from "firebase/auth";
+        import { 
+            getFirestore, 
+            doc, 
+            setDoc, 
+            getDoc,
+            serverTimestamp 
+        } from "firebase/firestore";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAz9BfG1INB3shlCiMtK395SEo6sCkaZSI",
+            authDomain: "thanawya-official-plus.firebaseapp.com",
+            projectId: "thanawya-official-plus",
+            storageBucket: "thanawya-official-plus.firebasestorage.app",
+            messagingSenderId: "883728724353",
+            appId: "1:883728724353:web:3f611e29d556d03c61b880",
+            measurementId: "G-1KN0QEZKWX"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const googleProvider = new GoogleAuthProvider();
+
+        // ============================================================
+        // DOM Refs
+        // ============================================================
+        const $ = (sel) => document.querySelector(sel);
+        const $$ = (sel) => document.querySelectorAll(sel);
+
+        const loginForm = $('#loginForm');
+        const registerForm = $('#registerForm');
+        const resetForm = $('#resetForm');
+        const successMessage = $('#successMessage');
+
+        const loginEmail = $('#loginEmail');
+        const loginPassword = $('#loginPassword');
+        const loginError = $('#loginError');
+        const loginBtn = $('#loginBtn');
+        const loginBtnText = $('#loginBtnText');
+        const loginBtnSpinner = $('#loginBtnSpinner');
+
+        const registerName = $('#registerName');
+        const registerEmail = $('#registerEmail');
+        const registerGrade = $('#registerGrade');
+        const registerPassword = $('#registerPassword');
+        const registerConfirm = $('#registerConfirm');
+        const registerError = $('#registerError');
+        const registerBtn = $('#registerBtn');
+        const registerBtnText = $('#registerBtnText');
+        const registerBtnSpinner = $('#registerBtnSpinner');
+
+        const resetEmail = $('#resetEmail');
+        const resetError = $('#resetError');
+        const resetBtn = $('#resetBtn');
+        const resetBtnText = $('#resetBtnText');
+        const resetBtnSpinner = $('#resetBtnSpinner');
+
+        const googleBtn = $('#googleBtn');
+        const googleRegisterBtn = $('#googleRegisterBtn');
+        const successText = $('#successText');
+
+        // ============================================================
+        // Toast System
+        // ============================================================
+        let toastTimeout;
+
+        function showToast(message, title = 'تنبيه', type = 'info') {
+            const toast = $('#toast');
+            const icon = $('#toastIcon');
+            const titleEl = $('#toastTitle');
+            const msgEl = $('#toastMessage');
+
+            toast.className = 'toast';
+            if (type === 'error') {
+                toast.classList.add('error');
+                icon.textContent = '❌';
+            } else if (type === 'success') {
+                toast.classList.add('success');
+                icon.textContent = '✅';
+            } else {
+                icon.textContent = 'ℹ️';
+            }
+
+            titleEl.textContent = title;
+            msgEl.textContent = message;
+            toast.classList.add('active');
+
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(hideToast, 5000);
+        }
+
+        window.hideToast = function() {
+            $('#toast').classList.remove('active');
+        };
+
+        // ============================================================
+        // Form Switching
+        // ============================================================
+        window.switchForm = function(form) {
+            loginForm.classList.remove('active');
+            registerForm.classList.remove('active');
+            resetForm.classList.remove('active');
+            successMessage.classList.remove('active');
+
+            if (form === 'login') loginForm.classList.add('active');
+            else if (form === 'register') registerForm.classList.add('active');
+            else if (form === 'reset') resetForm.classList.add('active');
+
+            loginError.classList.remove('active');
+            registerError.classList.remove('active');
+            resetError.classList.remove('active');
+        };
+
+        // ============================================================
+        // Toggle Password
+        // ============================================================
+        window.togglePassword = function(inputId) {
+            const input = $(`#${inputId}`);
+            const icon = input.parentElement.querySelector('.toggle-password i');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.className = 'fas fa-eye-slash';
+            } else {
+                input.type = 'password';
+                icon.className = 'fas fa-eye';
+            }
+        };
+
+        // ============================================================
+        // Set Loading State
+        // ============================================================
+        function setLoading(btn, textEl, spinnerEl, isLoading) {
+            if (isLoading) {
+                textEl.style.display = 'none';
+                spinnerEl.style.display = 'inline-block';
+                btn.disabled = true;
+            } else {
+                textEl.style.display = 'inline';
+                spinnerEl.style.display = 'none';
+                btn.disabled = false;
+            }
+        }
+
+        // ============================================================
+        // Create User Profile in Firestore
+        // ============================================================
+        async function createUserProfile(userId, userData) {
+            try {
+                await setDoc(doc(db, 'users', userId), {
+                    name: userData.name || 'مستخدم',
+                    email: userData.email,
+                    grade: userData.grade || 0,
+                    photoURL: userData.photoURL || null,
+                    points: 0,
+                    badges: [],
+                    downloads: 0,
+                    summaries: 0,
+                    comments: 0,
+                    favorites: [],
+                    createdAt: serverTimestamp(),
+                    updatedAt: serverTimestamp()
+                });
+                return true;
+            } catch (error) {
+                console.error('Error creating profile:', error);
+                return false;
+            }
+        }
+
+        // ============================================================
+        // Check if user exists in Firestore
+        // ============================================================
+        async function userExists(userId) {
+            try {
+                const docRef = doc(db, 'users', userId);
+                const docSnap = await getDoc(docRef);
+                return docSnap.exists();
+            } catch (error) {
+                return false;
+            }
+        }
+
+        // ============================================================
+        // LOGIN
+        // ============================================================
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = loginEmail.value.trim();
+            const password = loginPassword.value;
+
+            if (!email || !password) {
+                loginError.textContent = 'يرجى ملء جميع الحقول';
+                loginError.classList.add('active');
+                return;
+            }
+
+            setLoading(loginBtn, loginBtnText, loginBtnSpinner, true);
+            loginError.classList.remove('active');
+
+            try {
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+
+                const exists = await userExists(user.uid);
+                if (!exists) {
+                    await createUserProfile(user.uid, {
+                        name: user.displayName || 'مستخدم',
+                        email: user.email,
+                        grade: 0,
+                        photoURL: user.photoURL || null
+                    });
+                }
+
+                showToast('تم تسجيل الدخول بنجاح!', 'مرحباً بك', 'success');
+                successText.textContent = 'جاري توجيهك إلى الصفحة الرئيسية...';
+                switchForm('success');
+                
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1500);
+
+            } catch (error) {
+                let message = 'حدث خطأ أثناء تسجيل الدخول';
+                if (error.code === 'auth/user-not-found') {
+                    message = 'المستخدم غير موجود';
+                } else if (error.code === 'auth/wrong-password') {
+                    message = 'كلمة المرور غير صحيحة';
+                } else if (error.code === 'auth/invalid-email') {
+                    message = 'البريد الإلكتروني غير صحيح';
+                } else if (error.code === 'auth/too-many-requests') {
+                    message = 'محاولات كثيرة جداً، حاول لاحقاً';
+                } else if (error.code === 'auth/user-disabled') {
+                    message = 'تم تعطيل هذا الحساب';
+                }
+                loginError.textContent = message;
+                loginError.classList.add('active');
+                showToast(message, 'خطأ', 'error');
+            }
+
+            setLoading(loginBtn, loginBtnText, loginBtnSpinner, false);
+        });
+
+        // ============================================================
+        // REGISTER
+        // ============================================================
+        registerForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const name = registerName.value.trim();
+            const email = registerEmail.value.trim();
+            const grade = registerGrade.value;
+            const password = registerPassword.value;
+            const confirm = registerConfirm.value;
+
+            if (!name || !email || !grade || !password || !confirm) {
+                registerError.textContent = 'يرجى ملء جميع الحقول';
+                registerError.classList.add('active');
+                return;
+            }
+
+            if (password.length < 6) {
+                registerError.textContent = 'كلمة المرور يجب أن تكون 6 أحرف على الأقل';
+                registerError.classList.add('active');
+                return;
+            }
+
+            if (password !== confirm) {
+                registerError.textContent = 'كلمة المرور غير متطابقة';
+                registerError.classList.add('active');
+                return;
+            }
+
+            setLoading(registerBtn, registerBtnText, registerBtnSpinner, true);
+            registerError.classList.remove('active');
+
+            try {
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+
+                await updateProfile(user, { displayName: name });
+                await sendEmailVerification(user);
+
+                await createUserProfile(user.uid, {
+                    name: name,
+                    email: email,
+                    grade: parseInt(grade),
+                    photoURL: null
+                });
+
+                showToast('تم إنشاء الحساب بنجاح!', 'مرحباً بك', 'success');
+                successText.textContent = 'تم إنشاء حسابك بنجاح، جاري توجيهك...';
+                switchForm('success');
+
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 2000);
+
+            } catch (error) {
+                let message = 'حدث خطأ أثناء إنشاء الحساب';
+                if (error.code === 'auth/email-already-in-use') {
+                    message = 'البريد الإلكتروني مستخدم بالفعل';
+                } else if (error.code === 'auth/invalid-email') {
+                    message = 'البريد الإلكتروني غير صحيح';
+                } else if (error.code === 'auth/weak-password') {
+                    message = 'كلمة المرور ضعيفة جداً';
+                } else if (error.code === 'auth/operation-not-allowed') {
+                    message = 'تسجيل البريد الإلكتروني غير مفعل';
+                }
+                registerError.textContent = message;
+                registerError.classList.add('active');
+                showToast(message, 'خطأ', 'error');
+            }
+
+            setLoading(registerBtn, registerBtnText, registerBtnSpinner, false);
+        });
+
+        // ============================================================
+        // RESET PASSWORD
+        // ============================================================
+        resetForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const email = resetEmail.value.trim();
+
+            if (!email) {
+                resetError.textContent = 'يرجى إدخال البريد الإلكتروني';
+                resetError.classList.add('active');
+                return;
+            }
+
+            setLoading(resetBtn, resetBtnText, resetBtnSpinner, true);
+            resetError.classList.remove('active');
+
+            try {
+                await sendPasswordResetEmail(auth, email);
+                showToast('تم إرسال رابط استعادة كلمة المرور إلى بريدك', 'تم الإرسال', 'success');
+                setTimeout(() => switchForm('login'), 2000);
+            } catch (error) {
+                let message = 'حدث خطأ أثناء إرسال الرابط';
+                if (error.code === 'auth/user-not-found') {
+                    message = 'المستخدم غير موجود';
+                } else if (error.code === 'auth/invalid-email') {
+                    message = 'البريد الإلكتروني غير صحيح';
+                }
+                resetError.textContent = message;
+                resetError.classList.add('active');
+                showToast(message, 'خطأ', 'error');
+            }
+
+            setLoading(resetBtn, resetBtnText, resetBtnSpinner, false);
+        });
+
+        // ============================================================
+        // GOOGLE SIGN IN
+        // ============================================================
+        async function handleGoogleSignIn() {
+            try {
+                const result = await signInWithPopup(auth, googleProvider);
+                const user = result.user;
+
+                const exists = await userExists(user.uid);
+                if (!exists) {
+                    await createUserProfile(user.uid, {
+                        name: user.displayName || 'مستخدم',
+                        email: user.email,
+                        grade: 0,
+                        photoURL: user.photoURL || null
+                    });
+                }
+
+                showToast('تم تسجيل الدخول بواسطة Google بنجاح!', 'مرحباً بك', 'success');
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1500);
+
+            } catch (error) {
+                let message = 'حدث خطأ أثناء تسجيل الدخول بواسطة Google';
+                if (error.code === 'auth/popup-closed-by-user') {
+                    message = 'تم إغلاق نافذة التسجيل';
+                } else if (error.code === 'auth/account-exists-with-different-credential') {
+                    message = 'يوجد حساب بنفس البريد الإلكتروني';
+                } else if (error.code === 'auth/popup-blocked') {
+                    message = 'تم حظر النافذة المنبثقة، يرجى السماح بها';
+                }
+                showToast(message, 'خطأ', 'error');
+            }
+        }
+
+        googleBtn.addEventListener('click', handleGoogleSignIn);
+        googleRegisterBtn.addEventListener('click', handleGoogleSignIn);
+
+        // ============================================================
+        // AUTH STATE OBSERVER
+        // ============================================================
+        onAuthStateChanged(auth, (user) => {
+            if (user && window.location.pathname.includes('login.html')) {
+                // Already logged in, redirect to home
+                window.location.href = 'index.html';
+            }
+        });
+
+        // ============================================================
+        // Auto-switch to register if coming from index
+        // ============================================================
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('mode') === 'register') {
+            switchForm('register');
+        }
+
+        console.log('✅ login.html loaded successfully');
+        console.log('📡 Firebase Connected to: thanawya-official-plus');
+    </script>
+</body>
+</html>
