@@ -3,1435 +3,362 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>الثانوية الرسمية بلس - المنصة التعليمية المتكاملة</title>
-    <meta name="description" content="منصة الثانوية الرسمية بلس - كل اللي الطالب محتاجه في مكان واحد" />
-    
-    <!-- Google Fonts -->
+    <title>الثانوية الرسمية بلس</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet" />
-    
-    <!-- Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     
-    <!-- Firebase SDK (Modular) -->
-    <script type="importmap">
-    {
-        "imports": {
-            "firebase/app": "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js",
-            "firebase/auth": "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js",
-            "firebase/firestore": "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js",
-            "firebase/storage": "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js"
-        }
-    }
-    </script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 
     <style>
-        /* ===== CSS Variables & Reset ===== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
-            --primary-green: #00b894;
-            --primary-green-dark: #00a381;
-            --primary-blue: #0984e3;
-            --primary-blue-dark: #0066c5;
-            --primary-red: #d63031;
-            --primary-red-dark: #b71c1c;
-            --gold: #ffd700;
-            --gold-dark: #f5c518;
-            
-            --bg-primary: #f0f4f8;
-            --bg-secondary: #ffffff;
-            --bg-glass: rgba(255, 255, 255, 0.15);
-            --text-primary: #1a2332;
-            --text-secondary: #4a5568;
-            --text-muted: #7f8fa6;
-            --border-color: #e2e8f0;
-            --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
-            --shadow-md: 0 8px 30px rgba(0,0,0,0.08);
-            --shadow-lg: 0 15px 50px rgba(0,0,0,0.12);
-            --shadow-xl: 0 25px 80px rgba(0,0,0,0.15);
-            --radius-sm: 12px;
-            --radius-md: 20px;
-            --radius-lg: 30px;
-            --radius-full: 9999px;
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --bg: #f0f4f8; --card: #fff; --text: #1a2332; --muted: #7f8fa6;
+            --border: #e2e8f0; --blue: #0984e3; --green: #00b894; --red: #d63031;
+            --gold: #ffd700; --shadow: 0 4px 20px rgba(0,0,0,0.08);
+            --radius: 16px; --full: 9999px;
         }
-
         [data-theme="dark"] {
-            --bg-primary: #0f1629;
-            --bg-secondary: #1a2332;
-            --bg-glass: rgba(255, 255, 255, 0.05);
-            --text-primary: #f7fafc;
-            --text-secondary: #cbd5e0;
-            --text-muted: #718096;
-            --border-color: #2d3748;
-            --shadow-sm: 0 2px 8px rgba(0,0,0,0.3);
-            --shadow-md: 0 8px 30px rgba(0,0,0,0.4);
-            --shadow-lg: 0 15px 50px rgba(0,0,0,0.5);
-            --shadow-xl: 0 25px 80px rgba(0,0,0,0.6);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Cairo', 'Tajawal', sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            transition: var(--transition);
-            min-height: 100vh;
-            padding: 0;
-            margin: 0;
-        }
-
-        /* ===== Scrollbar Styling ===== */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--bg-primary);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--text-muted);
-            border-radius: var(--radius-full);
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--text-secondary);
-        }
-
-        /* ===== Utility Classes ===== */
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        .glass {
-            background: var(--bg-glass);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        /* ===== Loading Spinner ===== */
-        .spinner {
-            width: 40px;
-            height: 40px;
-            border: 4px solid var(--border-color);
-            border-top: 4px solid var(--primary-blue);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 20px auto;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* ===== Header ===== */
-        .header {
-            background: var(--bg-secondary);
-            border-bottom: 1px solid var(--border-color);
-            padding: 15px 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            transition: var(--transition);
-            box-shadow: var(--shadow-sm);
-        }
-
-        .header-inner {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .header-logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-decoration: none;
-            flex-shrink: 0;
-        }
-
-        .header-logo img {
-            width: 45px;
-            height: 45px;
-            border-radius: var(--radius-sm);
-            object-fit: cover;
-        }
-
-        .header-logo h1 {
-            font-size: 22px;
-            font-weight: 900;
-            color: var(--text-primary);
-            transition: var(--transition);
-        }
-
-        .header-logo h1 span {
-            color: var(--primary-blue);
-        }
-
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        .theme-toggle {
-            background: var(--bg-primary);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-full);
-            padding: 8px 12px;
-            cursor: pointer;
-            color: var(--text-primary);
-            transition: var(--transition);
-            font-size: 18px;
-        }
-
-        .theme-toggle:hover {
-            transform: scale(1.05);
-            background: var(--border-color);
-        }
-
-        /* ===== Search Bar ===== */
-        .search-container {
-            position: relative;
-            flex: 1;
-            min-width: 200px;
-            max-width: 500px;
-        }
-
-        .search-input {
-            width: 100%;
-            padding: 12px 20px 12px 50px;
-            background: var(--bg-primary);
-            border: 2px solid var(--border-color);
-            border-radius: var(--radius-full);
-            font-size: 16px;
-            font-family: inherit;
-            color: var(--text-primary);
-            transition: var(--transition);
-            outline: none;
-        }
-
-        .search-input:focus {
-            border-color: var(--primary-blue);
-            box-shadow: 0 0 0 4px rgba(9, 132, 227, 0.1);
-        }
-
-        .search-icon {
-            position: absolute;
-            right: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-muted);
-            font-size: 18px;
-        }
-
-        .search-results {
-            position: absolute;
-            top: calc(100% + 8px);
-            left: 0;
-            right: 0;
-            background: var(--bg-secondary);
-            border-radius: var(--radius-md);
-            box-shadow: var(--shadow-lg);
-            border: 1px solid var(--border-color);
-            max-height: 400px;
-            overflow-y: auto;
-            display: none;
-            z-index: 1001;
-        }
-
-        .search-results.active {
-            display: block;
-        }
-
-        .search-result-item {
-            padding: 12px 20px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            cursor: pointer;
-            transition: var(--transition);
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .search-result-item:last-child {
-            border-bottom: none;
-        }
-
-        .search-result-item:hover {
-            background: var(--bg-primary);
-        }
-
-        .search-result-item .icon {
-            width: 32px;
-            height: 32px;
-            border-radius: var(--radius-sm);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-            flex-shrink: 0;
-        }
-
-        .search-result-item .info {
-            flex: 1;
-        }
-
-        .search-result-item .info .title {
-            font-weight: 600;
-            font-size: 14px;
-        }
-
-        .search-result-item .info .subtitle {
-            font-size: 12px;
-            color: var(--text-muted);
-        }
-
-        /* ===== Auth Buttons ===== */
-        .auth-btn {
-            padding: 10px 24px;
-            border: none;
-            border-radius: var(--radius-full);
-            font-family: inherit;
-            font-weight: 700;
-            font-size: 14px;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .auth-btn-primary {
-            background: var(--primary-blue);
-            color: white;
-        }
-
-        .auth-btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(9, 132, 227, 0.35);
-        }
-
-        .auth-btn-secondary {
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            border: 1px solid var(--border-color);
-        }
-
-        .auth-btn-secondary:hover {
-            background: var(--border-color);
-        }
-
-        .user-menu {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            cursor: pointer;
-            padding: 6px 12px 6px 6px;
-            border-radius: var(--radius-full);
-            background: var(--bg-primary);
-            border: 1px solid var(--border-color);
-            transition: var(--transition);
-        }
-
-        .user-menu:hover {
-            border-color: var(--primary-blue);
-        }
-
-        .user-menu img {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-
-        .user-menu .name {
-            font-weight: 600;
-            font-size: 14px;
-        }
-
-        .user-menu .points {
-            background: var(--gold);
-            padding: 2px 10px;
-            border-radius: var(--radius-full);
-            font-size: 12px;
-            font-weight: 700;
-            color: #1a2332;
-        }
-
-        /* ===== Hero / Main Content ===== */
-        .main-content {
-            padding: 30px 0 60px;
-        }
-
-        /* ===== Stage Cards ===== */
-        .stages-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px;
-            margin-bottom: 40px;
-        }
-
-        .stage-card {
-            position: relative;
-            border-radius: var(--radius-lg);
-            padding: 35px 30px;
-            min-height: 200px;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            cursor: pointer;
-            overflow: hidden;
-            transition: var(--transition);
-            text-decoration: none;
-            color: white;
-            box-shadow: var(--shadow-md);
-        }
-
-        .stage-card:hover {
-            transform: translateY(-8px) scale(1.01);
-            box-shadow: var(--shadow-xl);
-        }
-
-        .stage-card .bg-image {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.15;
-            z-index: 0;
-        }
-
-        .stage-card .content {
-            position: relative;
-            z-index: 1;
-        }
-
-        .stage-card .icon {
-            font-size: 50px;
-            margin-bottom: 10px;
-            opacity: 0.3;
-        }
-
-        .stage-card h2 {
-            font-size: 28px;
-            font-weight: 800;
-            margin-bottom: 6px;
-        }
-
-        .stage-card p {
-            font-size: 15px;
-            opacity: 0.85;
-            font-weight: 400;
-        }
-
-        .stage-card .badge-count {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            background: rgba(255,255,255,0.2);
-            backdrop-filter: blur(10px);
-            padding: 6px 16px;
-            border-radius: var(--radius-full);
-            font-size: 13px;
-            font-weight: 600;
-            z-index: 1;
-        }
-
-        .stage-green {
-            background: linear-gradient(135deg, var(--primary-green), var(--primary-green-dark));
-        }
-
-        .stage-blue {
-            background: linear-gradient(135deg, var(--primary-blue), var(--primary-blue-dark));
-        }
-
-        .stage-red {
-            background: linear-gradient(135deg, var(--primary-red), var(--primary-red-dark));
-        }
-
-        /* ===== Section Headers ===== */
-        .section-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin: 40px 0 20px;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-
-        .section-header h2 {
-            font-size: 26px;
-            font-weight: 800;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .section-header h2 .emoji {
-            font-size: 28px;
-        }
-
-        .section-header .see-all {
-            color: var(--primary-blue);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 14px;
-            transition: var(--transition);
-        }
-
-        .section-header .see-all:hover {
-            color: var(--primary-blue-dark);
-            transform: translateX(-4px);
-        }
-
-        /* ===== Content Grids ===== */
-        .content-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 20px;
-        }
-
-        .content-grid-large {
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-        }
-
-        /* ===== Item Cards ===== */
-        .item-card {
-            background: var(--bg-secondary);
-            border-radius: var(--radius-md);
-            overflow: hidden;
-            transition: var(--transition);
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--border-color);
-            cursor: pointer;
-        }
-
-        .item-card:hover {
-            transform: translateY(-6px);
-            box-shadow: var(--shadow-lg);
-            border-color: var(--primary-blue);
-        }
-
-        .item-card .cover {
-            aspect-ratio: 3/4;
-            background: var(--bg-primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 48px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .item-card .cover img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .item-card .cover .badge-type {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: rgba(0,0,0,0.7);
-            color: white;
-            padding: 4px 12px;
-            border-radius: var(--radius-full);
-            font-size: 11px;
-            font-weight: 600;
-        }
-
-        .item-card .body {
-            padding: 16px;
-        }
-
-        .item-card .body .title {
-            font-weight: 700;
-            font-size: 16px;
-            margin-bottom: 4px;
-            display: -webkit-box;
-            -webkit-line-clamp: 1;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        .item-card .body .meta {
-            font-size: 13px;
-            color: var(--text-muted);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .item-card .body .meta .rating {
-            color: var(--gold-dark);
-            font-weight: 600;
-        }
-
-        .item-card .body .meta .downloads {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        /* ===== Empty State ===== */
-        .empty-state {
-            text-align: center;
-            padding: 60px 20px;
-            background: var(--bg-secondary);
-            border-radius: var(--radius-lg);
-            border: 2px dashed var(--border-color);
-        }
-
-        .empty-state .icon {
-            font-size: 60px;
-            margin-bottom: 16px;
-            opacity: 0.5;
-        }
-
-        .empty-state h3 {
-            font-size: 22px;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        .empty-state p {
-            color: var(--text-muted);
-            font-size: 16px;
-        }
-
-        /* ===== Announcements ===== */
-        .announcement-banner {
-            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-            color: #1a2332;
-            padding: 16px 24px;
-            border-radius: var(--radius-md);
-            margin-bottom: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-
-        .announcement-banner .text {
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .announcement-banner .text .icon {
-            font-size: 24px;
-        }
-
-        .announcement-banner .date {
-            font-size: 13px;
-            opacity: 0.7;
-        }
-
-        /* ===== Footer ===== */
-        .footer {
-            background: var(--bg-secondary);
-            border-top: 1px solid var(--border-color);
-            padding: 30px 0;
-            margin-top: 60px;
-        }
-
-        .footer-inner {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 16px;
-        }
-
-        .footer p {
-            color: var(--text-muted);
-            font-size: 14px;
-        }
-
-        .footer .socials {
-            display: flex;
-            gap: 12px;
-        }
-
-        .footer .socials a {
-            color: var(--text-muted);
-            font-size: 20px;
-            transition: var(--transition);
-        }
-
-        .footer .socials a:hover {
-            color: var(--primary-blue);
-            transform: translateY(-2px);
-        }
-
-        /* ===== Responsive ===== */
-        @media (max-width: 1024px) {
-            .content-grid-large {
-                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            }
-        }
+            --bg: #0f1629; --card: #1a2332; --text: #f7fafc; --muted: #94a3b8;
+            --border: #2d3748; --shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        body { font-family: 'Cairo', sans-serif; background: var(--bg); color: var(--text); transition: .3s; min-height: 100vh; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .hidden { display: none !important; }
+
+        /* Header */
+        .header { background: var(--card); border-bottom: 1px solid var(--border); padding: 12px 0; position: sticky; top: 0; z-index: 100; }
+        .header-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+        .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .logo img { width: 40px; height: 40px; border-radius: 10px; object-fit: cover; }
+        .logo h1 { font-size: 20px; font-weight: 900; color: var(--text); }
+        .logo h1 span { color: var(--blue); }
+        .theme-btn { background: var(--bg); border: 1px solid var(--border); border-radius: var(--full); padding: 8px 12px; cursor: pointer; color: var(--text); font-size: 16px; }
+        .auth-btn { padding: 8px 20px; border: none; border-radius: var(--full); font-weight: 700; cursor: pointer; text-decoration: none; font-size: 14px; }
+        .auth-btn.primary { background: var(--blue); color: white; }
+        .auth-btn.secondary { background: var(--bg); color: var(--text); border: 1px solid var(--border); }
+        .user-menu { display: flex; align-items: center; gap: 10px; padding: 4px 12px 4px 4px; border-radius: var(--full); background: var(--bg); border: 1px solid var(--border); cursor: pointer; }
+        .user-menu img { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; }
+        .user-menu .name { font-weight: 600; font-size: 13px; }
+        .user-menu .points { background: var(--gold); padding: 2px 10px; border-radius: var(--full); font-size: 11px; font-weight: 700; color: #1a2332; }
+
+        /* Hero */
+        .hero { text-align: center; padding: 40px 0 20px; }
+        .hero h1 { font-size: 36px; font-weight: 900; }
+        .hero h1 span { color: var(--blue); }
+        .hero p { color: var(--muted); font-size: 18px; }
+
+        /* Announcement */
+        .announce { background: linear-gradient(135deg, var(--gold), #f5c518); color: #1a2332; padding: 12px 20px; border-radius: var(--radius); margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+        .announce .text { font-weight: 600; display: flex; align-items: center; gap: 10px; }
+
+        /* Stages */
+        .stages { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin: 30px 0; }
+        .stage { padding: 30px; border-radius: var(--radius); color: white; cursor: pointer; transition: .3s; position: relative; overflow: hidden; min-height: 180px; display: flex; flex-direction: column; justify-content: flex-end; text-decoration: none; }
+        .stage:hover { transform: translateY(-6px); box-shadow: 0 12px 40px rgba(0,0,0,0.15); }
+        .stage .bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.12; z-index: 0; }
+        .stage .content { position: relative; z-index: 1; }
+        .stage .icon { font-size: 40px; opacity: 0.3; }
+        .stage h2 { font-size: 24px; font-weight: 800; }
+        .stage p { font-size: 14px; opacity: 0.85; }
+        .stage .count { position: absolute; top: 16px; left: 16px; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); padding: 4px 14px; border-radius: var(--full); font-size: 12px; font-weight: 600; z-index: 1; }
+        .stage.green { background: linear-gradient(135deg, var(--green), #00a381); }
+        .stage.blue { background: linear-gradient(135deg, var(--blue), #0066c5); }
+        .stage.red { background: linear-gradient(135deg, var(--red), #b71c1c); }
+
+        /* Quick Access */
+        .quick { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; margin: 30px 0; }
+        .quick a { background: var(--card); padding: 16px; border-radius: var(--radius); text-align: center; text-decoration: none; color: var(--text); border: 1px solid var(--border); transition: .3s; }
+        .quick a:hover { transform: translateY(-4px); border-color: var(--blue); box-shadow: var(--shadow); }
+        .quick a .emoji { font-size: 28px; display: block; margin-bottom: 6px; }
+        .quick a .label { font-size: 13px; font-weight: 600; }
+
+        /* Content */
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin: 30px 0 16px; }
+        .section-header h2 { font-size: 22px; font-weight: 800; display: flex; align-items: center; gap: 8px; }
+        .section-header .see-all { color: var(--blue); text-decoration: none; font-weight: 600; font-size: 14px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
+        .item { background: var(--card); border-radius: var(--radius); overflow: hidden; cursor: pointer; transition: .3s; border: 1px solid var(--border); }
+        .item:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: var(--blue); }
+        .item .cover { aspect-ratio: 3/4; background: var(--bg); display: flex; align-items: center; justify-content: center; font-size: 40px; position: relative; }
+        .item .cover img { width: 100%; height: 100%; object-fit: cover; }
+        .item .cover .badge { position: absolute; top: 8px; right: 8px; background: rgba(0,0,0,0.7); color: white; padding: 2px 12px; border-radius: var(--full); font-size: 10px; font-weight: 600; }
+        .item .body { padding: 12px; }
+        .item .body .title { font-weight: 700; font-size: 14px; margin-bottom: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .item .body .meta { font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+        .item .body .meta .rating { color: #f5c518; font-weight: 600; }
+
+        .empty { text-align: center; padding: 40px 20px; background: var(--card); border-radius: var(--radius); border: 2px dashed var(--border); grid-column: 1/-1; }
+        .empty .icon { font-size: 48px; margin-bottom: 12px; opacity: .5; }
+        .empty h3 { font-size: 18px; font-weight: 700; }
+        .empty p { color: var(--muted); font-size: 14px; }
+
+        .spinner { width: 32px; height: 32px; border: 3px solid var(--border); border-top: 3px solid var(--blue); border-radius: 50%; animation: spin .8s linear infinite; margin: 20px auto; grid-column: 1/-1; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .footer { background: var(--card); border-top: 1px solid var(--border); padding: 20px 0; margin-top: 40px; }
+        .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+        .footer p { color: var(--muted); font-size: 13px; }
+        .footer .socials { display: flex; gap: 12px; }
+        .footer .socials a { color: var(--muted); font-size: 18px; transition: .3s; }
+        .footer .socials a:hover { color: var(--blue); transform: translateY(-2px); }
 
         @media (max-width: 768px) {
-            .header-inner {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 12px;
-            }
-
-            .header-logo {
-                justify-content: center;
-            }
-
-            .search-container {
-                max-width: 100%;
-            }
-
-            .header-actions {
-                justify-content: center;
-            }
-
-            .stages-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .stage-card {
-                min-height: 150px;
-                padding: 25px 20px;
-            }
-
-            .stage-card h2 {
-                font-size: 22px;
-            }
-
-            .section-header h2 {
-                font-size: 20px;
-            }
-
-            .content-grid {
-                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            }
-
-            .content-grid-large {
-                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            }
-
-            .announcement-banner {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .footer-inner {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .user-menu .name {
-                display: none;
-            }
+            .header-inner { flex-direction: column; align-items: stretch; }
+            .logo { justify-content: center; }
+            .hero h1 { font-size: 26px; }
+            .stages { grid-template-columns: 1fr; }
+            .grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+            .quick { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); }
         }
-
         @media (max-width: 480px) {
-            .container {
-                padding: 0 12px;
-            }
-
-            .content-grid {
-                grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-                gap: 12px;
-            }
-
-            .content-grid-large {
-                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-                gap: 12px;
-            }
-
-            .item-card .body {
-                padding: 12px;
-            }
-
-            .item-card .body .title {
-                font-size: 14px;
-            }
-
-            .auth-btn {
-                padding: 8px 16px;
-                font-size: 12px;
-            }
-        }
-
-        /* ===== Animations ===== */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .animate-in {
-            animation: fadeInUp 0.6s ease forwards;
-            opacity: 0;
-        }
-
-        .animate-in:nth-child(1) { animation-delay: 0.05s; }
-        .animate-in:nth-child(2) { animation-delay: 0.1s; }
-        .animate-in:nth-child(3) { animation-delay: 0.15s; }
-        .animate-in:nth-child(4) { animation-delay: 0.2s; }
-        .animate-in:nth-child(5) { animation-delay: 0.25s; }
-        .animate-in:nth-child(6) { animation-delay: 0.3s; }
-        .animate-in:nth-child(7) { animation-delay: 0.35s; }
-        .animate-in:nth-child(8) { animation-delay: 0.4s; }
-
-        /* ===== Skeleton Loading ===== */
-        .skeleton {
-            background: var(--bg-primary);
-            border-radius: var(--radius-sm);
-            animation: pulse 1.5s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-
-        .skeleton-cover {
-            aspect-ratio: 3/4;
-            background: var(--bg-primary);
-            border-radius: var(--radius-sm);
-        }
-
-        .skeleton-text {
-            height: 14px;
-            background: var(--bg-primary);
-            border-radius: var(--radius-full);
-            margin: 6px 0;
-        }
-
-        .skeleton-text.short {
-            width: 60%;
+            .grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; }
+            .item .body .title { font-size: 12px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- ===== Header ===== -->
-    <header class="header">
-        <div class="container">
-            <div class="header-inner">
-                <!-- Logo -->
-                <a href="#" class="header-logo">
-                    <img src="https://cdn.phototourl.com/free/2026-07-21-1dd4b984-ed08-4a40-aead-9ef086ebbd45.jpg" alt="شعار الثانوية الرسمية بلس" />
-                    <h1>ثانوية <span>بلس</span></h1>
-                </a>
-
-                <!-- Search -->
-                <div class="search-container">
-                    <input type="text" class="search-input" id="searchInput" placeholder="ابحث عن كتب، ملخصات، امتحانات..." />
-                    <span class="search-icon"><i class="fas fa-search"></i></span>
-                    <div class="search-results" id="searchResults"></div>
-                </div>
-
-                <!-- Actions -->
-                <div class="header-actions">
-                    <button class="theme-toggle" id="themeToggle" aria-label="تبديل الوضع">
-                        <i class="fas fa-moon"></i>
-                    </button>
-                    
-                    <div id="authSection">
-                        <div id="authButtons" class="header-actions">
-                            <a href="login.html" class="auth-btn auth-btn-primary">
-                                <i class="fas fa-sign-in-alt"></i> دخول
-                            </a>
-                            <a href="register.html" class="auth-btn auth-btn-secondary">
-                                <i class="fas fa-user-plus"></i> تسجيل
-                            </a>
-                        </div>
-                        
-                        <div id="userMenu" class="user-menu hidden" onclick="window.location.href='profile.html'">
-                            <img id="userAvatar" src="" alt="صورة المستخدم" />
-                            <span class="name" id="userName">طالب</span>
-                            <span class="points">⭐ <span id="userPoints">0</span></span>
-                            <button onclick="event.stopPropagation(); logout();" style="background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:16px;">
-                                <i class="fas fa-sign-out-alt"></i>
-                            </button>
-                        </div>
+<header class="header">
+    <div class="container">
+        <div class="header-inner">
+            <a href="index.html" class="logo">
+                <img src="https://cdn.phototourl.com/free/2026-07-21-1dd4b984-ed08-4a40-aead-9ef086ebbd45.jpg" alt="شعار المنصة" />
+                <h1>ثانوية <span>بلس</span></h1>
+            </a>
+            <div style="display:flex;align-items:center;gap:8px;">
+                <button class="theme-btn" onclick="toggleTheme()"><i class="fas fa-moon"></i></button>
+                <div id="authSection">
+                    <div id="authButtons" style="display:flex;gap:8px;">
+                        <a href="login.html" class="auth-btn primary">دخول</a>
+                        <a href="login.html?register=1" class="auth-btn secondary">تسجيل</a>
+                    </div>
+                    <div id="userMenu" class="user-menu hidden" onclick="window.location.href='app.html#profile'">
+                        <img id="userAvatar" src="" />
+                        <span class="name" id="userName">طالب</span>
+                        <span class="points">⭐ <span id="userPoints">0</span></span>
+                        <button onclick="event.stopPropagation(); logout();" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:16px;"><i class="fas fa-sign-out-alt"></i></button>
                     </div>
                 </div>
             </div>
         </div>
-    </header>
+    </div>
+</header>
 
-    <!-- ===== Main Content ===== -->
-    <main class="main-content">
-        <div class="container">
+<main>
+    <div class="container">
+        <section class="hero">
+            <h1>📚 كل اللي الطالب محتاجه <span>في مكان واحد</span></h1>
+            <p>منصة تعليمية متكاملة للثانوية العامة</p>
+        </section>
 
-            <!-- Announcements -->
-            <div id="announcementsContainer">
-                <!-- سيتم تحميلها من Firebase -->
-            </div>
+        <div id="announcements"></div>
 
-            <!-- ===== Stage Cards ===== -->
-            <div class="stages-grid">
-                <a href="#" class="stage-card stage-green animate-in" data-stage="1bac">
-                    <img class="bg-image" src="https://cdn.phototourl.com/free/2026-07-21-d4bc3784-1377-4026-959b-a7320235824b.png" alt="أولى بكالوريا" />
-                    <div class="content">
-                        <div class="icon">📘</div>
-                        <h2>🟢 أولى بكالوريا</h2>
-                        <p>السنة التحضيرية • تأسيس قوي</p>
-                    </div>
-                    <div class="badge-count" id="count1bac">0 كتاب</div>
-                </a>
-
-                <a href="#" class="stage-card stage-blue animate-in" data-stage="2bac">
-                    <img class="bg-image" src="https://cdn.phototourl.com/free/2026-07-21-84dbfb87-9f34-4c32-a7c9-676e6c0fda9b.png" alt="ثانية بكالوريا" />
-                    <div class="content">
-                        <div class="icon">📗</div>
-                        <h2>🔵 ثانية بكالوريا</h2>
-                        <p>السنة الأساسية • بناء المهارات</p>
-                    </div>
-                    <div class="badge-count" id="count2bac">0 كتاب</div>
-                </a>
-
-                <a href="#" class="stage-card stage-red animate-in" data-stage="3sec">
-                    <img class="bg-image" src="https://cdn.phototourl.com/free/2026-07-21-ca704138-9452-4697-bcf4-ec14ad8c52c1.png" alt="ثالثة ثانوي" />
-                    <div class="content">
-                        <div class="icon">📕</div>
-                        <h2>🔴 ثالثة ثانوي</h2>
-                        <p>السنة النهائية • تأهيل للامتحانات</p>
-                    </div>
-                    <div class="badge-count" id="count3sec">0 كتاب</div>
-                </a>
-            </div>
-
-            <!-- ===== Latest Books ===== -->
-            <div class="section-header">
-                <h2><span class="emoji">📚</span> أحدث الكتب</h2>
-                <a href="#" class="see-all">عرض الكل <i class="fas fa-arrow-left"></i></a>
-            </div>
-            <div id="latestBooks" class="content-grid content-grid-large">
-                <!-- سيتم تحميلها من Firebase -->
-            </div>
-
-            <!-- ===== Latest Summaries ===== -->
-            <div class="section-header">
-                <h2><span class="emoji">📝</span> أحدث الملخصات</h2>
-                <a href="#" class="see-all">عرض الكل <i class="fas fa-arrow-left"></i></a>
-            </div>
-            <div id="latestSummaries" class="content-grid content-grid-large">
-                <!-- سيتم تحميلها من Firebase -->
-            </div>
-
-            <!-- ===== Latest Exams ===== -->
-            <div class="section-header">
-                <h2><span class="emoji">🎯</span> أحدث الامتحانات</h2>
-                <a href="#" class="see-all">عرض الكل <i class="fas fa-arrow-left"></i></a>
-            </div>
-            <div id="latestExams" class="content-grid content-grid-large">
-                <!-- سيتم تحميلها من Firebase -->
-            </div>
-
-            <!-- ===== Suggested Items ===== -->
-            <div class="section-header">
-                <h2><span class="emoji">💡</span> مقترحات لك</h2>
-            </div>
-            <div id="suggestedItems" class="content-grid content-grid-large">
-                <!-- سيتم تحميلها من Firebase -->
-            </div>
-
-        </div>
-    </main>
-
-    <!-- ===== Footer ===== -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-inner">
-                <p>© 2026 الثانوية الرسمية بلس - كل اللي الطالب محتاجه في مكان واحد 💪</p>
-                <div class="socials">
-                    <a href="#" aria-label="فيسبوك"><i class="fab fa-facebook"></i></a>
-                    <a href="#" aria-label="تويتر"><i class="fab fa-twitter"></i></a>
-                    <a href="#" aria-label="يوتيوب"><i class="fab fa-youtube"></i></a>
-                    <a href="#" aria-label="تيليجرام"><i class="fab fa-telegram"></i></a>
+        <div class="stages">
+            <a href="app.html?stage=1bac" class="stage green">
+                <img class="bg" src="https://cdn.phototourl.com/free/2026-07-21-d4bc3784-1377-4026-959b-a7320235824b.png" />
+                <div class="content">
+                    <div class="icon">📘</div>
+                    <h2>🟢 أولى بكالوريا</h2>
+                    <p>السنة التحضيرية • تأسيس قوي</p>
                 </div>
+                <div class="count" id="count1bac">0 كتاب</div>
+            </a>
+            <a href="app.html?stage=2bac" class="stage blue">
+                <img class="bg" src="https://cdn.phototourl.com/free/2026-07-21-84dbfb87-9f34-4c32-a7c9-676e6c0fda9b.png" />
+                <div class="content">
+                    <div class="icon">📗</div>
+                    <h2>🔵 ثانية بكالوريا</h2>
+                    <p>السنة الأساسية • بناء المهارات</p>
+                </div>
+                <div class="count" id="count2bac">0 كتاب</div>
+            </a>
+            <a href="app.html?stage=3sec" class="stage red">
+                <img class="bg" src="https://cdn.phototourl.com/free/2026-07-21-ca704138-9452-4697-bcf4-ec14ad8c52c1.png" />
+                <div class="content">
+                    <div class="icon">📕</div>
+                    <h2>🔴 ثالثة ثانوي</h2>
+                    <p>السنة النهائية • تأهيل للامتحانات</p>
+                </div>
+                <div class="count" id="count3sec">0 كتاب</div>
+            </a>
+        </div>
+
+        <div class="quick">
+            <a href="app.html#books"><span class="emoji">📚</span><span class="label">الكتب</span></a>
+            <a href="app.html#summaries"><span class="emoji">📝</span><span class="label">الملخصات</span></a>
+            <a href="app.html#exams"><span class="emoji">🎯</span><span class="label">الامتحانات</span></a>
+            <a href="app.html#timer"><span class="emoji">⏱️</span><span class="label">المؤقت</span></a>
+            <a href="app.html#todo"><span class="emoji">✅</span><span class="label">المهام</span></a>
+            <a href="app.html#saveme"><span class="emoji">🆘</span><span class="label">أنقذني</span></a>
+            <a href="app.html#leaderboard"><span class="emoji">🏆</span><span class="label">المتصدرون</span></a>
+            <a href="app.html#profile"><span class="emoji">👤</span><span class="label">حسابي</span></a>
+        </div>
+
+        <div class="section-header">
+            <h2>📚 أحدث الكتب</h2>
+            <a href="app.html#books" class="see-all">عرض الكل ←</a>
+        </div>
+        <div id="latestBooks" class="grid"><div class="spinner"></div></div>
+
+        <div class="section-header">
+            <h2>📝 أحدث الملخصات</h2>
+            <a href="app.html#summaries" class="see-all">عرض الكل ←</a>
+        </div>
+        <div id="latestSummaries" class="grid"><div class="spinner"></div></div>
+    </div>
+</main>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-inner">
+            <p>© 2026 الثانوية الرسمية بلس - كل اللي الطالب محتاجه في مكان واحد 💪</p>
+            <div class="socials">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="#"><i class="fab fa-telegram"></i></a>
             </div>
         </div>
-    </footer>
+    </div>
+</footer>
 
-    <!-- ============================================ -->
-    <!-- ===== Firebase Configuration & Script ===== -->
-    <!-- ============================================ -->
-    <script type="module">
-        // ===== Firebase Imports =====
-        import { initializeApp } from "firebase/app";
-        import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
-        import { getFirestore, collection, query, where, orderBy, limit, getDocs, getDoc, doc, onSnapshot } from "firebase/firestore";
-        import { getStorage, ref, getDownloadURL } from "firebase/storage";
+<script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyAz9BfG1INB3shlCiMtK395SEo6sCkaZSI",
+        authDomain: "thanawya-official-plus.firebaseapp.com",
+        projectId: "thanawya-official-plus",
+        storageBucket: "thanawya-official-plus.firebasestorage.app",
+        messagingSenderId: "883728724353",
+        appId: "1:883728724353:web:3f611e29d556d03c61b880",
+        measurementId: "G-1KN0QEZKWX"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
 
-        // ===== Firebase Config =====
-        const firebaseConfig = {
-            apiKey: "AIzaSyAz9BfG1INB3shlCiMtK395SEo6sCkaZSI",
-            authDomain: "thanawya-official-plus.firebaseapp.com",
-            projectId: "thanawya-official-plus",
-            storageBucket: "thanawya-official-plus.firebasestorage.app",
-            messagingSenderId: "883728724353",
-            appId: "1:883728724353:web:3f611e29d556d03c61b880",
-            measurementId: "G-1KN0QEZKWX"
-        };
+    // Theme
+    function toggleTheme() {
+        const html = document.documentElement;
+        const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+        const icon = document.querySelector('.theme-btn i');
+        icon.className = next === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+    }
+    (function() {
+        const saved = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', saved);
+        const icon = document.querySelector('.theme-btn i');
+        icon.className = saved === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+    })();
 
-        // ===== Initialize Firebase =====
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-        const storage = getStorage(app);
-
-        // ===== DOM Elements =====
-        const searchInput = document.getElementById('searchInput');
-        const searchResults = document.getElementById('searchResults');
-        const themeToggle = document.getElementById('themeToggle');
-        const authButtons = document.getElementById('authButtons');
-        const userMenu = document.getElementById('userMenu');
-        const userName = document.getElementById('userName');
-        const userAvatar = document.getElementById('userAvatar');
-        const userPoints = document.getElementById('userPoints');
-
-        const latestBooks = document.getElementById('latestBooks');
-        const latestSummaries = document.getElementById('latestSummaries');
-        const latestExams = document.getElementById('latestExams');
-        const suggestedItems = document.getElementById('suggestedItems');
-        const announcementsContainer = document.getElementById('announcementsContainer');
-
-        // ===== Theme Management =====
-        function toggleTheme() {
-            const html = document.documentElement;
-            const currentTheme = html.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            html.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-            updateThemeIcon(newTheme);
-        }
-
-        function updateThemeIcon(theme) {
-            const icon = themeToggle.querySelector('i');
-            if (theme === 'dark') {
-                icon.className = 'fas fa-sun';
-            } else {
-                icon.className = 'fas fa-moon';
-            }
-        }
-
-        function loadTheme() {
-            const savedTheme = localStorage.getItem('theme') || 'light';
-            document.documentElement.setAttribute('data-theme', savedTheme);
-            updateThemeIcon(savedTheme);
-        }
-
-        themeToggle.addEventListener('click', toggleTheme);
-        loadTheme();
-
-        // ===== Auth Management =====
-        onAuthStateChanged(auth, async (user) => {
-            if (user) {
-                authButtons.classList.add('hidden');
-                userMenu.classList.remove('hidden');
-                
-                // Get user data from Firestore
-                try {
-                    const userDoc = await getDoc(doc(db, 'users', user.uid));
-                    if (userDoc.exists()) {
-                        const data = userDoc.data();
-                        userName.textContent = data.name || user.displayName || 'طالب';
-                        userAvatar.src = data.photoURL || user.photoURL || 'https://ui-avatars.com/api/?name=طالب&background=2d7aff&color=fff';
-                        userPoints.textContent = data.points || 0;
-                    }
-                } catch (err) {
-                    console.error('Error fetching user data:', err);
+    // Auth
+    auth.onAuthStateChanged(user => {
+        const btns = document.getElementById('authButtons');
+        const menu = document.getElementById('userMenu');
+        if (user) {
+            btns.classList.add('hidden');
+            menu.classList.remove('hidden');
+            db.collection('users').doc(user.uid).get().then(doc => {
+                if (doc.exists) {
+                    const d = doc.data();
+                    document.getElementById('userName').textContent = d.name || 'طالب';
+                    document.getElementById('userAvatar').src = d.photoURL || 'https://ui-avatars.com/api/?name=طالب&background=0984e3&color=fff';
+                    document.getElementById('userPoints').textContent = d.points || 0;
                 }
-            } else {
-                authButtons.classList.remove('hidden');
-                userMenu.classList.add('hidden');
-            }
-        });
-
-        window.logout = async function() {
-            try {
-                await signOut(auth);
-                window.location.reload();
-            } catch (err) {
-                console.error('Logout error:', err);
-                alert('حدث خطأ أثناء تسجيل الخروج');
-            }
-        };
-
-        // ===== Load Data from Firebase =====
-        async function loadData() {
-            await Promise.all([
-                loadLatestBooks(),
-                loadLatestSummaries(),
-                loadLatestExams(),
-                loadSuggestedItems(),
-                loadAnnouncements(),
-                loadStageCounts()
-            ]);
+            });
+        } else {
+            btns.classList.remove('hidden');
+            menu.classList.add('hidden');
         }
+    });
 
-        // ===== Load Latest Books =====
-        async function loadLatestBooks() {
-            try {
-                const q = query(
-                    collection(db, 'books'),
-                    where('status', '==', 'approved'),
-                    orderBy('createdAt', 'desc'),
-                    limit(8)
-                );
-                const snapshot = await getDocs(q);
-                renderItems(latestBooks, snapshot, 'book');
-            } catch (err) {
-                console.error('Error loading books:', err);
-                latestBooks.innerHTML = createEmptyState('📭', 'لا توجد كتب', 'سيتم إضافة الكتب قريباً');
-            }
-        }
+    window.logout = () => auth.signOut().then(() => location.reload());
 
-        // ===== Load Latest Summaries =====
-        async function loadLatestSummaries() {
-            try {
-                const q = query(
-                    collection(db, 'summaries'),
-                    where('status', '==', 'approved'),
-                    orderBy('createdAt', 'desc'),
-                    limit(8)
-                );
-                const snapshot = await getDocs(q);
-                renderItems(latestSummaries, snapshot, 'summary');
-            } catch (err) {
-                console.error('Error loading summaries:', err);
-                latestSummaries.innerHTML = createEmptyState('📝', 'لا توجد ملخصات', 'كن أول من يرفع ملخصاً');
-            }
-        }
-
-        // ===== Load Latest Exams =====
-        async function loadLatestExams() {
-            try {
-                const q = query(
-                    collection(db, 'exams'),
-                    where('status', '==', 'approved'),
-                    orderBy('createdAt', 'desc'),
-                    limit(8)
-                );
-                const snapshot = await getDocs(q);
-                renderItems(latestExams, snapshot, 'exam');
-            } catch (err) {
-                console.error('Error loading exams:', err);
-                latestExams.innerHTML = createEmptyState('🎯', 'لا توجد امتحانات', 'سيتم إضافة الامتحانات قريباً');
-            }
-        }
-
-        // ===== Load Suggested Items =====
-        async function loadSuggestedItems() {
-            try {
-                // Get random items from all collections
-                const [booksSnap, summariesSnap, examsSnap] = await Promise.all([
-                    getDocs(query(collection(db, 'books'), where('status', '==', 'approved'), limit(3))),
-                    getDocs(query(collection(db, 'summaries'), where('status', '==', 'approved'), limit(3))),
-                    getDocs(query(collection(db, 'exams'), where('status', '==', 'approved'), limit(2)))
-                ]);
-
-                const allItems = [];
-                booksSnap.forEach(doc => allItems.push({ ...doc.data(), id: doc.id, type: 'book' }));
-                summariesSnap.forEach(doc => allItems.push({ ...doc.data(), id: doc.id, type: 'summary' }));
-                examsSnap.forEach(doc => allItems.push({ ...doc.data(), id: doc.id, type: 'exam' }));
-
-                // Shuffle and take 6
-                const shuffled = allItems.sort(() => 0.5 - Math.random()).slice(0, 6);
-                
-                if (shuffled.length === 0) {
-                    suggestedItems.innerHTML = createEmptyState('💡', 'لا توجد مقترحات', 'سجل دخولك للحصول على اقتراحات مخصصة');
+    // Load Data
+    function loadItems(collection, container, type) {
+        db.collection(collection).where('status', '==', 'approved').orderBy('createdAt', 'desc').limit(6).get()
+            .then(snap => {
+                if (snap.empty) {
+                    container.innerHTML = `<div class="empty"><div class="icon">📭</div><h3>لا توجد ${type === 'book' ? 'كتب' : 'ملخصات'}</h3><p>سيتم إضافة المحتوى قريباً</p></div>`;
                     return;
                 }
-
-                suggestedItems.innerHTML = shuffled.map(item => createItemCard(item)).join('');
-            } catch (err) {
-                console.error('Error loading suggestions:', err);
-                suggestedItems.innerHTML = createEmptyState('💡', 'حدث خطأ', 'برجاء المحاولة مرة أخرى');
-            }
-        }
-
-        // ===== Load Announcements =====
-        async function loadAnnouncements() {
-            try {
-                const q = query(
-                    collection(db, 'announcements'),
-                    where('active', '==', true),
-                    orderBy('createdAt', 'desc'),
-                    limit(3)
-                );
-                const snapshot = await getDocs(q);
-                
-                if (snapshot.empty) {
-                    announcementsContainer.innerHTML = '';
-                    return;
-                }
-
                 let html = '';
-                snapshot.forEach(doc => {
-                    const data = doc.data();
+                const names = { '1bac': 'أولى بكالوريا', '2bac': 'ثانية بكالوريا', '3sec': 'ثالثة ثانوي' };
+                const labels = { book: { icon: '📄', label: 'كتاب' }, summary: { icon: '📝', label: 'ملخص' } };
+                snap.forEach(doc => {
+                    const d = doc.data();
+                    const info = labels[type] || labels.book;
                     html += `
-                        <div class="announcement-banner animate-in">
-                            <div class="text">
-                                <span class="icon">📢</span>
-                                <span>${data.title || 'إعلان'}</span>
-                                ${data.message ? `<span style="font-weight:400;opacity:0.9;">- ${data.message}</span>` : ''}
+                        <div class="item" onclick="window.location.href='app.html?${type}=${doc.id}'">
+                            <div class="cover">${d.coverImage ? `<img src="${d.coverImage}" />` : info.icon}<span class="badge">${info.label}</span></div>
+                            <div class="body">
+                                <div class="title">${d.title || 'غير معروف'}</div>
+                                <div class="meta"><span>${d.subject || ''}</span><span>•</span><span>${names[d.stage] || d.stage || ''}</span></div>
+                                <div class="meta"><span class="rating">⭐ ${(d.rating || 0).toFixed(1)}</span><span>•</span><span><i class="fas fa-download"></i> ${d.downloads || 0}</span></div>
                             </div>
-                            ${data.date ? `<span class="date">${data.date}</span>` : ''}
                         </div>
                     `;
                 });
-                announcementsContainer.innerHTML = html;
-            } catch (err) {
-                console.error('Error loading announcements:', err);
-            }
-        }
+                container.innerHTML = html;
+            })
+            .catch(() => container.innerHTML = `<div class="empty"><div class="icon">⚠️</div><h3>حدث خطأ</h3><p>برجاء المحاولة مرة أخرى</p></div>`);
+    }
 
-        // ===== Load Stage Counts =====
-        async function loadStageCounts() {
-            try {
-                const [snap1bac, snap2bac, snap3sec] = await Promise.all([
-                    getDocs(query(collection(db, 'books'), where('stage', '==', '1bac'), where('status', '==', 'approved'))),
-                    getDocs(query(collection(db, 'books'), where('stage', '==', '2bac'), where('status', '==', 'approved'))),
-                    getDocs(query(collection(db, 'books'), where('stage', '==', '3sec'), where('status', '==', 'approved')))
-                ]);
-
-                document.getElementById('count1bac').textContent = `${snap1bac.size} كتاب`;
-                document.getElementById('count2bac').textContent = `${snap2bac.size} كتاب`;
-                document.getElementById('count3sec').textContent = `${snap3sec.size} كتاب`;
-            } catch (err) {
-                console.error('Error loading stage counts:', err);
-            }
-        }
-
-        // ===== Render Items =====
-        function renderItems(container, snapshot, type) {
-            if (snapshot.empty) {
-                const messages = {
-                    book: { icon: '📚', title: 'لا توجد كتب', desc: 'سيتم إضافة الكتب قريباً' },
-                    summary: { icon: '📝', title: 'لا توجد ملخصات', desc: 'كن أول من يرفع ملخصاً' },
-                    exam: { icon: '🎯', title: 'لا توجد امتحانات', desc: 'سيتم إضافة الامتحانات قريباً' }
-                };
-                container.innerHTML = createEmptyState(messages[type].icon, messages[type].title, messages[type].desc);
-                return;
-            }
-
-            let html = '';
-            snapshot.forEach(doc => {
-                const data = doc.data();
-                html += createItemCard({ ...data, id: doc.id, type });
+    function loadAnnouncements() {
+        db.collection('announcements').where('active', '==', true).orderBy('createdAt', 'desc').limit(3).get()
+            .then(snap => {
+                if (snap.empty) { document.getElementById('announcements').innerHTML = ''; return; }
+                let html = '';
+                snap.forEach(doc => {
+                    const d = doc.data();
+                    html += `<div class="announce"><div class="text"><span>📢</span><span>${d.title || 'إعلان'}</span>${d.message ? `<span style="font-weight:400;">- ${d.message}</span>` : ''}</div>${d.date ? `<span class="date">${d.date}</span>` : ''}</div>`;
+                });
+                document.getElementById('announcements').innerHTML = html;
             });
-            container.innerHTML = html;
-        }
+    }
 
-        // ===== Create Item Card =====
-        function createItemCard(item) {
-            const typeLabels = {
-                book: { icon: '📄', label: 'كتاب' },
-                summary: { icon: '📝', label: 'ملخص' },
-                exam: { icon: '📋', label: 'امتحان' }
-            };
-
-            const typeInfo = typeLabels[item.type] || typeLabels.book;
-            const coverImage = item.coverImage || '';
-            const title = item.title || 'عنوان غير معروف';
-            const subject = item.subject || '';
-            const stage = item.stage || '';
-            const rating = item.rating || 0;
-            const downloads = item.downloads || 0;
-            const stageNames = {
-                '1bac': 'أولى بكالوريا',
-                '2bac': 'ثانية بكالوريا',
-                '3sec': 'ثالثة ثانوي'
-            };
-
-            return `
-                <div class="item-card animate-in" onclick="window.location.href='book.html?id=${item.id}'">
-                    <div class="cover">
-                        ${coverImage ? `<img src="${coverImage}" alt="${title}" loading="lazy" />` : typeInfo.icon}
-                        <span class="badge-type">${typeInfo.label}</span>
-                    </div>
-                    <div class="body">
-                        <div class="title">${title}</div>
-                        <div class="meta">
-                            <span>${subject}</span>
-                            <span>•</span>
-                            <span>${stageNames[stage] || stage}</span>
-                        </div>
-                        <div class="meta" style="margin-top:6px;">
-                            <span class="rating">⭐ ${rating.toFixed(1)}</span>
-                            <span>•</span>
-                            <span class="downloads"><i class="fas fa-download"></i> ${downloads}</span>
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
-
-        // ===== Create Empty State =====
-        function createEmptyState(icon, title, desc) {
-            return `
-                <div class="empty-state" style="grid-column:1/-1;">
-                    <div class="icon">${icon}</div>
-                    <h3>${title}</h3>
-                    <p>${desc}</p>
-                </div>
-            `;
-        }
-
-        // ===== Search Functionality =====
-        let searchTimeout;
-
-        searchInput.addEventListener('input', (e) => {
-            clearTimeout(searchTimeout);
-            const query = e.target.value.trim();
-            
-            if (query.length < 2) {
-                searchResults.classList.remove('active');
-                return;
-            }
-
-            searchTimeout = setTimeout(() => performSearch(query), 300);
+    function loadCounts() {
+        ['1bac', '2bac', '3sec'].forEach((s, i) => {
+            const id = ['count1bac', 'count2bac', 'count3sec'][i];
+            db.collection('books').where('stage', '==', s).where('status', '==', 'approved').get()
+                .then(snap => document.getElementById(id).textContent = `${snap.size} كتاب`);
         });
+    }
 
-        async function performSearch(query) {
-            try {
-                const q = query.toLowerCase();
-                const results = [];
-                const collections = [
-                    { name: 'books', label: 'كتاب', icon: '📄' },
-                    { name: 'summaries', label: 'ملخص', icon: '📝' },
-                    { name: 'exams', label: 'امتحان', icon: '📋' }
-                ];
+    loadItems('books', document.getElementById('latestBooks'), 'book');
+    loadItems('summaries', document.getElementById('latestSummaries'), 'summary');
+    loadAnnouncements();
+    loadCounts();
 
-                for (const col of collections) {
-                    const snapshot = await getDocs(
-                        query(collection(db, col.name), where('status', '==', 'approved'), limit(5))
-                    );
-                    
-                    snapshot.forEach(doc => {
-                        const data = doc.data();
-                        const title = (data.title || '').toLowerCase();
-                        const subject = (data.subject || '').toLowerCase();
-                        
-                        if (title.includes(q) || subject.includes(q)) {
-                            results.push({
-                                id: doc.id,
-                                title: data.title,
-                                subject: data.subject,
-                                type: col.label,
-                                icon: col.icon,
-                                stage: data.stage
-                            });
-                        }
-                    });
-                }
-
-                // Limit results
-                const limited = results.slice(0, 10);
-
-                if (limited.length === 0) {
-                    searchResults.innerHTML = `
-                        <div style="padding:20px;text-align:center;color:var(--text-muted);">
-                            <i class="fas fa-search" style="font-size:24px;display:block;margin-bottom:8px;"></i>
-                            لا توجد نتائج لـ "${query}"
-                        </div>
-                    `;
-                } else {
-                    searchResults.innerHTML = limited.map(item => `
-                        <div class="search-result-item" onclick="window.location.href='book.html?id=${item.id}'">
-                            <div class="icon" style="background:var(--bg-primary);">${item.icon}</div>
-                            <div class="info">
-                                <div class="title">${item.title}</div>
-                                <div class="subtitle">${item.subject} • ${item.type}</div>
+    // Real-time
+    db.collection('books').where('status', '==', 'approved').orderBy('createdAt', 'desc').limit(6)
+        .onSnapshot(snap => {
+            if (!snap.empty) {
+                let html = '';
+                const names = { '1bac': 'أولى بكالوريا', '2bac': 'ثانية بكالوريا', '3sec': 'ثالثة ثانوي' };
+                snap.forEach(doc => {
+                    const d = doc.data();
+                    html += `
+                        <div class="item" onclick="window.location.href='app.html?book=${doc.id}'">
+                            <div class="cover">${d.coverImage ? `<img src="${d.coverImage}" />` : '📄'}<span class="badge">كتاب</span></div>
+                            <div class="body">
+                                <div class="title">${d.title || 'غير معروف'}</div>
+                                <div class="meta"><span>${d.subject || ''}</span><span>•</span><span>${names[d.stage] || d.stage || ''}</span></div>
+                                <div class="meta"><span class="rating">⭐ ${(d.rating || 0).toFixed(1)}</span><span>•</span><span><i class="fas fa-download"></i> ${d.downloads || 0}</span></div>
                             </div>
                         </div>
-                    `).join('');
-                }
-
-                searchResults.classList.add('active');
-
-            } catch (err) {
-                console.error('Search error:', err);
-            }
-        }
-
-        // Close search on click outside
-        document.addEventListener('click', (e) => {
-            if (!e.target.closest('.search-container')) {
-                searchResults.classList.remove('active');
+                    `;
+                });
+                document.getElementById('latestBooks').innerHTML = html;
             }
         });
 
-        // ===== Stage Cards Click =====
-        document.querySelectorAll('.stage-card').forEach(card => {
-            card.addEventListener('click', (e) => {
-                e.preventDefault();
-                const stage = card.dataset.stage;
-                window.location.href = `stage.html?stage=${stage}`;
-            });
-        });
-
-        // ===== Initialize =====
-        loadData();
-
-        // Real-time updates for books
-        onSnapshot(
-            query(collection(db, 'books'), where('status', '==', 'approved'), orderBy('createdAt', 'desc'), limit(8)),
-            (snapshot) => {
-                renderItems(latestBooks, snapshot, 'book');
-            },
-            (err) => console.error('Real-time books error:', err)
-        );
-
-        // Real-time updates for summaries
-        onSnapshot(
-            query(collection(db, 'summaries'), where('status', '==', 'approved'), orderBy('createdAt', 'desc'), limit(8)),
-            (snapshot) => {
-                renderItems(latestSummaries, snapshot, 'summary');
-            },
-            (err) => console.error('Real-time summaries error:', err)
-        );
-
-        // Real-time updates for exams
-        onSnapshot(
-            query(collection(db, 'exams'), where('status', '==', 'approved'), orderBy('createdAt', 'desc'), limit(8)),
-            (snapshot) => {
-                renderItems(latestExams, snapshot, 'exam');
-            },
-            (err) => console.error('Real-time exams error:', err)
-        );
-
-        console.log('🚀 الثانوية الرسمية بلس - المنصة التعليمية المتكاملة');
-        console.log('📚 جاهزة للاستخدام مع Firebase');
-    </script>
+    console.log('🚀 الثانوية الرسمية بلس جاهزة!');
+</script>
 </body>
 </html>
