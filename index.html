@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>الثانوية الرسمية بلس | أكبر مكتبة تعليمية عربية مجانية</title>
+    <title>الثانوية الرسمية بلس | كل اللي الطالب محتاجه في مكان واحد</title>
     
     <!-- SEO -->
-    <meta name="description" content="منصة الثانوية الرسمية بلس - أكبر مكتبة تعليمية عربية مجانية لطلاب الثانوية العامة">
+    <meta name="description" content="منصة الثانوية الرسمية بلس - كل اللي الطالب محتاجه في مكان واحد">
     <meta name="robots" content="index, follow">
     <meta property="og:title" content="الثانوية الرسمية بلس">
     <meta property="og:type" content="website">
@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <style>
-        /* ===== الألوان الأساسية ===== */
+        /* ===== الألوان ===== */
         :root {
             --bg: #ffffff;
             --bg2: #f0f4f8;
@@ -36,6 +36,7 @@
             --red: #ef4444;
             --red-dark: #dc2626;
             --gold: #f59e0b;
+            --gold-dark: #d97706;
             --purple: #8b5cf6;
             --shadow: 0 4px 20px rgba(0,0,0,0.08);
             --shadow-lg: 0 10px 40px rgba(0,0,0,0.12);
@@ -177,18 +178,32 @@
         }
         .actions .avatar:hover { border-color: var(--gold); transform: scale(1.05); }
         
+        /* ===== شعار المنصة ===== */
+        .tagline {
+            text-align: center;
+            padding: 20px 0 10px;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text2);
+            letter-spacing: 1px;
+        }
+        .tagline span {
+            background: linear-gradient(135deg, var(--green), var(--blue), var(--purple));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        
         /* ===== الهيرو ===== */
         .hero {
-            padding: 120px 0 60px;
+            padding: 110px 0 60px;
             background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
-            min-height: 80vh; display: flex; align-items: center;
+            min-height: 70vh; display: flex; align-items: center;
         }
         .hero-grid {
             display: grid; grid-template-columns: 1fr 1fr; gap: 50px;
             align-items: center;
         }
         .hero h1 {
-            font-size: 48px; font-weight: 900; line-height: 1.1;
+            font-size: 44px; font-weight: 900; line-height: 1.1;
         }
         .hero h1 .highlight {
             background: linear-gradient(135deg, var(--green), var(--blue), var(--purple));
@@ -309,6 +324,28 @@
         .grade-3 .enter:hover { background: var(--red-dark); }
         .grade-3 .img { border-bottom: 4px solid var(--red); }
         
+        /* ===== أقسام المرحلة ===== */
+        .stage-sections {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 16px;
+            margin: 20px 0;
+        }
+        .stage-section {
+            background: var(--card); border-radius: var(--radius);
+            padding: 16px; text-align: center;
+            border: 1px solid var(--border);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        .stage-section:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow);
+            border-color: var(--blue);
+        }
+        .stage-section .icon { font-size: 28px; display: block; margin-bottom: 6px; }
+        .stage-section .label { font-size: 14px; font-weight: 600; }
+        .stage-section .count { font-size: 12px; color: var(--text3); }
+        
         /* ===== بطاقات الكتب ===== */
         .books-grid {
             display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -337,6 +374,7 @@
         .badge.gold { background: var(--gold); }
         .badge.blue { background: var(--blue); }
         .badge.purple { background: var(--purple); }
+        .badge.green { background: var(--green); }
         .book-card .info { padding: 14px; }
         .book-card .info h4 {
             font-size: 15px; font-weight: 700;
@@ -468,6 +506,10 @@
         }
         .book-page .info .actions .share:hover { box-shadow: 0 8px 25px rgba(139,92,246,0.3); }
         .book-page .info .actions .favorite.active { color: var(--red); }
+        .book-page .info .actions .read {
+            background: var(--green); color: white; border: none;
+        }
+        .book-page .info .actions .read:hover { box-shadow: 0 8px 25px rgba(34,197,94,0.3); }
         
         /* ===== التعليقات ===== */
         .comments { margin-top: 24px; border-top: 1px solid var(--border); padding-top: 20px; }
@@ -520,6 +562,93 @@
         .comment-item .rating-display {
             color: var(--gold); margin-right: 42px; font-size: 14px;
         }
+        
+        /* ===== المؤقت ===== */
+        .timer-section {
+            background: var(--card); border-radius: var(--radius-lg);
+            padding: 30px; border: 1px solid var(--border);
+            margin: 20px 0;
+        }
+        .timer-section .timer-display {
+            font-size: 48px; font-weight: 900; text-align: center;
+            font-family: monospace; letter-spacing: 4px;
+        }
+        .timer-section .timer-controls {
+            display: flex; gap: 12px; justify-content: center;
+            margin: 16px 0;
+        }
+        .timer-section .timer-controls button {
+            padding: 8px 24px; border-radius: 60px;
+            font-weight: 700; transition: var(--transition);
+        }
+        .timer-section .timer-controls .start {
+            background: var(--green); color: white;
+        }
+        .timer-section .timer-controls .start:hover { background: var(--green-dark); }
+        .timer-section .timer-controls .pause {
+            background: var(--gold); color: white;
+        }
+        .timer-section .timer-controls .pause:hover { background: var(--gold-dark); }
+        .timer-section .timer-controls .reset {
+            background: var(--red); color: white;
+        }
+        .timer-section .timer-controls .reset:hover { background: var(--red-dark); }
+        .timer-section .timer-presets {
+            display: flex; gap: 10px; justify-content: center;
+            flex-wrap: wrap;
+        }
+        .timer-section .timer-presets button {
+            padding: 6px 16px; border-radius: 60px;
+            background: var(--bg2); border: 1px solid var(--border);
+            font-weight: 600; transition: var(--transition);
+        }
+        .timer-section .timer-presets button:hover {
+            background: var(--border);
+            border-color: var(--blue);
+        }
+        .timer-section .timer-presets button.active {
+            background: var(--blue); color: white; border-color: var(--blue);
+        }
+        
+        /* ===== To Do List ===== */
+        .todo-section {
+            background: var(--card); border-radius: var(--radius-lg);
+            padding: 24px; border: 1px solid var(--border);
+            margin: 20px 0;
+        }
+        .todo-item {
+            display: flex; align-items: center; gap: 12px;
+            padding: 10px 0; border-bottom: 1px solid var(--border);
+        }
+        .todo-item:last-child { border-bottom: none; }
+        .todo-item .checkbox {
+            width: 22px; height: 22px; border-radius: 6px;
+            border: 2px solid var(--border); cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: var(--transition);
+        }
+        .todo-item .checkbox.done {
+            background: var(--green); border-color: var(--green);
+            color: white;
+        }
+        .todo-item .checkbox.done i { font-size: 12px; }
+        .todo-item .todo-text {
+            flex: 1; font-size: 15px;
+        }
+        .todo-item .todo-text.done {
+            text-decoration: line-through; color: var(--text3);
+        }
+        .todo-item .todo-priority {
+            padding: 2px 10px; border-radius: 60px;
+            font-size: 11px; font-weight: 700;
+        }
+        .todo-item .todo-priority.high { background: #fecaca; color: var(--red-dark); }
+        .todo-item .todo-priority.medium { background: #fef3c7; color: var(--gold-dark); }
+        .todo-item .todo-priority.low { background: #dcfce7; color: var(--green-dark); }
+        .todo-item .todo-delete {
+            color: var(--text3); transition: var(--transition);
+        }
+        .todo-item .todo-delete:hover { color: var(--red); }
         
         /* ===== الفوتر ===== */
         .footer {
@@ -662,6 +791,47 @@
         }
         .upload-box .actions .cancel:hover { background: var(--border); }
         
+        /* ===== إنجازات ===== */
+        .achievements-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 16px;
+        }
+        .achievement-card {
+            background: var(--card); border-radius: var(--radius);
+            padding: 16px; text-align: center;
+            border: 1px solid var(--border);
+            transition: var(--transition);
+        }
+        .achievement-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+        .achievement-card .icon { font-size: 32px; display: block; margin-bottom: 6px; }
+        .achievement-card .name { font-size: 13px; font-weight: 600; }
+        .achievement-card .desc { font-size: 11px; color: var(--text3); }
+        .achievement-card.locked { opacity: 0.5; filter: grayscale(1); }
+        
+        /* ===== متصدرين ===== */
+        .leaderboard-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+        }
+        .leader-card {
+            background: var(--card); border-radius: var(--radius);
+            padding: 16px; text-align: center;
+            border: 1px solid var(--border);
+            transition: var(--transition);
+        }
+        .leader-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+        .leader-card .rank {
+            font-size: 24px; font-weight: 900; color: var(--gold);
+        }
+        .leader-card .avatar {
+            width: 48px; height: 48px; border-radius: 50%;
+            background: var(--bg2); margin: 8px auto;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 20px; font-weight: 700;
+        }
+        .leader-card .name { font-weight: 700; font-size: 15px; }
+        .leader-card .score { font-size: 13px; color: var(--text3); }
+        
         /* ===== استجابة ===== */
         @media (max-width: 1024px) {
             .hero-grid { grid-template-columns: 1fr; text-align: center; }
@@ -688,6 +858,8 @@
             .book-page .info .actions button { flex: 1; min-width: 100px; }
             .actions .btn { padding: 6px 14px; font-size: 13px; }
             .actions .btn-register span { display: none; }
+            .timer-section .timer-display { font-size: 32px; }
+            .stage-sections { grid-template-columns: repeat(2, 1fr); }
         }
         @media (max-width: 480px) {
             .books-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
@@ -696,6 +868,9 @@
             .container { padding: 0 12px; }
             .popup-box { padding: 24px; }
             .upload-box { padding: 20px; }
+            .stage-sections { grid-template-columns: 1fr 1fr; }
+            .achievements-grid { grid-template-columns: repeat(2, 1fr); }
+            .leaderboard-grid { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
 </head>
@@ -729,12 +904,19 @@
                         <div style="padding:10px 14px; display:flex; align-items:center; gap:10px; border-radius:8px; transition:var(--transition); cursor:pointer;" data-page="favorites"><i class="fas fa-bookmark"></i> المفضلة</div>
                         <div style="padding:10px 14px; display:flex; align-items:center; gap:10px; border-radius:8px; transition:var(--transition); cursor:pointer;" data-page="upload"><i class="fas fa-upload"></i> أرسل ملخصك</div>
                         <div style="padding:10px 14px; display:flex; align-items:center; gap:10px; border-radius:8px; transition:var(--transition); cursor:pointer;" data-page="achievements"><i class="fas fa-trophy"></i> إنجازاتي</div>
+                        <div style="padding:10px 14px; display:flex; align-items:center; gap:10px; border-radius:8px; transition:var(--transition); cursor:pointer;" data-page="timer"><i class="fas fa-clock"></i> المؤقت</div>
+                        <div style="padding:10px 14px; display:flex; align-items:center; gap:10px; border-radius:8px; transition:var(--transition); cursor:pointer;" data-page="todo"><i class="fas fa-list-check"></i> To Do</div>
                         <div style="padding:10px 14px; display:flex; align-items:center; gap:10px; border-radius:8px; transition:var(--transition); cursor:pointer; color:var(--red); border-top:1px solid var(--border); margin-top:4px; padding-top:8px;" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> تسجيل الخروج</div>
                     </div>
                 </div>
             </div>
         </div>
     </header>
+
+    <!-- ===== شعار ===== -->
+    <div class="tagline" style="padding-top:90px;">
+        <span>كل اللي الطالب محتاجه... في مكان واحد</span>
+    </div>
 
     <!-- ===== هيرو ===== -->
     <section class="hero">
@@ -822,6 +1004,20 @@
         </div>
     </section>
 
+    <!-- ===== أقسام المرحلة (تبدأ مخفية وتظهر عند الضغط على صف) ===== -->
+    <section class="section" id="stageSections" style="display:none;">
+        <div class="container">
+            <div class="section-header">
+                <h2 id="stageTitle">📚 أولى بكالوريا</h2>
+                <button class="more" id="closeStage"><i class="fas fa-arrow-right"></i> العودة للصفوف</button>
+            </div>
+            <div class="stage-sections" id="stageContent">
+                <!-- يتم تعبئته بواسطة JavaScript -->
+            </div>
+            <div class="books-grid" id="stageBooks"></div>
+        </div>
+    </section>
+
     <!-- ===== أحدث الكتب ===== -->
     <section class="section" id="booksSection">
         <div class="container">
@@ -902,6 +1098,78 @@
         </div>
     </section>
 
+    <!-- ===== متصدرين ===== -->
+    <section class="section" style="background:var(--bg2);">
+        <div class="container">
+            <div class="section-header">
+                <h2>🏆 المتصدرين</h2>
+                <a href="#" class="more">عرض الكل <i class="fas fa-arrow-left"></i></a>
+            </div>
+            <div class="leaderboard-grid" id="leaderboard">
+                <div class="skeleton" style="padding:20px;text-align:center;"><div class="s-cover" style="height:60px;border-radius:50%;width:60px;margin:0 auto;"></div><div class="s-info"><div class="s-line"></div><div class="s-line short"></div></div></div>
+                <div class="skeleton" style="padding:20px;text-align:center;"><div class="s-cover" style="height:60px;border-radius:50%;width:60px;margin:0 auto;"></div><div class="s-info"><div class="s-line"></div><div class="s-line short"></div></div></div>
+                <div class="skeleton" style="padding:20px;text-align:center;"><div class="s-cover" style="height:60px;border-radius:50%;width:60px;margin:0 auto;"></div><div class="s-info"><div class="s-line"></div><div class="s-line short"></div></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== المؤقت ===== -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>⏱ المؤقت</h2>
+            </div>
+            <div class="timer-section">
+                <div class="timer-display" id="timerDisplay">25:00</div>
+                <div class="timer-controls">
+                    <button class="start" id="timerStart"><i class="fas fa-play"></i> ابدأ</button>
+                    <button class="pause" id="timerPause"><i class="fas fa-pause"></i> إيقاف</button>
+                    <button class="reset" id="timerReset"><i class="fas fa-undo"></i> إعادة</button>
+                </div>
+                <div class="timer-presets">
+                    <button data-time="5">5 د</button>
+                    <button data-time="15">15 د</button>
+                    <button data-time="25" class="active">25 د</button>
+                    <button data-time="45">45 د</button>
+                    <button data-time="60">60 د</button>
+                    <button data-time="90">90 د</button>
+                </div>
+                <div style="text-align:center;margin-top:12px;color:var(--text3);font-size:14px;">
+                    <span id="timerStatus">⏸ في انتظار البدء</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== To Do List ===== -->
+    <section class="section" style="background:var(--bg2);">
+        <div class="container">
+            <div class="section-header">
+                <h2>✅ To Do List</h2>
+                <button class="more" id="addTodoBtn"><i class="fas fa-plus"></i> إضافة مهمة</button>
+            </div>
+            <div class="todo-section">
+                <div id="todoList">
+                    <!-- يتم تعبئته بواسطة JavaScript -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== إنجازات ===== -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>🏅 الإنجازات</h2>
+            </div>
+            <div class="achievements-grid" id="achievements">
+                <div class="skeleton" style="padding:16px;text-align:center;"><div class="s-cover" style="height:40px;border-radius:50%;width:40px;margin:0 auto;"></div><div class="s-info"><div class="s-line"></div><div class="s-line short"></div></div></div>
+                <div class="skeleton" style="padding:16px;text-align:center;"><div class="s-cover" style="height:40px;border-radius:50%;width:40px;margin:0 auto;"></div><div class="s-info"><div class="s-line"></div><div class="s-line short"></div></div></div>
+                <div class="skeleton" style="padding:16px;text-align:center;"><div class="s-cover" style="height:40px;border-radius:50%;width:40px;margin:0 auto;"></div><div class="s-info"><div class="s-line"></div><div class="s-line short"></div></div></div>
+            </div>
+        </div>
+    </section>
+
     <!-- ===== فوتر ===== -->
     <footer class="footer">
         <div class="container">
@@ -911,7 +1179,7 @@
                         <img src="https://cdn.phototourl.com/free/2026-07-21-1dd4b984-ed08-4a40-aead-9ef086ebbd45.jpg" alt="المنصة" style="width:32px;height:32px;">
                         <span>الثانوية الرسمية بلس</span>
                     </div>
-                    <p>أكبر مكتبة تعليمية عربية مجانية لطلاب أولى بكالوريا، ثانية بكالوريا، وثالثة ثانوي.</p>
+                    <p>كل اللي الطالب محتاجه... في مكان واحد</p>
                     <div class="social">
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
                         <a href="#"><i class="fab fa-twitter"></i></a>
@@ -1000,12 +1268,20 @@
                     <input type="text" id="uSubject" placeholder="مثال: فيزياء" required>
                 </div>
                 <div class="group">
-                    <label>الوحدة</label>
-                    <input type="text" id="uUnit" placeholder="مثال: الوحدة الأولى">
+                    <label>الفصل</label>
+                    <input type="text" id="uChapter" placeholder="مثال: الفصل الأول">
                 </div>
                 <div class="group">
                     <label>الدرس</label>
                     <input type="text" id="uLesson" placeholder="مثال: درس الحركة" required>
+                </div>
+                <div class="group">
+                    <label>عنوان الملخص</label>
+                    <input type="text" id="uTitle" placeholder="مثال: ملخص الفصل الأول" required>
+                </div>
+                <div class="group">
+                    <label>ملاحظات</label>
+                    <input type="text" id="uNotes" placeholder="أي ملاحظات إضافية">
                 </div>
                 <div class="group">
                     <label>رفع الملف</label>
@@ -1042,7 +1318,7 @@
         import { 
             getFirestore, collection, query, orderBy, limit, getDocs,
             getCountFromServer, where, doc, getDoc, updateDoc, addDoc,
-            serverTimestamp, increment, arrayUnion, arrayRemove
+            serverTimestamp, increment, arrayUnion, arrayRemove, deleteDoc
         } from "firebase/firestore";
         import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
@@ -1091,8 +1367,17 @@
         const uploadModal = $('#uploadModal');
         const uploadForm = $('#uploadForm');
         const uploadCancel = $('#uploadCancel');
+        const stageSections = $('#stageSections');
+        const stageTitle = $('#stageTitle');
+        const stageContent = $('#stageContent');
+        const stageBooks = $('#stageBooks');
+        const closeStage = $('#closeStage');
 
         let currentUser = null;
+        let timerInterval = null;
+        let timerSeconds = 1500;
+        let timerRunning = false;
+        let timerPreset = 25;
 
         // ============================================================
         // Theme
@@ -1212,6 +1497,8 @@
                                 <span>📅 ${book.year || 'غير محدد'}</span>
                                 ${book.category ? `<span>📂 ${book.category}</span>` : ''}
                                 ${book.author ? `<span>✍️ ${book.author}</span>` : ''}
+                                ${book.pages ? `<span>📄 ${book.pages} صفحة</span>` : ''}
+                                ${book.size ? `<span>💾 ${book.size}</span>` : ''}
                             </div>
                             ${book.description ? `<div class="desc">${book.description}</div>` : ''}
                             <div class="stats">
@@ -1220,13 +1507,15 @@
                                 <div class="item"><div class="num">${book.rating || 0}</div><div class="label">⭐ تقييم</div></div>
                                 ${book.adminRating ? `<div class="item"><div class="num">⭐ ${book.adminRating}</div><div class="label">تقييم الإدارة</div></div>` : ''}
                                 <div class="item"><div class="num">${book.commentsCount || 0}</div><div class="label">💬 تعليق</div></div>
+                                <div class="item"><div class="num">${book.uploader || 'غير معروف'}</div><div class="label">👤 رافع</div></div>
                             </div>
                             <div class="actions">
                                 ${book.pdfUrl ? `<button class="download" data-id="${id}"><i class="fas fa-download"></i> تحميل</button>` : ''}
-                                ${book.pdfUrl ? `<button class="preview" data-id="${id}"><i class="fas fa-eye"></i> معاينة</button>` : ''}
+                                ${book.pdfUrl ? `<button class="read" data-id="${id}"><i class="fas fa-book-open"></i> فتح الكتاب</button>` : ''}
                                 <button class="favorite" data-id="${id}"><i class="fas fa-heart"></i> مفضلة</button>
                                 <button class="share-btn" data-id="${id}"><i class="fas fa-share"></i> مشاركة</button>
                                 <button class="copy-btn" data-id="${id}"><i class="fas fa-link"></i> نسخ الرابط</button>
+                                <button class="report-btn" data-id="${id}"><i class="fas fa-flag"></i> إبلاغ</button>
                             </div>
                             <div class="comments">
                                 <h3>💬 التعليقات</h3>
@@ -1270,10 +1559,14 @@
                     } catch (e) { toast('حدث خطأ', 'خطأ', 'error'); }
                 });
 
-                // معاينة
-                bookContent.querySelector('.preview')?.addEventListener('click', function() {
-                    if (book.pdfUrl) window.open(book.pdfUrl, '_blank');
-                    else toast('لا يوجد ملف للمعاينة', 'تنبيه', 'error');
+                // فتح الكتاب
+                bookContent.querySelector('.read')?.addEventListener('click', function() {
+                    if (book.pdfUrl) {
+                        window.open(book.pdfUrl, '_blank');
+                        toast('📖 جاري فتح الكتاب', 'فتح الكتاب', 'info');
+                    } else {
+                        toast('لا يوجد ملف للقراءة', 'تنبيه', 'error');
+                    }
                 });
 
                 // مفضلة
@@ -1305,6 +1598,12 @@
                     const url = `${window.location.origin}/book/${id}`;
                     navigator.clipboard.writeText(url).then(() => toast('تم نسخ رابط الكتاب', 'تم النسخ', 'success'))
                         .catch(() => toast(url, 'رابط الكتاب', 'info'));
+                });
+
+                // إبلاغ
+                bookContent.querySelector('.report-btn')?.addEventListener('click', function() {
+                    if (!currentUser) { showPopup(); return; }
+                    toast('📨 تم إرسال البلاغ للإدارة', 'تم الإبلاغ', 'success');
                 });
 
                 // ===== نجوم التعليقات =====
@@ -1454,6 +1753,232 @@
             } catch (e) { console.error(e); }
         }
 
+        async function loadLeaderboard() {
+            try {
+                const q = query(collection(db, 'users'), orderBy('points', 'desc'), limit(5));
+                const s = await getDocs(q);
+                const users = [];
+                s.forEach(d => users.push(d.data()));
+                const el = $('#leaderboard');
+                if (users.length === 0) {
+                    el.innerHTML = `<div class="empty" style="grid-column:1/-1;"><div class="icon">🏆</div><h3>لا يوجد متصدرين بعد</h3><p>سيظهر الترتيب بعد بدء التفاعل</p></div>`;
+                    return;
+                }
+                el.innerHTML = users.map((u, i) => `
+                    <div class="leader-card">
+                        <div class="rank">#${i + 1}</div>
+                        <div class="avatar">${u.name ? u.name.charAt(0).toUpperCase() : '👤'}</div>
+                        <div class="name">${u.name || 'مستخدم'}</div>
+                        <div class="score">⭐ ${u.points || 0} نقطة</div>
+                    </div>
+                `).join('');
+            } catch (e) { console.error(e); }
+        }
+
+        async function loadAchievements() {
+            try {
+                const achievements = [
+                    { icon: '📖', name: 'أول كتاب', desc: 'حملت أول كتاب', locked: false },
+                    { icon: '📝', name: 'أول ملخص', desc: 'رفعت أول ملخص', locked: false },
+                    { icon: '⏱', name: '10 ساعات', desc: 'أنهيت 10 ساعات مذاكرة', locked: false },
+                    { icon: '⏱', name: '50 ساعة', desc: 'أنهيت 50 ساعة مذاكرة', locked: true },
+                    { icon: '⏱', name: '100 ساعة', desc: 'أنهيت 100 ساعة مذاكرة', locked: true },
+                    { icon: '💬', name: 'أول تعليق', desc: 'كتبت أول تعليق', locked: false },
+                    { icon: '⭐', name: '100 تقييم', desc: 'قيمت 100 كتاب', locked: true },
+                    { icon: '🏆', name: 'أفضل طالب', desc: 'حصلت على لقب أفضل طالب', locked: true },
+                ];
+                const el = $('#achievements');
+                el.innerHTML = achievements.map(a => `
+                    <div class="achievement-card ${a.locked ? 'locked' : ''}">
+                        <span class="icon">${a.icon}</span>
+                        <div class="name">${a.name}</div>
+                        <div class="desc">${a.desc}</div>
+                        ${a.locked ? '<div style="font-size:11px;color:var(--text3);">🔒 مغلق</div>' : '<div style="font-size:11px;color:var(--green);">✅ مكتمل</div>'}
+                    </div>
+                `).join('');
+            } catch (e) { console.error(e); }
+        }
+
+        // ============================================================
+        // Grade Sections
+        // ============================================================
+        const stageItems = [
+            { icon: '📚', label: 'كتب المدرسين' },
+            { icon: '📖', label: 'كتب الوزارة' },
+            { icon: '📘', label: 'الكتب الخارجية' },
+            { icon: '📝', label: 'الملخصات' },
+            { icon: '✍️', label: 'ملخصات بخط الطلاب' },
+            { icon: '📄', label: 'أوراق المراجعة' },
+            { icon: '📚', label: 'بنك الأسئلة' },
+            { icon: '🎯', label: 'الامتحانات' },
+            { icon: '🧪', label: 'الاختبارات' },
+            { icon: '🎥', label: 'فيديوهات الشرح' },
+            { icon: '🎙️', label: 'مراجعات صوتية' },
+            { icon: '🧠', label: 'الخرائط الذهنية' },
+            { icon: '📌', label: 'أهم الأسئلة' },
+            { icon: '📅', label: 'خطة المذاكرة' },
+            { icon: '⏱', label: 'المؤقت' },
+            { icon: '✅', label: 'To Do List' },
+            { icon: '🏆', label: 'المتصدرين' },
+            { icon: '💬', label: 'المناقشات' },
+        ];
+
+        document.querySelectorAll('.enter').forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (!currentUser) { showPopup(); return; }
+                const grade = btn.dataset.grade;
+                const names = ['', 'أولى بكالوريا', 'ثانية بكالوريا', 'ثالثة ثانوي'];
+                const colors = ['', 'var(--green)', 'var(--blue)', 'var(--red)'];
+                stageTitle.textContent = `📚 ${names[grade]}`;
+                stageTitle.style.color = colors[grade];
+                stageContent.innerHTML = stageItems.map(item => `
+                    <div class="stage-section" style="border-color:${colors[grade]}40;">
+                        <span class="icon">${item.icon}</span>
+                        <div class="label">${item.label}</div>
+                        <div class="count">0</div>
+                    </div>
+                `).join('');
+                stageSections.style.display = 'block';
+                stageSections.scrollIntoView({ behavior: 'smooth' });
+                // تحميل كتب الصف
+                loadGradeBooks(grade);
+            });
+        });
+
+        closeStage?.addEventListener('click', () => {
+            stageSections.style.display = 'none';
+            document.getElementById('booksSection').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        async function loadGradeBooks(grade) {
+            try {
+                const q = query(collection(db, 'books'), where('grade', '==', parseInt(grade)), limit(8));
+                const s = await getDocs(q);
+                const items = [];
+                s.forEach(d => items.push({ id: d.id, ...d.data() }));
+                renderBooks('#stageBooks', items);
+            } catch (e) { console.error(e); }
+        }
+
+        // ============================================================
+        // Timer
+        // ============================================================
+        function updateTimerDisplay() {
+            const mins = Math.floor(timerSeconds / 60);
+            const secs = timerSeconds % 60;
+            document.getElementById('timerDisplay').textContent = 
+                `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+        }
+
+        function startTimer() {
+            if (timerRunning) return;
+            timerRunning = true;
+            document.getElementById('timerStatus').textContent = '⏳ جاري المذاكرة...';
+            timerInterval = setInterval(() => {
+                timerSeconds--;
+                updateTimerDisplay();
+                if (timerSeconds <= 0) {
+                    clearInterval(timerInterval);
+                    timerRunning = false;
+                    document.getElementById('timerStatus').textContent = '🎉 أحسنت! وقت ممتاز!';
+                    toast('🎉 أحسنت! أنهيت جلسة المذاكرة', 'مبروك', 'success');
+                    // تحديث النقاط
+                    if (currentUser) {
+                        updateDoc(doc(db, 'users', currentUser.uid), {
+                            points: increment(1),
+                            studyTime: increment(timerPreset)
+                        }).catch(e => console.error(e));
+                    }
+                }
+            }, 1000);
+        }
+
+        function pauseTimer() {
+            clearInterval(timerInterval);
+            timerRunning = false;
+            document.getElementById('timerStatus').textContent = '⏸ متوقف';
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            timerRunning = false;
+            timerSeconds = timerPreset * 60;
+            updateTimerDisplay();
+            document.getElementById('timerStatus').textContent = '⏸ في انتظار البدء';
+        }
+
+        function setTimerPreset(minutes) {
+            timerPreset = minutes;
+            timerSeconds = minutes * 60;
+            updateTimerDisplay();
+            document.querySelectorAll('.timer-presets button').forEach(b => b.classList.remove('active'));
+            document.querySelector(`.timer-presets button[data-time="${minutes}"]`)?.classList.add('active');
+            if (timerRunning) { clearInterval(timerInterval); timerRunning = false; }
+            document.getElementById('timerStatus').textContent = '⏸ تم تغيير المدة';
+        }
+
+        document.getElementById('timerStart')?.addEventListener('click', startTimer);
+        document.getElementById('timerPause')?.addEventListener('click', pauseTimer);
+        document.getElementById('timerReset')?.addEventListener('click', resetTimer);
+        document.querySelectorAll('.timer-presets button').forEach(btn => {
+            btn.addEventListener('click', () => setTimerPreset(parseInt(btn.dataset.time)));
+        });
+
+        // ============================================================
+        // To Do List
+        // ============================================================
+        let todos = [];
+
+        function renderTodos() {
+            const el = document.getElementById('todoList');
+            if (todos.length === 0) {
+                el.innerHTML = `<div class="empty" style="padding:20px;border:none;"><p style="font-size:14px;">لا توجد مهام بعد</p></div>`;
+                return;
+            }
+            el.innerHTML = todos.map((t, i) => `
+                <div class="todo-item" data-index="${i}">
+                    <div class="checkbox ${t.done ? 'done' : ''}" onclick="toggleTodo(${i})">
+                        ${t.done ? '<i class="fas fa-check"></i>' : ''}
+                    </div>
+                    <div class="todo-text ${t.done ? 'done' : ''}">${t.text}</div>
+                    <span class="todo-priority ${t.priority || 'low'}">${t.priority || 'منخفضة'}</span>
+                    <button class="todo-delete" onclick="deleteTodo(${i})"><i class="fas fa-times"></i></button>
+                </div>
+            `).join('');
+        }
+
+        window.toggleTodo = function(index) {
+            todos[index].done = !todos[index].done;
+            if (currentUser) {
+                // حفظ في Firebase
+                const ref = doc(db, 'users', currentUser.uid);
+                updateDoc(ref, { todos: todos }).catch(e => console.error(e));
+            }
+            renderTodos();
+        };
+
+        window.deleteTodo = function(index) {
+            todos.splice(index, 1);
+            if (currentUser) {
+                const ref = doc(db, 'users', currentUser.uid);
+                updateDoc(ref, { todos: todos }).catch(e => console.error(e));
+            }
+            renderTodos();
+        };
+
+        document.getElementById('addTodoBtn')?.addEventListener('click', () => {
+            const text = prompt('📝 اكتب المهمة:');
+            if (text && text.trim()) {
+                const priority = prompt('الأولوية (عالية/متوسطة/منخفضة):') || 'منخفضة';
+                todos.push({ text: text.trim(), done: false, priority: priority });
+                if (currentUser) {
+                    const ref = doc(db, 'users', currentUser.uid);
+                    updateDoc(ref, { todos: todos }).catch(e => console.error(e));
+                }
+                renderTodos();
+            }
+        });
+
         // ============================================================
         // Search
         // ============================================================
@@ -1498,7 +2023,7 @@
         // ============================================================
         // Auth
         // ============================================================
-        onAuthStateChanged(auth, (user) => {
+        onAuthStateChanged(auth, async (user) => {
             currentUser = user;
             const btns = $('#authBtns');
             const area = $('#userArea');
@@ -1509,6 +2034,16 @@
                     const av = area.querySelector('.avatar');
                     if (av) av.innerHTML = user.displayName ? user.displayName.charAt(0).toUpperCase() : '👤';
                 }
+                // تحميل To Do من Firebase
+                try {
+                    const ref = doc(db, 'users', user.uid);
+                    const snap = await getDoc(ref);
+                    if (snap.exists()) {
+                        const data = snap.data();
+                        if (data.todos) todos = data.todos;
+                        renderTodos();
+                    }
+                } catch (e) { console.error(e); }
                 // Handle URL
                 const path = window.location.pathname;
                 const match = path.match(/^\/book\/(.+)$/);
@@ -1517,6 +2052,8 @@
                 if (btns) btns.style.display = 'flex';
                 if (area) area.style.display = 'none';
                 closeBook();
+                todos = [];
+                renderTodos();
             }
         });
 
@@ -1546,10 +2083,11 @@
             document.getElementById('booksSection')?.scrollIntoView({ behavior: 'smooth' });
         });
 
-        document.querySelectorAll('.btn-grade').forEach(b => {
-            b.addEventListener('click', () => {
+        document.querySelectorAll('[data-grade]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
                 if (!currentUser) { showPopup(); return; }
-                const g = b.dataset.grade;
+                const g = link.dataset.grade;
                 const names = ['', 'أولى بكالوريا', 'ثانية بكالوريا', 'ثالثة ثانوي'];
                 toast(`📚 ${names[g] || 'الصف'}`, 'جاري التحميل...', 'info');
             });
@@ -1560,15 +2098,18 @@
                 if (!currentUser) { showPopup(); return; }
                 const page = item.dataset.page;
                 if (page === 'upload') openUpload();
-                else toast(`🔜 سيتم فتح صفحة ${item.textContent.trim()} قريباً`, 'قريباً', 'info');
-            });
-        });
-
-        document.querySelectorAll('[data-grade]').forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                if (!currentUser) { showPopup(); return; }
-                toast(`📚 ${link.textContent.trim()}`, 'جاري التحميل...', 'info');
+                else if (page === 'timer') {
+                    document.querySelector('.timer-section')?.scrollIntoView({ behavior: 'smooth' });
+                    userMenu.style.display = 'none';
+                } else if (page === 'todo') {
+                    document.querySelector('.todo-section')?.scrollIntoView({ behavior: 'smooth' });
+                    userMenu.style.display = 'none';
+                } else if (page === 'achievements') {
+                    document.getElementById('achievements')?.scrollIntoView({ behavior: 'smooth' });
+                    userMenu.style.display = 'none';
+                } else {
+                    toast(`🔜 سيتم فتح صفحة ${item.textContent.trim()} قريباً`, 'قريباً', 'info');
+                }
             });
         });
 
@@ -1580,11 +2121,13 @@
             if (!currentUser) { showPopup(); return; }
             const grade = document.getElementById('uGrade').value;
             const subject = document.getElementById('uSubject').value.trim();
-            const unit = document.getElementById('uUnit').value.trim();
+            const chapter = document.getElementById('uChapter').value.trim();
             const lesson = document.getElementById('uLesson').value.trim();
+            const title = document.getElementById('uTitle').value.trim();
+            const notes = document.getElementById('uNotes').value.trim();
             const file = document.getElementById('uFile').files[0];
-            if (!grade || !subject || !lesson || !file) {
-                toast('يرجى ملء جميع الحقول', 'تنبيه', 'error');
+            if (!grade || !subject || !lesson || !title || !file) {
+                toast('يرجى ملء جميع الحقول المطلوبة', 'تنبيه', 'error');
                 return;
             }
             try {
@@ -1592,14 +2135,24 @@
                 await uploadBytes(ref, file);
                 const url = await getDownloadURL(ref);
                 await addDoc(collection(db, 'summaries'), {
-                    userId: currentUser.uid, userName: currentUser.displayName || 'مستخدم',
-                    grade: parseInt(grade), subject, unit, lesson,
+                    userId: currentUser.uid,
+                    userName: currentUser.displayName || 'مستخدم',
+                    grade: parseInt(grade),
+                    subject, chapter, lesson,
+                    title, notes,
                     fileUrl: url, fileName: file.name,
-                    isApproved: false, downloads: 0, views: 0, rating: 0, adminRating: 0,
+                    isApproved: false,
+                    downloads: 0, views: 0, rating: 0, adminRating: 0,
                     createdAt: serverTimestamp()
                 });
                 toast('تم إرسال ملخصك للمراجعة', 'شكراً لك', 'success');
                 closeUpload();
+                // تحديث النقاط
+                if (currentUser) {
+                    await updateDoc(doc(db, 'users', currentUser.uid), {
+                        points: increment(2)
+                    });
+                }
             } catch (e) {
                 console.error(e);
                 toast('حدث خطأ في رفع الملف', 'خطأ', 'error');
@@ -1623,7 +2176,7 @@
         // ============================================================
         async function init() {
             console.log('🚀 الثانوية الرسمية بلس');
-            await Promise.all([loadStats(), loadBooks(), loadSummaries(), loadExams(), loadGradeStats()]);
+            await Promise.all([loadStats(), loadBooks(), loadSummaries(), loadExams(), loadGradeStats(), loadLeaderboard(), loadAchievements()]);
             // Check URL
             const path = window.location.pathname;
             const match = path.match(/^\/book\/(.+)$/);
