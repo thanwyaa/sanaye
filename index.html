@@ -1,1436 +1,276 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>الثانوية الرسمية بلس - كل اللي الطالب محتاجه في مكان واحد</title>
-    <meta name="description" content="منصة تعليمية متكاملة لطلاب الثانوية والبكالوريا. كتب، ملخصات، امتحانات، مؤقت مذاكرة، To Do List، ومجتمع تفاعلي." />
-    <link rel="canonical" href="https://thanawya-official-plus.web.app/" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الثانوية الرسمية بلس | المنصة التعليمية الأولى</title>
     
-    <!-- Open Graph -->
-    <meta property="og:title" content="الثانوية الرسمية بلس" />
-    <meta property="og:description" content="كل اللي الطالب محتاجه في مكان واحد" />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://thanawya-official-plus.web.app/" />
-    <meta property="og:image" content="https://cdn.phototourl.com/free/2026-07-21-1dd4b984-ed08-4a40-aead-9ef086ebbd45.jpg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="الثانوية الرسمية بلس" />
-    <meta name="twitter:description" content="كل اللي الطالب محتاجه في مكان واحد" />
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet" />
-    
-    <style>
-        /* ============================================================
-           ROOT VARIABLES
-           ============================================================ */
-        :root {
-            --primary-green: #22C55E;
-            --primary-blue: #2563EB;
-            --primary-red: #EF4444;
-            --gold: #FBBF24;
-            --gold-dark: #F59E0B;
-            --white: #FFFFFF;
-            --bg-secondary: #F8FAFC;
-            --bg-tertiary: #F1F5F9;
-            --text-primary: #111827;
-            --text-secondary: #4B5563;
-            --text-muted: #9CA3AF;
-            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
-            --shadow-md: 0 4px 20px rgba(0,0,0,0.08);
-            --shadow-lg: 0 12px 48px rgba(0,0,0,0.12);
-            --shadow-xl: 0 20px 60px rgba(0,0,0,0.15);
-            --radius: 20px;
-            --radius-md: 14px;
-            --radius-sm: 10px;
-            --radius-xs: 6px;
-            --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-            --glass-bg: rgba(255,255,255,0.72);
-            --glass-border: rgba(255,255,255,0.18);
-            --header-bg: rgba(255,255,255,0.92);
-            --font: 'Cairo', 'Tajawal', sans-serif;
-        }
-
-        /* ============================================================
-           RESET
-           ============================================================ */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body {
-            font-family: var(--font);
-            background: var(--white);
-            color: var(--text-primary);
-            line-height: 1.7;
-            -webkit-font-smoothing: antialiased;
-            transition: background 0.4s, color 0.4s;
-            overflow-x: hidden;
-        }
-
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: var(--bg-secondary); }
-        ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--gold-dark); }
-
-        .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
-
-        .glass {
-            background: var(--glass-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--glass-border);
-            box-shadow: var(--shadow-md);
-        }
-
-        /* ============================================================
-           BUTTONS
-           ============================================================ */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            padding: 12px 28px;
-            border: none;
-            border-radius: var(--radius-sm);
-            font-family: var(--font);
-            font-size: 15px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: var(--transition);
-            text-decoration: none;
-            position: relative;
-            overflow: hidden;
-        }
-        .btn::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: rgba(255,255,255,0.15);
-            transform: translateX(-100%);
-            transition: var(--transition);
-        }
-        .btn:hover::after { transform: translateX(0); }
-        .btn-primary { background: var(--gold); color: var(--text-primary); }
-        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 32px rgba(251,191,36,0.35); }
-        .btn-secondary { background: var(--bg-secondary); color: var(--text-primary); border: 2px solid var(--gold); }
-        .btn-secondary:hover { background: var(--gold); transform: translateY(-3px); }
-        .btn-gradient { background: linear-gradient(135deg, var(--gold), var(--gold-dark)); color: var(--text-primary); }
-        .btn-gradient:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 8px 32px rgba(251,191,36,0.4); }
-        .btn-sm { padding: 8px 16px; font-size: 13px; }
-        .btn-xs { padding: 4px 12px; font-size: 11px; border-radius: var(--radius-xs); }
-        .btn-danger { background: var(--primary-red); color: white; }
-        .btn-danger:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(239,68,68,0.3); }
-        .btn-success { background: var(--primary-green); color: white; }
-        .btn-success:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(34,197,94,0.3); }
-        .btn-outline { background: transparent; border: 2px solid var(--gold); color: var(--text-primary); }
-        .btn-outline:hover { background: var(--gold); transform: translateY(-2px); }
-        .btn-full { width: 100%; justify-content: center; }
-        .btn-google { background: var(--white); color: var(--text-primary); border: 1px solid #E5E7EB; gap: 12px; }
-        .btn-google:hover { background: #F3F4F6; transform: translateY(-2px); }
-
-        /* ============================================================
-           HEADER
-           ============================================================ */
-        .sticky-header {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            background: var(--header-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-            padding: 10px 0;
-            transition: var(--transition);
-        }
-        .header-container {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-        .header-left { flex-shrink: 0; }
-        .logo-link {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            text-decoration: none;
-        }
-        .logo-img {
-            height: 42px;
-            width: auto;
-            border-radius: var(--radius-xs);
-        }
-        .logo-text {
-            font-size: 20px;
-            font-weight: 900;
-            color: var(--text-primary);
-            letter-spacing: -0.5px;
-        }
-        .logo-text span { color: var(--gold); }
-        .header-center { flex: 1; min-width: 0; }
-        .search-wrapper {
-            position: relative;
-            max-width: 520px;
-            margin: 0 auto;
-        }
-        .search-input {
-            width: 100%;
-            padding: 12px 48px 12px 18px;
-            border: 2px solid #E5E7EB;
-            border-radius: 50px;
-            font-family: var(--font);
-            font-size: 15px;
-            background: var(--white);
-            transition: var(--transition);
-            color: var(--text-primary);
-            box-shadow: var(--shadow-sm);
-        }
-        .search-input:focus {
-            outline: none;
-            border-color: var(--gold);
-            box-shadow: 0 0 0 6px rgba(251,191,36,0.12), var(--shadow-md);
-        }
-        .search-btn {
-            position: absolute;
-            left: 6px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: var(--gold);
-            border: none;
-            border-radius: 50%;
-            padding: 8px;
-            cursor: pointer;
-            color: var(--text-primary);
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .search-btn:hover { transform: translateY(-50%) scale(1.05); box-shadow: 0 4px 16px rgba(251,191,36,0.35); }
-        .search-btn svg { width: 18px; height: 18px; }
-        .search-results {
-            position: absolute;
-            top: calc(100% + 10px);
-            left: 0;
-            right: 0;
-            background: var(--white);
-            border-radius: var(--radius-md);
-            box-shadow: var(--shadow-xl);
-            max-height: 460px;
-            overflow-y: auto;
-            display: none;
-            z-index: 100;
-            padding: 6px 0;
-        }
-        .search-results.active { display: block; animation: fadeDown 0.25s ease; }
-        @keyframes fadeDown {
-            from { opacity: 0; transform: translateY(-8px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .search-group-title {
-            padding: 6px 18px 2px;
-            font-size: 11px;
-            font-weight: 700;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        .search-item {
-            padding: 10px 16px;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            border-bottom: 1px solid #F3F4F6;
-        }
-        .search-item:hover { background: var(--bg-secondary); }
-        .search-item .icon { font-size: 22px; width: 34px; text-align: center; }
-        .search-item .info { flex: 1; min-width: 0; }
-        .search-item .title { font-weight: 700; font-size: 14px; }
-        .search-item .subtitle { font-size: 12px; color: var(--text-secondary); }
-        .search-item .badge {
-            font-size: 10px;
-            padding: 2px 10px;
-            border-radius: 20px;
-            background: var(--bg-secondary);
-            color: var(--text-secondary);
-        }
-        .search-empty {
-            padding: 32px 20px;
-            text-align: center;
-            color: var(--text-secondary);
-        }
-        .search-empty .icon { font-size: 40px; display: block; margin-bottom: 8px; }
-
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-shrink: 0;
-        }
-        .auth-buttons { display: flex; gap: 8px; }
-        .auth-buttons .btn { padding: 8px 18px; font-size: 13px; }
-        .user-menu {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .user-avatar {
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid var(--gold);
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        .user-avatar:hover { transform: scale(1.05); border-color: var(--gold-dark); }
-        .user-name { font-weight: 700; font-size: 14px; }
-        .theme-toggle {
-            background: none;
-            border: none;
-            font-size: 20px;
-            cursor: pointer;
-            padding: 6px;
-            color: var(--text-secondary);
-            transition: var(--transition);
-            border-radius: 50%;
-        }
-        .theme-toggle:hover { background: var(--bg-secondary); color: var(--gold); }
-        .logout-btn {
-            background: none;
-            border: none;
-            color: var(--text-secondary);
-            cursor: pointer;
-            font-size: 18px;
-            padding: 6px;
-            transition: var(--transition);
-            border-radius: 50%;
-        }
-        .logout-btn:hover { background: #FEE2E2; color: var(--primary-red); }
-        .notif-btn {
-            position: relative;
-            background: none;
-            border: none;
-            font-size: 20px;
-            cursor: pointer;
-            padding: 6px;
-            color: var(--text-secondary);
-            transition: var(--transition);
-            border-radius: 50%;
-        }
-        .notif-btn:hover { background: var(--bg-secondary); color: var(--gold); }
-        .notif-badge {
-            position: absolute;
-            top: 0;
-            right: 0;
-            background: var(--primary-red);
-            color: white;
-            font-size: 9px;
-            border-radius: 50%;
-            width: 18px;
-            height: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            border: 2px solid var(--white);
-        }
-        .notif-dropdown {
-            position: absolute;
-            top: calc(100% + 8px);
-            left: 0;
-            width: 340px;
-            max-height: 400px;
-            overflow-y: auto;
-            background: var(--white);
-            border-radius: var(--radius-md);
-            box-shadow: var(--shadow-xl);
-            display: none;
-            z-index: 100;
-            padding: 6px 0;
-        }
-        .notif-dropdown.active { display: block; animation: fadeDown 0.25s ease; }
-        .notif-item {
-            padding: 12px 16px;
-            border-bottom: 1px solid #F3F4F6;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        .notif-item:hover { background: var(--bg-secondary); }
-        .notif-item .n-title { font-weight: 700; font-size: 14px; }
-        .notif-item .n-msg { font-size: 13px; color: var(--text-secondary); }
-        .notif-item .n-time { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
-        .notif-item.unread { border-right: 3px solid var(--gold); }
-        .notif-empty { padding: 24px; text-align: center; color: var(--text-secondary); }
-
-        /* ============================================================
-           HERO
-           ============================================================ */
-        .hero {
-            padding: 50px 0 60px;
-            background: linear-gradient(135deg, #FEF9E7 0%, #F8FAFC 50%, #EFF6FF 100%);
-            position: relative;
-            overflow: hidden;
-            transition: background 0.4s;
-        }
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -40%;
-            right: -15%;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(251,191,36,0.08), transparent 70%);
-            border-radius: 50%;
-            animation: floatBlob 18s ease-in-out infinite;
-        }
-        .hero::after {
-            content: '';
-            position: absolute;
-            bottom: -30%;
-            left: -10%;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(34,197,94,0.06), transparent 70%);
-            border-radius: 50%;
-            animation: floatBlob 22s ease-in-out infinite reverse;
-        }
-        @keyframes floatBlob {
-            0%,100% { transform: translate(0,0) scale(1); }
-            33% { transform: translate(30px,-30px) scale(1.1); }
-            66% { transform: translate(-20px,20px) scale(0.9); }
-        }
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            max-width: 780px;
-            margin: 0 auto;
-            text-align: center;
-        }
-        .hero-badge {
-            display: inline-block;
-            background: rgba(251,191,36,0.15);
-            color: var(--gold-dark);
-            padding: 4px 20px;
-            border-radius: 50px;
-            font-size: 13px;
-            font-weight: 700;
-            margin-bottom: 14px;
-            border: 1px solid rgba(251,191,36,0.2);
-        }
-        .hero h1 {
-            font-size: 44px;
-            font-weight: 900;
-            line-height: 1.15;
-            margin-bottom: 10px;
-            background: linear-gradient(135deg, var(--text-primary), var(--gold-dark));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .hero p {
-            font-size: 18px;
-            color: var(--text-secondary);
-            margin-bottom: 24px;
-            max-width: 540px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .hero-search {
-            max-width: 580px;
-            margin: 0 auto 24px;
-            position: relative;
-        }
-        .hero-search .search-input {
-            padding: 16px 56px 16px 22px;
-            font-size: 17px;
-            border-radius: 60px;
-            border: 2px solid rgba(251,191,36,0.25);
-            box-shadow: var(--shadow-lg);
-        }
-        .hero-search .search-input:focus {
-            border-color: var(--gold);
-            box-shadow: 0 0 0 8px rgba(251,191,36,0.1), var(--shadow-xl);
-        }
-        .hero-search .search-btn { left: 10px; padding: 10px; }
-        .hero-search .search-btn svg { width: 20px; height: 20px; }
-        .hero-buttons {
-            display: flex;
-            gap: 14px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-bottom: 28px;
-        }
-        .hero-stats {
-            display: flex;
-            gap: 36px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        .hero-stat { text-align: center; }
-        .hero-stat .num {
-            font-size: 24px;
-            font-weight: 900;
-            color: var(--text-primary);
-        }
-        .hero-stat .label { font-size: 13px; color: var(--text-secondary); }
-
-        /* ============================================================
-           SECTIONS
-           ============================================================ */
-        .section { padding: 48px 0; }
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 24px;
-        }
-        .section-title {
-            font-size: 26px;
-            font-weight: 800;
-        }
-        .section-title .highlight { color: var(--gold); }
-        .section-sub {
-            font-size: 14px;
-            color: var(--text-secondary);
-            margin-top: 2px;
-        }
-        .view-all {
-            color: var(--gold);
-            font-weight: 700;
-            text-decoration: none;
-            transition: var(--transition);
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-        }
-        .view-all:hover { color: var(--gold-dark); transform: translateX(-4px); }
-
-        /* ============================================================
-           GRADES
-           ============================================================ */
-        .grades-section {
-            padding: 48px 0;
-            background: var(--bg-secondary);
-            transition: background 0.4s;
-        }
-        .grades-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 24px;
-        }
-        .grade-card {
-            border-radius: var(--radius);
-            padding: 32px 20px;
-            text-align: center;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            min-height: 200px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background-size: cover;
-            background-position: center;
-            color: white;
-            text-shadow: 0 2px 12px rgba(0,0,0,0.35);
-            box-shadow: var(--shadow-md);
-            transition: var(--transition);
-        }
-        .grade-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(180deg, rgba(0,0,0,0.15), rgba(0,0,0,0.55));
-            z-index: 1;
-            transition: var(--transition);
-        }
-        .grade-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: var(--shadow-xl);
-        }
-        .grade-card:hover::before {
-            background: linear-gradient(180deg, rgba(0,0,0,0.08), rgba(0,0,0,0.45));
-        }
-        .grade-card>* { position: relative; z-index: 2; }
-        .grade-card .icon { font-size: 48px; margin-bottom: 6px; }
-        .grade-card .name { font-size: 22px; font-weight: 800; }
-        .grade-card .stats { font-size: 13px; opacity: 0.9; margin-top: 6px; }
-        .grade-card .bg-img {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: 0;
-        }
-        .grade-card .overlay {
-            position: absolute;
-            inset: 0;
-            z-index: 1;
-            background: linear-gradient(180deg, rgba(0,0,0,0.1), rgba(0,0,0,0.6));
-        }
-
-        /* ============================================================
-           CONTENT CARDS
-           ============================================================ */
-        .content-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 20px;
-        }
-        .content-card {
-            background: var(--white);
-            border-radius: var(--radius-md);
-            overflow: hidden;
-            box-shadow: var(--shadow-sm);
-            transition: var(--transition);
-            cursor: pointer;
-            border: 1px solid rgba(0,0,0,0.04);
-        }
-        .content-card:hover {
-            transform: translateY(-6px);
-            box-shadow: var(--shadow-lg);
-            border-color: var(--gold);
-        }
-        .content-card .cover-wrap {
-            position: relative;
-            overflow: hidden;
-            height: 180px;
-            background: var(--bg-secondary);
-        }
-        .content-card .cover {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: var(--transition);
-        }
-        .content-card:hover .cover { transform: scale(1.04); }
-        .content-card .badges {
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-        .badge {
-            padding: 2px 10px;
-            border-radius: 20px;
-            font-size: 9px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.3px;
-            box-shadow: var(--shadow-sm);
-        }
-        .badge-gold { background: linear-gradient(135deg, #FFD700, #FFA500); color: white; }
-        .badge-green { background: var(--primary-green); color: white; }
-        .badge-red { background: var(--primary-red); color: white; }
-        .badge-blue { background: var(--primary-blue); color: white; }
-        .badge-golden { background: linear-gradient(135deg, #FFD700, #F59E0B); color: white; }
-        .content-card .info { padding: 12px 14px 8px; }
-        .content-card .title {
-            font-size: 15px;
-            font-weight: 800;
-            margin-bottom: 2px;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-        .content-card .subject {
-            font-size: 12px;
-            color: var(--text-secondary);
-            margin-bottom: 4px;
-        }
-        .content-card .meta {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 4px;
-            font-size: 10px;
-            color: var(--text-secondary);
-            margin-bottom: 4px;
-        }
-        .content-card .meta span {
-            background: var(--bg-secondary);
-            padding: 1px 10px;
-            border-radius: 20px;
-        }
-        .content-card .rating {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            margin: 3px 0 4px;
-        }
-        .content-card .rating .stars { color: var(--gold); font-size: 13px; letter-spacing: 1px; }
-        .content-card .rating .text { font-size: 11px; color: var(--text-secondary); }
-        .content-card .stats {
-            display: flex;
-            gap: 10px;
-            font-size: 10px;
-            color: var(--text-secondary);
-            padding: 4px 0;
-            border-top: 1px solid #F3F4F6;
-            border-bottom: 1px solid #F3F4F6;
-        }
-        .content-card .stats span { display: flex; align-items: center; gap: 3px; }
-        .content-card .actions {
-            display: flex;
-            gap: 4px;
-            padding: 8px 12px 12px;
-            flex-wrap: wrap;
-        }
-        .content-card .actions .btn { padding: 4px 10px; font-size: 10px; flex: 1; min-width: 36px; }
-        .content-card.empty {
-            padding: 50px 20px;
-            text-align: center;
-            color: var(--text-secondary);
-            grid-column: 1/-1;
-        }
-        .content-card.empty .icon { font-size: 48px; display: block; margin-bottom: 10px; }
-
-        /* ============================================================
-           TABS
-           ============================================================ */
-        .tabs {
-            display: flex;
-            gap: 4px;
-            background: var(--bg-secondary);
-            border-radius: var(--radius-sm);
-            padding: 4px;
-            margin-bottom: 24px;
-            overflow-x: auto;
-            flex-wrap: nowrap;
-        }
-        .tab {
-            padding: 8px 18px;
-            border: none;
-            border-radius: var(--radius-xs);
-            font-family: var(--font);
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            background: transparent;
-            color: var(--text-secondary);
-            white-space: nowrap;
-        }
-        .tab.active {
-            background: var(--white);
-            color: var(--text-primary);
-            box-shadow: var(--shadow-sm);
-        }
-        .tab:hover { background: var(--white); color: var(--text-primary); }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
-
-        /* ============================================================
-           SKELETON
-           ============================================================ */
-        .skeleton {
-            background: linear-gradient(90deg, #f0f0f0 25%, #e8e8e8 50%, #f0f0f0 75%);
-            background-size: 200% 100%;
-            animation: shimmer 1.5s ease-in-out infinite;
-            border-radius: var(--radius-xs);
-        }
-        @keyframes shimmer {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
-        }
-        .skeleton-card {
-            background: var(--white);
-            border-radius: var(--radius-md);
-            overflow: hidden;
-            box-shadow: var(--shadow-sm);
-        }
-        .skeleton-card .s-cover { height: 180px; }
-        .skeleton-card .s-body { padding: 12px 14px; }
-        .skeleton-card .s-line {
-            height: 12px;
-            margin-bottom: 6px;
-            border-radius: 4px;
-        }
-        .skeleton-card .s-line.short { width: 60%; }
-        .skeleton-card .s-line.medium { width: 80%; }
-
-        /* ============================================================
-           ADS
-           ============================================================ */
-        .ads-section {
-            padding: 28px 0;
-            background: var(--bg-secondary);
-            transition: background 0.4s;
-        }
-        .ads-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 18px;
-        }
-        .ad-card {
-            padding: 18px;
-            border-radius: var(--radius-md);
-            background: var(--white);
-            text-align: center;
-            transition: var(--transition);
-            box-shadow: var(--shadow-sm);
-            border: 1px solid rgba(0,0,0,0.04);
-        }
-        .ad-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
-        .ad-card img {
-            max-width: 100%;
-            border-radius: var(--radius-sm);
-            max-height: 90px;
-            object-fit: cover;
-        }
-        .ad-card .title { font-weight: 700; margin-top: 6px; font-size: 14px; }
-        .ad-card .desc { font-size: 12px; color: var(--text-secondary); }
-
-        /* ============================================================
-           FOOTER
-           ============================================================ */
-        .footer {
-            background: var(--text-primary);
-            color: rgba(255,255,255,0.7);
-            padding: 36px 0 18px;
-            margin-top: 28px;
-            transition: background 0.4s;
-        }
-        .footer-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 16px;
-            text-align: center;
-        }
-        .footer-logo { height: 40px; width: auto; border-radius: var(--radius-xs); }
-        .footer-links {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        .footer-links a {
-            color: rgba(255,255,255,0.7);
-            text-decoration: none;
-            transition: var(--transition);
-            font-weight: 500;
-            font-size: 13px;
-        }
-        .footer-links a:hover { color: var(--gold); transform: translateY(-2px); }
-        .footer-social {
-            display: flex;
-            gap: 10px;
-        }
-        .footer-social a {
-            color: rgba(255,255,255,0.5);
-            text-decoration: none;
-            font-size: 18px;
-            transition: var(--transition);
-            width: 36px;
-            height: 36px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.05);
-        }
-        .footer-social a:hover { color: var(--gold); background: rgba(255,255,255,0.1); transform: translateY(-3px); }
-        .footer-copy {
-            font-size: 12px;
-            border-top: 1px solid rgba(255,255,255,0.08);
-            padding-top: 14px;
-            width: 100%;
-        }
-
-        /* ============================================================
-           MODAL
-           ============================================================ */
-        .modal {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.5);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
-            padding: 24px;
-        }
-        .modal.active { display: flex; animation: fadeIn 0.3s ease; }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.96); }
-            to { opacity: 1; transform: scale(1); }
-        }
-        .modal-content {
-            max-width: 700px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-            padding: 28px;
-            border-radius: var(--radius);
-            position: relative;
-            background: var(--white);
-            box-shadow: var(--shadow-xl);
-        }
-        .modal-close {
-            position: absolute;
-            top: 12px;
-            left: 16px;
-            font-size: 24px;
-            cursor: pointer;
-            color: var(--text-secondary);
-            transition: var(--transition);
-            background: none;
-            border: none;
-            width: 34px;
-            height: 34px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .modal-close:hover { background: var(--bg-secondary); color: var(--text-primary); }
-
-        /* ============================================================
-           FORM
-           ============================================================ */
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            margin-bottom: 12px;
-        }
-        .form-group label { font-weight: 700; font-size: 14px; }
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            padding: 10px 14px;
-            border: 2px solid #E5E7EB;
-            border-radius: var(--radius-sm);
-            font-family: var(--font);
-            font-size: 14px;
-            transition: var(--transition);
-            background: var(--white);
-            color: var(--text-primary);
-        }
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--gold);
-            box-shadow: 0 0 0 4px rgba(251,191,36,0.08);
-        }
-        .form-group textarea { resize: vertical; min-height: 60px; }
-        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-
-        /* ============================================================
-           TIMER
-           ============================================================ */
-        .timer-display {
-            font-size: 72px;
-            font-weight: 900;
-            text-align: center;
-            font-variant-numeric: tabular-nums;
-            color: var(--text-primary);
-            padding: 20px 0;
-        }
-        .timer-display.running { color: var(--primary-green); }
-        .timer-display.paused { color: var(--gold); }
-        .timer-controls {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        .timer-presets {
-            display: flex;
-            gap: 8px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-bottom: 12px;
-        }
-        .timer-preset {
-            padding: 6px 16px;
-            border: 2px solid #E5E7EB;
-            border-radius: var(--radius-sm);
-            background: transparent;
-            font-family: var(--font);
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            color: var(--text-secondary);
-        }
-        .timer-preset:hover { border-color: var(--gold); color: var(--text-primary); }
-        .timer-preset.active { border-color: var(--gold); background: var(--gold); color: var(--text-primary); }
-
-        /* ============================================================
-           TODO
-           ============================================================ */
-        .todo-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 10px 14px;
-            background: var(--bg-secondary);
-            border-radius: var(--radius-sm);
-            margin-bottom: 6px;
-            transition: var(--transition);
-            cursor: grab;
-        }
-        .todo-item:hover { transform: translateX(-4px); }
-        .todo-item .todo-check {
-            width: 20px;
-            height: 20px;
-            border: 2px solid #E5E7EB;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: var(--transition);
-            flex-shrink: 0;
-        }
-        .todo-item .todo-check.done {
-            background: var(--primary-green);
-            border-color: var(--primary-green);
-            color: white;
-        }
-        .todo-item .todo-text { flex: 1; font-size: 14px; }
-        .todo-item .todo-text.done { text-decoration: line-through; color: var(--text-muted); }
-        .todo-item .todo-priority {
-            font-size: 10px;
-            padding: 2px 10px;
-            border-radius: 20px;
-            font-weight: 700;
-        }
-        .todo-item .todo-priority.high { background: #FEE2E2; color: var(--primary-red); }
-        .todo-item .todo-priority.medium { background: #FEF3C7; color: #D97706; }
-        .todo-item .todo-priority.low { background: #D1FAE5; color: var(--primary-green); }
-        .todo-item .todo-delete {
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            cursor: pointer;
-            font-size: 16px;
-            transition: var(--transition);
-        }
-        .todo-item .todo-delete:hover { color: var(--primary-red); }
-
-        /* ============================================================
-           EMPTY STATE
-           ============================================================ */
-        .empty-state {
-            padding: 50px 20px;
-            text-align: center;
-            color: var(--text-secondary);
-        }
-        .empty-state .icon { font-size: 56px; display: block; margin-bottom: 10px; }
-        .empty-state h3 { font-size: 18px; color: var(--text-primary); margin-bottom: 4px; }
-
-        /* ============================================================
-           LEADERBOARD
-           ============================================================ */
-        .leaderboard-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 14px;
-        }
-        .lb-card {
-            background: var(--bg-secondary);
-            border-radius: var(--radius-sm);
-            padding: 14px;
-        }
-        .lb-card h4 { text-align: center; margin-bottom: 8px; font-size: 15px; }
-        .lb-item {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            padding: 4px 6px;
-            border-bottom: 1px solid #E5E7EB;
-            font-size: 12px;
-        }
-        .lb-item .rank {
-            font-weight: 700;
-            color: var(--gold);
-            min-width: 24px;
-        }
-        .lb-item .name { flex: 1; }
-        .lb-item .value { color: var(--text-secondary); }
-
-        /* ============================================================
-           DARK MODE
-           ============================================================ */
-        body.dark-mode {
-            --white: #1A1A2E;
-            --bg-secondary: #16213E;
-            --bg-tertiary: #1E2A4A;
-            --text-primary: #F1F5F9;
-            --text-secondary: #94A3B8;
-            --text-muted: #64748B;
-            --glass-bg: rgba(26,26,46,0.85);
-            --glass-border: rgba(255,255,255,0.05);
-            --header-bg: rgba(26,26,46,0.92);
-        }
-        body.dark-mode .sticky-header { border-bottom: 1px solid rgba(255,255,255,0.05); }
-        body.dark-mode .search-input {
-            background: var(--bg-secondary);
-            border-color: #334155;
-            color: var(--text-primary);
-        }
-        body.dark-mode .search-results {
-            background: var(--bg-secondary);
-            border: 1px solid #334155;
-        }
-        body.dark-mode .search-item { border-bottom-color: #334155; }
-        body.dark-mode .search-item:hover { background: var(--white); }
-        body.dark-mode .content-card {
-            background: var(--bg-secondary);
-            border-color: #334155;
-        }
-        body.dark-mode .content-card .stats { border-color: #334155; }
-        body.dark-mode .modal-content { background: var(--bg-secondary); }
-        body.dark-mode .hero {
-            background: linear-gradient(135deg, #1A1A2E, #16213E, #0F0F1A);
-        }
-        body.dark-mode .hero h1 {
-            background: linear-gradient(135deg, #F1F5F9, var(--gold));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        body.dark-mode .grades-section { background: var(--white); }
-        body.dark-mode .ads-section { background: var(--white); }
-        body.dark-mode .ad-card {
-            background: var(--bg-secondary);
-            border-color: #334155;
-        }
-        body.dark-mode .notif-dropdown {
-            background: var(--bg-secondary);
-            border: 1px solid #334155;
-        }
-        body.dark-mode .notif-item { border-bottom-color: #334155; }
-        body.dark-mode .notif-item:hover { background: var(--white); }
-        body.dark-mode .form-group input,
-        body.dark-mode .form-group select,
-        body.dark-mode .form-group textarea {
-            background: var(--white);
-            border-color: #334155;
-            color: var(--text-primary);
-        }
-        body.dark-mode .todo-item { background: var(--white); }
-        body.dark-mode .skeleton {
-            background: linear-gradient(90deg, #2a2a4a 25%, #3a3a5a 50%, #2a2a4a 75%);
-        }
-        body.dark-mode .skeleton-card { background: var(--bg-secondary); }
-        body.dark-mode .footer { background: #0F0F1A; }
-        body.dark-mode .lb-card { background: var(--white); }
-        body.dark-mode .lb-item { border-bottom-color: #334155; }
-
-        /* ============================================================
-           RESPONSIVE
-           ============================================================ */
-        @media (max-width: 992px) {
-            .hero h1 { font-size: 34px; }
-            .hero-search .search-input { font-size: 15px; padding: 14px 50px 14px 18px; }
-            .leaderboard-grid { grid-template-columns: 1fr 1fr; }
-        }
-        @media (max-width: 768px) {
-            .header-container { flex-wrap: wrap; gap: 10px; }
-            .header-center { order: 3; flex-basis: 100%; }
-            .search-wrapper { max-width: 100%; }
-            .hero { padding: 32px 0 40px; }
-            .hero h1 { font-size: 26px; }
-            .hero p { font-size: 15px; }
-            .hero-stats { gap: 16px; }
-            .hero-stat .num { font-size: 18px; }
-            .grades-grid { grid-template-columns: 1fr; gap: 12px; }
-            .grade-card { min-height: 160px; padding: 20px; }
-            .content-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
-            .content-card .cover-wrap { height: 140px; }
-            .content-card .title { font-size: 13px; }
-            .section-title { font-size: 20px; }
-            .section { padding: 32px 0; }
-            .grades-section { padding: 32px 0; }
-            .notif-dropdown { width: 280px; left: -100px; }
-            .logo-text { font-size: 15px; }
-            .form-row { grid-template-columns: 1fr; }
-            .modal-content { padding: 18px; margin: 10px; }
-            .auth-buttons .btn { padding: 6px 14px; font-size: 12px; }
-            .user-name { display: none; }
-            .timer-display { font-size: 48px; }
-            .leaderboard-grid { grid-template-columns: 1fr; }
-            .tabs { gap: 2px; padding: 3px; }
-            .tab { padding: 6px 12px; font-size: 12px; }
-        }
-        @media (max-width: 480px) {
-            .hero h1 { font-size: 20px; }
-            .hero-buttons .btn { width: 100%; }
-            .hero-search .search-input { font-size: 13px; padding: 10px 40px 10px 14px; }
-            .content-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
-            .content-card .cover-wrap { height: 110px; }
-            .content-card .info { padding: 8px 10px 6px; }
-            .content-card .title { font-size: 11px; }
-            .content-card .subject { font-size: 10px; }
-            .content-card .meta { font-size: 9px; }
-            .content-card .stats { font-size: 9px; gap: 6px; }
-            .content-card .actions { padding: 4px 8px 8px; }
-            .content-card .actions .btn { font-size: 8px; padding: 3px 6px; min-width: 24px; }
-            .content-card .rating .stars { font-size: 11px; }
-            .notif-dropdown { width: 220px; left: -140px; }
-            .container { padding: 0 10px; }
-            .footer-links { gap: 8px; }
-            .footer-links a { font-size: 11px; }
-            .timer-display { font-size: 36px; }
-            .timer-preset { padding: 4px 12px; font-size: 11px; }
-        }
-    </style>
-</head>
-<body>
-
-    <!-- ============================================================
-    HEADER
-    ============================================================ -->
-    <header class="sticky-header" id="mainHeader">
-        <div class="container header-container">
-            <div class="header-left">
-                <a href="index.html" class="logo-link">
-                    <img src="https://cdn.phototourl.com/free/2026-07-21-1dd4b984-ed08-4a40-aead-9ef086ebbd45.jpg" alt="الثانوية الرسمية بلس" class="logo-img" loading="lazy" />
-                    <span class="logo-text">ثانوية<span>+</span></span>
-                </a>
-            </div>
-            <div class="header-center">
-                <div class="search-wrapper">
-                    <input type="text" id="searchInput" class="search-input" placeholder="ابحث عن كتاب، ملخص، امتحان، مادة..." autocomplete="off" />
-                    <button class="search-btn" aria-label="بحث" id="searchBtn">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-                    </button>
-                    <div id="searchResults" class="search-results"></div>
-                </div>
-            </div>
-            <div class="header-right" id="headerAuth"></div>
-        </div>
-    </header>
-
-    <!-- ============================================================
-    HERO
-    ============================================================ -->
-    <section class="hero" id="heroSection">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-badge">🎓 منصة تعليمية متكاملة</div>
-                <h1>كل اللي الطالب محتاجه في مكان واحد</h1>
-                <p>كتب، ملخصات، امتحانات، مؤقت مذاكرة، To Do List، ومجتمع تفاعلي. مجاناً وبأمان.</p>
-                <div class="hero-search">
-                    <input type="text" id="heroSearchInput" class="search-input" placeholder="ابحث عن كتاب، ملخص، مادة..." autocomplete="off" />
-                    <button class="search-btn" aria-label="بحث" id="heroSearchBtn">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-                    </button>
-                </div>
-                <div class="hero-buttons">
-                    <a href="#explore" class="btn btn-gradient">ابدأ الآن</a>
-                    <a href="#books-section" class="btn btn-secondary">استكشف الكتب</a>
-                    <a href="#timer-section" class="btn btn-secondary">⏱ المؤقت</a>
-                </div>
-                <div class="hero-stats" id="heroStats">
-                    <div class="hero-stat"><div class="num" id="statBooks">0</div><div class="label">📚 كتب</div></div>
-                    <div class="hero-stat"><div class="num" id="statSummaries">0</div><div class="label">📝 ملخصات</div></div>
-                    <div class="hero-stat"><div class="num" id="statExams">0</div><div class="label">📋 امتحانات</div></div>
-                    <div class="hero-stat"><div class="num" id="statUsers">0</div><div class="label">👤 طلاب</div></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================
-    GRADES
-    ============================================================ -->
-    <section class="grades-section" id="explore">
-        <div class="container">
-            <div class="section-header">
-                <div>
-                    <h2 class="section-title">اختر <span class="highlight">صفك الدراسي</span></h2>
-                    <div class="section-sub">جميع الكتب والملخصات مصنفة حسب الصف</div>
-                </div>
-            </div>
-            <div class="grades-grid" id="gradesGrid"></div>
-        </div>
-    </section>
-
-    <!-- ============================================================
-    BOOKS / SUMMARIES / EXAMS with TABS
-    ============================================================ -->
-    <section class="section" id="books-section">
-        <div class="container">
-            <div class="section-header">
-                <div>
-                    <h2 class="section-title">📚 <span class="highlight">المكتبة</span></h2>
-                    <div class="section-sub">جميع المحتويات التعليمية في مكان واحد</div>
-                </div>
-            </div>
-
-            <div class="tabs" id="mainTabs">
-                <button class="tab active" data-tab="books">📚 الكتب</button>
-                <button class="tab" data-tab="summaries">📝 ملخصات الطلاب</button>
-                <button class="tab" data-tab="exams">📋 الامتحانات</button>
-                <button class="tab" data-tab="top">🏆 المتصدرين</button>
-                <button class="tab" data-tab="timer">⏱ المؤقت</button>
-                <button class="tab" data-tab="todo">✅ المهام</button>
-            </div>
-
-            <!-- Books Tab -->
-            <div class="tab-content active" id="tab-books">
-                <div id="booksLoading" style="display:flex;justify-content:center;padding:24px 0;">
-                    <div style="width:36px;height:36px;border:4px solid var(--bg-secondary);border-top-color:var(--gold);border-radius:50%;animation:spin 0.8s linear infinite;"></div>
-                </div>
-                <div class="content-grid" id="booksGrid"></div>
-            </div>
-
-            <!-- Summaries Tab -->
-            <div class="tab-content" id="tab-summaries">
-                <div style="display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap;">
-                    <button class="btn btn-primary btn-sm" onclick="App.showUploadSummary()">➕ إضافة ملخص</button>
-                </div>
-                <div id="summariesLoading" style="display:flex;justify-content:center;padding:24px 0;">
-                    <div style="width:36px;height:36px;border:4px solid var(--bg-secondary);border-top-color:var(--gold);border-radius:50%;animation:spin 0.8s linear infinite;"></div>
-                </div>
-                <div class="content-grid" id="summariesGrid"></div>
-            </div>
-
-            <!-- Exams Tab -->
-            <div class="tab-content" id="tab-exams">
-                <div id="examsLoading" style="display:flex;justify-content:center;padding:24px 0;">
-                    <div style="width:36px;height:36px;border:4px solid var(--bg-secondary);border-top-color:var(--gold);border-radius:50%;animation:spin 0.8s linear infinite;"></div>
-                </div>
-                <div class="content-grid" id="examsGrid"></div>
-            </div>
-
-            <!-- Leaderboard Tab -->
-            <div class="tab-content" id="tab-top">
-                <div id="leaderboardContainer"></div>
-            </div>
-
-            <!-- Timer Tab -->
-            <div class="tab-content" id="tab-timer">
-                <div id="timerContainer"></div>
-            </div>
-
-            <!-- TODO Tab -->
-            <div class="tab-content" id="tab-todo">
-                <div id="todoContainer"></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================
-    ADS
-    ============================================================ -->
-    <section class="ads-section" id="adsSection">
-        <div class="container">
-            <div class="ads-grid" id="adsGrid"></div>
-        </div>
-    </section>
-
-    <!-- ============================================================
-    FOOTER
-    ============================================================ -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div>
-                    <img src="https://cdn.phototourl.com/free/2026-07-21-1dd4b984-ed08-4a40-aead-9ef086ebbd45.jpg" alt="الثانوية الرسمية بلس" class="footer-logo" loading="lazy" />
-                    <p style="margin-top:4px;font-size:14px;">كل اللي الطالب محتاجه في مكان واحد</p>
-                </div>
-                <div class="footer-links">
-                    <a href="#" onclick="App.showAbout();return false;">عن المنصة</a>
-                    <a href="#" onclick="App.showPrivacy();return false;">سياسة الخصوصية</a>
-                    <a href="#" onclick="App.showTerms();return false;">شروط الاستخدام</a>
-                    <a href="#" onclick="App.showContact();return false;">اتصل بنا</a>
-                </div>
-                <div class="footer-social">
-                    <a href="#" aria-label="فيسبوك">📘</a>
-                    <a href="#" aria-label="تويتر">🐦</a>
-                    <a href="#" aria-label="يوتيوب">▶️</a>
-                    <a href="#" aria-label="تيليجرام">✈️</a>
-                    <a href="#" aria-label="واتساب">💬</a>
-                </div>
-                <div class="footer-copy">&copy; 2026 الثانوية الرسمية بلس. جميع الحقوق محفوظة.</div>
-            </div>
-        </div>
-    </footer>
-
-    <!-- ============================================================
-    MODAL
-    ============================================================ -->
-    <div class="modal" id="appModal">
-        <div class="modal-content">
-            <button class="modal-close" onclick="App.closeModal()">✕</button>
-            <div id="modalBody"></div>
-        </div>
-    </div>
-
-    <!-- ============================================================
-    JAVASCRIPT - COMPLETE APP
-    ============================================================ -->
-    <script type="importmap">
-        {
-            "imports": {
-                "firebase/app": "https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js",
-                "firebase/auth": "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js",
-                "firebase/firestore": "https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore.js",
-                "firebase/storage": "https://www.gstatic.com/firebasejs/10.14.0/firebase-storage.js",
-                "firebase/analytics": "https://www.gstatic.com/firebasejs/10.14.0/firebase-analytics.js"
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        cairo: ['Cairo', 'sans-serif'],
+                        tajawal: ['Tajawal', 'sans-serif'],
+                    },
+                    colors: {
+                        grade1: '#10b981', /* Green */
+                        grade2: '#3b82f6', /* Blue */
+                        grade3: '#ef4444', /* Red */
+                        premium: '#f59e0b', /* Gold */
+                        darkbg: '#0f172a',
+                        darkcard: '#1e293b'
+                    }
+                }
             }
         }
     </script>
-    <script type="module">
-        // ============================================================
-        // 1. FIREBASE INIT
-        // ============================================================
-        import { initializeApp } from "firebase/app";
-        import { getAnalytics, logEvent } from "firebase/analytics";
-        import {
-            getAuth,
-            onAuthStateChanged,
-            signOut,
-            GoogleAuthProvider,
-            signInWithPopup,
-            updateProfile
-        } from "firebase/auth";
-        import {
-            getFirestore,
-            collection,
-            doc,
-            getDocs,
-            getDoc,
-            setDoc,
-            updateDoc,
-            deleteDoc,
-            query,
-            where,
-            orderBy,
-            limit,
-            addDoc,
-            increment,
-            serverTimestamp,
-            runTransaction,
-            arrayUnion,
-            arrayRemove
-        } from "firebase/firestore";
-        import {
-            getStorage,
-            ref,
-            uploadBytes,
-            getDownloadURL
-        } from "firebase/storage";
 
+    <style>
+        :root {
+            --glass-bg-light: rgba(255, 255, 255, 0.7);
+            --glass-border-light: rgba(255, 255, 255, 0.3);
+            --glass-bg-dark: rgba(30, 41, 59, 0.7);
+            --glass-border-dark: rgba(255, 255, 255, 0.05);
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .dark body {
+            background-color: #0f172a;
+            color: #f8fafc;
+        }
+
+        /* Glassmorphism Classes */
+        .glass {
+            background: var(--glass-bg-light);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border-light);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .dark .glass {
+            background: var(--glass-bg-dark);
+            border: 1px solid var(--glass-border-dark);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Animations */
+        .fade-in { animation: fadeIn 0.4s ease-out forwards; }
+        .slide-up { animation: slideUp 0.5s ease-out forwards; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        .dark ::-webkit-scrollbar-thumb { background: #475569; }
+
+        /* Loader */
+        .loader {
+            border: 3px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 3px solid var(--premium-color, #f59e0b);
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+        }
+        .dark .loader { border: 3px solid #334155; border-top: 3px solid #f59e0b; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* Grade specific gradients */
+        .grad-grade1 { background: linear-gradient(135deg, #10b981, #059669); }
+        .grad-grade2 { background: linear-gradient(135deg, #3b82f6, #2563eb); }
+        .grad-grade3 { background: linear-gradient(135deg, #ef4444, #dc2626); }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col relative">
+
+    <div class="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
+        <div class="absolute -top-[20%] -right-[10%] w-[50%] h-[50%] rounded-full bg-grade2/10 dark:bg-grade2/5 blur-3xl"></div>
+        <div class="absolute top-[40%] -left-[10%] w-[40%] h-[40%] rounded-full bg-grade1/10 dark:bg-grade1/5 blur-3xl"></div>
+        <div class="absolute -bottom-[20%] right-[20%] w-[60%] h-[60%] rounded-full bg-grade3/10 dark:bg-grade3/5 blur-3xl"></div>
+    </div>
+
+    <div id="toast-container" class="fixed top-5 left-1/2 transform -translate-x-1/2 z-50 flex flex-col gap-2"></div>
+
+    <header class="sticky top-0 z-40 w-full glass transition-all duration-300">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#home" class="flex items-center gap-3 group">
+                <div class="relative w-12 h-12 rounded-xl overflow-hidden shadow-lg transition-transform group-hover:scale-105">
+                    <img src="https://cdn.phototourl.com/free/2026-07-21-1dd4b984-ed08-4a40-aead-9ef086ebbd45.jpg" alt="الثانوية الرسمية بلس" class="w-full h-full object-cover">
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-bold text-lg md:text-xl text-gray-900 dark:text-white leading-tight">الثانوية الرسمية <span class="text-premium">بلس</span></span>
+                    <span class="text-xs text-gray-500 dark:text-gray-400 font-tajawal">المنصة التعليمية الأولى</span>
+                </div>
+            </a>
+
+            <!-- Desktop Search (Hidden on mobile, shown in hero) -->
+            <div class="hidden md:block flex-1 max-w-xl mx-8 relative">
+                <input type="text" id="nav-search" placeholder="ابحث عن كتاب، ملخص، امتحان..." class="w-full bg-gray-100 dark:bg-gray-800 border-none rounded-full py-2.5 px-6 pr-12 text-sm focus:ring-2 focus:ring-premium outline-none transition-all dark:text-white placeholder-gray-400">
+                <i class="fas fa-search absolute right-5 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                <!-- Search Suggestions Dropdown -->
+                <div id="nav-search-results" class="absolute top-full mt-2 w-full glass rounded-2xl shadow-xl hidden flex-col max-h-96 overflow-y-auto z-50"></div>
+            </div>
+
+            <!-- Actions -->
+            <div class="flex items-center gap-2 md:gap-4">
+                <!-- Theme Toggle -->
+                <button id="theme-toggle" class="w-10 h-10 rounded-full flex items-center justify-center text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                    <i class="fas fa-moon text-lg" id="theme-icon"></i>
+                </button>
+
+                <!-- Auth Area -->
+                <div id="auth-area">
+                    <!-- Loading state -->
+                    <div class="loader mx-4" id="auth-loader"></div>
+                    
+                    <!-- Login Button (Shown if not logged in) -->
+                    <a href="login.html" id="btn-login" class="hidden glass bg-white/50 dark:bg-gray-800/50 hover:bg-white dark:hover:bg-gray-700 text-gray-800 dark:text-white font-semibold py-2 px-5 rounded-full transition-all text-sm items-center gap-2 border border-gray-200 dark:border-gray-700">
+                        <span>دخول</span>
+                        <i class="fas fa-sign-in-alt"></i>
+                    </a>
+
+                    <!-- User Profile Dropdown (Shown if logged in) -->
+                    <div id="user-menu" class="hidden relative">
+                        <button id="btn-profile" class="flex items-center gap-2 focus:outline-none">
+                            <img id="user-avatar" src="" onerror="this.src='https://placehold.co/100x100/f59e0b/ffffff?text=U'" alt="User" class="w-10 h-10 rounded-full border-2 border-premium object-cover">
+                        </button>
+                        <!-- Dropdown -->
+                        <div id="user-dropdown" class="hidden absolute left-0 mt-2 w-48 glass rounded-2xl shadow-xl py-2 z-50 flex flex-col">
+                            <a href="#profile" class="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 text-sm text-gray-800 dark:text-white flex items-center gap-2">
+                                <i class="fas fa-user-circle w-5"></i> ملفي الشخصي
+                            </a>
+                            <a href="#library" class="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 text-sm text-gray-800 dark:text-white flex items-center gap-2">
+                                <i class="fas fa-book-open w-5"></i> مكتبتي
+                            </a>
+                            <hr class="border-gray-200 dark:border-gray-700 my-1">
+                            <button id="btn-logout" class="w-full text-right px-4 py-2 hover:bg-red-50 dark:hover:bg-red-900/30 text-sm text-red-600 dark:text-red-400 flex items-center gap-2 transition-colors">
+                                <i class="fas fa-sign-out-alt w-5"></i> تسجيل خروج
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main id="main-content" class="flex-grow container mx-auto px-4 py-8">
+        
+        <!-- ==================== HOME VIEW ==================== -->
+        <div id="view-home" class="view-section fade-in">
+            <!-- Hero Search Section -->
+            <div class="text-center mb-16 slide-up">
+                <h1 class="text-4xl md:text-5xl font-black mb-6 text-gray-900 dark:text-white leading-tight">
+                    مستقبلك يبدأ من <span class="text-transparent bg-clip-text bg-gradient-to-r from-premium to-yellow-400">هنا</span>
+                </h1>
+                <p class="text-gray-600 dark:text-gray-400 font-tajawal text-lg md:text-xl mb-10 max-w-2xl mx-auto">
+                    ابحث في أضخم مكتبة تعليمية للمرحلة الثانوية. كتب، ملخصات، وامتحانات بين يديك.
+                </p>
+                
+                <div class="relative max-w-3xl mx-auto z-30">
+                    <input type="text" id="hero-search" placeholder="ماذا تريد أن تتعلم اليوم؟" class="w-full glass bg-white/80 dark:bg-gray-800/80 border border-gray-200 dark:border-gray-700 rounded-2xl py-5 px-8 pr-14 text-lg focus:ring-4 focus:ring-premium/30 outline-none transition-all dark:text-white placeholder-gray-400 shadow-xl">
+                    <i class="fas fa-search absolute right-6 top-1/2 transform -translate-y-1/2 text-2xl text-premium"></i>
+                    <!-- Hero Search Results -->
+                    <div id="hero-search-results" class="absolute top-full mt-3 w-full glass rounded-2xl shadow-2xl hidden flex-col max-h-96 overflow-y-auto z-50 text-right"></div>
+                </div>
+            </div>
+
+            <!-- Grade Cards Section -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-16 slide-up" style="animation-delay: 0.2s;">
+                <!-- Grade 1 -->
+                <a href="#grade/1" class="group relative overflow-hidden rounded-3xl shadow-lg transition-transform hover:-translate-y-2">
+                    <div class="absolute inset-0 grad-grade1 opacity-90 group-hover:opacity-100 transition-opacity z-10"></div>
+                    <img src="https://cdn.phototourl.com/free/2026-07-21-d4bc3784-1377-4026-959b-a7320235824b.png" alt="أولى بكالوريا" class="absolute inset-0 w-full h-full object-cover z-0">
+                    <div class="relative z-20 p-8 h-full flex flex-col justify-end min-h-[200px]">
+                        <h2 class="text-3xl font-bold text-white mb-2">أولى بكالوريا</h2>
+                        <p class="text-white/80 font-tajawal">تأسيس قوي لنجاح مستمر</p>
+                    </div>
+                </a>
+                
+                <!-- Grade 2 -->
+                <a href="#grade/2" class="group relative overflow-hidden rounded-3xl shadow-lg transition-transform hover:-translate-y-2">
+                    <div class="absolute inset-0 grad-grade2 opacity-90 group-hover:opacity-100 transition-opacity z-10"></div>
+                    <img src="https://cdn.phototourl.com/free/2026-07-21-84dbfb87-9f34-4c32-a7c9-676e6c0fda9b.png" alt="ثانية بكالوريا" class="absolute inset-0 w-full h-full object-cover z-0">
+                    <div class="relative z-20 p-8 h-full flex flex-col justify-end min-h-[200px]">
+                        <h2 class="text-3xl font-bold text-white mb-2">ثانية بكالوريا</h2>
+                        <p class="text-white/80 font-tajawal">مرحلة التركيز والتخصص</p>
+                    </div>
+                </a>
+
+                <!-- Grade 3 -->
+                <a href="#grade/3" class="group relative overflow-hidden rounded-3xl shadow-lg transition-transform hover:-translate-y-2">
+                    <div class="absolute inset-0 grad-grade3 opacity-90 group-hover:opacity-100 transition-opacity z-10"></div>
+                    <img src="https://cdn.phototourl.com/free/2026-07-21-ca704138-9452-4697-bcf4-ec14ad8c52c1.png" alt="ثالثة ثانوي" class="absolute inset-0 w-full h-full object-cover z-0">
+                    <div class="relative z-20 p-8 h-full flex flex-col justify-end min-h-[200px]">
+                        <h2 class="text-3xl font-bold text-white mb-2">ثالثة ثانوي</h2>
+                        <p class="text-white/80 font-tajawal">الخطوة الأخيرة نحو الجامعة</p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Dynamic Sections (Books, Summaries, Exams) -->
+            <div id="home-dynamic-content" class="space-y-16">
+                <!-- Data will be injected here via JS. If empty, empty state is shown. -->
+                <div class="flex justify-center py-10"><div class="loader"></div></div>
+            </div>
+        </div>
+
+        <!-- ==================== ITEM DETAIL VIEW (Book/Summary/Exam) ==================== -->
+        <div id="view-detail" class="view-section hidden fade-in">
+            <!-- Injected via JS -->
+            <div id="detail-container"></div>
+        </div>
+
+        <!-- ==================== PROFILE VIEW ==================== -->
+        <div id="view-profile" class="view-section hidden fade-in">
+            <!-- Injected via JS -->
+            <div id="profile-container"></div>
+        </div>
+
+    </main>
+
+    <footer class="glass mt-auto py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-gray-600 dark:text-gray-400 font-tajawal">
+                &copy; 2026 الثانوية الرسمية بلس. جميع الحقوق محفوظة.
+            </p>
+            <p class="text-sm text-gray-500 mt-2 font-tajawal">
+                منصة تعليمية مجانية تهدف للارتقاء بمستوى الطالب.
+            </p>
+        </div>
+    </footer>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, getDocs, doc, getDoc, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Firebase Configuration (Strictly as requested)
         const firebaseConfig = {
             apiKey: "AIzaSyAz9BfG1INB3shlCiMtK395SEo6sCkaZSI",
             authDomain: "thanawya-official-plus.firebaseapp.com",
@@ -1441,1557 +281,554 @@
             measurementId: "G-1KN0QEZKWX"
         };
 
+        // Initialize Firebase
         const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
-        const auth = getAuth(app);
         const db = getFirestore(app);
-        const storage = getStorage(app);
-        const googleProvider = new GoogleAuthProvider();
+        const auth = getAuth(app);
 
-        // ============================================================
-        // 2. STATE
-        // ============================================================
-        let currentUser = null;
-        let currentUserData = null;
-        let searchTimeout = null;
-        const PAGE_SIZE = 12;
-
-        // Timer State
-        let timerState = {
-            running: false,
-            paused: false,
-            time: 0,
-            interval: null,
-            preset: 25,
-            taskName: '',
-            subject: '',
-            sessionType: 'study'
+        // App State
+        const state = {
+            user: null,
+            userData: null,
+            materials: { books: [], summaries: [], exams: [] }, // In-memory data store
+            isDataLoaded: false
         };
 
-        // ============================================================
-        // 3. AUTH STATE
-        // ============================================================
-        onAuthStateChanged(auth, async (user) => {
-            currentUser = user;
-            if (user) {
-                try {
-                    const docSnap = await getDoc(doc(db, 'users', user.uid));
-                    currentUserData = docSnap.exists() ? docSnap.data() : null;
-                } catch { currentUserData = null; }
-            } else {
-                currentUserData = null;
-            }
-            updateHeader();
-            updateHeroStats();
-            App.updateNotifCount();
-            if (document.getElementById('tab-timer').classList.contains('active')) {
-                renderTimer();
-            }
-            if (document.getElementById('tab-todo').classList.contains('active')) {
-                renderTodo();
-            }
-        });
+        // 1. Toast Notifications
+        window.showToast = function(message, type = 'info') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            
+            let bgClass = 'bg-gray-800 dark:bg-gray-200 text-white dark:text-gray-900';
+            let icon = '<i class="fas fa-info-circle"></i>';
+            if(type === 'success') { bgClass = 'bg-green-500 text-white'; icon = '<i class="fas fa-check-circle"></i>'; }
+            if(type === 'error') { bgClass = 'bg-red-500 text-white'; icon = '<i class="fas fa-exclamation-circle"></i>'; }
+            if(type === 'warning') { bgClass = 'bg-yellow-500 text-white'; icon = '<i class="fas fa-exclamation-triangle"></i>'; }
 
-        // ============================================================
-        // 4. HEADER
-        // ============================================================
-        function updateHeader() {
-            const el = document.getElementById('headerAuth');
-            if (!el) return;
-            if (currentUser && currentUserData) {
-                const isAdmin = currentUserData.role === 'admin';
-                const avatar = currentUserData.photoURL ||
-                    `https://ui-avatars.com/api/?name=${encodeURIComponent(currentUserData.displayName||'U')}&background=FBBF24&color=111827&size=40&bold=true`;
-                el.innerHTML = `
-                    <div class="user-menu">
-                        <button class="theme-toggle" onclick="App.toggleTheme()" id="themeToggle">${localStorage.getItem('theme')==='dark'?'☀️':'🌙'}</button>
-                        <button class="notif-btn" onclick="App.toggleNotif()" id="notifBtn">🔔<span class="notif-badge" id="notifBadge">0</span></button>
-                        <span class="user-name">${currentUserData.displayName||'مستخدم'}</span>
-                        <img src="${avatar}" class="user-avatar" onclick="App.showProfile()" loading="lazy" />
-                        ${isAdmin?`<a href="admin.html" class="btn btn-sm btn-primary" style="padding:4px 12px;font-size:12px;">🛠️</a>`:''}
-                        <button class="logout-btn" onclick="App.logout()">🚪</button>
-                    </div>
-                    <div class="notif-dropdown" id="notifDropdown"></div>
-                `;
-            } else {
-                el.innerHTML = `
-                    <button class="theme-toggle" onclick="App.toggleTheme()" id="themeToggle">${localStorage.getItem('theme')==='dark'?'☀️':'🌙'}</button>
-                    <div class="auth-buttons">
-                        <a href="login.html" class="btn btn-secondary">تسجيل الدخول</a>
-                        <a href="login.html?tab=register" class="btn btn-primary">إنشاء حساب</a>
-                    </div>
-                `;
-            }
+            toast.className = `flex items-center gap-3 px-4 py-3 rounded-xl shadow-lg transform transition-all duration-300 translate-y-[-100%] opacity-0 ${bgClass}`;
+            toast.innerHTML = `${icon} <span class="font-tajawal font-medium">${message}</span>`;
+            
+            container.appendChild(toast);
+            
+            // Animate in
+            setTimeout(() => {
+                toast.classList.remove('translate-y-[-100%]', 'opacity-0');
+            }, 10);
+
+            // Animate out and remove
+            setTimeout(() => {
+                toast.classList.add('translate-y-[-100%]', 'opacity-0');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        };
+
+        // 2. Dark Mode Toggle
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        
+        function toggleTheme() {
+            document.documentElement.classList.toggle('dark');
+            const isDark = document.documentElement.classList.contains('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            themeIcon.className = isDark ? 'fas fa-sun text-yellow-400 text-lg' : 'fas fa-moon text-lg';
         }
 
-        // ============================================================
-        // 5. HERO STATS
-        // ============================================================
-        async function updateHeroStats() {
+        // Initialize Theme
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            themeIcon.className = 'fas fa-sun text-yellow-400 text-lg';
+        } else {
+            document.documentElement.classList.remove('dark');
+            themeIcon.className = 'fas fa-moon text-lg';
+        }
+        themeToggleBtn.addEventListener('click', toggleTheme);
+
+        // 3. UI Helpers
+        const copyToClipboard = (text) => {
+            const el = document.createElement('textarea');
+            el.value = text;
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+            showToast('تم نسخ الرابط بنجاح', 'success');
+        };
+        window.copyToClipboard = copyToClipboard; // Expose to window for inline onclick
+
+        // As per Rule 2: Fetch all, filter in memory.
+        async function fetchAllData() {
             try {
-                const [bSnap, sSnap, eSnap, uSnap] = await Promise.all([
-                    getDocs(query(collection(db, 'books'), where('status', '==', 'published'))),
-                    getDocs(query(collection(db, 'student_summaries'), where('status', '==', 'approved'))),
-                    getDocs(collection(db, 'exams')),
-                    getDocs(collection(db, 'users'))
-                ]);
-                document.getElementById('statBooks').textContent = bSnap.size;
-                document.getElementById('statSummaries').textContent = sSnap.size;
-                document.getElementById('statExams').textContent = eSnap.size;
-                document.getElementById('statUsers').textContent = uSnap.size;
-            } catch {}
+                // We use standard collection names for the platform
+                const collections = ['books', 'summaries', 'exams'];
+                
+                for (const colName of collections) {
+                    const querySnapshot = await getDocs(collection(db, colName));
+                    state.materials[colName] = querySnapshot.docs.map(doc => ({
+                        id: doc.id,
+                        type: colName,
+                        ...doc.data()
+                    }));
+                }
+                state.isDataLoaded = true;
+                renderHomeData();
+            } catch (error) {
+                console.error("Error fetching data:", error);
+                showToast('حدث خطأ أثناء جلب البيانات. حاول تحديث الصفحة.', 'error');
+                // Even on error, render home to show empty states gracefully
+                state.isDataLoaded = true; 
+                renderHomeData();
+            }
         }
 
-        // ============================================================
-        // 6. GRADES
-        // ============================================================
-        async function renderGrades() {
-            const grid = document.getElementById('gradesGrid');
-            if (!grid) return;
-            const grades = [
-                { id: 'first', name: 'أولى بكالوريا', icon: '🟢', img: 'https://cdn.phototourl.com/free/2026-07-21-d4bc3784-1377-4026-959b-a7320235824b.png' },
-                { id: 'second', name: 'ثانية بكالوريا', icon: '🔵', img: 'https://cdn.phototourl.com/free/2026-07-21-84dbfb87-9f34-4c32-a7c9-676e6c0fda9b.png' },
-                { id: 'third', name: 'ثالثة ثانوي', icon: '🔴', img: 'https://cdn.phototourl.com/free/2026-07-21-ca704138-9452-4697-bcf4-ec14ad8c52c1.png' }
+        function createEmptyState(message, subMessage, iconClass = 'fa-folder-open') {
+            return `
+                <div class="glass rounded-3xl p-10 flex flex-col items-center justify-center text-center min-h-[300px]">
+                    <div class="w-24 h-24 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mb-6 text-gray-400 dark:text-gray-500 shadow-inner">
+                        <i class="fas ${iconClass} text-4xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 dark:text-gray-200 mb-2">${message}</h3>
+                    <p class="text-gray-500 dark:text-gray-400 font-tajawal max-w-md">${subMessage}</p>
+                </div>
+            `;
+        }
+
+        function createMaterialCard(item) {
+            // Default image if none provided
+            const coverImg = item.coverUrl || `https://placehold.co/400x600/1e293b/ffffff?text=${encodeURIComponent(item.title || 'بدون غلاف')}`;
+            const gradeColors = {
+                'grade1': 'text-grade1 bg-grade1/10',
+                'grade2': 'text-grade2 bg-grade2/10',
+                'grade3': 'text-grade3 bg-grade3/10',
+            };
+            const gradeBadge = item.grade ? `<span class="px-3 py-1 rounded-full text-xs font-bold ${gradeColors[item.grade] || 'text-gray-500 bg-gray-100 dark:bg-gray-800'}">${formatGrade(item.grade)}</span>` : '';
+
+            return `
+                <div class="glass rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group flex flex-col h-full">
+                    <div class="relative h-48 overflow-hidden bg-gray-200 dark:bg-gray-800">
+                        <img src="${coverImg}" alt="${item.title}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute top-3 right-3 flex gap-2 z-10">
+                            ${gradeBadge}
+                            <span class="px-3 py-1 rounded-full text-xs font-bold text-premium bg-premium/10"><i class="fas fa-star mr-1"></i> ${item.rating || 'جديد'}</span>
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center p-4">
+                            <a href="#detail/${item.type}/${item.id}" class="bg-premium text-white font-bold py-2 px-6 rounded-full hover:bg-yellow-500 transition-colors transform translate-y-4 group-hover:translate-y-0 duration-300">عرض التفاصيل</a>
+                        </div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h3 class="font-bold text-lg text-gray-900 dark:text-white mb-1 line-clamp-1">${item.title || 'بدون عنوان'}</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 font-tajawal mb-4">${item.subject || 'عام'}</p>
+                        <div class="mt-auto flex items-center justify-between">
+                            <span class="text-xs text-gray-400 font-tajawal"><i class="fas fa-download ml-1"></i> ${item.downloads || 0}</span>
+                            <button onclick="window.location.hash='#detail/${item.type}/${item.id}'" class="text-premium hover:text-yellow-600 transition-colors bg-premium/10 w-8 h-8 rounded-full flex items-center justify-center">
+                                <i class="fas fa-arrow-left"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function formatGrade(gradeCode) {
+            const map = { 'grade1': 'أولى بكالوريا', 'grade2': 'ثانية بكالوريا', 'grade3': 'ثالثة ثانوي' };
+            return map[gradeCode] || gradeCode;
+        }
+
+        function renderHomeData() {
+            const container = document.getElementById('home-dynamic-content');
+            container.innerHTML = ''; // Clear loader
+
+            const sections = [
+                { title: 'أحدث الكتب', type: 'books', icon: 'fa-book' },
+                { title: 'أحدث الملخصات', type: 'summaries', icon: 'fa-file-alt' },
+                { title: 'أحدث الامتحانات', type: 'exams', icon: 'fa-file-signature' }
             ];
-            grid.innerHTML = grades.map(g => `
-                <div class="grade-card" onclick="App.filterByGrade('${g.id}')">
-                    <img src="${g.img}" alt="${g.name}" class="bg-img" loading="lazy" />
-                    <div class="overlay"></div>
-                    <div class="icon">${g.icon}</div>
-                    <div class="name">${g.name}</div>
-                    <div class="stats" id="gradeStats_${g.id}">جاري التحميل...</div>
-                </div>
-            `).join('');
-            for (const g of grades) {
-                try {
-                    const snap = await getDocs(query(collection(db, 'books'), where('grade', '==', g.id), where('status', '==',
-                        'published')));
-                    const el = document.getElementById(`gradeStats_${g.id}`);
-                    if (el) el.textContent = snap.size > 0 ? `${snap.size} كتاب` : 'لا توجد كتب';
-                } catch {
-                    const el = document.getElementById(`gradeStats_${g.id}`);
-                    if (el) el.textContent = 'لا توجد بيانات';
-                }
-            }
-        }
 
-        // ============================================================
-        // 7. BOOKS
-        // ============================================================
-        async function renderBooks(grade = null) {
-            const grid = document.getElementById('booksGrid');
-            const loading = document.getElementById('booksLoading');
-            if (!grid) return;
-            if (loading) loading.style.display = 'flex';
-            grid.innerHTML = '';
-            try {
-                let constraints = [where('status', '==', 'published')];
-                if (grade) constraints.push(where('grade', '==', grade));
-                constraints.push(orderBy('createdAt', 'desc'));
-                constraints.push(limit(PAGE_SIZE));
-                const q = query(collection(db, 'books'), ...constraints);
-                const snap = await getDocs(q);
-                if (loading) loading.style.display = 'none';
-                if (snap.empty) {
-                    grid.innerHTML =
-                    `<div class="content-card empty"><span class="icon">📚</span><h3>لا توجد كتب</h3><p>سيتم إضافة الكتب قريباً</p></div>`;
-                    return;
-                }
-                snap.forEach(doc => {
-                    const book = { id: doc.id, ...doc.data() };
-                    grid.appendChild(createBookCard(book));
-                });
-            } catch (e) {
-                if (loading) loading.style.display = 'none';
-                grid.innerHTML =
-                    `<div class="content-card empty"><span class="icon">⚠️</span><h3>حدث خطأ</h3></div>`;
-                console.error(e);
-            }
-        }
-
-        function createBookCard(book) {
-            const card = document.createElement('div');
-            card.className = 'content-card';
-            const cover = book.coverImage ||
-                `https://ui-avatars.com/api/?name=${encodeURIComponent(book.title||'كتاب')}&background=FBBF24&color=111827&size=300&bold=true`;
-            const gradeNames = { first: 'أولى بكالوريا', second: 'ثانية بكالوريا', third: 'ثالثة ثانوي' };
-            const gradeName = gradeNames[book.grade] || book.grade || 'غير محدد';
-            let badges = '';
-            if (book.recommended) badges += `<span class="badge badge-gold">⭐ موصى به</span>`;
-            if (book.featured) badges += `<span class="badge badge-green">🌟 جديد</span>`;
-            if (book.golden) badges += `<span class="badge badge-golden">🏅 ذهبي</span>`;
-            if (book.downloadsCount > 100) badges += `<span class="badge badge-red">🔥 الأكثر تحميلاً</span>`;
-            const rating = book.ratingAverage || 0;
-            const full = Math.floor(rating);
-            const half = rating % 1 >= 0.5;
-            let stars = '';
-            for (let i = 0; i < 5; i++) {
-                if (i < full) stars += '⭐';
-                else if (i === full && half) stars += '⭐';
-                else stars += '☆';
-            }
-            const catColors = { 'وزارة': '#22C55E', 'خارجي': '#2563EB', 'مدرس': '#FBBF24', 'ملزمة': '#EF4444', 'مراجعة': '#8B5CF6' };
-            const catColor = catColors[book.category] || '#6B7280';
-            card.innerHTML = `
-                <div class="cover-wrap" onclick="App.openBook('${book.id}')">
-                    <img src="${cover}" alt="${book.title}" class="cover" loading="lazy" />
-                    <div class="badges">${badges}</div>
-                </div>
-                <div class="info" onclick="App.openBook('${book.id}')">
-                    <div class="title">${book.title||'عنوان غير معروف'}</div>
-                    <div class="subject">📖 ${book.subject||'مادة غير محددة'}</div>
-                    <div class="meta">
-                        <span>${gradeName}</span>
-                        <span style="background:${catColor};color:white;">${book.category||'كتاب'}</span>
-                        ${book.teacherName?`<span>👨‍🏫 ${book.teacherName}</span>`:''}
-                    </div>
-                    <div class="rating"><span class="stars">${stars}</span><span class="text">(${book.ratingCount||0})</span></div>
-                    <div class="stats">
-                        <span>⬇️ ${book.downloadsCount||0}</span>
-                        <span>👁️ ${book.viewsCount||0}</span>
-                        <span>📤 ${book.sharesCount||0}</span>
-                    </div>
-                </div>
-                <div class="actions">
-                    <button class="btn btn-primary btn-xs" onclick="App.downloadBook('${book.id}')">📥</button>
-                    <button class="btn btn-secondary btn-xs" onclick="App.previewBook('${book.id}')">👁️</button>
-                    <button class="btn btn-outline btn-xs" onclick="App.shareBook('${book.id}','${book.title}')">📤</button>
-                    <button class="btn btn-outline btn-xs" onclick="App.toggleFavorite('${book.id}')">⭐</button>
-                </div>
-            `;
-            return card;
-        }
-
-        // ============================================================
-        // 8. SUMMARIES
-        // ============================================================
-        async function renderSummaries() {
-            const grid = document.getElementById('summariesGrid');
-            const loading = document.getElementById('summariesLoading');
-            if (!grid) return;
-            if (loading) loading.style.display = 'flex';
-            grid.innerHTML = '';
-            try {
-                const q = query(collection(db, 'student_summaries'), where('status', '==', 'approved'), orderBy('createdAt',
-                    'desc'), limit(PAGE_SIZE));
-                const snap = await getDocs(q);
-                if (loading) loading.style.display = 'none';
-                if (snap.empty) {
-                    grid.innerHTML =
-                        `<div class="content-card empty"><span class="icon">📝</span><h3>لا توجد ملخصات</h3><p>كن أول من يرفع ملخصاً</p></div>`;
-                    return;
-                }
-                snap.forEach(doc => {
-                    const s = { id: doc.id, ...doc.data() };
-                    grid.appendChild(createSummaryCard(s));
-                });
-            } catch (e) {
-                if (loading) loading.style.display = 'none';
-                grid.innerHTML =
-                    `<div class="content-card empty"><span class="icon">⚠️</span><h3>حدث خطأ</h3></div>`;
-                console.error(e);
-            }
-        }
-
-        function createSummaryCard(summary) {
-            const card = document.createElement('div');
-            card.className = 'content-card';
-            const cover = summary.imageUrl ||
-                `https://ui-avatars.com/api/?name=${encodeURIComponent(summary.title||'ملخص')}&background=FBBF24&color=111827&size=300&bold=true`;
-            const gradeNames = { first: 'أولى بكالوريا', second: 'ثانية بكالوريا', third: 'ثالثة ثانوي' };
-            const gradeName = gradeNames[summary.grade] || summary.grade || 'غير محدد';
-            let badges = '';
-            if (summary.badge === 'golden') badges += `<span class="badge badge-golden">🏅 ذهبي</span>`;
-            if (summary.badge === 'admin_choice') badges += `<span class="badge badge-gold">⭐ اختيار الإدارة</span>`;
-            if (summary.badge === 'week_summary') badges += `<span class="badge badge-green">📅 ملخص الأسبوع</span>`;
-
-            card.innerHTML = `
-                <div class="cover-wrap" onclick="App.openSummary('${summary.id}')">
-                    <img src="${cover}" alt="${summary.title}" class="cover" loading="lazy" />
-                    <div class="badges">${badges}</div>
-                </div>
-                <div class="info" onclick="App.openSummary('${summary.id}')">
-                    <div class="title">${summary.title||'ملخص'}</div>
-                    <div class="subject">📖 ${summary.subject||'مادة غير محددة'} ${summary.lesson?`· ${summary.lesson}`:''}</div>
-                    <div class="meta">
-                        <span>${gradeName}</span>
-                        <span>👤 ${summary.uploadedByName||'طالب'}</span>
-                    </div>
-                    <div class="rating"><span class="stars">${'⭐'.repeat(Math.min(summary.adminRating||0,5))}</span><span class="text">إدارة</span></div>
-                    <div class="stats">
-                        <span>⬇️ ${summary.downloadsCount||0}</span>
-                        <span>👁️ ${summary.viewsCount||0}</span>
-                        <span>❤️ ${summary.likesCount||0}</span>
-                    </div>
-                </div>
-                <div class="actions">
-                    <button class="btn btn-primary btn-xs" onclick="App.downloadSummary('${summary.id}')">📥</button>
-                    <button class="btn btn-outline btn-xs" onclick="App.shareBook('${summary.id}','${summary.title}')">📤</button>
-                </div>
-            `;
-            return card;
-        }
-
-        // ============================================================
-        // 9. EXAMS
-        // ============================================================
-        async function renderExams() {
-            const grid = document.getElementById('examsGrid');
-            const loading = document.getElementById('examsLoading');
-            if (!grid) return;
-            if (loading) loading.style.display = 'flex';
-            grid.innerHTML = '';
-            try {
-                const q = query(collection(db, 'exams'), orderBy('createdAt', 'desc'), limit(PAGE_SIZE));
-                const snap = await getDocs(q);
-                if (loading) loading.style.display = 'none';
-                if (snap.empty) {
-                    grid.innerHTML =
-                        `<div class="content-card empty"><span class="icon">📋</span><h3>لا توجد امتحانات</h3><p>سيتم إضافة الامتحانات قريباً</p></div>`;
-                    return;
-                }
-                snap.forEach(doc => {
-                    const e = { id: doc.id, ...doc.data() };
-                    grid.appendChild(createExamCard(e));
-                });
-            } catch (e) {
-                if (loading) loading.style.display = 'none';
-                grid.innerHTML =
-                    `<div class="content-card empty"><span class="icon">⚠️</span><h3>حدث خطأ</h3></div>`;
-                console.error(e);
-            }
-        }
-
-        function createExamCard(exam) {
-            const card = document.createElement('div');
-            card.className = 'content-card';
-            const cover = `https://ui-avatars.com/api/?name=${encodeURIComponent(exam.title||'امتحان')}&background=FBBF24&color=111827&size=300&bold=true`;
-            const gradeNames = { first: 'أولى بكالوريا', second: 'ثانية بكالوريا', third: 'ثالثة ثانوي' };
-            const gradeName = gradeNames[exam.grade] || exam.grade || 'غير محدد';
-
-            card.innerHTML = `
-                <div class="cover-wrap" onclick="App.openExam('${exam.id}')">
-                    <img src="${cover}" alt="${exam.title}" class="cover" loading="lazy" />
-                </div>
-                <div class="info" onclick="App.openExam('${exam.id}')">
-                    <div class="title">${exam.title||'امتحان'}</div>
-                    <div class="subject">📖 ${exam.subject||'مادة غير محددة'}</div>
-                    <div class="meta">
-                        <span>${gradeName}</span>
-                        <span>${exam.examType||'امتحان'}</span>
-                        ${exam.year?`<span>📅 ${exam.year}</span>`:''}
-                    </div>
-                    <div class="stats">
-                        <span>⬇️ ${exam.downloadsCount||0}</span>
-                        <span>👁️ ${exam.viewsCount||0}</span>
-                    </div>
-                </div>
-                <div class="actions">
-                    <button class="btn btn-primary btn-xs" onclick="App.downloadExam('${exam.id}')">📥</button>
-                    <button class="btn btn-outline btn-xs" onclick="App.shareBook('${exam.id}','${exam.title}')">📤</button>
-                </div>
-            `;
-            return card;
-        }
-
-        // ============================================================
-        // 10. ADS
-        // ============================================================
-        async function renderAds() {
-            const grid = document.getElementById('adsGrid');
-            if (!grid) return;
-            try {
-                const now = new Date();
-                const q = query(
-                    collection(db, 'ads'),
-                    where('status', '==', 'active'),
-                    where('startDate', '<=', now),
-                    where('endDate', '>=', now),
-                    limit(3)
-                );
-                const snap = await getDocs(q);
-                if (snap.empty) { grid.innerHTML = ''; return; }
-                grid.innerHTML = '';
-                snap.forEach(doc => {
-                    const ad = doc.data();
-                    const div = document.createElement('div');
-                    div.className = 'ad-card';
-                    div.innerHTML = `
-                        ${ad.image?`<img src="${ad.image}" alt="${ad.title}" loading="lazy" />`:''}
-                        <div class="title">${ad.title}</div>
-                        ${ad.description?`<div class="desc">${ad.description}</div>`:''}
-                        ${ad.link?`<a href="${ad.link}" target="_blank" class="btn btn-sm btn-primary" style="margin-top:6px;">عرض</a>`:''}
-                    `;
-                    grid.appendChild(div);
-                });
-            } catch {}
-        }
-
-        // ============================================================
-        // 11. SEARCH
-        // ============================================================
-        async function performSearch(q) {
-            const container = document.getElementById('searchResults');
-            if (!container) return;
-            if (!q || q.length < 2) { container.classList.remove('active'); return; }
-            const term = q.trim().toLowerCase();
-            const results = { books: [], summaries: [], exams: [] };
-            try {
-                const [bSnap, sSnap, eSnap] = await Promise.all([
-                    getDocs(query(collection(db, 'books'), where('status', '==', 'published'), limit(12))),
-                    getDocs(query(collection(db, 'student_summaries'), where('status', '==', 'approved'), limit(8))),
-                    getDocs(query(collection(db, 'exams'), limit(8)))
-                ]);
-                bSnap.forEach(d => {
-                    const data = d.data();
-                    if (data.title?.toLowerCase().includes(term) || data.subject?.toLowerCase().includes(term) || data
-                        .description?.toLowerCase().includes(term) || data.teacherName?.toLowerCase().includes(term))
-                        results.books.push({ id: d.id, ...data, type: 'book' });
-                });
-                sSnap.forEach(d => {
-                    const data = d.data();
-                    if (data.title?.toLowerCase().includes(term) || data.subject?.toLowerCase().includes(term) || data
-                        .lesson?.toLowerCase().includes(term))
-                        results.summaries.push({ id: d.id, ...data, type: 'summary' });
-                });
-                eSnap.forEach(d => {
-                    const data = d.data();
-                    if (data.title?.toLowerCase().includes(term) || data.subject?.toLowerCase().includes(term))
-                        results.exams.push({ id: d.id, ...data, type: 'exam' });
-                });
-                let html = '';
-                let has = false;
-                if (results.books.length) {
-                    has = true;
-                    html += `<div class="search-group-title">📚 الكتب (${results.books.length})</div>`;
-                    results.books.slice(0, 5).forEach(r => {
-                        html += `
-                            <div class="search-item" onclick="App.openBook('${r.id}')">
-                                <span class="icon">📘</span>
-                                <div class="info"><div class="title">${r.title||'كتاب'}</div><div class="subtitle">${r.subject||''}</div></div>
-                                <span class="badge">${r.category||'كتاب'}</span>
+            sections.forEach(sec => {
+                const sectionDiv = document.createElement('div');
+                sectionDiv.className = 'mb-12';
+                
+                let headerHTML = `
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-premium/20 flex items-center justify-center text-premium">
+                                <i class="fas ${sec.icon}"></i>
                             </div>
-                        `;
-                    });
-                }
-                if (results.summaries.length) {
-                    has = true;
-                    html += `<div class="search-group-title">📝 ملخصات (${results.summaries.length})</div>`;
-                    results.summaries.slice(0, 5).forEach(r => {
-                        html += `
-                            <div class="search-item" onclick="App.openSummary('${r.id}')">
-                                <span class="icon">📝</span>
-                                <div class="info"><div class="title">${r.title||'ملخص'}</div><div class="subtitle">${r.subject||''}</div></div>
-                                <span class="badge">طالب</span>
-                            </div>
-                        `;
-                    });
-                }
-                if (results.exams.length) {
-                    has = true;
-                    html += `<div class="search-group-title">📋 امتحانات (${results.exams.length})</div>`;
-                    results.exams.slice(0, 5).forEach(r => {
-                        html += `
-                            <div class="search-item" onclick="App.openExam('${r.id}')">
-                                <span class="icon">📋</span>
-                                <div class="info"><div class="title">${r.title||'امتحان'}</div><div class="subtitle">${r.subject||''}</div></div>
-                                <span class="badge">${r.examType||'امتحان'}</span>
-                            </div>
-                        `;
-                    });
-                }
-                if (!has) {
-                    html = `<div class="search-empty"><span class="icon">🔍</span>لم يتم العثور على نتائج</div>`;
-                }
-                container.innerHTML = html;
-                container.classList.add('active');
-            } catch (e) {
-                container.innerHTML = `<div class="search-empty"><span class="icon">⚠️</span>حدث خطأ</div>`;
-                container.classList.add('active');
-            }
-        }
-
-        // ============================================================
-        // 12. TIMER
-        // ============================================================
-        function renderTimer() {
-            const container = document.getElementById('timerContainer');
-            if (!container) return;
-            const minutes = Math.floor(timerState.time / 60);
-            const seconds = timerState.time % 60;
-            const display = `${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')}`;
-            const statusClass = timerState.running ? 'running' : (timerState.paused ? 'paused' : '');
-
-            container.innerHTML = `
-                <div style="max-width:500px;margin:0 auto;">
-                    <div style="text-align:center;margin-bottom:12px;">
-                        <h3>⏱ المؤقت</h3>
-                        <p style="color:var(--text-secondary);font-size:14px;">نظم وقت مذاكرتك بفعالية</p>
-                    </div>
-                    <div class="timer-display ${statusClass}">${display}</div>
-                    <div class="timer-presets">
-                        ${[15,25,45,60,90].map(p => `
-                            <button class="timer-preset ${timerState.preset===p?'active':''}" onclick="App.setTimerPreset(${p})">${p} د</button>
-                        `).join('')}
-                        <button class="timer-preset" onclick="App.customTimerPreset()">✏️ مخصص</button>
-                    </div>
-                    <div style="margin-bottom:12px;">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label>المهمة</label>
-                                <input type="text" id="timerTask" placeholder="مذاكرة كيمياء" value="${timerState.taskName}" />
-                            </div>
-                            <div class="form-group">
-                                <label>المادة</label>
-                                <input type="text" id="timerSubject" placeholder="الكيمياء" value="${timerState.subject}" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label>نوع الجلسة</label>
-                            <select id="timerType">
-                                <option value="study" ${timerState.sessionType==='study'?'selected':''}>📖 مذاكرة</option>
-                                <option value="solve" ${timerState.sessionType==='solve'?'selected':''}>✏️ حل</option>
-                                <option value="read" ${timerState.sessionType==='read'?'selected':''}>📚 قراءة</option>
-                                <option value="review" ${timerState.sessionType==='review'?'selected':''}>🔄 مراجعة</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="timer-controls">
-                        ${!timerState.running && !timerState.paused ? `<button class="btn btn-primary" onclick="App.startTimer()">▶️ ابدأ</button>` : ''}
-                        ${timerState.running ? `<button class="btn btn-secondary" onclick="App.pauseTimer()">⏸ إيقاف مؤقت</button>` : ''}
-                        ${timerState.paused ? `<button class="btn btn-primary" onclick="App.resumeTimer()">▶️ استمرار</button>` : ''}
-                        ${timerState.running || timerState.paused ? `<button class="btn btn-danger" onclick="App.stopTimer()">⏹ إيقاف</button>` : ''}
-                        ${!timerState.running && !timerState.paused && timerState.time > 0 ? `<button class="btn btn-secondary" onclick="App.resetTimer()">🔄 إعادة ضبط</button>` : ''}
-                    </div>
-                    ${timerState.running || timerState.paused ? `
-                        <div style="margin-top:12px;text-align:center;">
-                            <button class="btn btn-success btn-sm" onclick="App.completeSession()">✅ أنهيت المهمة</button>
-                        </div>
-                    ` : ''}
-                    ${currentUser ? `
-                        <div style="margin-top:16px;padding:12px;background:var(--bg-secondary);border-radius:var(--radius-sm);">
-                            <h4 style="font-size:14px;margin-bottom:6px;">📊 إحصائيات اليوم</h4>
-                            <div id="todayStats" style="font-size:13px;color:var(--text-secondary);">جاري التحميل...</div>
-                        </div>
-                    ` : ''}
-                </div>
-            `;
-            if (currentUser) loadTodayStats();
-        }
-
-        async function loadTodayStats() {
-            const el = document.getElementById('todayStats');
-            if (!el || !currentUser) return;
-            try {
-                const today = new Date();
-                today.setHours(0, 0, 0, 0);
-                const q = query(
-                    collection(db, 'sessions'),
-                    where('userId', '==', currentUser.uid),
-                    where('date', '>=', today),
-                    orderBy('date', 'desc')
-                );
-                const snap = await getDocs(q);
-                let totalMinutes = 0;
-                let count = 0;
-                snap.forEach(d => {
-                    const data = d.data();
-                    totalMinutes += data.duration || 0;
-                    count++;
-                });
-                const hours = Math.floor(totalMinutes / 60);
-                const mins = totalMinutes % 60;
-                el.innerHTML = `
-                    <div style="display:flex;gap:16px;flex-wrap:wrap;">
-                        <span>⏱ ${hours}h ${mins}m</span>
-                        <span>📝 ${count} جلسة${count>1?'ات':''}</span>
-                        ${count > 0 ? `<span>📊 المتوسط: ${Math.round(totalMinutes/count)} د</span>` : ''}
+                            ${sec.title}
+                        </h2>
+                        <a href="#category/${sec.type}" class="text-sm font-tajawal text-gray-500 hover:text-premium transition-colors">عرض الكل <i class="fas fa-chevron-left text-xs ml-1"></i></a>
                     </div>
                 `;
-            } catch {
-                el.textContent = 'لا توجد جلسات اليوم';
-            }
+
+                // Sorting in memory (Latest first based on createdAt or fallback to any order)
+                // Assuming items have a createdAt timestamp. If not, just take first 4.
+                let items = [...state.materials[sec.type]];
+                items.sort((a, b) => {
+                    const dateA = a.createdAt?.toMillis ? a.createdAt.toMillis() : 0;
+                    const dateB = b.createdAt?.toMillis ? b.createdAt.toMillis() : 0;
+                    return dateB - dateA; // Descending
+                });
+                
+                const latestItems = items.slice(0, 4); // Show only top 4
+
+                let contentHTML = '';
+                if (latestItems.length === 0) {
+                    contentHTML = createEmptyState(
+                        `لا توجد ${sec.title.replace('أحدث ', '')} حالياً`, 
+                        'نحن نعمل بجد على إضافة محتوى تعليمي متميز قريباً. يرجى العودة لاحقاً.',
+                        sec.icon
+                    );
+                } else {
+                    contentHTML = `<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">`;
+                    latestItems.forEach(item => {
+                        contentHTML += createMaterialCard(item);
+                    });
+                    contentHTML += `</div>`;
+                }
+
+                sectionDiv.innerHTML = headerHTML + contentHTML;
+                container.appendChild(sectionDiv);
+            });
         }
 
-        // ============================================================
-        // 13. TODO
-        // ============================================================
-        async function renderTodo() {
-            const container = document.getElementById('todoContainer');
-            if (!container) return;
+        function setupSearch(inputId, resultsId) {
+            const input = document.getElementById(inputId);
+            const resultsDiv = document.getElementById(resultsId);
+            let debounceTimer;
 
-            if (!currentUser) {
-                container.innerHTML = `
-                    <div style="text-align:center;padding:40px 0;">
-                        <span style="font-size:48px;display:block;margin-bottom:12px;">✅</span>
-                        <h3>سجل الدخول لإدارة مهامك</h3>
-                        <a href="login.html" class="btn btn-primary" style="margin-top:12px;">تسجيل الدخول</a>
-                    </div>
-                `;
+            input.addEventListener('input', (e) => {
+                clearTimeout(debounceTimer);
+                const query = e.target.value.trim().toLowerCase();
+                
+                if (query.length < 2) {
+                    resultsDiv.classList.add('hidden');
+                    return;
+                }
+
+                debounceTimer = setTimeout(() => {
+                    // Search across all materials in memory
+                    const allItems = [...state.materials.books, ...state.materials.summaries, ...state.materials.exams];
+                    const results = allItems.filter(item => 
+                        (item.title && item.title.toLowerCase().includes(query)) ||
+                        (item.subject && item.subject.toLowerCase().includes(query)) ||
+                        (item.description && item.description.toLowerCase().includes(query))
+                    ).slice(0, 5); // Limit to 5 suggestions
+
+                    resultsDiv.innerHTML = '';
+                    if (results.length > 0) {
+                        results.forEach(item => {
+                            const typeName = item.type === 'books' ? 'كتاب' : item.type === 'summaries' ? 'ملخص' : 'امتحان';
+                            const resultItem = document.createElement('a');
+                            resultItem.href = `#detail/${item.type}/${item.id}`;
+                            resultItem.className = 'flex items-center gap-3 p-3 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors border-b border-gray-100 dark:border-gray-700 last:border-none';
+                            resultItem.innerHTML = `
+                                <div class="w-10 h-10 rounded bg-gray-200 dark:bg-gray-800 flex-shrink-0 overflow-hidden">
+                                    <img src="${item.coverUrl || 'https://placehold.co/100x100/1e293b/ffffff?text=#'}" class="w-full h-full object-cover">
+                                </div>
+                                <div class="flex flex-col text-right">
+                                    <span class="font-bold text-sm text-gray-900 dark:text-white line-clamp-1">${item.title}</span>
+                                    <span class="text-xs text-gray-500 font-tajawal">${typeName} • ${item.subject || 'عام'}</span>
+                                </div>
+                            `;
+                            resultItem.addEventListener('click', () => {
+                                resultsDiv.classList.add('hidden');
+                                input.value = '';
+                            });
+                            resultsDiv.appendChild(resultItem);
+                        });
+                    } else {
+                        resultsDiv.innerHTML = `<div class="p-4 text-center text-gray-500 text-sm font-tajawal">لا توجد نتائج مطابقة</div>`;
+                    }
+                    resultsDiv.classList.remove('hidden');
+                }, 300);
+            });
+
+            // Close results on click outside
+            document.addEventListener('click', (e) => {
+                if (!input.contains(e.target) && !resultsDiv.contains(e.target)) {
+                    resultsDiv.classList.add('hidden');
+                }
+            });
+        }
+        setupSearch('nav-search', 'nav-search-results');
+        setupSearch('hero-search', 'hero-search-results');
+
+        window.renderDetailView = function(type, id) {
+            const container = document.getElementById('detail-container');
+            container.innerHTML = `<div class="flex justify-center py-20"><div class="loader"></div></div>`;
+            
+            // Find item in memory
+            const item = state.materials[type]?.find(i => i.id === id);
+
+            if (!item) {
+                container.innerHTML = createEmptyState('العنصر غير موجود', 'ربما تم حذفه أو الرابط غير صحيح.', 'fa-exclamation-triangle');
                 return;
             }
 
-            container.innerHTML = `
-                <div style="max-width:600px;margin:0 auto;">
-                    <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
-                        <input type="text" id="todoInput" placeholder="أضف مهمة جديدة..." style="flex:1;padding:10px 14px;border:2px solid #E5E7EB;border-radius:var(--radius-sm);font-family:var(--font);font-size:14px;background:var(--white);color:var(--text-primary);min-width:150px;" />
-                        <select id="todoPriority" style="padding:10px 14px;border:2px solid #E5E7EB;border-radius:var(--radius-sm);font-family:var(--font);font-size:14px;background:var(--white);color:var(--text-primary);">
-                            <option value="high">🔴 عالية</option>
-                            <option value="medium" selected>🟡 متوسطة</option>
-                            <option value="low">🟢 منخفضة</option>
-                        </select>
-                        <button class="btn btn-primary" onclick="App.addTodo()">➕ إضافة</button>
+            const coverImg = item.coverUrl || `https://placehold.co/400x600/1e293b/ffffff?text=${encodeURIComponent(item.title || 'بدون غلاف')}`;
+            const typeName = type === 'books' ? 'كتاب' : type === 'summaries' ? 'ملخص' : 'امتحان';
+            const pageUrl = window.location.href;
+            const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(pageUrl)}`;
+
+            // Build HTML
+            const html = `
+                <div class="glass rounded-3xl p-6 md:p-10 mb-8">
+                    <div class="flex flex-col md:flex-row gap-8">
+                        <!-- Cover and Actions -->
+                        <div class="w-full md:w-1/3 lg:w-1/4 flex flex-col gap-4">
+                            <div class="rounded-2xl overflow-hidden shadow-2xl relative">
+                                <img src="${coverImg}" alt="${item.title}" class="w-full h-auto object-cover">
+                                <div class="absolute top-2 right-2 bg-black/60 backdrop-blur px-3 py-1 rounded-full text-white text-xs font-bold">
+                                    <i class="fas fa-star text-premium"></i> ${item.rating || '0.0'}
+                                </div>
+                            </div>
+                            
+                            <div class="grid grid-cols-2 gap-2 mt-2">
+                                <a href="${item.downloadUrl || '#'}" target="_blank" class="glass bg-premium/10 hover:bg-premium text-premium hover:text-white border-premium/30 font-bold py-3 rounded-xl flex items-center justify-center gap-2 transition-all">
+                                    <i class="fas fa-download"></i> تحميل
+                                </a>
+                                <a href="${item.previewUrl || '#'}" target="_blank" class="glass bg-blue-500/10 hover:bg-blue-500 text-blue-500 hover:text-white border-blue-500/30 font-bold py-3 rounded-xl flex items-center justify-center gap-2 transition-all">
+                                    <i class="fas fa-eye"></i> معاينة
+                                </a>
+                            </div>
+                            
+                            <div class="flex justify-center gap-4 mt-2">
+                                <button onclick="copyToClipboard('${pageUrl}')" class="w-10 h-10 rounded-full glass flex items-center justify-center text-gray-500 hover:text-premium transition-colors" title="نسخ الرابط">
+                                    <i class="fas fa-link"></i>
+                                </button>
+                                <button onclick="window.showToast('تمت الإضافة للمفضلة', 'success')" class="w-10 h-10 rounded-full glass flex items-center justify-center text-gray-500 hover:text-red-500 transition-colors" title="إضافة للمفضلة">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <div class="relative group">
+                                    <button class="w-10 h-10 rounded-full glass flex items-center justify-center text-gray-500 hover:text-gray-900 dark:hover:text-white transition-colors" title="QR Code">
+                                        <i class="fas fa-qrcode"></i>
+                                    </button>
+                                    <div class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden group-hover:block glass p-2 rounded-xl shadow-xl z-50">
+                                        <img src="${qrUrl}" alt="QR Code" class="w-32 h-32 rounded-lg">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Details -->
+                        <div class="w-full md:w-2/3 lg:w-3/4 flex flex-col">
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-3 py-1 rounded-full text-xs font-bold font-tajawal">${typeName}</span>
+                                <span class="bg-premium/20 text-premium px-3 py-1 rounded-full text-xs font-bold font-tajawal">${item.subject || 'عام'}</span>
+                                <span class="bg-grade1/20 text-grade1 px-3 py-1 rounded-full text-xs font-bold font-tajawal">${formatGrade(item.grade)}</span>
+                            </div>
+                            
+                            <h1 class="text-3xl md:text-4xl font-black text-gray-900 dark:text-white mb-4 leading-tight">${item.title}</h1>
+                            
+                            <div class="flex items-center gap-6 text-sm text-gray-500 dark:text-gray-400 font-tajawal mb-6 border-b border-gray-200 dark:border-gray-700 pb-6">
+                                <span><i class="fas fa-calendar-alt ml-1"></i> ${item.year || '2026'}</span>
+                                <span><i class="fas fa-user-edit ml-1"></i> ${item.author || 'إدارة المنصة'}</span>
+                                <span><i class="fas fa-file-pdf ml-1"></i> ${item.pages || '?'} صفحة</span>
+                                <span><i class="fas fa-download ml-1"></i> ${item.downloads || 0} تحميل</span>
+                            </div>
+                            
+                            <h3 class="text-xl font-bold text-gray-800 dark:text-gray-200 mb-3">الوصف</h3>
+                            <p class="text-gray-600 dark:text-gray-400 font-tajawal leading-relaxed whitespace-pre-line mb-8">${item.description || 'لا يوجد وصف متاح لهذا العنصر.'}</p>
+                            
+                            <!-- Comments Section -->
+                            <div class="mt-auto pt-8">
+                                <h3 class="text-xl font-bold text-gray-800 dark:text-gray-200 mb-4 flex items-center gap-2">
+                                    <i class="fas fa-comments text-premium"></i> التعليقات المعتمدة
+                                </h3>
+                                
+                                <!-- Add Comment Form (Only if logged in) -->
+                                ${state.user ? `
+                                    <div class="flex gap-4 mb-6">
+                                        <img src="${state.userData?.photoURL || 'https://placehold.co/100x100/f59e0b/ffffff?text=U'}" class="w-10 h-10 rounded-full object-cover">
+                                        <div class="flex-grow flex gap-2">
+                                            <input type="text" id="comment-input" placeholder="أضف تعليقاً... (سيتم مراجعته من الإدارة)" class="flex-grow glass bg-transparent border border-gray-300 dark:border-gray-600 rounded-full px-4 py-2 text-sm focus:outline-none focus:border-premium dark:text-white">
+                                            <button onclick="submitComment('${item.id}')" class="bg-premium hover:bg-yellow-600 text-white rounded-full px-6 py-2 text-sm font-bold transition-colors">إرسال</button>
+                                        </div>
+                                    </div>
+                                ` : `
+                                    <div class="bg-gray-100 dark:bg-gray-800 rounded-xl p-4 text-center mb-6 text-sm text-gray-500 font-tajawal">
+                                        يجب <a href="login.html" class="text-premium font-bold hover:underline">تسجيل الدخول</a> لإضافة تعليق.
+                                    </div>
+                                `}
+
+                                <!-- Comments List -->
+                                <div id="comments-list" class="space-y-4">
+                                    <!-- Using logic to filter approved comments if they exist in item object -->
+                                    ${(item.comments && item.comments.filter(c => c.status === 'approved').length > 0) ? 
+                                        item.comments.filter(c => c.status === 'approved').map(c => `
+                                            <div class="flex gap-4 p-4 glass rounded-2xl">
+                                                <img src="${c.userPhoto || 'https://placehold.co/100x100/ccc/fff?text=U'}" class="w-10 h-10 rounded-full object-cover">
+                                                <div>
+                                                    <h4 class="font-bold text-sm text-gray-900 dark:text-white">${c.userName}</h4>
+                                                    <p class="text-sm text-gray-600 dark:text-gray-400 font-tajawal mt-1">${c.text}</p>
+                                                </div>
+                                            </div>
+                                        `).join('')
+                                    : `<div class="text-center text-gray-400 text-sm font-tajawal py-4">لا توجد تعليقات بعد. كن أول من يعلق!</div>`}
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div id="todoList"></div>
                 </div>
             `;
-            await loadTodos();
-        }
-
-        async function loadTodos() {
-            const list = document.getElementById('todoList');
-            if (!list || !currentUser) return;
-            try {
-                const q = query(
-                    collection(db, 'todos'),
-                    where('userId', '==', currentUser.uid),
-                    orderBy('order', 'asc')
-                );
-                const snap = await getDocs(q);
-                if (snap.empty) {
-                    list.innerHTML =
-                        `<div class="empty-state"><span class="icon">✅</span><h3>لا توجد مهام</h3><p>أضف مهامك اليومية</p></div>`;
-                    return;
-                }
-                list.innerHTML = '';
-                snap.forEach(doc => {
-                    const todo = { id: doc.id, ...doc.data() };
-                    list.appendChild(createTodoItem(todo));
-                });
-            } catch (e) {
-                console.error(e);
-                list.innerHTML = `<div class="empty-state"><span class="icon">⚠️</span><h3>حدث خطأ</h3></div>`;
-            }
-        }
-
-        function createTodoItem(todo) {
-            const div = document.createElement('div');
-            div.className = 'todo-item';
-            div.draggable = true;
-            div.dataset.id = todo.id;
-            const priorityLabels = { high: 'عالية', medium: 'متوسطة', low: 'منخفضة' };
-            div.innerHTML = `
-                <div class="todo-check ${todo.done?'done':''}" onclick="App.toggleTodo('${todo.id}')">${todo.done?'✓':''}</div>
-                <div class="todo-text ${todo.done?'done':''}">${todo.text}</div>
-                <span class="todo-priority ${todo.priority||'medium'}">${priorityLabels[todo.priority]||'متوسطة'}</span>
-                ${todo.subject?`<span style="font-size:11px;color:var(--text-secondary);">${todo.subject}</span>`:''}
-                <button class="todo-delete" onclick="App.deleteTodo('${todo.id}')">✕</button>
-            `;
-            // Drag events
-            div.addEventListener('dragstart', (e) => {
-                e.dataTransfer.setData('text/plain', todo.id);
-                div.style.opacity = '0.5';
-            });
-            div.addEventListener('dragend', () => { div.style.opacity = '1'; });
-            div.addEventListener('dragover', (e) => { e.preventDefault(); });
-            div.addEventListener('drop', (e) => {
-                e.preventDefault();
-                const draggedId = e.dataTransfer.getData('text/plain');
-                if (draggedId !== todo.id) {
-                    App.reorderTodos(draggedId, todo.id);
-                }
-            });
-            return div;
-        }
-
-        // ============================================================
-        // 14. LEADERBOARD
-        // ============================================================
-        async function renderLeaderboard() {
-            const container = document.getElementById('leaderboardContainer');
-            if (!container) return;
-            try {
-                const [uSnap, bSnap, sSnap] = await Promise.all([
-                    getDocs(query(collection(db, 'users'), where('role', '==', 'student'), orderBy('reputation', 'desc'),
-                        limit(10))),
-                    getDocs(query(collection(db, 'books'), where('status', '==', 'published'), orderBy('downloadsCount',
-                        'desc'), limit(10))),
-                    getDocs(query(collection(db, 'student_summaries'), where('status', '==', 'approved'), orderBy(
-                        'downloadsCount', 'desc'), limit(10)))
-                ]);
-                container.innerHTML = `
-                    <h3 style="text-align:center;margin-bottom:16px;">🏆 المتصدرين</h3>
-                    <div class="leaderboard-grid">
-                        <div class="lb-card">
-                            <h4>👤 أفضل الطلاب</h4>
-                            ${uSnap.empty?'<p style="text-align:center;font-size:13px;color:var(--text-secondary);">لا توجد بيانات</p>':
-                            uSnap.docs.map((d,i)=>{const u=d.data();return `<div class="lb-item"><span class="rank">#${i+1}</span><span class="name">${u.displayName||'مستخدم'}</span><span class="value">⭐ ${u.reputation||0}</span></div>`;}).join('')}
-                        </div>
-                        <div class="lb-card">
-                            <h4>📚 أفضل الكتب</h4>
-                            ${bSnap.empty?'<p style="text-align:center;font-size:13px;color:var(--text-secondary);">لا توجد بيانات</p>':
-                            bSnap.docs.map((d,i)=>{const b=d.data();return `<div class="lb-item" style="cursor:pointer;" onclick="App.openBook('${d.id}')"><span class="rank">#${i+1}</span><span class="name">${b.title||'كتاب'}</span><span class="value">⬇️ ${b.downloadsCount||0}</span></div>`;}).join('')}
-                        </div>
-                        <div class="lb-card">
-                            <h4>📝 أفضل الملخصات</h4>
-                            ${sSnap.empty?'<p style="text-align:center;font-size:13px;color:var(--text-secondary);">لا توجد بيانات</p>':
-                            sSnap.docs.map((d,i)=>{const s=d.data();return `<div class="lb-item" style="cursor:pointer;" onclick="App.openSummary('${d.id}')"><span class="rank">#${i+1}</span><span class="name">${s.title||'ملخص'}</span><span class="value">⬇️ ${s.downloadsCount||0}</span></div>`;}).join('')}
-                        </div>
-                    </div>
-                `;
-            } catch (e) {
-                container.innerHTML =
-                    `<div class="empty-state"><span class="icon">⚠️</span><h3>حدث خطأ</h3></div>`;
-                console.error(e);
-            }
-        }
-
-        // ============================================================
-        // 15. APP - MAIN EXPOSED FUNCTIONS
-        // ============================================================
-        const App = {
-
-            // ===== THEME =====
-            toggleTheme() {
-                const dark = document.body.classList.toggle('dark-mode');
-                localStorage.setItem('theme', dark ? 'dark' : 'light');
-                const t = document.getElementById('themeToggle');
-                if (t) t.textContent = dark ? '☀️' : '🌙';
-                updateHeader();
-            },
-
-            // ===== GRADES =====
-            filterByGrade(grade) {
-                const names = { first: 'أولى بكالوريا', second: 'ثانية بكالوريا', third: 'ثالثة ثانوي' };
-                const el = document.querySelector('.section-header .section-title');
-                if (el) el.innerHTML = `📚 كتب <span class="highlight">${names[grade]||grade}</span>`;
-                renderBooks(grade);
-                // Switch to books tab
-                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-                document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-                document.querySelector('[data-tab="books"]')?.classList.add('active');
-                document.getElementById('tab-books')?.classList.add('active');
-                document.getElementById('books-section')?.scrollIntoView({ behavior: 'smooth' });
-            },
-
-            // ===== BOOKS =====
-            async openBook(id) {
-                try {
-                    const docSnap = await getDoc(doc(db, 'books', id));
-                    if (!docSnap.exists()) { alert('الكتاب غير موجود'); return; }
-                    const book = { id: docSnap.id, ...docSnap.data() };
-                    await this._showBookModal(book);
-                    await updateDoc(doc(db, 'books', id), { viewsCount: increment(1) });
-                } catch (e) { console.error(e);
-                    alert('حدث خطأ'); }
-            },
-
-            async _showBookModal(book) {
-                const modal = document.getElementById('appModal');
-                const body = document.getElementById('modalBody');
-                if (!modal || !body) return;
-                const cover = book.coverImage ||
-                    `https://ui-avatars.com/api/?name=${encodeURIComponent(book.title||'كتاب')}&background=FBBF24&color=111827&size=400&bold=true`;
-                const gradeNames = { first: 'أولى بكالوريا', second: 'ثانية بكالوريا', third: 'ثالثة ثانوي' };
-                const gradeName = gradeNames[book.grade] || book.grade || 'غير محدد';
-                const rating = book.ratingAverage || 0;
-                const full = Math.floor(rating);
-                const half = rating % 1 >= 0.5;
-                let stars = '';
-                for (let i = 0; i < 5; i++) {
-                    if (i < full) stars += '⭐';
-                    else if (i === full && half) stars += '⭐';
-                    else stars += '☆';
-                }
-                let similarHtml = '';
-                try {
-                    const simSnap = await getDocs(query(collection(db, 'books'), where('subject', '==', book.subject), where(
-                        'status', '==', 'published'), limit(4)));
-                    const sims = simSnap.docs.filter(d => d.id !== book.id).map(d => ({ id: d.id, ...d.data() }));
-                    if (sims.length) {
-                        similarHtml =
-                            `<div style="margin-top:14px;border-top:1px solid #E5E7EB;padding-top:12px;"><h4 style="margin-bottom:8px;">📚 كتب مشابهة</h4><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;">`;
-                        sims.forEach(s => {
-                            similarHtml +=
-                                `<div style="background:var(--bg-secondary);border-radius:var(--radius-sm);padding:8px;text-align:center;cursor:pointer;font-size:12px;" onclick="App.openBook('${s.id}')"><div style="font-weight:700;">${s.title}</div><div style="color:var(--text-secondary);font-size:11px;">${s.subject||''}</div></div>`;
-                        });
-                        similarHtml += '</div></div>';
-                    }
-                } catch {}
-
-                body.innerHTML = `
-                    <div style="display:grid;grid-template-columns:160px 1fr;gap:16px;margin-bottom:14px;">
-                        <div><img src="${cover}" style="width:100%;border-radius:var(--radius-sm);aspect-ratio:3/4;object-fit:cover;box-shadow:var(--shadow-md);" /></div>
-                        <div>
-                            <h2 style="font-size:22px;font-weight:900;">${book.title}</h2>
-                            <div style="font-size:14px;color:var(--text-secondary);">📖 ${book.subject||'مادة غير محددة'}</div>
-                            <div style="display:flex;flex-wrap:wrap;gap:4px;margin:6px 0;">
-                                <span style="background:var(--bg-secondary);padding:2px 12px;border-radius:20px;font-size:11px;">${gradeName}</span>
-                                <span style="background:var(--bg-secondary);padding:2px 12px;border-radius:20px;font-size:11px;">${book.category||'كتاب'}</span>
-                                ${book.teacherName?`<span style="background:var(--bg-secondary);padding:2px 12px;border-radius:20px;font-size:11px;">👨‍🏫 ${book.teacherName}</span>`:''}
-                                ${book.publishYear?`<span style="background:var(--bg-secondary);padding:2px 12px;border-radius:20px;font-size:11px;">📅 ${book.publishYear}</span>`:''}
-                            </div>
-                            <div style="margin:4px 0;"><span style="color:var(--gold);font-size:16px;">${stars}</span> <span style="font-size:12px;color:var(--text-secondary);">(${book.ratingCount||0})</span></div>
-                            <div style="display:flex;gap:10px;font-size:12px;color:var(--text-secondary);margin:4px 0;">
-                                <span>⬇️ ${book.downloadsCount||0}</span>
-                                <span>👁️ ${book.viewsCount||0}</span>
-                                <span>📤 ${book.sharesCount||0}</span>
-                            </div>
-                            ${book.description?`<p style="color:var(--text-secondary);font-size:13px;margin:6px 0;">${book.description}</p>`:''}
-                            <div style="display:flex;flex-wrap:wrap;gap:4px;">
-                                <button class="btn btn-primary btn-xs" onclick="App.downloadBook('${book.id}')">📥 تحميل</button>
-                                <button class="btn btn-secondary btn-xs" onclick="App.previewBook('${book.id}')">👁️ معاينة</button>
-                                <button class="btn btn-outline btn-xs" onclick="App.shareBook('${book.id}','${book.title}')">📤</button>
-                                <button class="btn btn-outline btn-xs" onclick="App.toggleFavorite('${book.id}')">⭐</button>
-                                <button class="btn btn-outline btn-xs" onclick="App.copyLink('${book.id}')">🔗</button>
-                                <button class="btn btn-outline btn-xs" onclick="App.showQR('${book.id}','${book.title}')">📱</button>
-                            </div>
-                        </div>
-                    </div>
-                    ${similarHtml}
-                    <div style="text-align:center;margin-top:12px;"><button class="btn btn-secondary btn-xs" onclick="App.closeModal()">إغلاق</button></div>
-                `;
-                modal.classList.add('active');
-            },
-
-            openSummary(id) { alert(`📝 فتح الملخص: ${id}`); },
-            openExam(id) { alert(`📋 فتح الامتحان: ${id}`); },
-
-            async downloadBook(id) {
-                if (!currentUser) { window.location.href = 'login.html'; return; }
-                try {
-                    const docSnap = await getDoc(doc(db, 'books', id));
-                    if (!docSnap.exists() || !docSnap.data().pdfUrl) { alert('رابط التحميل غير متوفر'); return; }
-                    await updateDoc(doc(db, 'books', id), { downloadsCount: increment(1) });
-                    if (currentUser) await updateDoc(doc(db, 'users', currentUser.uid), { downloadsCount: increment(1) });
-                    // Add points
-                    await this._addPoints(currentUser.uid, 2, 'تحميل كتاب');
-                    window.open(docSnap.data().pdfUrl, '_blank');
-                } catch (e) { console.error(e);
-                    alert('حدث خطأ'); }
-            },
-
-            async downloadSummary(id) {
-                if (!currentUser) { window.location.href = 'login.html'; return; }
-                try {
-                    const docSnap = await getDoc(doc(db, 'student_summaries', id));
-                    if (!docSnap.exists() || !docSnap.data().pdfUrl) { alert('رابط التحميل غير متوفر'); return; }
-                    await updateDoc(doc(db, 'student_summaries', id), { downloadsCount: increment(1) });
-                    if (currentUser) await updateDoc(doc(db, 'users', currentUser.uid), { downloadsCount: increment(1) });
-                    window.open(docSnap.data().pdfUrl, '_blank');
-                } catch (e) { console.error(e);
-                    alert('حدث خطأ'); }
-            },
-
-            async downloadExam(id) {
-                if (!currentUser) { window.location.href = 'login.html'; return; }
-                try {
-                    const docSnap = await getDoc(doc(db, 'exams', id));
-                    if (!docSnap.exists() || !docSnap.data().pdfUrl) { alert('رابط التحميل غير متوفر'); return; }
-                    await updateDoc(doc(db, 'exams', id), { downloadsCount: increment(1) });
-                    if (currentUser) await updateDoc(doc(db, 'users', currentUser.uid), { downloadsCount: increment(1) });
-                    window.open(docSnap.data().pdfUrl, '_blank');
-                } catch (e) { console.error(e);
-                    alert('حدث خطأ'); }
-            },
-
-            previewBook(id) { alert('👁️ سيتم فتح المعاينة قريباً'); },
-
-            shareBook(id, title) {
-                const url = `${window.location.origin}/book/${id}`;
-                if (navigator.share) {
-                    navigator.share({ title: title || 'كتاب', text: `📚 ${title||'كتاب'} - الثانوية الرسمية بلس`, url }).catch(
-                    () => {});
-                } else {
-                    this._showShareModal(url, title);
-                }
-            },
-
-            _showShareModal(url, title) {
-                const modal = document.getElementById('appModal');
-                const body = document.getElementById('modalBody');
-                if (!modal || !body) return;
-                body.innerHTML = `
-                    <h3 style="text-align:center;margin-bottom:12px;">📤 مشاركة</h3>
-                    <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;text-align:center;margin-bottom:12px;">
-                        <button onclick="window.open('https://wa.me/?text=${encodeURIComponent(title+' - '+url)}','_blank')" style="padding:10px;border:none;border-radius:var(--radius-sm);background:#25D366;color:white;cursor:pointer;font-size:22px;">💬</button>
-                        <button onclick="window.open('https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}','_blank')" style="padding:10px;border:none;border-radius:var(--radius-sm);background:#0088cc;color:white;cursor:pointer;font-size:22px;">✈️</button>
-                        <button onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}','_blank')" style="padding:10px;border:none;border-radius:var(--radius-sm);background:#1877f2;color:white;cursor:pointer;font-size:22px;">📘</button>
-                        <button onclick="window.open('https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}','_blank')" style="padding:10px;border:none;border-radius:var(--radius-sm);background:#000;color:white;cursor:pointer;font-size:22px;">🐦</button>
-                        <button onclick="window.open('mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(url)}','_blank')" style="padding:10px;border:none;border-radius:var(--radius-sm);background:#EA4335;color:white;cursor:pointer;font-size:22px;">✉️</button>
-                        <button onclick="navigator.clipboard.writeText('${url}').then(()=>alert('✅ تم نسخ الرابط'))" style="padding:10px;border:none;border-radius:var(--radius-sm);background:var(--gold);color:var(--text-primary);cursor:pointer;font-size:22px;">🔗</button>
-                        <button onclick="App.showQRFromUrl('${url}','${title}')" style="padding:10px;border:none;border-radius:var(--radius-sm);background:var(--bg-secondary);cursor:pointer;font-size:22px;">📱</button>
-                        <button onclick="App.closeModal()" style="padding:10px;border:none;border-radius:var(--radius-sm);background:var(--bg-secondary);cursor:pointer;font-size:22px;">❌</button>
-                    </div>
-                    <div style="text-align:center;font-size:11px;color:var(--text-secondary);word-break:break-all;">${url}</div>
-                `;
-                modal.classList.add('active');
-            },
-
-            showQR(id, title) {
-                this.showQRFromUrl(`${window.location.origin}/book/${id}`, title);
-            },
-
-            showQRFromUrl(url, title) {
-                const modal = document.getElementById('appModal');
-                const body = document.getElementById('modalBody');
-                if (!modal || !body) return;
-                const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(url)}`;
-                body.innerHTML = `
-                    <div style="text-align:center;">
-                        <h3 style="margin-bottom:10px;">📱 QR Code</h3>
-                        <div style="background:white;padding:10px;border-radius:var(--radius-sm);display:inline-block;margin-bottom:8px;">
-                            <img src="${qrUrl}" style="width:160px;height:160px;" />
-                        </div>
-                        <div style="font-size:11px;color:var(--text-secondary);word-break:break-all;">${url}</div>
-                        <div style="margin-top:10px;display:flex;gap:6px;justify-content:center;">
-                            <button class="btn btn-primary btn-xs" onclick="window.open('${qrUrl}','_blank')">💾 تحميل</button>
-                            <button class="btn btn-secondary btn-xs" onclick="App.closeModal()">إغلاق</button>
-                        </div>
-                    </div>
-                `;
-                modal.classList.add('active');
-            },
-
-            copyLink(id) {
-                const url = `${window.location.origin}/book/${id}`;
-                navigator.clipboard?.writeText(url).then(() => alert('✅ تم نسخ الرابط')).catch(() => {
-                    const modal = document.getElementById('appModal');
-                    const body = document.getElementById('modalBody');
-                    if (modal && body) {
-                        body.innerHTML =
-                            `<div style="text-align:center;padding:16px;"><h3>🔗 الرابط</h3><div style="background:var(--bg-secondary);padding:8px;border-radius:var(--radius-sm);margin:10px 0;word-break:break-all;font-size:12px;">${url}</div><button class="btn btn-primary btn-xs" onclick="navigator.clipboard?.writeText('${url}').then(()=>alert('✅ تم النسخ'))">📋 نسخ</button><button class="btn btn-secondary btn-xs" onclick="App.closeModal()">إغلاق</button></div>`;
-                        modal.classList.add('active');
-                    }
-                });
-            },
-
-            async toggleFavorite(id) {
-                if (!currentUser) { window.location.href = 'login.html'; return; }
-                try {
-                    const q = query(collection(db, 'favorites'), where('uid', '==', currentUser.uid), where('itemId', '==',
-                        id), where('itemType', '==', 'book'));
-                    const snap = await getDocs(q);
-                    if (!snap.empty) {
-                        await deleteDoc(doc(db, 'favorites', snap.docs[0].id));
-                        await updateDoc(doc(db, 'users', currentUser.uid), { favoriteBooksCount: increment(-1) });
-                        alert('✅ تم الإزالة من المفضلة');
-                    } else {
-                        await addDoc(collection(db, 'favorites'), {
-                            uid: currentUser.uid,
-                            itemId: id,
-                            itemType: 'book',
-                            createdAt: serverTimestamp()
-                        });
-                        await updateDoc(doc(db, 'users', currentUser.uid), { favoriteBooksCount: increment(1) });
-                        await this._addPoints(currentUser.uid, 1, 'إضافة مفضلة');
-                        alert('⭐ تم الإضافة إلى المفضلة');
-                    }
-                } catch (e) { console.error(e);
-                    alert('حدث خطأ'); }
-            },
-
-            // ===== TIMER =====
-            setTimerPreset(minutes) {
-                timerState.preset = minutes;
-                timerState.time = minutes * 60;
-                if (!timerState.running && !timerState.paused) {
-                    renderTimer();
-                }
-            },
-
-            customTimerPreset() {
-                const mins = prompt('أدخل عدد الدقائق:', '30');
-                if (mins && !isNaN(mins) && parseInt(mins) > 0) {
-                    this.setTimerPreset(parseInt(mins));
-                }
-            },
-
-            startTimer() {
-                const task = document.getElementById('timerTask')?.value || '';
-                const subject = document.getElementById('timerSubject')?.value || '';
-                const type = document.getElementById('timerType')?.value || 'study';
-                timerState.taskName = task;
-                timerState.subject = subject;
-                timerState.sessionType = type;
-                if (timerState.time <= 0) {
-                    timerState.time = timerState.preset * 60;
-                }
-                timerState.running = true;
-                timerState.paused = false;
-                timerState.interval = setInterval(() => {
-                    if (timerState.running && !timerState.paused) {
-                        timerState.time--;
-                        renderTimer();
-                        if (timerState.time <= 0) {
-                            this.timerComplete();
-                        }
-                    }
-                }, 1000);
-                renderTimer();
-            },
-
-            pauseTimer() {
-                timerState.paused = true;
-                renderTimer();
-            },
-
-            resumeTimer() {
-                timerState.paused = false;
-                renderTimer();
-            },
-
-            stopTimer() {
-                clearInterval(timerState.interval);
-                timerState.running = false;
-                timerState.paused = false;
-                timerState.time = 0;
-                renderTimer();
-            },
-
-            resetTimer() {
-                clearInterval(timerState.interval);
-                timerState.running = false;
-                timerState.paused = false;
-                timerState.time = timerState.preset * 60;
-                renderTimer();
-            },
-
-            timerComplete() {
-                clearInterval(timerState.interval);
-                timerState.running = false;
-                renderTimer();
-                // Play sound effect
-                try {
-                    const audio = new Audio(
-                        'data:audio/wav;base64,UklGRlQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQoAAABjYXB0dXJlAAAAAAB3YXZlZm9ybQAAAAA='
-                        );
-                    audio.play();
-                } catch {}
-                alert('🎉 وقت الجلسة انتهى! أحسنت!');
-                // Show completion dialog
-                if (confirm('🎉 أنهيت جلسة المذاكرة!\nهل تريد تسجيل إنجازك؟')) {
-                    this.completeSession();
-                }
-            },
-
-            async completeSession() {
-                if (!currentUser) { alert('سجل الدخول أولاً'); return; }
-                const duration = Math.floor((timerState.preset * 60 - timerState.time) / 60);
-                if (duration <= 0) { alert('لم تقم بجلسة كافية'); return; }
-                const task = timerState.taskName || 'جلسة مذاكرة';
-                const subject = timerState.subject || 'غير محدد';
-                const type = timerState.sessionType || 'study';
-
-                try {
-                    await addDoc(collection(db, 'sessions'), {
-                        userId: currentUser.uid,
-                        task: task,
-                        subject: subject,
-                        type: type,
-                        duration: duration,
-                        date: new Date(),
-                        timestamp: serverTimestamp()
-                    });
-                    // Add points
-                    await this._addPoints(currentUser.uid, duration, `جلسة مذاكرة ${duration} دقيقة`);
-                    // Add notification
-                    await this._addNotification(currentUser.uid, '✅ أنهيت جلسة مذاكرة',
-                        `أنهيت جلسة ${type} في ${subject} لمدة ${duration} دقيقة`);
-                    alert(`🎉 تم تسجيل إنجازك!\n⏱ ${duration} دقيقة مذاكرة\n📝 ${task}`);
-                    // Update stats
-                    this.stopTimer();
-                    loadTodayStats();
-                } catch (e) { console.error(e);
-                    alert('حدث خطأ في التسجيل'); }
-            },
-
-            // ===== TODO =====
-            async addTodo() {
-                const input = document.getElementById('todoInput');
-                const priority = document.getElementById('todoPriority')?.value || 'medium';
-                if (!input || !input.value.trim()) return;
-                if (!currentUser) { alert('سجل الدخول أولاً'); return; }
-                try {
-                    const text = input.value.trim();
-                    const count = (await getDocs(query(collection(db, 'todos'), where('userId', '==', currentUser.uid)))).size;
-                    await addDoc(collection(db, 'todos'), {
-                        userId: currentUser.uid,
-                        text: text,
-                        priority: priority,
-                        done: false,
-                        order: count,
-                        createdAt: serverTimestamp()
-                    });
-                    input.value = '';
-                    await this._addPoints(currentUser.uid, 1, 'إضافة مهمة');
-                    loadTodos();
-                } catch (e) { console.error(e);
-                    alert('حدث خطأ'); }
-            },
-
-            async toggleTodo(id) {
-                if (!currentUser) return;
-                try {
-                    const docSnap = await getDoc(doc(db, 'todos', id));
-                    if (!docSnap.exists()) return;
-                    const data = docSnap.data();
-                    if (data.userId !== currentUser.uid) return;
-                    await updateDoc(doc(db, 'todos', id), { done: !data.done });
-                    if (!data.done) {
-                        await this._addPoints(currentUser.uid, 1, 'إكمال مهمة');
-                    }
-                    loadTodos();
-                } catch (e) { console.error(e); }
-            },
-
-            async deleteTodo(id) {
-                if (!currentUser) return;
-                if (!confirm('هل تريد حذف هذه المهمة؟')) return;
-                try {
-                    const docSnap = await getDoc(doc(db, 'todos', id));
-                    if (!docSnap.exists() || docSnap.data().userId !== currentUser.uid) return;
-                    await deleteDoc(doc(db, 'todos', id));
-                    loadTodos();
-                } catch (e) { console.error(e); }
-            },
-
-            async reorderTodos(draggedId, targetId) {
-                if (!currentUser) return;
-                try {
-                    const draggedDoc = await getDoc(doc(db, 'todos', draggedId));
-                    const targetDoc = await getDoc(doc(db, 'todos', targetId));
-                    if (!draggedDoc.exists() || !targetDoc.exists()) return;
-                    const draggedData = draggedDoc.data();
-                    const targetData = targetDoc.data();
-                    if (draggedData.userId !== currentUser.uid || targetData.userId !== currentUser.uid) return;
-                    // Simple swap
-                    const tempOrder = draggedData.order;
-                    await updateDoc(doc(db, 'todos', draggedId), { order: targetData.order });
-                    await updateDoc(doc(db, 'todos', targetId), { order: tempOrder });
-                    loadTodos();
-                } catch (e) { console.error(e); }
-            },
-
-            // ===== UPLOAD SUMMARY =====
-            showUploadSummary() {
-                if (!currentUser) { window.location.href = 'login.html'; return; }
-                const modal = document.getElementById('appModal');
-                const body = document.getElementById('modalBody');
-                if (!modal || !body) return;
-                body.innerHTML = `
-                    <h3 style="text-align:center;margin-bottom:14px;">📝 إضافة ملخص</h3>
-                    <form id="uploadSummaryForm" onsubmit="App.submitSummary(event)">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label>الصف</label>
-                                <select id="sumGrade" required>
-                                    <option value="">اختر</option>
-                                    <option value="first">أولى بكالوريا</option>
-                                    <option value="second">ثانية بكالوريا</option>
-                                    <option value="third">ثالثة ثانوي</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>المادة</label>
-                                <input type="text" id="sumSubject" placeholder="الكيمياء" required />
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label>الوحدة</label>
-                                <input type="text" id="sumUnit" placeholder="الوحدة الأولى" />
-                            </div>
-                            <div class="form-group">
-                                <label>الدرس</label>
-                                <input type="text" id="sumLesson" placeholder="الدرس الثاني" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label>عنوان الملخص</label>
-                            <input type="text" id="sumTitle" placeholder="ملخص الكيمياء - الوحدة الأولى" required />
-                        </div>
-                        <div class="form-group">
-                            <label>ملاحظات (اختياري)</label>
-                            <textarea id="sumNotes" placeholder="أي ملاحظات إضافية..."></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>رفع الملف (PDF أو صورة)</label>
-                            <input type="file" id="sumFile" accept=".pdf,.jpg,.jpeg,.png,.webp" required />
-                        </div>
-                        <div style="display:flex;gap:8px;justify-content:center;margin-top:12px;">
-                            <button type="submit" class="btn btn-primary">📤 رفع</button>
-                            <button type="button" class="btn btn-secondary" onclick="App.closeModal()">إلغاء</button>
-                        </div>
-                        <div id="uploadStatus" style="text-align:center;margin-top:8px;font-size:14px;"></div>
-                    </form>
-                `;
-                modal.classList.add('active');
-            },
-
-            async submitSummary(e) {
-                e.preventDefault();
-                if (!currentUser) { alert('سجل الدخول أولاً'); return; }
-                const status = document.getElementById('uploadStatus');
-                status.textContent = '⏳ جاري الرفع...';
-
-                try {
-                    const grade = document.getElementById('sumGrade').value;
-                    const subject = document.getElementById('sumSubject').value.trim();
-                    const unit = document.getElementById('sumUnit').value.trim();
-                    const lesson = document.getElementById('sumLesson').value.trim();
-                    const title = document.getElementById('sumTitle').value.trim();
-                    const notes = document.getElementById('sumNotes').value.trim();
-                    const file = document.getElementById('sumFile').files[0];
-
-                    if (!grade || !subject || !title || !file) {
-                        status.textContent = '⚠️ يرجى ملء جميع الحقول المطلوبة';
-                        return;
-                    }
-
-                    // Upload file
-                    const fileRef = ref(storage, `student-summaries/${currentUser.uid}/${Date.now()}_${file.name}`);
-                    await uploadBytes(fileRef, file);
-                    const fileUrl = await getDownloadURL(fileRef);
-
-                    // Save to Firestore
-                    await addDoc(collection(db, 'student_summaries'), {
-                        grade: grade,
-                        subject: subject,
-                        unit: unit,
-                        lesson: lesson,
-                        title: title,
-                        description: notes,
-                        pdfUrl: fileUrl,
-                        imageUrl: file.type.startsWith('image/') ? fileUrl : null,
-                        uploadedBy: currentUser.uid,
-                        uploadedByName: currentUserData?.displayName || 'طالب',
-                        status: 'pending',
-                        adminRating: 0,
-                        downloadsCount: 0,
-                        viewsCount: 0,
-                        likesCount: 0,
-                        createdAt: serverTimestamp()
-                    });
-
-                    await this._addPoints(currentUser.uid, 5, 'رفع ملخص');
-                    await this._addNotification(currentUser.uid, '📝 تم رفع ملخصك',
-                        'ملخصك في قائمة المراجعة، سيتم نشره بعد الموافقة');
-
-                    status.textContent = '✅ تم الرفع بنجاح! في انتظار الموافقة.';
-                    setTimeout(() => this.closeModal(), 2000);
-
-                } catch (e) {
-                    console.error(e);
-                    status.textContent = '⚠️ حدث خطأ: ' + e.message;
-                }
-            },
-
-            // ===== PROFILE =====
-            async showProfile() {
-                if (!currentUser || !currentUserData) { window.location.href = 'login.html'; return; }
-                const modal = document.getElementById('appModal');
-                const body = document.getElementById('modalBody');
-                if (!modal || !body) return;
-                const data = currentUserData;
-                const avatar = data.photoURL ||
-                    `https://ui-avatars.com/api/?name=${encodeURIComponent(data.displayName||'U')}&background=FBBF24&color=111827&size=120&bold=true`;
-                let favCount = 0,
-                    sessionCount = 0,
-                    totalMinutes = 0;
-                try {
-                    const [favSnap, sessSnap] = await Promise.all([
-                        getDocs(query(collection(db, 'favorites'), where('uid', '==', currentUser.uid))),
-                        getDocs(query(collection(db, 'sessions'), where('userId', '==', currentUser.uid)))
-                    ]);
-                    favCount = favSnap.size;
-                    sessionCount = sessSnap.size;
-                    sessSnap.forEach(d => { totalMinutes += d.data().duration || 0; });
-                } catch {}
-
-                const hours = Math.floor(totalMinutes / 60);
-                const mins = totalMinutes % 60;
-
-                body.innerHTML = `
-                    <div style="text-align:center;margin-bottom:16px;">
-                        <img src="${avatar}" style="width:90px;height:90px;border-radius:50%;border:3px solid var(--gold);object-fit:cover;" />
-                        <h2 style="margin-top:8px;font-size:20px;">${data.displayName||'مستخدم'}</h2>
-                        <p style="color:var(--text-secondary);font-size:13px;">${data.email||''}</p>
-                        <div style="margin-top:6px;display:flex;gap:4px;justify-content:center;flex-wrap:wrap;">
-                            <span style="background:${data.role==='admin'?'var(--gold)':'var(--bg-secondary)'};padding:2px 12px;border-radius:20px;font-size:11px;">${data.role==='admin'?'🛠️ مدير':'🎓 طالب'}</span>
-                            <span style="background:var(--bg-secondary);padding:2px 12px;border-radius:20px;font-size:11px;">${data.grade==='first'?'🟢 أولى بكالوريا':data.grade==='second'?'🔵 ثانية بكالوريا':data.grade==='third'?'🔴 ثالثة ثانوي':'غير محدد'}</span>
-                            <span style="background:var(--bg-secondary);padding:2px 12px;border-radius:20px;font-size:11px;">⭐ ${data.reputation||0}</span>
-                        </div>
-                    </div>
-                    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(80px,1fr));gap:8px;margin-bottom:12px;">
-                        <div style="background:var(--bg-secondary);padding:8px;border-radius:var(--radius-sm);text-align:center;"><div style="font-size:18px;font-weight:900;">${data.downloadsCount||0}</div><div style="font-size:10px;color:var(--text-secondary);">تحميلات</div></div>
-                        <div style="background:var(--bg-secondary);padding:8px;border-radius:var(--radius-sm);text-align:center;"><div style="font-size:18px;font-weight:900;">${data.uploadedSummariesCount||0}</div><div style="font-size:10px;color:var(--text-secondary);">ملخصات</div></div>
-                        <div style="background:var(--bg-secondary);padding:8px;border-radius:var(--radius-sm);text-align:center;"><div style="font-size:18px;font-weight:900;">${favCount}</div><div style="font-size:10px;color:var(--text-secondary);">مفضلة</div></div>
-                        <div style="background:var(--bg-secondary);padding:8px;border-radius:var(--radius-sm);text-align:center;"><div style="font-size:18px;font-weight:900;">${sessionCount}</div><div style="font-size:10px;color:var(--text-secondary);">جلسات</div></div>
-                        <div style="background:var(--bg-secondary);padding:8px;border-radius:var(--radius-sm);text-align:center;"><div style="font-size:18px;font-weight:900;">${hours}h ${mins}m</div><div style="font-size:10px;color:var(--text-secondary);">مذاكرة</div></div>
-                    </div>
-                    ${data.badges&&data.badges.length?`<div style="margin-bottom:10px;text-align:center;"><div style="font-weight:700;font-size:13px;margin-bottom:4px;">🏅 الأوسمة</div>${data.badges.map(b=>`<span style="background:var(--gold);padding:2px 10px;border-radius:20px;font-size:10px;margin:2px;display:inline-block;">🏅 ${b}</span>`).join('')}</div>`:''}
-                    <div style="display:flex;gap:4px;justify-content:center;flex-wrap:wrap;">
-                        <button class="btn btn-secondary btn-xs" onclick="App.closeModal()">إغلاق</button>
-                        <button class="btn btn-primary btn-xs" onclick="App.showFavorites()">⭐ المفضلة</button>
-                        <button class="btn btn-danger btn-xs" onclick="App.logout()">🚪 خروج</button>
-                    </div>
-                `;
-                modal.classList.add('active');
-            },
-
-            async showFavorites() {
-                if (!currentUser) { window.location.href = 'login.html'; return; }
-                const modal = document.getElementById('appModal');
-                const body = document.getElementById('modalBody');
-                if (!modal || !body) return;
-                try {
-                    const favSnap = await getDocs(query(collection(db, 'favorites'), where('uid', '==', currentUser.uid),
-                        where('itemType', '==', 'book')));
-                    if (favSnap.empty) {
-                        body.innerHTML =
-                            `<div style="text-align:center;padding:30px;"><span style="font-size:40px;display:block;margin-bottom:10px;">⭐</span><h3>لا توجد مفضلات</h3><button class="btn btn-primary btn-xs" onclick="App.closeModal()">إغلاق</button></div>`;
-                        modal.classList.add('active');
-                        return;
-                    }
-                    let html =
-                        `<h3 style="text-align:center;margin-bottom:12px;">⭐ المفضلة</h3>`;
-                    for (const fav of favSnap.docs) {
-                        const f = fav.data();
-                        try {
-                            const bDoc = await getDoc(doc(db, 'books', f.itemId));
-                            if (bDoc.exists()) {
-                                const b = bDoc.data();
-                                html +=
-                                    `<div style="display:flex;align-items:center;gap:8px;padding:6px 10px;background:var(--bg-secondary);border-radius:var(--radius-sm);margin-bottom:4px;cursor:pointer;font-size:13px;" onclick="App.openBook('${f.itemId}')"><span>📘</span><span style="flex:1;font-weight:600;">${b.title}</span><button class="btn btn-xs btn-danger" onclick="event.stopPropagation();App.toggleFavorite('${f.itemId}')">✕</button></div>`;
-                            }
-                        } catch {}
-                    }
-                    html +=
-                        `<div style="text-align:center;margin-top:10px;"><button class="btn btn-secondary btn-xs" onclick="App.closeModal()">إغلاق</button></div>`;
-                    body.innerHTML = html;
-                    modal.classList.add('active');
-                } catch {}
-            },
-
-            // ===== NOTIFICATIONS =====
-            toggleNotif() {
-                const dd = document.getElementById('notifDropdown');
-                if (!dd) return;
-                dd.classList.toggle('active');
-                if (dd.classList.contains('active')) this._loadNotif();
-            },
-
-            async _loadNotif() {
-                const dd = document.getElementById('notifDropdown');
-                if (!dd || !currentUser) return;
-                try {
-                    const snap = await getDocs(query(collection(db, 'notifications'), where('userId', '==', currentUser.uid),
-                        orderBy('createdAt', 'desc'), limit(20)));
-                    if (snap.empty) {
-                        dd.innerHTML = `<div class="notif-empty">📭 لا توجد إشعارات</div>`;
-                        return;
-                    }
-                    dd.innerHTML = snap.docs.map(d => {
-                        const n = d.data();
-                        const t = n.createdAt?.toDate?.() || new Date();
-                        return `<div class="notif-item ${!n.read?'unread':''}" onclick="App._markNotif('${d.id}')"><div class="n-title">${n.title||'إشعار'}</div><div class="n-msg">${n.message||''}</div><div class="n-time">${t.toLocaleDateString('ar-EG')}</div></div>`;
-                    }).join('');
-                } catch {}
-            },
-
-            async _markNotif(id) {
-                try { await updateDoc(doc(db, 'notifications', id), { read: true });
-                    this.updateNotifCount(); } catch {}
-            },
-
-            async updateNotifCount() {
-                if (!currentUser) return;
-                try {
-                    const snap = await getDocs(query(collection(db, 'notifications'), where('userId', '==', currentUser.uid),
-                        where('read', '==', false)));
-                    const badge = document.getElementById('notifBadge');
-                    if (badge) { badge.textContent = snap.size;
-                        badge.style.display = snap.size > 0 ? 'flex' : 'none'; }
-                } catch {}
-            },
-
-            // ===== POINTS SYSTEM =====
-            async _addPoints(userId, points, reason) {
-                try {
-                    const userRef = doc(db, 'users', userId);
-                    await updateDoc(userRef, {
-                        reputation: increment(points)
-                    });
-                    // Check for achievements
-                    const userDoc = await getDoc(userRef);
-                    if (userDoc.exists()) {
-                        const data = userDoc.data();
-                        const newBadges = [];
-                        if (data.downloadsCount >= 1 && !data.badges?.includes('أول كتاب')) newBadges.push('أول كتاب');
-                        if (data.downloadsCount >= 100 && !data.badges?.includes('100 كتاب')) newBadges.push('100 كتاب');
-                        if (data.uploadedSummariesCount >= 1 && !data.badges?.includes('أول ملخص')) newBadges.push(
-                        'أول ملخص');
-                        if (data.reputation >= 50 && !data.badges?.includes('50 نقطة')) newBadges.push('50 نقطة');
-                        if (data.reputation >= 100 && !data.badges?.includes('100 نقطة')) newBadges.push('100 نقطة');
-                        if (data.reputation >= 500 && !data.badges?.includes('500 نقطة')) newBadges.push('500 نقطة');
-                        if (newBadges.length) {
-                            await updateDoc(userRef, {
-                                badges: arrayUnion(...newBadges)
-                            });
-                            // Notify
-                            for (const badge of newBadges) {
-                                await this._addNotification(userId, `🏅 إنجاز جديد: ${badge}`,
-                                    `حصلت على وسام "${badge}"`);
-                            }
-                        }
-                    }
-                } catch (e) { console.error('Points error:', e); }
-            },
-
-            async _addNotification(userId, title, message) {
-                try {
-                    await addDoc(collection(db, 'notifications'), {
-                        userId: userId,
-                        title: title,
-                        message: message,
-                        read: false,
-                        createdAt: serverTimestamp()
-                    });
-                    if (userId === currentUser?.uid) this.updateNotifCount();
-                } catch (e) { console.error('Notif error:', e); }
-            },
-
-            // ===== LOGOUT =====
-            async logout() {
-                try { await signOut(auth);
-                    window.location.href = 'index.html'; } catch (e) { console.error(e); }
-            },
-
-            // ===== MODAL =====
-            closeModal() { document.getElementById('appModal')?.classList.remove('active'); },
-
-            // ===== ABOUT, PRIVACY, TERMS, CONTACT =====
-            showAbout() {
-                const modal = document.getElementById('appModal');
-                const body = document.getElementById('modalBody');
-                if (!modal || !body) return;
-                body.innerHTML =
-                    `<div style="text-align:center;padding:16px;"><span style="font-size:48px;display:block;margin-bottom:10px;">🎓</span><h2 style="font-size:20px;font-weight:900;">الثانوية الرسمية بلس</h2><p style="color:var(--text-secondary);max-width:400px;margin:0 auto 12px;">كل اللي الطالب محتاجه في مكان واحد. منصة تعليمية متكاملة مجاناً.</p><button class="btn btn-primary btn-xs" onclick="App.closeModal()">إغلاق</button></div>`;
-                modal.classList.add('active');
-            },
-
-            showPrivacy() {
-                const modal = document.getElementById('appModal');
-                const body = document.getElementById('modalBody');
-                if (!modal || !body) return;
-                body.innerHTML =
-                    `<div style="text-align:center;padding:16px;"><span style="font-size:40px;display:block;margin-bottom:10px;">🔒</span><h2 style="font-size:18px;font-weight:800;">سياسة الخصوصية</h2><p style="color:var(--text-secondary);text-align:right;max-width:400px;margin:0 auto;">• نحمي خصوصية مستخدمينا.<br>• جميع البيانات مخزنة بشكل آمن.<br>• لا نشارك بياناتك مع أي طرف ثالث.</p><button class="btn btn-primary btn-xs" style="margin-top:10px;" onclick="App.closeModal()">إغلاق</button></div>`;
-                modal.classList.add('active');
-            },
-
-            showTerms() {
-                const modal = document.getElementById('appModal');
-                const body = document.getElementById('modalBody');
-                if (!modal || !body) return;
-                body.innerHTML =
-                    `<div style="text-align:center;padding:16px;"><span style="font-size:40px;display:block;margin-bottom:10px;">📋</span><h2 style="font-size:18px;font-weight:800;">شروط الاستخدام</h2><p style="color:var(--text-secondary);text-align:right;max-width:400px;margin:0 auto;">• استخدام المنصة مجاني للجميع.<br>• يمنع رفع محتوى غير تعليمي.<br>• يمنع انتهاك حقوق النشر.</p><button class="btn btn-primary btn-xs" style="margin-top:10px;" onclick="App.closeModal()">إغلاق</button></div>`;
-                modal.classList.add('active');
-            },
-
-            showContact() {
-                const modal = document.getElementById('appModal');
-                const body = document.getElementById('modalBody');
-                if (!modal || !body) return;
-                body.innerHTML =
-                    `<div style="text-align:center;padding:16px;"><span style="font-size:40px;display:block;margin-bottom:10px;">📧</span><h2 style="font-size:18px;font-weight:800;">اتصل بنا</h2><p style="color:var(--text-secondary);">📧 support@thanawya-plus.com</p><button class="btn btn-primary btn-xs" style="margin-top:10px;" onclick="App.closeModal()">إغلاق</button></div>`;
-                modal.classList.add('active');
-            },
-
-            // ===== TABS =====
-            switchTab(tabId) {
-                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-                document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-                document.querySelector(`[data-tab="${tabId}"]`)?.classList.add('active');
-                document.getElementById(`tab-${tabId}`)?.classList.add('active');
-                // Render content if needed
-                if (tabId === 'top') renderLeaderboard();
-                if (tabId === 'timer') renderTimer();
-                if (tabId === 'todo') renderTodo();
-            }
+            container.innerHTML = html;
         };
 
-        // ============================================================
-        // 16. TAB EVENTS
-        // ============================================================
-        document.querySelectorAll('.tab').forEach(tab => {
-            tab.addEventListener('click', () => {
-                const tabId = tab.dataset.tab;
-                App.switchTab(tabId);
-            });
-        });
-
-        // ============================================================
-        // 17. EVENT BINDINGS
-        // ============================================================
-        if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark-mode');
-
-        const searchInput = document.getElementById('searchInput');
-        if (searchInput) {
-            searchInput.addEventListener('input', (e) => {
-                clearTimeout(searchTimeout);
-                searchTimeout = setTimeout(() => performSearch(e.target.value), 350);
-            });
+        // Dummy submit comment function for the UI
+        window.submitComment = function(itemId) {
+            const input = document.getElementById('comment-input');
+            if(!input.value.trim()) return;
+            showToast('تم إرسال تعليقك للإدارة للمراجعة', 'success');
+            input.value = '';
         }
-        const heroSearch = document.getElementById('heroSearchInput');
-        if (heroSearch) {
-            heroSearch.addEventListener('input', (e) => {
-                document.getElementById('searchInput').value = e.target.value;
-                clearTimeout(searchTimeout);
-                searchTimeout = setTimeout(() => performSearch(e.target.value), 350);
-            });
+
+        function handleHashChange() {
+            const hash = window.location.hash.substring(1) || 'home';
+            const parts = hash.split('/');
+            
+            // Hide all views
+            document.querySelectorAll('.view-section').forEach(el => el.classList.add('hidden'));
+            
+            // Ensure data is loaded before rendering views that depend on it
+            if (!state.isDataLoaded && hash !== 'home') {
+                // If direct link to a book and data isn't loaded yet, we should ideally wait.
+                // For simplicity here, we rely on the fast fetch above.
+            }
+
+            if (parts[0] === 'home') {
+                document.getElementById('view-home').classList.remove('hidden');
+                window.scrollTo(0, 0);
+            } 
+            else if (parts[0] === 'detail' && parts.length === 3) {
+                const type = parts[1];
+                const id = parts[2];
+                document.getElementById('view-detail').classList.remove('hidden');
+                renderDetailView(type, id);
+                window.scrollTo(0, 0);
+            }
+            else if (parts[0] === 'profile') {
+                if (!state.user) {
+                    window.location.href = 'login.html'; // Redirect to login if not authenticated
+                    return;
+                }
+                document.getElementById('view-profile').classList.remove('hidden');
+                renderProfileView();
+                window.scrollTo(0, 0);
+            }
+            // Add other routes (category/grade) as needed
+            else {
+                // Fallback to home
+                document.getElementById('view-home').classList.remove('hidden');
+            }
         }
-        document.getElementById('searchBtn')?.addEventListener('click', () => {
-            const v = document.getElementById('searchInput').value;
-            if (v.length >= 2) performSearch(v);
-        });
-        document.getElementById('heroSearchBtn')?.addEventListener('click', () => {
-            const v = document.getElementById('heroSearchInput').value;
-            if (v.length >= 2) performSearch(v);
+
+        window.addEventListener('hashchange', handleHashChange);
+
+        const authLoader = document.getElementById('auth-loader');
+        const btnLogin = document.getElementById('btn-login');
+        const userMenu = document.getElementById('user-menu');
+        const userAvatar = document.getElementById('user-avatar');
+        const btnProfile = document.getElementById('btn-profile');
+        const userDropdown = document.getElementById('user-dropdown');
+        const btnLogout = document.getElementById('btn-logout');
+
+        // Toggle user dropdown
+        btnProfile.addEventListener('click', () => {
+            userDropdown.classList.toggle('hidden');
         });
 
+        // Close dropdown when clicking outside
         document.addEventListener('click', (e) => {
-            const w = document.querySelector('.search-wrapper');
-            if (w && !w.contains(e.target)) document.getElementById('searchResults')?.classList.remove('active');
-            const dd = document.getElementById('notifDropdown');
-            const btn = document.getElementById('notifBtn');
-            if (dd && btn && !dd.contains(e.target) && !btn.contains(e.target)) dd.classList.remove('active');
+            if (!userMenu.contains(e.target)) {
+                userDropdown.classList.add('hidden');
+            }
         });
 
-        document.getElementById('appModal')?.addEventListener('click', (e) => {
-            if (e.target === e.currentTarget) App.closeModal();
+        btnLogout.addEventListener('click', () => {
+            signOut(auth).then(() => {
+                showToast('تم تسجيل الخروج بنجاح', 'success');
+                window.location.hash = 'home';
+            }).catch((error) => {
+                showToast('خطأ في تسجيل الخروج', 'error');
+            });
         });
 
-        // ============================================================
-        // 18. INIT
-        // ============================================================
-        await renderGrades();
-        await renderBooks();
-        await renderSummaries();
-        await renderExams();
-        await renderAds();
-        await updateHeroStats();
-        App.updateNotifCount();
+        // Listen for Auth changes
+        onAuthStateChanged(auth, async (user) => {
+            authLoader.classList.add('hidden');
+            
+            if (user) {
+                state.user = user;
+                btnLogin.classList.add('hidden');
+                userMenu.classList.remove('hidden');
+                
+                // Fetch user doc from Firestore if exists
+                try {
+                    const userDoc = await getDoc(doc(db, "users", user.uid));
+                    if (userDoc.exists()) {
+                        state.userData = userDoc.data();
+                        userAvatar.src = state.userData.photoURL || 'https://placehold.co/100x100/f59e0b/ffffff?text=U';
+                    } else {
+                        // Using default photo if no firestore doc yet
+                        userAvatar.src = user.photoURL || 'https://placehold.co/100x100/f59e0b/ffffff?text=U';
+                        state.userData = {
+                            displayName: user.displayName || 'طالب جديد',
+                            email: user.email,
+                            photoURL: user.photoURL
+                        };
+                    }
+                } catch (e) {
+                    console.error("Error fetching user data:", e);
+                    userAvatar.src = 'https://placehold.co/100x100/f59e0b/ffffff?text=U';
+                }
+            } else {
+                state.user = null;
+                state.userData = null;
+                btnLogin.classList.remove('hidden');
+                btnLogin.classList.add('flex'); // Because it uses flex gap
+                userMenu.classList.add('hidden');
+            }
+        });
 
-        // Preload timer and todo if tabs active
-        if (document.getElementById('tab-timer').classList.contains('active')) renderTimer();
-        if (document.getElementById('tab-todo').classList.contains('active')) renderTodo();
+        function renderProfileView() {
+            const container = document.getElementById('profile-container');
+            const u = state.userData;
+            
+            container.innerHTML = `
+                <div class="max-w-4xl mx-auto">
+                    <div class="glass rounded-3xl p-8 mb-8 relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-full h-32 bg-gradient-to-r from-premium to-yellow-500 opacity-20"></div>
+                        <div class="relative z-10 flex flex-col md:flex-row items-center gap-6">
+                            <img src="${u?.photoURL || 'https://placehold.co/150x150/f59e0b/ffffff?text=U'}" class="w-32 h-32 rounded-full border-4 border-white dark:border-gray-800 shadow-xl object-cover">
+                            <div class="text-center md:text-right flex-grow">
+                                <h1 class="text-3xl font-black text-gray-900 dark:text-white mb-2">${u?.displayName || 'طالب متميز'}</h1>
+                                <p class="text-gray-500 dark:text-gray-400 font-tajawal mb-4">${u?.grade ? formatGrade(u.grade) : 'لم يتم تحديد الصف'} • ${u?.email || ''}</p>
+                                <div class="flex flex-wrap justify-center md:justify-start gap-2">
+                                    <span class="bg-premium/20 text-premium px-4 py-1 rounded-full text-sm font-bold"><i class="fas fa-trophy mr-1"></i> مبتدئ</span>
+                                    <span class="bg-blue-500/20 text-blue-500 px-4 py-1 rounded-full text-sm font-bold"><i class="fas fa-download mr-1"></i> 0 تحميلات</span>
+                                </div>
+                            </div>
+                            <button class="glass bg-white/50 dark:bg-gray-700/50 hover:bg-gray-100 dark:hover:bg-gray-600 px-6 py-2 rounded-full text-sm font-bold transition-colors">
+                                <i class="fas fa-cog"></i> الإعدادات
+                            </button>
+                        </div>
+                    </div>
 
-        window.App = App;
+                    <!-- Profile Tabs Content -->
+                    <div class="glass rounded-3xl p-8 min-h-[400px]">
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 border-b border-gray-200 dark:border-gray-700 pb-4">مكتبتي (المفضلة)</h2>
+                        ${createEmptyState('لا توجد عناصر في المفضلة', 'قم بتصفح المكتبة وإضافة الكتب والملخصات التي تهمك إلى مفضلتك للرجوع إليها لاحقاً.', 'fa-heart')}
+                    </div>
+                </div>
+            `;
+        }
 
-        console.log('🎓 الثانوية الرسمية بلس - النسخة النهائية جاهزة!');
-        console.log('📊 Firebase connected | 🔥 All systems ready');
-        console.log('📚 3 files only: index.html, login.html, admin.html');
+        window.addEventListener('DOMContentLoaded', () => {
+            // Trigger routing to handle current URL
+            handleHashChange();
+            // Fetch data from Firebase
+            fetchAllData();
+        });
+
     </script>
 </body>
 </html>
