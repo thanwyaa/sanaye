@@ -5,1135 +5,914 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>الثانوية الرسمية بلس | أكبر مكتبة تعليمية عربية مجانية</title>
     
-    <meta name="description" content="منصة الثانوية الرسمية بلس - أكبر مكتبة تعليمية عربية مجانية">
+    <!-- SEO -->
+    <meta name="description" content="منصة الثانوية الرسمية بلس - أكبر مكتبة تعليمية عربية مجانية لطلاب الثانوية العامة">
     <meta name="robots" content="index, follow">
     <meta property="og:title" content="الثانوية الرسمية بلس">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://thanawya-official-plus.com">
     <meta property="og:image" content="https://cdn.phototourl.com/free/2026-07-21-1dd4b984-ed08-4a40-aead-9ef086ebbd45.jpg">
     
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <style>
-        /* ===== CSS Variables ===== */
+        /* ===== الألوان الأساسية ===== */
         :root {
-            --bg-primary: #ffffff;
-            --bg-secondary: #f0f4f8;
-            --bg-card: #ffffff;
-            --text-primary: #0a1628;
-            --text-secondary: #334155;
-            --text-muted: #94a3b8;
-            --border-color: #e2e8f0;
-            --grade-1: #22c55e;
-            --grade-1-dark: #16a34a;
-            --grade-2: #3b82f6;
-            --grade-2-dark: #2563eb;
-            --grade-3: #ef4444;
-            --grade-3-dark: #dc2626;
+            --bg: #ffffff;
+            --bg2: #f0f4f8;
+            --card: #ffffff;
+            --text: #0a1628;
+            --text2: #334155;
+            --text3: #94a3b8;
+            --border: #e2e8f0;
+            --green: #22c55e;
+            --green-dark: #16a34a;
+            --blue: #3b82f6;
+            --blue-dark: #2563eb;
+            --red: #ef4444;
+            --red-dark: #dc2626;
             --gold: #f59e0b;
-            --gold-dark: #d97706;
             --purple: #8b5cf6;
-            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
-            --shadow-md: 0 4px 20px rgba(0,0,0,0.08);
+            --shadow: 0 4px 20px rgba(0,0,0,0.08);
             --shadow-lg: 0 10px 40px rgba(0,0,0,0.12);
-            --shadow-xl: 0 20px 60px rgba(0,0,0,0.16);
-            --radius-sm: 8px;
-            --radius-md: 16px;
+            --radius: 16px;
             --radius-lg: 24px;
-            --radius-xl: 32px;
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            --font-primary: 'Cairo', sans-serif;
+            --transition: all 0.3s ease;
         }
         
         [data-theme="dark"] {
-            --bg-primary: #0a1628;
-            --bg-secondary: #0f1a2e;
-            --bg-card: #162040;
-            --text-primary: #f1f5f9;
-            --text-secondary: #94a3b8;
-            --text-muted: #64748b;
-            --border-color: #1e293b;
-            --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
-            --shadow-md: 0 4px 20px rgba(0,0,0,0.4);
-            --shadow-lg: 0 10px 40px rgba(0,0,0,0.5);
-            --shadow-xl: 0 20px 60px rgba(0,0,0,0.6);
+            --bg: #0a1628;
+            --bg2: #0f1a2e;
+            --card: #162040;
+            --text: #f1f5f9;
+            --text2: #94a3b8;
+            --text3: #64748b;
+            --border: #1e293b;
         }
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+        html { scroll-behavior: smooth; }
         body {
-            font-family: var(--font-primary);
-            background: var(--bg-secondary);
-            color: var(--text-primary);
-            line-height: 1.6;
+            font-family: 'Cairo', sans-serif;
+            background: var(--bg2);
+            color: var(--text);
             transition: var(--transition);
-            overflow-x: hidden;
         }
         a { text-decoration: none; color: inherit; }
         button { cursor: pointer; border: none; background: none; font-family: inherit; }
-        img { max-width: 100%; display: block; }
-        .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 20px; }
         
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: var(--bg-secondary); }
-        ::-webkit-scrollbar-thumb { background: var(--text-muted); border-radius: 3px; }
-        
-        /* ===== GLASSMORPHISM ===== */
-        .glass {
-            background: rgba(255,255,255,0.08);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-        
-        /* ===== NAVBAR ===== */
-        .navbar {
-            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-            padding: 14px 0;
-            background: rgba(255,255,255,0.85);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border-color);
+        /* ===== هيدر ===== */
+        .header {
+            position: fixed; top: 0; left: 0; right: 0;
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+            padding: 12px 0;
+            z-index: 1000;
             transition: var(--transition);
         }
-        [data-theme="dark"] .navbar { background: rgba(10,22,40,0.85); }
-        .navbar.scrolled { padding: 10px 0; box-shadow: var(--shadow-sm); }
-        .nav-container {
+        [data-theme="dark"] .header { background: rgba(10,22,40,0.9); }
+        .header.scrolled { padding: 8px 0; box-shadow: var(--shadow); }
+        .header-inner {
             display: flex; align-items: center; justify-content: space-between;
-            gap: 20px; max-width: 1280px; margin: 0 auto; padding: 0 24px;
+            gap: 16px; max-width: 1280px; margin: 0 auto; padding: 0 20px;
         }
-        .nav-logo {
-            display: flex; align-items: center; gap: 12px; flex-shrink: 0;
-        }
-        .nav-logo img {
-            width: 40px; height: 40px; border-radius: 10px; object-fit: cover;
-        }
-        .nav-logo span {
+        .logo {
+            display: flex; align-items: center; gap: 10px;
             font-size: 20px; font-weight: 800;
-            background: linear-gradient(135deg, var(--grade-1), var(--grade-2), var(--grade-3));
+            background: linear-gradient(135deg, var(--green), var(--blue), var(--red));
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
-        .nav-search {
-            flex: 1; max-width: 560px; position: relative;
+        .logo img {
+            width: 36px; height: 36px; border-radius: 10px;
+            -webkit-text-fill-color: initial;
         }
-        .nav-search input {
-            width: 100%; padding: 12px 20px 12px 48px;
-            border: 2px solid var(--border-color); border-radius: 60px;
-            background: var(--bg-secondary); color: var(--text-primary);
-            font-size: 15px; font-family: inherit; transition: var(--transition);
+        .search-box {
+            flex: 1; max-width: 500px; position: relative;
+        }
+        .search-box input {
+            width: 100%; padding: 10px 18px 10px 44px;
+            border: 2px solid var(--border);
+            border-radius: 60px;
+            background: var(--bg2);
+            color: var(--text);
+            font-size: 15px;
+            font-family: inherit;
             outline: none;
-        }
-        .nav-search input:focus {
-            border-color: var(--grade-2);
-            box-shadow: 0 0 0 4px rgba(59,130,246,0.15);
-        }
-        .nav-search input::placeholder { color: var(--text-muted); }
-        .nav-search .search-icon {
-            position: absolute; right: 18px; top: 50%;
-            transform: translateY(-50%); color: var(--text-muted);
-        }
-        .nav-search .search-results {
-            position: absolute; top: calc(100% + 8px); right: 0; left: 0;
-            background: var(--bg-card); border: 1px solid var(--border-color);
-            border-radius: var(--radius-md); box-shadow: var(--shadow-lg);
-            max-height: 400px; overflow-y: auto; display: none; z-index: 100;
-        }
-        .nav-search .search-results.active { display: block; }
-        .search-result-item {
-            padding: 12px 16px; display: flex; align-items: center; gap: 12px;
-            border-bottom: 1px solid var(--border-color); cursor: pointer;
             transition: var(--transition);
         }
-        .search-result-item:hover { background: var(--bg-secondary); }
-        .search-result-item .result-icon {
+        .search-box input:focus { border-color: var(--blue); box-shadow: 0 0 0 4px rgba(59,130,246,0.15); }
+        .search-box .icon {
+            position: absolute; right: 16px; top: 50%;
+            transform: translateY(-50%);
+            color: var(--text3);
+        }
+        .search-results {
+            position: absolute; top: calc(100% + 8px); right: 0; left: 0;
+            background: var(--card); border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            max-height: 350px; overflow-y: auto;
+            display: none; z-index: 100;
+        }
+        .search-results.active { display: block; }
+        .search-item {
+            padding: 12px 16px; display: flex; align-items: center; gap: 12px;
+            border-bottom: 1px solid var(--border);
+            cursor: pointer; transition: var(--transition);
+        }
+        .search-item:hover { background: var(--bg2); }
+        .search-item .icon-box {
             width: 36px; height: 36px; border-radius: 8px;
             display: flex; align-items: center; justify-content: center;
-            font-size: 18px; flex-shrink: 0;
+            font-size: 18px;
+            background: var(--bg2);
         }
-        .search-result-item .result-info { flex: 1; }
-        .search-result-item .result-info h4 { font-size: 14px; font-weight: 600; }
-        .search-result-item .result-info p { font-size: 12px; color: var(--text-muted); }
-        .search-result-item .result-badge {
+        .search-item .info { flex: 1; }
+        .search-item .info h4 { font-size: 14px; font-weight: 600; }
+        .search-item .info p { font-size: 12px; color: var(--text3); }
+        .search-item .tag {
             font-size: 11px; padding: 2px 10px; border-radius: 60px; font-weight: 600;
         }
-        .result-badge.book { background: var(--grade-2-light); color: var(--grade-2-dark); }
-        .result-badge.summary { background: var(--grade-1-light); color: var(--grade-1-dark); }
-        .result-badge.exam { background: var(--grade-3-light); color: var(--grade-3-dark); }
+        .tag.book { background: #dbeafe; color: var(--blue-dark); }
+        .tag.summary { background: #dcfce7; color: var(--green-dark); }
+        .tag.exam { background: #fecaca; color: var(--red-dark); }
         
-        .nav-actions {
-            display: flex; align-items: center; gap: 8px; flex-shrink: 0;
+        .actions {
+            display: flex; align-items: center; gap: 8px;
         }
-        .nav-actions .btn-auth {
-            padding: 10px 20px; border-radius: 60px; font-weight: 600;
-            font-size: 14px; transition: var(--transition);
+        .actions .btn {
+            padding: 8px 18px; border-radius: 60px; font-weight: 600; font-size: 14px;
+            transition: var(--transition);
         }
-        .nav-actions .btn-login {
-            background: var(--bg-secondary); color: var(--text-primary);
-            border: 1px solid var(--border-color);
+        .actions .btn-login {
+            background: var(--bg2); color: var(--text);
+            border: 1px solid var(--border);
         }
-        .nav-actions .btn-login:hover { background: var(--border-color); }
-        .nav-actions .btn-register {
-            background: linear-gradient(135deg, var(--grade-2), var(--grade-2-dark));
+        .actions .btn-login:hover { background: var(--border); }
+        .actions .btn-register {
+            background: linear-gradient(135deg, var(--blue), var(--blue-dark));
             color: white;
         }
-        .nav-actions .btn-register:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(59,130,246,0.3);
-        }
-        .nav-actions .btn-icon {
-            width: 40px; height: 40px; border-radius: 50%;
+        .actions .btn-register:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(59,130,246,0.3); }
+        .actions .icon-btn {
+            width: 38px; height: 38px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            background: var(--bg-secondary); color: var(--text-secondary);
-            transition: var(--transition); border: 1px solid var(--border-color);
-            font-size: 18px; position: relative;
+            background: var(--bg2); border: 1px solid var(--border);
+            font-size: 16px; transition: var(--transition);
         }
-        .nav-actions .btn-icon:hover { background: var(--border-color); transform: scale(1.05); }
-        .nav-actions .user-avatar {
-            width: 40px; height: 40px; border-radius: 50%;
-            background: linear-gradient(135deg, var(--grade-1), var(--grade-2));
+        .actions .icon-btn:hover { background: var(--border); }
+        .actions .avatar {
+            width: 38px; height: 38px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--green), var(--blue));
             display: flex; align-items: center; justify-content: center;
-            color: white; font-weight: 700; font-size: 16px;
-            cursor: pointer; transition: var(--transition);
-            border: 2px solid transparent;
+            color: white; font-weight: 700; font-size: 15px;
+            cursor: pointer; border: 2px solid transparent;
+            transition: var(--transition);
         }
-        .nav-actions .user-avatar:hover { transform: scale(1.05); border-color: var(--gold); }
-        .nav-actions .user-avatar img {
-            width: 100%; height: 100%; border-radius: 50%; object-fit: cover;
-        }
-        .notification-badge::after {
-            content: ''; position: absolute; top: 8px; right: 8px;
-            width: 8px; height: 8px; background: var(--grade-3);
-            border-radius: 50%; border: 2px solid var(--bg-primary);
-        }
+        .actions .avatar:hover { border-color: var(--gold); transform: scale(1.05); }
         
-        /* ===== HERO ===== */
+        /* ===== الهيرو ===== */
         .hero {
-            padding: 140px 0 80px;
-            background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
-            position: relative; overflow: hidden;
+            padding: 120px 0 60px;
+            background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
             min-height: 80vh; display: flex; align-items: center;
         }
-        .hero::before {
-            content: ''; position: absolute; top: -50%; right: -20%;
-            width: 600px; height: 600px;
-            background: radial-gradient(circle, rgba(34,197,94,0.06) 0%, transparent 70%);
-            border-radius: 50%;
+        .hero-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 50px;
+            align-items: center;
         }
-        .hero::after {
-            content: ''; position: absolute; bottom: -30%; left: -10%;
-            width: 500px; height: 500px;
-            background: radial-gradient(circle, rgba(59,130,246,0.05) 0%, transparent 70%);
-            border-radius: 50%;
+        .hero h1 {
+            font-size: 48px; font-weight: 900; line-height: 1.1;
         }
-        .hero-container {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
-            align-items: center; position: relative; z-index: 1;
-        }
-        .hero-content h1 {
-            font-size: 52px; font-weight: 900; line-height: 1.1; margin-bottom: 16px;
-        }
-        .hero-content h1 .highlight {
-            background: linear-gradient(135deg, var(--grade-1), var(--grade-2), var(--purple));
+        .hero h1 .highlight {
+            background: linear-gradient(135deg, var(--green), var(--blue), var(--purple));
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
-        .hero-content p {
-            font-size: 20px; color: var(--text-secondary);
-            max-width: 480px; margin-bottom: 32px; line-height: 1.7;
+        .hero p {
+            font-size: 18px; color: var(--text2);
+            margin: 16px 0 28px; line-height: 1.7;
+            max-width: 480px;
         }
-        .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
-        .btn-primary {
-            padding: 16px 40px; border-radius: 60px;
-            background: linear-gradient(135deg, var(--grade-2), var(--grade-2-dark));
-            color: white; font-weight: 700; font-size: 17px;
+        .hero .btns { display: flex; gap: 14px; flex-wrap: wrap; }
+        .hero .btns .primary {
+            padding: 14px 36px; border-radius: 60px;
+            background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+            color: white; font-weight: 700; font-size: 16px;
+            transition: var(--transition); box-shadow: 0 8px 30px rgba(59,130,246,0.3);
+        }
+        .hero .btns .primary:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(59,130,246,0.4); }
+        .hero .btns .secondary {
+            padding: 14px 36px; border-radius: 60px;
+            background: var(--bg); color: var(--text);
+            border: 2px solid var(--border); font-weight: 700; font-size: 16px;
             transition: var(--transition);
-            box-shadow: 0 8px 30px rgba(59,130,246,0.3);
-            display: inline-flex; align-items: center; gap: 10px;
         }
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 40px rgba(59,130,246,0.4);
+        .hero .btns .secondary:hover { border-color: var(--text); transform: translateY(-3px); }
+        .hero .stats {
+            display: flex; gap: 40px; margin-top: 40px;
         }
-        .btn-secondary {
-            padding: 16px 36px; border-radius: 60px;
-            background: var(--bg-primary); color: var(--text-primary);
-            font-weight: 700; font-size: 17px;
-            border: 2px solid var(--border-color);
-            transition: var(--transition);
-            display: inline-flex; align-items: center; gap: 10px;
-        }
-        .btn-secondary:hover {
-            border-color: var(--text-primary); transform: translateY(-3px);
-        }
-        .hero-stats {
-            display: flex; gap: 40px; margin-top: 48px;
-        }
-        .hero-stats .stat-item { text-align: center; }
-        .hero-stats .stat-number {
-            font-size: 32px; font-weight: 800; color: var(--text-primary);
-        }
-        .hero-stats .stat-label { font-size: 14px; color: var(--text-muted); }
+        .hero .stats .item { text-align: center; }
+        .hero .stats .num { font-size: 28px; font-weight: 800; }
+        .hero .stats .label { font-size: 14px; color: var(--text3); }
         .hero-image {
-            position: relative; display: flex; justify-content: center; align-items: center;
+            position: relative;
         }
         .hero-image img {
-            width: 100%; max-width: 560px; border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-xl); object-fit: cover; aspect-ratio: 1/1;
+            width: 100%; max-width: 500px; border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
         }
-        .hero-image .floating-badge {
-            position: absolute; bottom: -20px; left: -20px;
-            background: var(--bg-card); padding: 16px 24px;
-            border-radius: var(--radius-md); box-shadow: var(--shadow-lg);
+        .hero-image .badge {
+            position: absolute; bottom: -10px; left: -10px;
+            background: var(--card); padding: 14px 20px;
+            border-radius: var(--radius); box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border);
             display: flex; align-items: center; gap: 12px;
-            border: 1px solid var(--border-color);
             animation: float 3s ease-in-out infinite;
         }
         @keyframes float {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-10px); }
         }
-        .hero-image .floating-badge i { font-size: 28px; color: var(--gold); }
-        .hero-image .floating-badge div strong {
-            display: block; font-size: 18px; color: var(--text-primary);
-        }
+        .hero-image .badge i { font-size: 24px; color: var(--gold); }
+        .hero-image .badge strong { display: block; font-size: 16px; }
         
-        /* ===== SECTIONS ===== */
-        .section { padding: 80px 0; }
+        /* ===== الأقسام ===== */
+        .section { padding: 60px 0; }
         .section-header {
             display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
         }
         .section-header h2 {
-            font-size: 32px; font-weight: 800;
-            display: flex; align-items: center; gap: 12px;
+            font-size: 28px; font-weight: 800;
+            display: flex; align-items: center; gap: 10px;
         }
-        .section-header .see-all {
-            color: var(--grade-2); font-weight: 600;
-            display: flex; align-items: center; gap: 8px;
+        .section-header .more {
+            color: var(--blue); font-weight: 600;
+            display: flex; align-items: center; gap: 6px;
             transition: var(--transition);
         }
-        .section-header .see-all:hover { gap: 14px; color: var(--grade-2-dark); }
+        .section-header .more:hover { gap: 12px; }
         
-        /* ===== GRADES ===== */
+        /* ===== بطاقات الصفوف ===== */
         .grades-grid {
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px;
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
         }
         .grade-card {
-            background: var(--bg-card); border-radius: var(--radius-lg);
-            overflow: hidden; box-shadow: var(--shadow-sm);
-            transition: var(--transition);
-            border: 1px solid var(--border-color);
-            cursor: pointer;
-            position: relative;
+            background: var(--card); border-radius: var(--radius-lg);
+            overflow: hidden; border: 1px solid var(--border);
+            transition: var(--transition); cursor: pointer;
         }
-        .grade-card:hover {
-            transform: translateY(-8px); box-shadow: var(--shadow-lg);
+        .grade-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); }
+        .grade-card .img {
+            height: 180px; overflow: hidden; position: relative;
         }
-        .grade-card .card-image {
-            height: 200px; overflow: hidden; position: relative;
-        }
-        .grade-card .card-image img {
+        .grade-card .img img {
             width: 100%; height: 100%; object-fit: cover;
             transition: var(--transition);
         }
-        .grade-card:hover .card-image img { transform: scale(1.05); }
-        .grade-card .card-image .grade-badge {
-            position: absolute; top: 16px; right: 16px;
-            padding: 6px 16px; border-radius: 60px; color: white;
+        .grade-card:hover .img img { transform: scale(1.05); }
+        .grade-card .img .badge {
+            position: absolute; top: 12px; right: 12px;
+            padding: 4px 14px; border-radius: 60px; color: white;
             font-weight: 700; font-size: 13px;
             backdrop-filter: blur(8px); background: rgba(0,0,0,0.3);
         }
-        .grade-card .card-body { padding: 24px; }
-        .grade-card .card-body h3 { font-size: 22px; font-weight: 800; margin-bottom: 8px; }
-        .grade-card .card-body .card-stats {
-            display: flex; gap: 16px; font-size: 14px;
-            color: var(--text-secondary); margin-bottom: 16px; flex-wrap: wrap;
+        .grade-card .body { padding: 20px; }
+        .grade-card .body h3 { font-size: 20px; font-weight: 800; }
+        .grade-card .body .stats {
+            display: flex; gap: 14px; font-size: 14px;
+            color: var(--text2); margin: 8px 0 14px;
         }
-        .grade-card .card-body .card-stats span {
-            display: flex; align-items: center; gap: 6px;
-        }
-        .grade-card .card-body .btn-grade {
-            padding: 10px 28px; border-radius: 60px; color: white;
+        .grade-card .body .stats span { display: flex; align-items: center; gap: 4px; }
+        .grade-card .body .enter {
+            padding: 8px 24px; border-radius: 60px; color: white;
             font-weight: 700; transition: var(--transition);
             display: inline-flex; align-items: center; gap: 8px;
         }
-        .grade-card .card-body .btn-grade:hover { transform: translateX(-4px); }
-        .grade-1 .grade-badge { background: var(--grade-1); }
-        .grade-1 .btn-grade { background: var(--grade-1); }
-        .grade-1 .btn-grade:hover { background: var(--grade-1-dark); }
-        .grade-1 .card-image { border-bottom: 4px solid var(--grade-1); }
-        .grade-2 .grade-badge { background: var(--grade-2); }
-        .grade-2 .btn-grade { background: var(--grade-2); }
-        .grade-2 .btn-grade:hover { background: var(--grade-2-dark); }
-        .grade-2 .card-image { border-bottom: 4px solid var(--grade-2); }
-        .grade-3 .grade-badge { background: var(--grade-3); }
-        .grade-3 .btn-grade { background: var(--grade-3); }
-        .grade-3 .btn-grade:hover { background: var(--grade-3-dark); }
-        .grade-3 .card-image { border-bottom: 4px solid var(--grade-3); }
+        .grade-card .body .enter:hover { transform: translateX(-4px); }
+        .grade-1 .badge { background: var(--green); }
+        .grade-1 .enter { background: var(--green); }
+        .grade-1 .enter:hover { background: var(--green-dark); }
+        .grade-1 .img { border-bottom: 4px solid var(--green); }
+        .grade-2 .badge { background: var(--blue); }
+        .grade-2 .enter { background: var(--blue); }
+        .grade-2 .enter:hover { background: var(--blue-dark); }
+        .grade-2 .img { border-bottom: 4px solid var(--blue); }
+        .grade-3 .badge { background: var(--red); }
+        .grade-3 .enter { background: var(--red); }
+        .grade-3 .enter:hover { background: var(--red-dark); }
+        .grade-3 .img { border-bottom: 4px solid var(--red); }
         
-        /* ===== BOOKS GRID ===== */
+        /* ===== بطاقات الكتب ===== */
         .books-grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 28px;
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
         }
         .book-card {
-            background: var(--bg-card); border-radius: var(--radius-lg);
-            overflow: hidden; box-shadow: var(--shadow-sm);
-            border: 1px solid var(--border-color);
-            transition: var(--transition);
-            cursor: pointer;
-            position: relative;
+            background: var(--card); border-radius: var(--radius);
+            overflow: hidden; border: 1px solid var(--border);
+            transition: var(--transition); cursor: pointer;
         }
-        .book-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-lg);
-        }
-        .book-card .book-cover {
-            height: 180px;
-            background: linear-gradient(135deg, var(--bg-secondary), var(--border-color));
+        .book-card:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
+        .book-card .cover {
+            height: 150px;
+            background: var(--bg2);
             display: flex; align-items: center; justify-content: center;
-            font-size: 56px; position: relative; overflow: hidden;
+            font-size: 44px; position: relative; overflow: hidden;
         }
-        .book-card .book-cover img {
+        .book-card .cover img {
             width: 100%; height: 100%; object-fit: cover;
         }
-        .book-card .book-cover .book-badge {
-            position: absolute; top: 12px; left: 12px;
-            padding: 4px 14px; border-radius: 60px;
-            font-size: 11px; font-weight: 700;
-            display: flex; align-items: center; gap: 4px;
+        .book-card .cover .badge {
+            position: absolute; top: 8px; left: 8px;
+            padding: 2px 10px; border-radius: 60px; font-size: 10px;
+            font-weight: 700; color: white;
         }
-        .book-card .book-cover .book-badge.featured {
-            background: var(--gold); color: white;
+        .badge.gold { background: var(--gold); }
+        .badge.blue { background: var(--blue); }
+        .badge.purple { background: var(--purple); }
+        .book-card .info { padding: 14px; }
+        .book-card .info h4 {
+            font-size: 15px; font-weight: 700;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
         }
-        .book-card .book-cover .book-badge.recommended {
-            background: var(--grade-2); color: white;
-        }
-        .book-card .book-cover .book-badge.new {
-            background: var(--purple); color: white;
-        }
-        .book-card .book-cover .book-actions-overlay {
-            position: absolute; bottom: 0; left: 0; right: 0;
-            padding: 20px;
-            background: linear-gradient(transparent, rgba(0,0,0,0.7));
-            display: flex; gap: 8px; justify-content: center;
-            opacity: 0; transform: translateY(20px);
-            transition: var(--transition);
-        }
-        .book-card:hover .book-actions-overlay {
-            opacity: 1; transform: translateY(0);
-        }
-        .book-card .book-actions-overlay button {
-            padding: 6px 16px; border-radius: 60px; color: white;
-            font-size: 12px; font-weight: 600;
-            background: rgba(255,255,255,0.2);
-            backdrop-filter: blur(8px);
-            transition: var(--transition);
-            display: flex; align-items: center; gap: 6px;
-        }
-        .book-card .book-actions-overlay button:hover {
-            background: rgba(255,255,255,0.35);
-        }
-        .book-card .book-info { padding: 20px; }
-        .book-card .book-info h4 {
-            font-size: 17px; font-weight: 700; margin-bottom: 6px;
-            display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-        .book-card .book-info .book-meta {
-            font-size: 13px; color: var(--text-secondary);
+        .book-card .info .meta {
+            font-size: 13px; color: var(--text2);
             display: flex; justify-content: space-between; align-items: center;
-            flex-wrap: wrap; gap: 6px;
+            margin-top: 4px;
         }
-        .book-card .book-info .book-subject {
-            background: var(--bg-secondary); padding: 2px 12px;
-            border-radius: 60px; font-size: 11px; color: var(--text-muted);
+        .book-card .info .meta .subject {
+            background: var(--bg2); padding: 0 10px; border-radius: 60px;
+            font-size: 11px; color: var(--text3);
         }
-        .book-card .book-info .book-rating { color: var(--gold-dark); font-size: 13px; }
-        .book-card .book-info .book-downloads {
-            font-size: 12px; color: var(--text-muted);
-            display: flex; align-items: center; gap: 4px;
-        }
-        
-        /* ===== BOOK PAGE ===== */
-        .book-page-overlay {
-            position: fixed; inset: 0;
-            background: var(--bg-primary);
-            z-index: 9999;
-            display: none;
-            overflow-y: auto;
-            padding: 20px;
-        }
-        .book-page-overlay.active { display: block; }
-        .book-page {
-            max-width: 1000px; margin: 0 auto; padding: 20px;
-        }
-        .book-page .book-page-close {
-            position: sticky; top: 0; float: left;
-            width: 44px; height: 44px; border-radius: 50%;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            font-size: 22px;
-            display: flex; align-items: center; justify-content: center;
-            transition: var(--transition);
-            z-index: 10;
-            margin-bottom: 20px;
-        }
-        .book-page .book-page-close:hover { background: var(--border-color); }
-        .book-page .book-header {
-            display: grid; grid-template-columns: 280px 1fr;
-            gap: 40px; margin-bottom: 40px;
-        }
-        .book-page .book-cover-large {
-            width: 100%; aspect-ratio: 3/4;
-            border-radius: var(--radius-lg);
-            background: var(--bg-secondary);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 100px;
-            border: 1px solid var(--border-color);
-            overflow: hidden;
-            box-shadow: var(--shadow-md);
-        }
-        .book-page .book-cover-large img {
-            width: 100%; height: 100%; object-fit: cover;
-        }
-        .book-page .book-info-large h1 {
-            font-size: 32px; font-weight: 800; margin-bottom: 12px;
-        }
-        .book-page .book-meta-large {
-            display: flex; flex-wrap: wrap; gap: 12px;
-            color: var(--text-secondary); font-size: 15px;
-            margin-bottom: 16px;
-        }
-        .book-page .book-meta-large span {
-            background: var(--bg-secondary); padding: 6px 16px;
-            border-radius: 60px;
-        }
-        .book-page .book-description {
-            color: var(--text-secondary); margin-bottom: 20px;
-            line-height: 1.8; font-size: 16px;
-        }
-        .book-page .book-stats-large {
-            display: flex; gap: 32px; flex-wrap: wrap;
-            margin-bottom: 24px; padding: 20px;
-            background: var(--bg-secondary);
-            border-radius: var(--radius-md);
-        }
-        .book-page .book-stats-large .stat { text-align: center; }
-        .book-page .book-stats-large .stat .num {
-            font-size: 24px; font-weight: 800;
-        }
-        .book-page .book-stats-large .stat .label {
-            font-size: 13px; color: var(--text-muted);
-        }
-        .book-page .book-actions-large {
-            display: flex; flex-wrap: wrap; gap: 12px;
-            margin-bottom: 30px;
-        }
-        .book-page .book-actions-large button {
-            padding: 12px 28px; border-radius: 60px;
-            font-weight: 600; font-size: 15px;
-            transition: var(--transition);
-            display: inline-flex; align-items: center; gap: 10px;
-            border: 1px solid var(--border-color);
-            background: var(--bg-secondary);
-            color: var(--text-primary);
-        }
-        .book-page .book-actions-large button:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
-        }
-        .book-page .book-actions-large .btn-download {
-            background: linear-gradient(135deg, var(--grade-2), var(--grade-2-dark));
-            color: white; border: none;
-        }
-        .book-page .book-actions-large .btn-download:hover {
-            box-shadow: 0 8px 30px rgba(59,130,246,0.4);
-        }
-        .book-page .book-actions-large .btn-share {
-            background: var(--purple); color: white; border: none;
-        }
-        .book-page .book-actions-large .btn-share:hover {
-            box-shadow: 0 8px 30px rgba(139,92,246,0.4);
-        }
-        .book-page .book-actions-large .btn-favorite.active {
-            color: var(--grade-3);
-        }
-        .book-page .book-actions-large .btn-preview {
-            background: var(--gold); color: white; border: none;
-        }
-        .book-page .book-actions-large .btn-preview:hover {
-            box-shadow: 0 8px 30px rgba(245,158,11,0.4);
+        .book-card .info .meta .rating { color: var(--gold); }
+        .book-card .info .meta .downloads {
+            font-size: 12px; color: var(--text3);
         }
         
-        /* ===== SHARE DROPDOWN ===== */
-        .share-dropdown {
-            position: relative;
-            display: inline-block;
-        }
-        .share-dropdown .share-menu {
-            display: none;
-            position: absolute; top: calc(100% + 8px); right: 0;
-            background: var(--bg-card); border: 1px solid var(--border-color);
-            border-radius: var(--radius-md); box-shadow: var(--shadow-lg);
-            min-width: 200px; padding: 8px; z-index: 100;
-        }
-        .share-dropdown .share-menu.active { display: block; }
-        .share-dropdown .share-menu button {
-            display: flex; align-items: center; gap: 12px;
-            padding: 10px 16px; width: 100%;
-            border-radius: var(--radius-sm); transition: var(--transition);
-            background: none; border: none; color: var(--text-primary);
-            font-family: inherit; font-size: 14px; cursor: pointer;
-        }
-        .share-dropdown .share-menu button:hover { background: var(--bg-secondary); }
-        .share-dropdown .share-menu button i { width: 20px; }
-        .share-dropdown .share-menu .copy-link-btn {
-            border-top: 1px solid var(--border-color); margin-top: 4px; padding-top: 8px;
-        }
-        
-        /* ===== COMMENTS ===== */
-        .comments-section {
-            margin-top: 30px; border-top: 1px solid var(--border-color);
-            padding-top: 24px;
-        }
-        .comments-section h3 {
-            font-size: 22px; font-weight: 700; margin-bottom: 20px;
-            display: flex; align-items: center; gap: 10px;
-        }
-        .comment-form {
-            display: flex; flex-direction: column; gap: 12px;
-            margin-bottom: 24px;
-        }
-        .comment-form textarea {
-            padding: 14px 18px; border: 2px solid var(--border-color);
-            border-radius: var(--radius-md); background: var(--bg-secondary);
-            color: var(--text-primary); font-family: inherit;
-            font-size: 15px; resize: vertical; min-height: 100px;
-            transition: var(--transition); outline: none;
-        }
-        .comment-form textarea:focus {
-            border-color: var(--grade-2);
-            box-shadow: 0 0 0 4px rgba(59,130,246,0.1);
-        }
-        .comment-form .comment-rating {
-            display: flex; gap: 8px; align-items: center;
-        }
-        .comment-form .comment-rating .star {
-            font-size: 30px; cursor: pointer;
-            color: var(--text-muted); transition: var(--transition);
-        }
-        .comment-form .comment-rating .star.active { color: var(--gold-dark); }
-        .comment-form .comment-rating .star:hover { transform: scale(1.2); }
-        .comment-form button {
-            padding: 12px 32px; border-radius: 60px;
-            background: linear-gradient(135deg, var(--grade-2), var(--grade-2-dark));
-            color: white; font-weight: 700; transition: var(--transition);
-            align-self: flex-start;
-        }
-        .comment-form button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(59,130,246,0.3);
-        }
-        .comment-item {
-            padding: 16px 0; border-bottom: 1px solid var(--border-color);
-        }
-        .comment-item:last-child { border-bottom: none; }
-        .comment-item .comment-header {
-            display: flex; align-items: center; gap: 12px;
-            margin-bottom: 6px;
-        }
-        .comment-item .comment-header .avatar {
-            width: 36px; height: 36px; border-radius: 50%;
-            background: var(--bg-secondary);
-            display: flex; align-items: center; justify-content: center;
-            font-weight: 700; flex-shrink: 0;
-        }
-        .comment-item .comment-header .name { font-weight: 600; }
-        .comment-item .comment-header .date {
-            font-size: 12px; color: var(--text-muted);
-        }
-        .comment-item .comment-text {
-            color: var(--text-secondary); margin-right: 48px;
-        }
-        .comment-item .comment-rating-display {
-            color: var(--gold-dark); margin-right: 48px; font-size: 14px;
-        }
-        .comment-item .comment-badge {
-            background: var(--gold); padding: 2px 12px;
-            border-radius: 60px; font-size: 11px; font-weight: 700;
-            margin-right: 8px;
-        }
-        .comment-item .pending-badge {
-            background: var(--text-muted); padding: 2px 12px;
-            border-radius: 60px; font-size: 11px; font-weight: 700;
-            color: white;
-            margin-right: 8px;
-        }
-        
-        /* ===== EMPTY STATE ===== */
-        .empty-state {
-            text-align: center; padding: 60px 20px;
-            background: var(--bg-card); border-radius: var(--radius-lg);
-            border: 2px dashed var(--border-color);
-            grid-column: 1 / -1;
-        }
-        .empty-state .empty-icon { font-size: 64px; margin-bottom: 16px; }
-        .empty-state h3 { font-size: 22px; font-weight: 800; margin-bottom: 8px; }
-        .empty-state p { color: var(--text-secondary); font-size: 16px; }
-        
-        /* ===== SKELETON ===== */
+        /* ===== سكليتون ===== */
         .skeleton {
-            background: var(--bg-card); border-radius: var(--radius-lg);
-            overflow: hidden; border: 1px solid var(--border-color);
+            background: var(--card); border-radius: var(--radius);
+            border: 1px solid var(--border); overflow: hidden;
             animation: pulse 1.5s ease-in-out infinite;
         }
         @keyframes pulse {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.5; }
         }
-        .skeleton .skeleton-cover { height: 180px; background: var(--bg-secondary); }
-        .skeleton .skeleton-info { padding: 20px; }
-        .skeleton .skeleton-line {
-            height: 14px; background: var(--bg-secondary);
-            border-radius: 4px; margin-bottom: 8px;
+        .skeleton .s-cover { height: 150px; background: var(--bg2); }
+        .skeleton .s-info { padding: 14px; }
+        .skeleton .s-line {
+            height: 12px; background: var(--bg2); border-radius: 4px;
+            margin-bottom: 6px;
         }
-        .skeleton .skeleton-line.short { width: 60%; }
-        .skeleton .skeleton-line.last { width: 40%; margin-bottom: 0; }
+        .skeleton .s-line.short { width: 60%; }
         
-        /* ===== POPUP ===== */
-        .popup-overlay {
+        /* ===== فارغ ===== */
+        .empty {
+            text-align: center; padding: 50px 20px;
+            background: var(--card); border-radius: var(--radius-lg);
+            border: 2px dashed var(--border);
+            grid-column: 1 / -1;
+        }
+        .empty .icon { font-size: 56px; margin-bottom: 12px; }
+        .empty h3 { font-size: 20px; font-weight: 800; }
+        .empty p { color: var(--text2); font-size: 15px; }
+        
+        /* ===== صفحة الكتاب ===== */
+        .book-page {
             position: fixed; inset: 0;
-            background: rgba(0,0,0,0.6);
-            backdrop-filter: blur(16px);
-            z-index: 99999; display: none;
-            align-items: center; justify-content: center; padding: 20px;
+            background: var(--bg);
+            z-index: 9999;
+            display: none;
+            overflow-y: auto;
+            padding: 20px;
         }
-        .popup-overlay.active { display: flex; }
-        .popup {
-            background: var(--bg-card); border-radius: var(--radius-lg);
-            padding: 48px; max-width: 420px; width: 100%;
-            text-align: center; box-shadow: var(--shadow-xl);
-            transform: scale(0.9); animation: modalIn 0.5s ease forwards;
-            border: 1px solid var(--border-color);
+        .book-page.active { display: block; }
+        .book-page-inner {
+            max-width: 900px; margin: 0 auto;
         }
-        @keyframes modalIn {
-            from { transform: scale(0.9); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
+        .book-page .close {
+            position: sticky; top: 0; float: left;
+            width: 40px; height: 40px; border-radius: 50%;
+            background: var(--bg2); border: 1px solid var(--border);
+            font-size: 20px; display: flex; align-items: center;
+            justify-content: center; transition: var(--transition);
+            z-index: 10;
         }
-        .popup .popup-icon { font-size: 56px; margin-bottom: 12px; }
-        .popup h2 { font-size: 24px; font-weight: 800; margin-bottom: 8px; }
-        .popup p {
-            color: var(--text-secondary); margin-bottom: 24px; line-height: 1.7;
+        .book-page .close:hover { background: var(--border); }
+        .book-page .grid {
+            display: grid; grid-template-columns: 240px 1fr;
+            gap: 30px; margin-top: 10px;
         }
-        .popup .popup-actions { display: flex; flex-direction: column; gap: 12px; }
-        .popup .popup-actions .btn-login {
-            padding: 14px; border-radius: 60px;
-            background: var(--bg-secondary); color: var(--text-primary);
-            font-weight: 700; border: 1px solid var(--border-color);
+        .book-page .cover {
+            aspect-ratio: 3/4;
+            border-radius: var(--radius);
+            background: var(--bg2);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 80px; border: 1px solid var(--border);
+            overflow: hidden;
+        }
+        .book-page .cover img {
+            width: 100%; height: 100%; object-fit: cover;
+        }
+        .book-page .info h1 {
+            font-size: 28px; font-weight: 800;
+        }
+        .book-page .info .tags {
+            display: flex; flex-wrap: wrap; gap: 10px;
+            margin: 10px 0;
+        }
+        .book-page .info .tags span {
+            background: var(--bg2); padding: 4px 14px;
+            border-radius: 60px; font-size: 14px;
+        }
+        .book-page .info .desc {
+            color: var(--text2); line-height: 1.8; margin: 12px 0;
+        }
+        .book-page .info .stats {
+            display: flex; gap: 24px; flex-wrap: wrap;
+            padding: 14px; background: var(--bg2);
+            border-radius: var(--radius); margin: 16px 0;
+        }
+        .book-page .info .stats .item { text-align: center; }
+        .book-page .info .stats .item .num { font-size: 20px; font-weight: 800; }
+        .book-page .info .stats .item .label { font-size: 12px; color: var(--text3); }
+        .book-page .info .actions {
+            display: flex; flex-wrap: wrap; gap: 10px;
+            margin: 16px 0;
+        }
+        .book-page .info .actions button {
+            padding: 10px 24px; border-radius: 60px;
+            font-weight: 600; font-size: 14px;
+            transition: var(--transition);
+            display: inline-flex; align-items: center; gap: 8px;
+            border: 1px solid var(--border);
+            background: var(--bg2);
+            color: var(--text);
+        }
+        .book-page .info .actions button:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+        .book-page .info .actions .download {
+            background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+            color: white; border: none;
+        }
+        .book-page .info .actions .download:hover { box-shadow: 0 8px 25px rgba(59,130,246,0.3); }
+        .book-page .info .actions .share {
+            background: var(--purple); color: white; border: none;
+        }
+        .book-page .info .actions .share:hover { box-shadow: 0 8px 25px rgba(139,92,246,0.3); }
+        .book-page .info .actions .favorite.active { color: var(--red); }
+        
+        /* ===== التعليقات ===== */
+        .comments { margin-top: 24px; border-top: 1px solid var(--border); padding-top: 20px; }
+        .comments h3 {
+            font-size: 20px; font-weight: 700; margin-bottom: 16px;
+        }
+        .comment-form {
+            display: flex; flex-direction: column; gap: 10px;
+            margin-bottom: 16px;
+        }
+        .comment-form textarea {
+            padding: 12px; border: 2px solid var(--border);
+            border-radius: var(--radius); background: var(--bg2);
+            color: var(--text); font-family: inherit; font-size: 15px;
+            resize: vertical; min-height: 80px; outline: none;
             transition: var(--transition);
         }
-        .popup .popup-actions .btn-login:hover { background: var(--border-color); }
-        .popup .popup-actions .btn-register {
-            padding: 14px; border-radius: 60px;
-            background: linear-gradient(135deg, var(--grade-2), var(--grade-2-dark));
-            color: white; font-weight: 700; transition: var(--transition);
+        .comment-form textarea:focus { border-color: var(--blue); }
+        .comment-form .stars {
+            display: flex; gap: 6px; align-items: center;
         }
-        .popup .popup-actions .btn-register:hover {
-            transform: scale(1.02);
-            box-shadow: 0 4px 20px rgba(59,130,246,0.3);
+        .comment-form .stars .star {
+            font-size: 26px; cursor: pointer;
+            color: var(--text3); transition: var(--transition);
         }
-        .popup .popup-actions .btn-later {
-            padding: 10px; border-radius: 60px;
-            background: transparent; color: var(--text-muted);
-            font-weight: 400; font-size: 14px; transition: var(--transition);
+        .comment-form .stars .star.active { color: var(--gold); }
+        .comment-form .stars .star:hover { transform: scale(1.2); }
+        .comment-form .submit {
+            padding: 10px 28px; border-radius: 60px;
+            background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+            color: white; font-weight: 700; align-self: flex-start;
+            transition: var(--transition);
         }
-        .popup .popup-actions .btn-later:hover { color: var(--text-secondary); }
+        .comment-form .submit:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(59,130,246,0.3); }
+        .comment-item {
+            padding: 14px 0; border-bottom: 1px solid var(--border);
+        }
+        .comment-item:last-child { border-bottom: none; }
+        .comment-item .head {
+            display: flex; align-items: center; gap: 10px;
+        }
+        .comment-item .head .avatar {
+            width: 32px; height: 32px; border-radius: 50%;
+            background: var(--bg2); display: flex; align-items: center;
+            justify-content: center; font-weight: 700;
+        }
+        .comment-item .head .name { font-weight: 600; }
+        .comment-item .head .date { font-size: 12px; color: var(--text3); }
+        .comment-item .text { color: var(--text2); margin-right: 42px; }
+        .comment-item .rating-display {
+            color: var(--gold); margin-right: 42px; font-size: 14px;
+        }
         
-        /* ===== UPLOAD MODAL ===== */
-        .upload-modal-overlay {
-            position: fixed; inset: 0;
-            background: rgba(0,0,0,0.7);
-            backdrop-filter: blur(20px);
-            z-index: 99998; display: none;
-            align-items: center; justify-content: center; padding: 20px;
-        }
-        .upload-modal-overlay.active { display: flex; }
-        .upload-modal {
-            background: var(--bg-card); border-radius: var(--radius-lg);
-            max-width: 500px; width: 100%; padding: 40px;
-            box-shadow: var(--shadow-xl); border: 1px solid var(--border-color);
-            animation: modalIn 0.4s ease forwards;
-        }
-        .upload-modal h2 {
-            font-size: 24px; font-weight: 800; margin-bottom: 8px;
-            text-align: center;
-        }
-        .upload-modal p {
-            color: var(--text-secondary); text-align: center;
-            margin-bottom: 24px;
-        }
-        .upload-modal .form-group { margin-bottom: 16px; }
-        .upload-modal .form-group label {
-            display: block; font-weight: 600; margin-bottom: 6px; font-size: 14px;
-        }
-        .upload-modal .form-group input,
-        .upload-modal .form-group select {
-            width: 100%; padding: 12px 16px;
-            border: 2px solid var(--border-color); border-radius: var(--radius-md);
-            background: var(--bg-secondary); color: var(--text-primary);
-            font-family: inherit; font-size: 15px; transition: var(--transition);
-            outline: none;
-        }
-        .upload-modal .form-group input:focus,
-        .upload-modal .form-group select:focus {
-            border-color: var(--grade-2);
-            box-shadow: 0 0 0 4px rgba(59,130,246,0.1);
-        }
-        .upload-modal .form-group input[type="file"] {
-            padding: 10px; border: 2px dashed var(--border-color);
-            background: var(--bg-secondary); cursor: pointer;
-        }
-        .upload-modal .upload-actions {
-            display: flex; gap: 12px; margin-top: 20px;
-        }
-        .upload-modal .upload-actions button {
-            flex: 1; padding: 12px; border-radius: 60px;
-            font-weight: 700; transition: var(--transition);
-        }
-        .upload-modal .upload-actions .btn-submit {
-            background: linear-gradient(135deg, var(--grade-1), var(--grade-1-dark));
-            color: white;
-        }
-        .upload-modal .upload-actions .btn-submit:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(34,197,94,0.3);
-        }
-        .upload-modal .upload-actions .btn-cancel {
-            background: var(--bg-secondary); color: var(--text-primary);
-            border: 1px solid var(--border-color);
-        }
-        .upload-modal .upload-actions .btn-cancel:hover { background: var(--border-color); }
-        
-        /* ===== FOOTER ===== */
+        /* ===== الفوتر ===== */
         .footer {
-            background: var(--bg-primary); border-top: 1px solid var(--border-color);
-            padding: 60px 0 30px;
+            background: var(--bg); border-top: 1px solid var(--border);
+            padding: 40px 0 20px;
         }
         .footer-grid {
             display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 40px; margin-bottom: 40px;
+            gap: 30px; margin-bottom: 30px;
         }
-        .footer-brand p {
-            color: var(--text-secondary); font-size: 15px;
-            max-width: 300px; margin-top: 12px;
-        }
-        .footer-brand .logo {
-            display: flex; align-items: center; gap: 12px;
-        }
-        .footer-brand .logo img {
-            width: 40px; height: 40px; border-radius: 10px; object-fit: cover;
-        }
-        .footer-brand .logo span {
-            font-size: 20px; font-weight: 800;
-            background: linear-gradient(135deg, var(--grade-1), var(--grade-2), var(--grade-3));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .footer h4 { font-size: 16px; font-weight: 700; margin-bottom: 16px; }
+        .footer p { color: var(--text2); font-size: 15px; max-width: 300px; margin-top: 8px; }
+        .footer h4 { font-size: 16px; font-weight: 700; margin-bottom: 12px; }
         .footer ul { list-style: none; }
-        .footer ul li { margin-bottom: 10px; }
+        .footer ul li { margin-bottom: 8px; }
         .footer ul li a {
-            color: var(--text-secondary); transition: var(--transition); font-size: 15px;
+            color: var(--text2); transition: var(--transition); font-size: 15px;
         }
-        .footer ul li a:hover { color: var(--text-primary); padding-right: 4px; }
-        .footer-social {
-            display: flex; gap: 12px; margin-top: 16px; flex-wrap: wrap;
+        .footer ul li a:hover { color: var(--text); padding-right: 4px; }
+        .footer .social {
+            display: flex; gap: 10px; margin-top: 12px;
         }
-        .footer-social a {
-            width: 40px; height: 40px; border-radius: 50%;
-            background: var(--bg-secondary); display: flex;
-            align-items: center; justify-content: center;
-            color: var(--text-secondary); transition: var(--transition);
-            border: 1px solid var(--border-color);
+        .footer .social a {
+            width: 36px; height: 36px; border-radius: 50%;
+            background: var(--bg2); display: flex; align-items: center;
+            justify-content: center; color: var(--text2);
+            border: 1px solid var(--border); transition: var(--transition);
         }
-        .footer-social a:hover {
-            background: var(--grade-1); color: white;
-            border-color: var(--grade-1); transform: translateY(-3px);
+        .footer .social a:hover {
+            background: var(--green); color: white; border-color: var(--green);
+            transform: translateY(-3px);
         }
         .footer-bottom {
-            border-top: 1px solid var(--border-color); padding-top: 24px;
-            display: flex; justify-content: space-between; align-items: center;
-            font-size: 14px; color: var(--text-muted);
+            border-top: 1px solid var(--border); padding-top: 16px;
+            display: flex; justify-content: space-between;
+            font-size: 14px; color: var(--text3);
         }
-        .footer-bottom .links { display: flex; gap: 24px; }
-        .footer-bottom .links a {
-            color: var(--text-muted); transition: var(--transition);
-        }
-        .footer-bottom .links a:hover { color: var(--text-primary); }
+        .footer-bottom .links { display: flex; gap: 20px; }
+        .footer-bottom .links a { color: var(--text3); transition: var(--transition); }
+        .footer-bottom .links a:hover { color: var(--text); }
         
-        /* ===== RESPONSIVE ===== */
+        /* ===== بوب اب ===== */
+        .popup {
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(12px);
+            z-index: 99999;
+            display: none;
+            align-items: center; justify-content: center;
+            padding: 20px;
+        }
+        .popup.active { display: flex; }
+        .popup-box {
+            background: var(--card); border-radius: var(--radius-lg);
+            padding: 40px; max-width: 400px; width: 100%;
+            text-align: center; box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border);
+            animation: popIn 0.4s ease forwards;
+        }
+        @keyframes popIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .popup-box .icon { font-size: 48px; margin-bottom: 8px; }
+        .popup-box h2 { font-size: 22px; font-weight: 800; }
+        .popup-box p { color: var(--text2); margin: 8px 0 20px; }
+        .popup-box .btns { display: flex; flex-direction: column; gap: 10px; }
+        .popup-box .btns button {
+            padding: 12px; border-radius: 60px; font-weight: 700;
+            transition: var(--transition);
+        }
+        .popup-box .btns .login {
+            background: var(--bg2); color: var(--text);
+            border: 1px solid var(--border);
+        }
+        .popup-box .btns .login:hover { background: var(--border); }
+        .popup-box .btns .register {
+            background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+            color: white;
+        }
+        .popup-box .btns .register:hover { transform: scale(1.02); }
+        .popup-box .btns .later {
+            background: transparent; color: var(--text3);
+            font-weight: 400; font-size: 14px;
+        }
+        .popup-box .btns .later:hover { color: var(--text2); }
+        
+        /* ===== رفع ملخص ===== */
+        .upload {
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(16px);
+            z-index: 99998;
+            display: none;
+            align-items: center; justify-content: center;
+            padding: 20px;
+        }
+        .upload.active { display: flex; }
+        .upload-box {
+            background: var(--card); border-radius: var(--radius-lg);
+            padding: 32px; max-width: 460px; width: 100%;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-lg);
+            animation: popIn 0.4s ease forwards;
+        }
+        .upload-box h2 { text-align: center; font-size: 22px; font-weight: 800; }
+        .upload-box p { text-align: center; color: var(--text2); margin-bottom: 16px; }
+        .upload-box .group { margin-bottom: 14px; }
+        .upload-box .group label {
+            display: block; font-weight: 600; font-size: 14px; margin-bottom: 4px;
+        }
+        .upload-box .group input,
+        .upload-box .group select {
+            width: 100%; padding: 10px 14px;
+            border: 2px solid var(--border); border-radius: var(--radius);
+            background: var(--bg2); color: var(--text);
+            font-family: inherit; font-size: 15px; outline: none;
+            transition: var(--transition);
+        }
+        .upload-box .group input:focus,
+        .upload-box .group select:focus { border-color: var(--blue); }
+        .upload-box .group input[type="file"] {
+            padding: 10px; border: 2px dashed var(--border);
+            cursor: pointer;
+        }
+        .upload-box .actions {
+            display: flex; gap: 10px; margin-top: 16px;
+        }
+        .upload-box .actions button {
+            flex: 1; padding: 12px; border-radius: 60px;
+            font-weight: 700; transition: var(--transition);
+        }
+        .upload-box .actions .submit {
+            background: linear-gradient(135deg, var(--green), var(--green-dark));
+            color: white;
+        }
+        .upload-box .actions .submit:hover { transform: translateY(-2px); }
+        .upload-box .actions .cancel {
+            background: var(--bg2); color: var(--text);
+            border: 1px solid var(--border);
+        }
+        .upload-box .actions .cancel:hover { background: var(--border); }
+        
+        /* ===== استجابة ===== */
         @media (max-width: 1024px) {
-            .hero-container { grid-template-columns: 1fr; text-align: center; }
-            .hero-content p { margin: 0 auto 32px; }
-            .hero-buttons { justify-content: center; }
-            .hero-stats { justify-content: center; }
-            .hero-image img { max-width: 400px; }
+            .hero-grid { grid-template-columns: 1fr; text-align: center; }
+            .hero p { margin: 12px auto; }
+            .hero .btns { justify-content: center; }
+            .hero .stats { justify-content: center; }
             .grades-grid { grid-template-columns: 1fr 1fr; }
             .footer-grid { grid-template-columns: 1fr 1fr; }
-            .book-page .book-header { grid-template-columns: 1fr; }
-            .book-page .book-cover-large { max-width: 220px; margin: 0 auto; }
+            .book-page .grid { grid-template-columns: 1fr; }
+            .book-page .cover { max-width: 200px; margin: 0 auto; }
         }
         @media (max-width: 768px) {
-            .nav-search { display: none; }
-            .hero { padding: 120px 0 60px; min-height: auto; }
-            .hero-content h1 { font-size: 36px; }
-            .hero-content p { font-size: 17px; }
-            .hero-stats { gap: 20px; flex-wrap: wrap; }
-            .hero-stats .stat-number { font-size: 24px; }
-            .hero-image img { max-width: 300px; }
-            .hero-image .floating-badge {
-                bottom: -10px; left: 10px; padding: 12px 16px;
-            }
+            .search-box { display: none; }
+            .hero h1 { font-size: 32px; }
+            .hero { padding: 100px 0 40px; min-height: auto; }
+            .hero .stats { gap: 20px; flex-wrap: wrap; }
+            .hero .stats .num { font-size: 22px; }
             .grades-grid { grid-template-columns: 1fr; }
-            .books-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
-            .section-header h2 { font-size: 24px; }
+            .books-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+            .section-header h2 { font-size: 22px; }
             .footer-grid { grid-template-columns: 1fr; }
-            .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
-            .book-page .book-header { grid-template-columns: 1fr; }
-            .book-page .book-cover-large { max-width: 180px; }
-            .book-page .book-info-large h1 { font-size: 24px; }
-            .book-page .book-actions-large button { flex: 1; min-width: 120px; }
-            .nav-actions .btn-auth { padding: 8px 16px; font-size: 13px; }
-            .nav-actions .btn-register span { display: none; }
-            .nav-logo span { font-size: 16px; }
-            .nav-logo img { width: 34px; height: 34px; }
+            .footer-bottom { flex-direction: column; gap: 10px; text-align: center; }
+            .book-page .info h1 { font-size: 22px; }
+            .book-page .info .actions button { flex: 1; min-width: 100px; }
+            .actions .btn { padding: 6px 14px; font-size: 13px; }
+            .actions .btn-register span { display: none; }
         }
         @media (max-width: 480px) {
-            .books-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
-            .book-card .book-cover { height: 140px; font-size: 40px; }
-            .book-card .book-info h4 { font-size: 14px; }
-            .container { padding: 0 16px; }
-            .popup { padding: 32px 24px; }
-            .upload-modal { padding: 24px; }
-            .book-page { padding: 12px; }
-            .book-page .book-actions-large button { padding: 10px 16px; font-size: 13px; }
+            .books-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+            .book-card .cover { height: 120px; font-size: 32px; }
+            .book-card .info h4 { font-size: 13px; }
+            .container { padding: 0 12px; }
+            .popup-box { padding: 24px; }
+            .upload-box { padding: 20px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- ===== NAVBAR ===== -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <img src="https://cdn.phototourl.com/free/2026-07-21-1dd4b984-ed08-4a40-aead-9ef086ebbd45.jpg" alt="الثانوية الرسمية بلس">
+    <!-- ===== هيدر ===== -->
+    <header class="header" id="header">
+        <div class="header-inner">
+            <div class="logo">
+                <img src="https://cdn.phototourl.com/free/2026-07-21-1dd4b984-ed08-4a40-aead-9ef086ebbd45.jpg" alt="المنصة">
                 <span>الثانوية الرسمية بلس</span>
             </div>
-            <div class="nav-search">
-                <input type="text" id="searchInput" placeholder="ابحث عن كتاب، مذكرة، امتحان..." autocomplete="off">
-                <span class="search-icon"><i class="fas fa-search"></i></span>
+            
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="ابحث عن كتاب، مذكرة، امتحان...">
+                <span class="icon"><i class="fas fa-search"></i></span>
                 <div class="search-results" id="searchResults"></div>
             </div>
-            <div class="nav-actions">
-                <button class="btn-icon theme-toggle" id="themeToggle"><i class="fas fa-moon theme-icon"></i></button>
-                <button class="btn-icon notification-badge"><i class="fas fa-bell"></i></button>
-                <div id="authButtons">
-                    <button class="btn-auth btn-login" id="loginBtn"><i class="fas fa-sign-in-alt"></i> تسجيل الدخول</button>
-                    <button class="btn-auth btn-register" id="registerBtn"><i class="fas fa-user-plus"></i> <span>إنشاء حساب</span></button>
+            
+            <div class="actions">
+                <button class="icon-btn" id="themeToggle"><i class="fas fa-moon"></i></button>
+                <button class="icon-btn"><i class="fas fa-bell"></i></button>
+                <div id="authBtns">
+                    <button class="btn btn-login" id="loginBtn">تسجيل الدخول</button>
+                    <button class="btn btn-register" id="registerBtn"><span>إنشاء حساب</span></button>
                 </div>
-                <div id="userActions" style="display:none; position:relative;">
-                    <div class="user-avatar" id="userAvatar"><i class="fas fa-user"></i></div>
-                    <div class="user-menu" id="userMenu" style="display:none; position:absolute; top:calc(100%+8px); left:0; background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius-md); box-shadow:var(--shadow-lg); min-width:200px; padding:8px; z-index:100;">
-                        <div class="user-menu-item" data-page="profile" style="padding:10px 16px; display:flex; align-items:center; gap:12px; border-radius:var(--radius-sm); transition:var(--transition); cursor:pointer;"><i class="fas fa-user"></i> الملف الشخصي</div>
-                        <div class="user-menu-item" data-page="favorites" style="padding:10px 16px; display:flex; align-items:center; gap:12px; border-radius:var(--radius-sm); transition:var(--transition); cursor:pointer;"><i class="fas fa-bookmark"></i> المفضلة</div>
-                        <div class="user-menu-item" data-page="upload" style="padding:10px 16px; display:flex; align-items:center; gap:12px; border-radius:var(--radius-sm); transition:var(--transition); cursor:pointer;"><i class="fas fa-upload"></i> أرسل ملخصك</div>
-                        <div class="user-menu-item" data-page="achievements" style="padding:10px 16px; display:flex; align-items:center; gap:12px; border-radius:var(--radius-sm); transition:var(--transition); cursor:pointer;"><i class="fas fa-trophy"></i> إنجازاتي</div>
-                        <div class="user-menu-item logout" id="logoutBtn" style="padding:10px 16px; display:flex; align-items:center; gap:12px; border-radius:var(--radius-sm); transition:var(--transition); cursor:pointer; color:var(--grade-3); border-top:1px solid var(--border-color); margin-top:4px; padding-top:8px;"><i class="fas fa-sign-out-alt"></i> تسجيل الخروج</div>
+                <div id="userArea" style="display:none; position:relative;">
+                    <div class="avatar" id="userAvatar"><i class="fas fa-user"></i></div>
+                    <div id="userMenu" style="display:none; position:absolute; top:calc(100%+8px); left:0; background:var(--card); border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow-lg); min-width:180px; padding:6px; z-index:100;">
+                        <div style="padding:10px 14px; display:flex; align-items:center; gap:10px; border-radius:8px; transition:var(--transition); cursor:pointer;" data-page="profile"><i class="fas fa-user"></i> الملف الشخصي</div>
+                        <div style="padding:10px 14px; display:flex; align-items:center; gap:10px; border-radius:8px; transition:var(--transition); cursor:pointer;" data-page="favorites"><i class="fas fa-bookmark"></i> المفضلة</div>
+                        <div style="padding:10px 14px; display:flex; align-items:center; gap:10px; border-radius:8px; transition:var(--transition); cursor:pointer;" data-page="upload"><i class="fas fa-upload"></i> أرسل ملخصك</div>
+                        <div style="padding:10px 14px; display:flex; align-items:center; gap:10px; border-radius:8px; transition:var(--transition); cursor:pointer;" data-page="achievements"><i class="fas fa-trophy"></i> إنجازاتي</div>
+                        <div style="padding:10px 14px; display:flex; align-items:center; gap:10px; border-radius:8px; transition:var(--transition); cursor:pointer; color:var(--red); border-top:1px solid var(--border); margin-top:4px; padding-top:8px;" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> تسجيل الخروج</div>
                     </div>
                 </div>
             </div>
         </div>
-    </nav>
+    </header>
 
-    <!-- ===== HERO ===== -->
+    <!-- ===== هيرو ===== -->
     <section class="hero">
-        <div class="container hero-container">
-            <div class="hero-content animate-fade-up">
-                <h1>أكبر مكتبة<br><span class="highlight">تعليمية عربية</span><br>مجانية</h1>
-                <p>منصة الثانوية الرسمية بلس تجمع لك آلاف الكتب والملخصات والامتحانات لجميع صفوف الثانوية العامة في مكان واحد.</p>
-                <div class="hero-buttons">
-                    <button class="btn-primary" id="heroStartBtn"><i class="fas fa-rocket"></i> ابدأ الآن</button>
-                    <button class="btn-secondary" id="heroBrowseBtn"><i class="fas fa-book"></i> استكشف المكتبة</button>
+        <div class="container">
+            <div class="hero-grid">
+                <div>
+                    <h1>أكبر مكتبة<br><span class="highlight">تعليمية عربية</span><br>مجانية</h1>
+                    <p>منصة الثانوية الرسمية بلس تجمع لك آلاف الكتب والملخصات والامتحانات لجميع صفوف الثانوية العامة في مكان واحد.</p>
+                    <div class="btns">
+                        <button class="primary" id="heroStart"><i class="fas fa-rocket"></i> ابدأ الآن</button>
+                        <button class="secondary" id="heroBrowse"><i class="fas fa-book"></i> استكشف المكتبة</button>
+                    </div>
+                    <div class="stats">
+                        <div class="item"><div class="num" id="statBooks">0</div><div class="label">كتاب</div></div>
+                        <div class="item"><div class="num" id="statSummaries">0</div><div class="label">ملخص</div></div>
+                        <div class="item"><div class="num" id="statExams">0</div><div class="label">امتحان</div></div>
+                        <div class="item"><div class="num" id="statUsers">0</div><div class="label">طالب</div></div>
+                    </div>
                 </div>
-                <div class="hero-stats">
-                    <div class="stat-item"><div class="stat-number" id="statBooks">0</div><div class="stat-label">كتاب</div></div>
-                    <div class="stat-item"><div class="stat-number" id="statSummaries">0</div><div class="stat-label">ملخص</div></div>
-                    <div class="stat-item"><div class="stat-number" id="statExams">0</div><div class="stat-label">امتحان</div></div>
-                    <div class="stat-item"><div class="stat-number" id="statUsers">0</div><div class="stat-label">طالب</div></div>
-                </div>
-            </div>
-            <div class="hero-image animate-fade-up delay-1">
-                <img src="https://cdn.phototourl.com/free/2026-07-21-1dd4b984-ed08-4a40-aead-9ef086ebbd45.jpg" alt="منصة الثانوية الرسمية بلس" loading="lazy">
-                <div class="floating-badge">
-                    <i class="fas fa-star"></i>
-                    <div><strong>4.8</strong><span>تقييم الطلاب</span></div>
+                <div class="hero-image">
+                    <img src="https://cdn.phototourl.com/free/2026-07-21-1dd4b984-ed08-4a40-aead-9ef086ebbd45.jpg" alt="المنصة" loading="lazy">
+                    <div class="badge">
+                        <i class="fas fa-star"></i>
+                        <div><strong>4.8</strong><span>تقييم الطلاب</span></div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ===== GRADES ===== -->
-    <section class="section" style="background: var(--bg-secondary);">
+    <!-- ===== الصفوف ===== -->
+    <section class="section" style="background:var(--bg2);">
         <div class="container">
-            <div class="section-header animate-fade-up">
+            <div class="section-header">
                 <h2>🎯 اختر صفك الدراسي</h2>
-                <a href="#" class="see-all">جميع الصفوف <i class="fas fa-arrow-left"></i></a>
+                <a href="#" class="more">جميع الصفوف <i class="fas fa-arrow-left"></i></a>
             </div>
             <div class="grades-grid">
-                <div class="grade-card grade-1 animate-fade-up delay-1">
-                    <div class="card-image">
+                <div class="grade-card grade-1">
+                    <div class="img">
                         <img src="https://cdn.phototourl.com/free/2026-07-21-d4bc3784-1377-4026-959b-a7320235824b.png" alt="أولى بكالوريا" loading="lazy">
-                        <span class="grade-badge">🟢 أولى بكالوريا</span>
+                        <span class="badge">🟢 أولى بكالوريا</span>
                     </div>
-                    <div class="card-body">
+                    <div class="body">
                         <h3>أولى بكالوريا</h3>
-                        <div class="card-stats">
-                            <span><i class="fas fa-book"></i> <span class="grade-book-count">0</span></span>
-                            <span><i class="fas fa-file-alt"></i> <span class="grade-summary-count">0</span></span>
-                            <span><i class="fas fa-pencil-alt"></i> <span class="grade-exam-count">0</span></span>
+                        <div class="stats">
+                            <span><i class="fas fa-book"></i> <span class="g1-books">0</span></span>
+                            <span><i class="fas fa-file-alt"></i> <span class="g1-summaries">0</span></span>
+                            <span><i class="fas fa-pencil-alt"></i> <span class="g1-exams">0</span></span>
                         </div>
-                        <button class="btn-grade" data-grade="1">دخول <i class="fas fa-arrow-left"></i></button>
+                        <button class="enter" data-grade="1">دخول <i class="fas fa-arrow-left"></i></button>
                     </div>
                 </div>
-                <div class="grade-card grade-2 animate-fade-up delay-2">
-                    <div class="card-image">
+                <div class="grade-card grade-2">
+                    <div class="img">
                         <img src="https://cdn.phototourl.com/free/2026-07-21-84dbfb87-9f34-4c32-a7c9-676e6c0fda9b.png" alt="ثانية بكالوريا" loading="lazy">
-                        <span class="grade-badge">🔵 ثانية بكالوريا</span>
+                        <span class="badge">🔵 ثانية بكالوريا</span>
                     </div>
-                    <div class="card-body">
+                    <div class="body">
                         <h3>ثانية بكالوريا</h3>
-                        <div class="card-stats">
-                            <span><i class="fas fa-book"></i> <span class="grade-book-count">0</span></span>
-                            <span><i class="fas fa-file-alt"></i> <span class="grade-summary-count">0</span></span>
-                            <span><i class="fas fa-pencil-alt"></i> <span class="grade-exam-count">0</span></span>
+                        <div class="stats">
+                            <span><i class="fas fa-book"></i> <span class="g2-books">0</span></span>
+                            <span><i class="fas fa-file-alt"></i> <span class="g2-summaries">0</span></span>
+                            <span><i class="fas fa-pencil-alt"></i> <span class="g2-exams">0</span></span>
                         </div>
-                        <button class="btn-grade" data-grade="2">دخول <i class="fas fa-arrow-left"></i></button>
+                        <button class="enter" data-grade="2">دخول <i class="fas fa-arrow-left"></i></button>
                     </div>
                 </div>
-                <div class="grade-card grade-3 animate-fade-up delay-3">
-                    <div class="card-image">
+                <div class="grade-card grade-3">
+                    <div class="img">
                         <img src="https://cdn.phototourl.com/free/2026-07-21-ca704138-9452-4697-bcf4-ec14ad8c52c1.png" alt="ثالثة ثانوي" loading="lazy">
-                        <span class="grade-badge">🔴 ثالثة ثانوي</span>
+                        <span class="badge">🔴 ثالثة ثانوي</span>
                     </div>
-                    <div class="card-body">
+                    <div class="body">
                         <h3>ثالثة ثانوي</h3>
-                        <div class="card-stats">
-                            <span><i class="fas fa-book"></i> <span class="grade-book-count">0</span></span>
-                            <span><i class="fas fa-file-alt"></i> <span class="grade-summary-count">0</span></span>
-                            <span><i class="fas fa-pencil-alt"></i> <span class="grade-exam-count">0</span></span>
+                        <div class="stats">
+                            <span><i class="fas fa-book"></i> <span class="g3-books">0</span></span>
+                            <span><i class="fas fa-file-alt"></i> <span class="g3-summaries">0</span></span>
+                            <span><i class="fas fa-pencil-alt"></i> <span class="g3-exams">0</span></span>
                         </div>
-                        <button class="btn-grade" data-grade="3">دخول <i class="fas fa-arrow-left"></i></button>
+                        <button class="enter" data-grade="3">دخول <i class="fas fa-arrow-left"></i></button>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ===== LATEST BOOKS ===== -->
+    <!-- ===== أحدث الكتب ===== -->
     <section class="section" id="booksSection">
         <div class="container">
-            <div class="section-header animate-fade-up">
+            <div class="section-header">
                 <h2>📚 أحدث الكتب</h2>
-                <a href="#" class="see-all">عرض الكل <i class="fas fa-arrow-left"></i></a>
+                <a href="#" class="more">عرض الكل <i class="fas fa-arrow-left"></i></a>
             </div>
             <div class="books-grid" id="latestBooks">
-                <div class="skeleton"><div class="skeleton-cover"></div><div class="skeleton-info"><div class="skeleton-line"></div><div class="skeleton-line short"></div><div class="skeleton-line last"></div></div></div>
-                <div class="skeleton"><div class="skeleton-cover"></div><div class="skeleton-info"><div class="skeleton-line"></div><div class="skeleton-line short"></div><div class="skeleton-line last"></div></div></div>
-                <div class="skeleton"><div class="skeleton-cover"></div><div class="skeleton-info"><div class="skeleton-line"></div><div class="skeleton-line short"></div><div class="skeleton-line last"></div></div></div>
-                <div class="skeleton"><div class="skeleton-cover"></div><div class="skeleton-info"><div class="skeleton-line"></div><div class="skeleton-line short"></div><div class="skeleton-line last"></div></div></div>
+                <div class="skeleton"><div class="s-cover"></div><div class="s-info"><div class="s-line"></div><div class="s-line short"></div></div></div>
+                <div class="skeleton"><div class="s-cover"></div><div class="s-info"><div class="s-line"></div><div class="s-line short"></div></div></div>
+                <div class="skeleton"><div class="s-cover"></div><div class="s-info"><div class="s-line"></div><div class="s-line short"></div></div></div>
+                <div class="skeleton"><div class="s-cover"></div><div class="s-info"><div class="s-line"></div><div class="s-line short"></div></div></div>
             </div>
         </div>
     </section>
 
-    <!-- ===== MOST DOWNLOADED ===== -->
-    <section class="section" style="background: var(--bg-secondary);">
+    <!-- ===== الأكثر تحميلاً ===== -->
+    <section class="section" style="background:var(--bg2);">
         <div class="container">
-            <div class="section-header animate-fade-up">
+            <div class="section-header">
                 <h2>🔥 الأكثر تحميلاً</h2>
-                <a href="#" class="see-all">عرض الكل <i class="fas fa-arrow-left"></i></a>
+                <a href="#" class="more">عرض الكل <i class="fas fa-arrow-left"></i></a>
             </div>
             <div class="books-grid" id="popularBooks">
-                <div class="skeleton"><div class="skeleton-cover"></div><div class="skeleton-info"><div class="skeleton-line"></div><div class="skeleton-line short"></div><div class="skeleton-line last"></div></div></div>
-                <div class="skeleton"><div class="skeleton-cover"></div><div class="skeleton-info"><div class="skeleton-line"></div><div class="skeleton-line short"></div><div class="skeleton-line last"></div></div></div>
-                <div class="skeleton"><div class="skeleton-cover"></div><div class="skeleton-info"><div class="skeleton-line"></div><div class="skeleton-line short"></div><div class="skeleton-line last"></div></div></div>
-                <div class="skeleton"><div class="skeleton-cover"></div><div class="skeleton-info"><div class="skeleton-line"></div><div class="skeleton-line short"></div><div class="skeleton-line last"></div></div></div>
+                <div class="skeleton"><div class="s-cover"></div><div class="s-info"><div class="s-line"></div><div class="s-line short"></div></div></div>
+                <div class="skeleton"><div class="s-cover"></div><div class="s-info"><div class="s-line"></div><div class="s-line short"></div></div></div>
+                <div class="skeleton"><div class="s-cover"></div><div class="s-info"><div class="s-line"></div><div class="s-line short"></div></div></div>
+                <div class="skeleton"><div class="s-cover"></div><div class="s-info"><div class="s-line"></div><div class="s-line short"></div></div></div>
             </div>
         </div>
     </section>
 
-    <!-- ===== TOP RATED ===== -->
+    <!-- ===== أعلى تقييماً ===== -->
     <section class="section">
         <div class="container">
-            <div class="section-header animate-fade-up">
+            <div class="section-header">
                 <h2>⭐ أعلى تقييماً</h2>
-                <a href="#" class="see-all">عرض الكل <i class="fas fa-arrow-left"></i></a>
+                <a href="#" class="more">عرض الكل <i class="fas fa-arrow-left"></i></a>
             </div>
             <div class="books-grid" id="topRatedBooks">
-                <div class="skeleton"><div class="skeleton-cover"></div><div class="skeleton-info"><div class="skeleton-line"></div><div class="skeleton-line short"></div><div class="skeleton-line last"></div></div></div>
-                <div class="skeleton"><div class="skeleton-cover"></div><div class="skeleton-info"><div class="skeleton-line"></div><div class="skeleton-line short"></div><div class="skeleton-line last"></div></div></div>
-                <div class="skeleton"><div class="skeleton-cover"></div><div class="skeleton-info"><div class="skeleton-line"></div><div class="skeleton-line short"></div><div class="skeleton-line last"></div></div></div>
-                <div class="skeleton"><div class="skeleton-cover"></div><div class="skeleton-info"><div class="skeleton-line"></div><div class="skeleton-line short"></div><div class="skeleton-line last"></div></div></div>
+                <div class="skeleton"><div class="s-cover"></div><div class="s-info"><div class="s-line"></div><div class="s-line short"></div></div></div>
+                <div class="skeleton"><div class="s-cover"></div><div class="s-info"><div class="s-line"></div><div class="s-line short"></div></div></div>
+                <div class="skeleton"><div class="s-cover"></div><div class="s-info"><div class="s-line"></div><div class="s-line short"></div></div></div>
+                <div class="skeleton"><div class="s-cover"></div><div class="s-info"><div class="s-line"></div><div class="s-line short"></div></div></div>
             </div>
         </div>
     </section>
 
-    <!-- ===== LATEST SUMMARIES ===== -->
-    <section class="section" style="background: var(--bg-secondary);">
+    <!-- ===== أحدث الملخصات ===== -->
+    <section class="section" style="background:var(--bg2);">
         <div class="container">
-            <div class="section-header animate-fade-up">
+            <div class="section-header">
                 <h2>📝 أحدث الملخصات</h2>
-                <a href="#" class="see-all">عرض الكل <i class="fas fa-arrow-left"></i></a>
+                <a href="#" class="more">عرض الكل <i class="fas fa-arrow-left"></i></a>
             </div>
             <div class="books-grid" id="latestSummaries">
-                <div class="skeleton"><div class="skeleton-cover"></div><div class="skeleton-info"><div class="skeleton-line"></div><div class="skeleton-line short"></div><div class="skeleton-line last"></div></div></div>
-                <div class="skeleton"><div class="skeleton-cover"></div><div class="skeleton-info"><div class="skeleton-line"></div><div class="skeleton-line short"></div><div class="skeleton-line last"></div></div></div>
-                <div class="skeleton"><div class="skeleton-cover"></div><div class="skeleton-info"><div class="skeleton-line"></div><div class="skeleton-line short"></div><div class="skeleton-line last"></div></div></div>
-                <div class="skeleton"><div class="skeleton-cover"></div><div class="skeleton-info"><div class="skeleton-line"></div><div class="skeleton-line short"></div><div class="skeleton-line last"></div></div></div>
+                <div class="skeleton"><div class="s-cover"></div><div class="s-info"><div class="s-line"></div><div class="s-line short"></div></div></div>
+                <div class="skeleton"><div class="s-cover"></div><div class="s-info"><div class="s-line"></div><div class="s-line short"></div></div></div>
+                <div class="skeleton"><div class="s-cover"></div><div class="s-info"><div class="s-line"></div><div class="s-line short"></div></div></div>
+                <div class="skeleton"><div class="s-cover"></div><div class="s-info"><div class="s-line"></div><div class="s-line short"></div></div></div>
             </div>
         </div>
     </section>
 
-    <!-- ===== LATEST EXAMS ===== -->
+    <!-- ===== أحدث الامتحانات ===== -->
     <section class="section">
         <div class="container">
-            <div class="section-header animate-fade-up">
+            <div class="section-header">
                 <h2>🧪 أحدث الامتحانات</h2>
-                <a href="#" class="see-all">عرض الكل <i class="fas fa-arrow-left"></i></a>
+                <a href="#" class="more">عرض الكل <i class="fas fa-arrow-left"></i></a>
             </div>
             <div class="books-grid" id="latestExams">
-                <div class="skeleton"><div class="skeleton-cover"></div><div class="skeleton-info"><div class="skeleton-line"></div><div class="skeleton-line short"></div><div class="skeleton-line last"></div></div></div>
-                <div class="skeleton"><div class="skeleton-cover"></div><div class="skeleton-info"><div class="skeleton-line"></div><div class="skeleton-line short"></div><div class="skeleton-line last"></div></div></div>
-                <div class="skeleton"><div class="skeleton-cover"></div><div class="skeleton-info"><div class="skeleton-line"></div><div class="skeleton-line short"></div><div class="skeleton-line last"></div></div></div>
-                <div class="skeleton"><div class="skeleton-cover"></div><div class="skeleton-info"><div class="skeleton-line"></div><div class="skeleton-line short"></div><div class="skeleton-line last"></div></div></div>
+                <div class="skeleton"><div class="s-cover"></div><div class="s-info"><div class="s-line"></div><div class="s-line short"></div></div></div>
+                <div class="skeleton"><div class="s-cover"></div><div class="s-info"><div class="s-line"></div><div class="s-line short"></div></div></div>
+                <div class="skeleton"><div class="s-cover"></div><div class="s-info"><div class="s-line"></div><div class="s-line short"></div></div></div>
+                <div class="skeleton"><div class="s-cover"></div><div class="s-info"><div class="s-line"></div><div class="s-line short"></div></div></div>
             </div>
         </div>
     </section>
 
-    <!-- ===== FOOTER ===== -->
+    <!-- ===== فوتر ===== -->
     <footer class="footer">
         <div class="container">
             <div class="footer-grid">
-                <div class="footer-brand">
-                    <div class="logo">
-                        <img src="https://cdn.phototourl.com/free/2026-07-21-1dd4b984-ed08-4a40-aead-9ef086ebbd45.jpg" alt="الثانوية الرسمية بلس">
+                <div>
+                    <div class="logo" style="font-size:18px;">
+                        <img src="https://cdn.phototourl.com/free/2026-07-21-1dd4b984-ed08-4a40-aead-9ef086ebbd45.jpg" alt="المنصة" style="width:32px;height:32px;">
                         <span>الثانوية الرسمية بلس</span>
                     </div>
                     <p>أكبر مكتبة تعليمية عربية مجانية لطلاب أولى بكالوريا، ثانية بكالوريا، وثالثة ثانوي.</p>
-                    <div class="footer-social">
+                    <div class="social">
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
                         <a href="#"><i class="fab fa-twitter"></i></a>
                         <a href="#"><i class="fab fa-youtube"></i></a>
@@ -1179,62 +958,62 @@
         </div>
     </footer>
 
-    <!-- ===== POPUP ===== -->
-    <div class="popup-overlay" id="popupOverlay">
-        <div class="popup">
-            <div class="popup-icon">✨</div>
+    <!-- ===== بوب اب ===== -->
+    <div class="popup" id="popup">
+        <div class="popup-box">
+            <div class="icon">✨</div>
             <h2>مرحباً بك في الثانوية الرسمية بلس</h2>
             <p>للاستفادة من جميع الخدمات<br>يرجى إنشاء حساب مجاني.</p>
-            <div class="popup-actions">
-                <button class="btn-login" id="popupLogin">تسجيل الدخول</button>
-                <button class="btn-register" id="popupRegister">إنشاء حساب</button>
-                <button class="btn-later" id="popupLater">لاحقاً</button>
+            <div class="btns">
+                <button class="login" id="popupLogin">تسجيل الدخول</button>
+                <button class="register" id="popupRegister">إنشاء حساب</button>
+                <button class="later" id="popupLater">لاحقاً</button>
             </div>
         </div>
     </div>
 
-    <!-- ===== BOOK PAGE ===== -->
-    <div class="book-page-overlay" id="bookPage">
-        <div class="book-page">
-            <button class="book-page-close" id="bookPageClose"><i class="fas fa-times"></i></button>
-            <div id="bookPageContent"></div>
+    <!-- ===== صفحة الكتاب ===== -->
+    <div class="book-page" id="bookPage">
+        <div class="book-page-inner">
+            <button class="close" id="bookClose"><i class="fas fa-times"></i></button>
+            <div id="bookContent"></div>
         </div>
     </div>
 
-    <!-- ===== UPLOAD MODAL ===== -->
-    <div class="upload-modal-overlay" id="uploadModal">
-        <div class="upload-modal">
+    <!-- ===== رفع ملخص ===== -->
+    <div class="upload" id="uploadModal">
+        <div class="upload-box">
             <h2>📎 أرفق ملخصك</h2>
             <p>شارك ملخصك مع زملائك الطلاب</p>
             <form id="uploadForm">
-                <div class="form-group">
-                    <label for="uploadGrade">الصف</label>
-                    <select id="uploadGrade" required>
+                <div class="group">
+                    <label>الصف</label>
+                    <select id="uGrade" required>
                         <option value="">اختر الصف</option>
                         <option value="1">أولى بكالوريا</option>
                         <option value="2">ثانية بكالوريا</option>
                         <option value="3">ثالثة ثانوي</option>
                     </select>
                 </div>
-                <div class="form-group">
-                    <label for="uploadSubject">المادة</label>
-                    <input type="text" id="uploadSubject" placeholder="مثال: فيزياء" required>
+                <div class="group">
+                    <label>المادة</label>
+                    <input type="text" id="uSubject" placeholder="مثال: فيزياء" required>
                 </div>
-                <div class="form-group">
-                    <label for="uploadUnit">الوحدة</label>
-                    <input type="text" id="uploadUnit" placeholder="مثال: الوحدة الأولى">
+                <div class="group">
+                    <label>الوحدة</label>
+                    <input type="text" id="uUnit" placeholder="مثال: الوحدة الأولى">
                 </div>
-                <div class="form-group">
-                    <label for="uploadLesson">الدرس</label>
-                    <input type="text" id="uploadLesson" placeholder="مثال: درس الحركة" required>
+                <div class="group">
+                    <label>الدرس</label>
+                    <input type="text" id="uLesson" placeholder="مثال: درس الحركة" required>
                 </div>
-                <div class="form-group">
-                    <label for="uploadFile">رفع الملف (صورة أو PDF)</label>
-                    <input type="file" id="uploadFile" accept=".pdf,.jpg,.jpeg,.png,.webp" required>
+                <div class="group">
+                    <label>رفع الملف</label>
+                    <input type="file" id="uFile" accept=".pdf,.jpg,.jpeg,.png,.webp" required>
                 </div>
-                <div class="upload-actions">
-                    <button type="button" class="btn-cancel" id="uploadCancel">إلغاء</button>
-                    <button type="submit" class="btn-submit" id="uploadSubmit">إرسال</button>
+                <div class="actions">
+                    <button type="button" class="cancel" id="uploadCancel">إلغاء</button>
+                    <button type="submit" class="submit">إرسال</button>
                 </div>
             </form>
         </div>
@@ -1256,12 +1035,12 @@
 
     <script type="module">
         // ============================================================
-        // Firebase Configuration
+        // Firebase
         // ============================================================
         import { initializeApp } from "firebase/app";
         import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
         import { 
-            getFirestore, collection, query, orderBy, limit, getDocs, 
+            getFirestore, collection, query, orderBy, limit, getDocs,
             getCountFromServer, where, doc, getDoc, updateDoc, addDoc,
             serverTimestamp, increment, arrayUnion, arrayRemove
         } from "firebase/firestore";
@@ -1283,12 +1062,12 @@
         const storage = getStorage(app);
 
         // ============================================================
-        // DOM Refs
+        // DOM
         // ============================================================
-        const $ = (sel) => document.querySelector(sel);
-        const $$ = (sel) => document.querySelectorAll(sel);
+        const $ = (s) => document.querySelector(s);
+        const $$ = (s) => document.querySelectorAll(s);
 
-        const navbar = $('#navbar');
+        const header = $('#header');
         const themeToggle = $('#themeToggle');
         const searchInput = $('#searchInput');
         const searchResults = $('#searchResults');
@@ -1296,480 +1075,311 @@
         const registerBtn = $('#registerBtn');
         const footerLogin = $('#footerLogin');
         const footerRegister = $('#footerRegister');
-        const userActions = $('#userActions');
+        const userArea = $('#userArea');
         const userAvatar = $('#userAvatar');
         const userMenu = $('#userMenu');
-        const popupOverlay = $('#popupOverlay');
+        const popup = $('#popup');
         const popupLogin = $('#popupLogin');
         const popupRegister = $('#popupRegister');
         const popupLater = $('#popupLater');
-        const heroStartBtn = $('#heroStartBtn');
-        const heroBrowseBtn = $('#heroBrowseBtn');
+        const heroStart = $('#heroStart');
+        const heroBrowse = $('#heroBrowse');
         const logoutBtn = $('#logoutBtn');
         const bookPage = $('#bookPage');
-        const bookPageClose = $('#bookPageClose');
-        const bookPageContent = $('#bookPageContent');
+        const bookClose = $('#bookClose');
+        const bookContent = $('#bookContent');
         const uploadModal = $('#uploadModal');
         const uploadForm = $('#uploadForm');
         const uploadCancel = $('#uploadCancel');
 
         let currentUser = null;
-        let currentBookId = null;
 
         // ============================================================
         // Theme
         // ============================================================
         function getTheme() { return localStorage.getItem('theme') || 'light'; }
-        function setTheme(theme) {
-            document.documentElement.setAttribute('data-theme', theme);
-            localStorage.setItem('theme', theme);
-            const icon = themeToggle?.querySelector('.theme-icon');
-            if (icon) icon.className = theme === 'dark' ? 'fas fa-sun theme-icon' : 'fas fa-moon theme-icon';
+        function setTheme(t) {
+            document.documentElement.setAttribute('data-theme', t);
+            localStorage.setItem('theme', t);
+            const icon = themeToggle?.querySelector('i');
+            if (icon) icon.className = t === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
         }
-        if (themeToggle) {
-            themeToggle.addEventListener('click', () => setTheme(getTheme() === 'dark' ? 'light' : 'dark'));
-        }
+        themeToggle?.addEventListener('click', () => setTheme(getTheme() === 'dark' ? 'light' : 'dark'));
         setTheme(getTheme());
 
         // ============================================================
-        // Toast System
+        // Toast
         // ============================================================
-        function showToast(message, title = 'تنبيه', type = 'info') {
-            const toast = document.createElement('div');
-            toast.style.cssText = `
-                position: fixed; bottom: 24px; right: 24px; left: 24px; max-width: 400px;
-                margin: 0 auto; padding: 16px 20px; border-radius: 16px;
-                background: var(--bg-card); border: 1px solid var(--border-color);
-                box-shadow: var(--shadow-lg); z-index: 99999;
-                display: flex; align-items: center; gap: 12px;
-                animation: slideUp 0.4s ease forwards;
-                direction: rtl; font-family: 'Cairo', sans-serif;
+        function toast(msg, title = 'تنبيه', type = 'info') {
+            const el = document.createElement('div');
+            el.style.cssText = `
+                position:fixed; bottom:20px; right:20px; left:20px; max-width:380px;
+                margin:0 auto; padding:14px 18px; border-radius:12px;
+                background:var(--card); border:1px solid var(--border);
+                box-shadow:var(--shadow-lg); z-index:99999;
+                display:flex; align-items:center; gap:12px;
+                direction:rtl; font-family:'Cairo',sans-serif;
             `;
-            if (type === 'error') toast.style.borderRight = '4px solid var(--grade-3)';
-            else if (type === 'success') toast.style.borderRight = '4px solid var(--grade-1)';
-            toast.innerHTML = `
-                <span style="font-size: 20px;">${type === 'error' ? '❌' : type === 'success' ? '✅' : 'ℹ️'}</span>
-                <div style="flex: 1;">
-                    <strong style="display: block; font-size: 14px;">${title}</strong>
-                    <span style="font-size: 13px; color: var(--text-secondary);">${message}</span>
-                </div>
-                <button onclick="this.parentElement.remove()" style="background:none;border:none;color:var(--text-muted);font-size:18px;cursor:pointer;">✕</button>
+            if (type === 'error') el.style.borderRight = '4px solid var(--red)';
+            else if (type === 'success') el.style.borderRight = '4px solid var(--green)';
+            el.innerHTML = `
+                <span style="font-size:20px;">${type === 'error' ? '❌' : type === 'success' ? '✅' : 'ℹ️'}</span>
+                <div style="flex:1;"><strong style="display:block;font-size:14px;">${title}</strong><span style="font-size:13px;color:var(--text2);">${msg}</span></div>
+                <button onclick="this.parentElement.remove()" style="background:none;border:none;color:var(--text3);font-size:18px;cursor:pointer;">✕</button>
             `;
-            document.body.appendChild(toast);
-            setTimeout(() => toast.remove(), 5000);
+            document.body.appendChild(el);
+            setTimeout(() => el.remove(), 5000);
         }
 
         // ============================================================
         // Popup
         // ============================================================
-        function showPopup() {
-            popupOverlay?.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-        function hidePopup() {
-            popupOverlay?.classList.remove('active');
-            document.body.style.overflow = '';
-        }
+        function showPopup() { popup.classList.add('active'); document.body.style.overflow = 'hidden'; }
+        function hidePopup() { popup.classList.remove('active'); document.body.style.overflow = ''; }
+        popupLater?.addEventListener('click', hidePopup);
 
         // ============================================================
         // User Menu
         // ============================================================
-        if (userAvatar) {
-            userAvatar.addEventListener('click', (e) => {
-                e.stopPropagation();
-                userMenu.style.display = userMenu.style.display === 'block' ? 'none' : 'block';
-            });
-        }
-        document.addEventListener('click', () => {
-            if (userMenu) userMenu.style.display = 'none';
+        userAvatar?.addEventListener('click', (e) => {
+            e.stopPropagation();
+            userMenu.style.display = userMenu.style.display === 'block' ? 'none' : 'block';
         });
+        document.addEventListener('click', () => { if (userMenu) userMenu.style.display = 'none'; });
 
         // ============================================================
         // Book Page
         // ============================================================
-        function openBookPage(bookId) {
+        function openBook(id) {
             if (!currentUser) { showPopup(); return; }
-            currentBookId = bookId;
             bookPage.classList.add('active');
             document.body.style.overflow = 'hidden';
-            renderBookPage(bookId);
-            // تحديث URL
-            window.history.pushState({ bookId }, '', `/book/${bookId}`);
+            renderBook(id);
+            window.history.pushState({ book: id }, '', `/book/${id}`);
         }
-
-        function closeBookPage() {
+        function closeBook() {
             bookPage.classList.remove('active');
             document.body.style.overflow = '';
-            currentBookId = null;
             window.history.pushState({}, '', '/');
         }
-
-        if (bookPageClose) {
-            bookPageClose.addEventListener('click', closeBookPage);
-        }
-        if (bookPage) {
-            bookPage.addEventListener('click', (e) => {
-                if (e.target === bookPage) closeBookPage();
-            });
-        }
+        bookClose?.addEventListener('click', closeBook);
+        bookPage?.addEventListener('click', (e) => { if (e.target === bookPage) closeBook(); });
 
         // ============================================================
-        // Upload Modal
+        // Upload
         // ============================================================
-        function openUploadModal() {
+        function openUpload() {
             if (!currentUser) { showPopup(); return; }
             uploadModal.classList.add('active');
             document.body.style.overflow = 'hidden';
         }
-
-        function closeUploadModal() {
+        function closeUpload() {
             uploadModal.classList.remove('active');
             document.body.style.overflow = '';
             if (uploadForm) uploadForm.reset();
         }
-
-        if (uploadCancel) {
-            uploadCancel.addEventListener('click', closeUploadModal);
-        }
-        if (uploadModal) {
-            uploadModal.addEventListener('click', (e) => {
-                if (e.target === uploadModal) closeUploadModal();
-            });
-        }
+        uploadCancel?.addEventListener('click', closeUpload);
+        uploadModal?.addEventListener('click', (e) => { if (e.target === uploadModal) closeUpload(); });
 
         // ============================================================
-        // Render Book Page - صفحة كاملة وليست Modal
+        // Render Book
         // ============================================================
-        async function renderBookPage(bookId) {
+        async function renderBook(id) {
             try {
-                const docRef = doc(db, 'books', bookId);
+                const docRef = doc(db, 'books', id);
                 const docSnap = await getDoc(docRef);
-                if (!docSnap.exists()) {
-                    showToast('الكتاب غير موجود', 'خطأ', 'error');
-                    closeBookPage();
-                    return;
-                }
-                const book = { id: docSnap.id, ...docSnap.data() };
-                
+                if (!docSnap.exists()) { toast('الكتاب غير موجود', 'خطأ', 'error'); closeBook(); return; }
+                const book = docSnap.data();
                 const gradeNames = ['', 'أولى بكالوريا', 'ثانية بكالوريا', 'ثالثة ثانوي'];
-                const gradeColors = ['', 'var(--grade-1)', 'var(--grade-2)', 'var(--grade-3)'];
-                
-                // جلب التعليقات
-                const commentsQuery = query(collection(db, 'comments'), where('bookId', '==', bookId), where('isApproved', '==', true), orderBy('createdAt', 'desc'), limit(20));
-                const commentsSnap = await getDocs(commentsQuery);
-                const comments = [];
-                commentsSnap.forEach(doc => comments.push({ id: doc.id, ...doc.data() }));
+                const colors = ['', 'var(--green)', 'var(--blue)', 'var(--red)'];
 
-                bookPageContent.innerHTML = `
-                    <div class="book-header">
-                        <div class="book-cover-large">
+                // جلب التعليقات
+                const cq = query(collection(db, 'comments'), where('bookId', '==', id), where('isApproved', '==', true), orderBy('createdAt', 'desc'), limit(20));
+                const cs = await getDocs(cq);
+                const comments = [];
+                cs.forEach(d => comments.push(d.data()));
+
+                bookContent.innerHTML = `
+                    <div class="grid">
+                        <div class="cover">
                             ${book.coverUrl ? `<img src="${book.coverUrl}" alt="${book.title}">` : (book.coverEmoji || '📖')}
                         </div>
-                        <div class="book-info-large">
+                        <div class="info">
                             <h1>${book.title || 'بدون عنوان'}</h1>
-                            <div class="book-meta-large">
-                                <span style="background: ${gradeColors[book.grade] || 'var(--bg-secondary)'}; color: white;">${gradeNames[book.grade] || 'غير محدد'}</span>
+                            <div class="tags">
+                                <span style="background:${colors[book.grade] || 'var(--bg2)'};color:white;">${gradeNames[book.grade] || 'غير محدد'}</span>
                                 <span>📚 ${book.subject || 'غير محدد'}</span>
                                 <span>📅 ${book.year || 'غير محدد'}</span>
                                 ${book.category ? `<span>📂 ${book.category}</span>` : ''}
                                 ${book.author ? `<span>✍️ ${book.author}</span>` : ''}
                             </div>
-                            ${book.description ? `<div class="book-description">${book.description}</div>` : ''}
-                            <div class="book-stats-large">
-                                <div class="stat"><div class="num">${book.downloads || 0}</div><div class="label">📥 تحميل</div></div>
-                                <div class="stat"><div class="num">${book.views || 0}</div><div class="label">👁️ مشاهدة</div></div>
-                                <div class="stat"><div class="num">${book.rating || 0}</div><div class="label">⭐ تقييم الطلاب</div></div>
-                                ${book.adminRating ? `<div class="stat"><div class="num">⭐ ${book.adminRating}</div><div class="label">تقييم الإدارة</div></div>` : ''}
-                                <div class="stat"><div class="num">${book.commentsCount || 0}</div><div class="label">💬 تعليق</div></div>
-                                <div class="stat"><div class="num">${book.shares || 0}</div><div class="label">📤 مشاركة</div></div>
+                            ${book.description ? `<div class="desc">${book.description}</div>` : ''}
+                            <div class="stats">
+                                <div class="item"><div class="num">${book.downloads || 0}</div><div class="label">📥 تحميل</div></div>
+                                <div class="item"><div class="num">${book.views || 0}</div><div class="label">👁️ مشاهدة</div></div>
+                                <div class="item"><div class="num">${book.rating || 0}</div><div class="label">⭐ تقييم</div></div>
+                                ${book.adminRating ? `<div class="item"><div class="num">⭐ ${book.adminRating}</div><div class="label">تقييم الإدارة</div></div>` : ''}
+                                <div class="item"><div class="num">${book.commentsCount || 0}</div><div class="label">💬 تعليق</div></div>
                             </div>
-                            <div class="book-actions-large">
-                                ${book.pdfUrl ? `<button class="btn-download" data-id="${book.id}"><i class="fas fa-download"></i> تحميل</button>` : ''}
-                                ${book.pdfUrl ? `<button class="btn-preview" data-id="${book.id}"><i class="fas fa-eye"></i> معاينة</button>` : ''}
-                                <button class="btn-favorite" data-id="${book.id}"><i class="fas fa-heart"></i> مفضلة</button>
-                                <div class="share-dropdown">
-                                    <button class="btn-share" data-id="${book.id}"><i class="fas fa-share"></i> مشاركة <i class="fas fa-chevron-down" style="font-size:12px;"></i></button>
-                                    <div class="share-menu" data-id="${book.id}">
-                                        <button class="share-whatsapp"><i class="fab fa-whatsapp" style="color:#25D366;"></i> واتساب</button>
-                                        <button class="share-telegram"><i class="fab fa-telegram-plane" style="color:#0088cc;"></i> تليجرام</button>
-                                        <button class="share-facebook"><i class="fab fa-facebook" style="color:#1877f2;"></i> فيسبوك</button>
-                                        <button class="share-twitter"><i class="fab fa-twitter" style="color:#000;"></i> X</button>
-                                        <button class="share-copy copy-link-btn"><i class="fas fa-link"></i> نسخ الرابط</button>
-                                        <button class="share-qr"><i class="fas fa-qrcode"></i> QR Code</button>
+                            <div class="actions">
+                                ${book.pdfUrl ? `<button class="download" data-id="${id}"><i class="fas fa-download"></i> تحميل</button>` : ''}
+                                ${book.pdfUrl ? `<button class="preview" data-id="${id}"><i class="fas fa-eye"></i> معاينة</button>` : ''}
+                                <button class="favorite" data-id="${id}"><i class="fas fa-heart"></i> مفضلة</button>
+                                <button class="share-btn" data-id="${id}"><i class="fas fa-share"></i> مشاركة</button>
+                                <button class="copy-btn" data-id="${id}"><i class="fas fa-link"></i> نسخ الرابط</button>
+                            </div>
+                            <div class="comments">
+                                <h3>💬 التعليقات</h3>
+                                ${comments.length > 0 ? comments.map(c => `
+                                    <div class="comment-item">
+                                        <div class="head">
+                                            <div class="avatar">${c.userName ? c.userName.charAt(0) : '👤'}</div>
+                                            <span class="name">${c.userName || 'مستخدم'}</span>
+                                            <span class="date">${c.createdAt ? 'جديد' : ''}</span>
+                                            ${c.isFeatured ? '<span style="background:var(--gold);padding:0 8px;border-radius:60px;font-size:11px;font-weight:700;">❤️ مميز</span>' : ''}
+                                        </div>
+                                        ${c.rating ? `<div class="rating-display">${'⭐'.repeat(c.rating)}</div>` : ''}
+                                        <div class="text">${c.text || ''}</div>
                                     </div>
-                                </div>
-                                <button class="btn-copy" data-id="${book.id}"><i class="fas fa-link"></i> نسخ الرابط</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="comments-section">
-                        <h3>💬 التعليقات</h3>
-                        <div id="commentsList">
-                            ${comments.length > 0 ? comments.map(c => `
-                                <div class="comment-item">
-                                    <div class="comment-header">
-                                        <div class="avatar">${c.userName ? c.userName.charAt(0) : '👤'}</div>
-                                        <span class="name">${c.userName || 'مستخدم'}</span>
-                                        <span class="date">${c.createdAt ? 'جديد' : ''}</span>
-                                        ${c.isFeatured ? '<span class="comment-badge">❤️ تعليق مميز</span>' : ''}
+                                `).join('') : '<div class="empty" style="padding:20px;border:none;"><p style="font-size:14px;">لا توجد تعليقات بعد</p></div>'}
+                                <div class="comment-form">
+                                    <div class="stars">
+                                        <span style="font-weight:600;margin-left:8px;">تقييمك:</span>
+                                        ${[1,2,3,4,5].map(i => `<span class="star" data-r="${i}">⭐</span>`).join('')}
                                     </div>
-                                    ${c.rating ? `<div class="comment-rating-display">${'⭐'.repeat(c.rating)}</div>` : ''}
-                                    <div class="comment-text">${c.text || ''}</div>
+                                    <textarea id="cText" placeholder="اكتب تعليقك هنا..." rows="3"></textarea>
+                                    <input type="hidden" id="cRating" value="0">
+                                    <button class="submit" data-id="${id}">نشر التعليق</button>
                                 </div>
-                            `).join('') : '<div class="empty-state" style="padding:20px;border:none;"><p style="font-size:14px;">لا توجد تعليقات بعد</p></div>'}
-                        </div>
-                        <div class="comment-form">
-                            <div class="comment-rating">
-                                <span style="font-weight:600;margin-left:8px;">تقييمك:</span>
-                                ${[1,2,3,4,5].map(i => `<span class="star" data-rating="${i}">⭐</span>`).join('')}
                             </div>
-                            <textarea id="commentText" placeholder="اكتب تعليقك هنا..." rows="3"></textarea>
-                            <input type="hidden" id="commentRating" value="0">
-                            <button data-book-id="${book.id}" id="submitCommentBtn">نشر التعليق</button>
                         </div>
                     </div>
                 `;
 
-                // ===== Book Actions =====
-                // Download - تحميل حقيقي
-                bookPageContent.querySelector('.btn-download')?.addEventListener('click', async function() {
+                // ===== أحداث الكتاب =====
+                // تحميل
+                bookContent.querySelector('.download')?.addEventListener('click', async function() {
                     if (!currentUser) { showPopup(); return; }
                     try {
-                        const ref = doc(db, 'books', book.id);
-                        await updateDoc(ref, { downloads: increment(1) });
-                        if (book.pdfUrl) {
-                            window.open(book.pdfUrl, '_blank');
-                        } else {
-                            showToast('لا يوجد رابط للتحميل', 'تنبيه', 'error');
+                        await updateDoc(doc(db, 'books', id), { downloads: increment(1) });
+                        const ref = doc(db, 'books', id);
+                        const snap = await getDoc(ref);
+                        if (snap.exists() && snap.data().pdfUrl) {
+                            window.open(snap.data().pdfUrl, '_blank');
                         }
-                    } catch (error) {
-                        showToast('حدث خطأ', 'خطأ', 'error');
-                    }
+                    } catch (e) { toast('حدث خطأ', 'خطأ', 'error'); }
                 });
 
-                // Preview - معاينة PDF
-                bookPageContent.querySelector('.btn-preview')?.addEventListener('click', function() {
-                    if (book.pdfUrl) {
-                        window.open(book.pdfUrl, '_blank');
-                    } else {
-                        showToast('لا يوجد ملف للمعاينة', 'تنبيه', 'error');
-                    }
+                // معاينة
+                bookContent.querySelector('.preview')?.addEventListener('click', function() {
+                    if (book.pdfUrl) window.open(book.pdfUrl, '_blank');
+                    else toast('لا يوجد ملف للمعاينة', 'تنبيه', 'error');
                 });
 
-                // Favorite
-                bookPageContent.querySelector('.btn-favorite')?.addEventListener('click', async function() {
+                // مفضلة
+                bookContent.querySelector('.favorite')?.addEventListener('click', async function() {
                     if (!currentUser) { showPopup(); return; }
                     try {
-                        const userRef = doc(db, 'users', currentUser.uid);
-                        const userSnap = await getDoc(userRef);
-                        const favorites = userSnap.data()?.favorites || [];
-                        const isFav = favorites.includes(book.id);
-                        await updateDoc(userRef, {
-                            favorites: isFav ? arrayRemove(book.id) : arrayUnion(book.id)
-                        });
+                        const ref = doc(db, 'users', currentUser.uid);
+                        const snap = await getDoc(ref);
+                        const favs = snap.data()?.favorites || [];
+                        const is = favs.includes(id);
+                        await updateDoc(ref, { favorites: is ? arrayRemove(id) : arrayUnion(id) });
                         this.classList.toggle('active');
-                        showToast(isFav ? 'تم الإزالة من المفضلة' : 'تم الإضافة إلى المفضلة', 'المفضلة', 'success');
-                    } catch (error) {
-                        showToast('حدث خطأ', 'خطأ', 'error');
+                        toast(is ? 'تم الإزالة من المفضلة' : 'تم الإضافة إلى المفضلة', 'المفضلة', 'success');
+                    } catch (e) { toast('حدث خطأ', 'خطأ', 'error'); }
+                });
+
+                // مشاركة
+                bookContent.querySelector('.share-btn')?.addEventListener('click', function() {
+                    const url = `${window.location.origin}/book/${id}`;
+                    if (navigator.share) {
+                        navigator.share({ title: '📚 الثانوية الرسمية بلس', text: book.title || 'اكتشف هذا الكتاب', url });
+                    } else {
+                        navigator.clipboard.writeText(url).then(() => toast('تم نسخ الرابط', 'تم النسخ', 'success'));
                     }
                 });
 
-                // Copy Link
-                bookPageContent.querySelector('.btn-copy')?.addEventListener('click', function() {
-                    const url = `${window.location.origin}/book/${book.id}`;
-                    navigator.clipboard.writeText(url).then(() => {
-                        showToast('تم نسخ رابط الكتاب', 'تم النسخ', 'success');
-                    }).catch(() => {
-                        showToast(url, 'رابط الكتاب', 'info');
+                // نسخ الرابط
+                bookContent.querySelector('.copy-btn')?.addEventListener('click', function() {
+                    const url = `${window.location.origin}/book/${id}`;
+                    navigator.clipboard.writeText(url).then(() => toast('تم نسخ رابط الكتاب', 'تم النسخ', 'success'))
+                        .catch(() => toast(url, 'رابط الكتاب', 'info'));
+                });
+
+                // ===== نجوم التعليقات =====
+                bookContent.querySelectorAll('.comment-form .star').forEach(s => {
+                    s.addEventListener('click', function() {
+                        const r = parseInt(this.dataset.r);
+                        bookContent.querySelectorAll('.comment-form .star').forEach(st => {
+                            st.classList.toggle('active', parseInt(st.dataset.r) <= r);
+                        });
+                        document.getElementById('cRating').value = r;
                     });
                 });
 
-                // ===== Share Dropdown =====
-                const shareBtn = bookPageContent.querySelector('.btn-share');
-                const shareMenu = bookPageContent.querySelector('.share-menu');
-                if (shareBtn && shareMenu) {
-                    shareBtn.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        shareMenu.classList.toggle('active');
-                    });
-                    document.addEventListener('click', () => {
-                        shareMenu.classList.remove('active');
-                    });
-                    
-                    const url = `${window.location.origin}/book/${book.id}`;
-                    const text = `📚 ${book.title || 'كتاب'} - الثانوية الرسمية بلس`;
-                    
-                    shareMenu.querySelector('.share-whatsapp')?.addEventListener('click', () => {
-                        window.open(`https://wa.me/?text=${encodeURIComponent(text + '\n' + url)}`, '_blank');
-                        shareMenu.classList.remove('active');
-                    });
-                    shareMenu.querySelector('.share-telegram')?.addEventListener('click', () => {
-                        window.open(`https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`, '_blank');
-                        shareMenu.classList.remove('active');
-                    });
-                    shareMenu.querySelector('.share-facebook')?.addEventListener('click', () => {
-                        window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank');
-                        shareMenu.classList.remove('active');
-                    });
-                    shareMenu.querySelector('.share-twitter')?.addEventListener('click', () => {
-                        window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank');
-                        shareMenu.classList.remove('active');
-                    });
-                    shareMenu.querySelector('.share-copy')?.addEventListener('click', () => {
-                        navigator.clipboard.writeText(url).then(() => {
-                            showToast('تم نسخ رابط الكتاب', 'تم النسخ', 'success');
-                            shareMenu.classList.remove('active');
+                // ===== إرسال تعليق =====
+                bookContent.querySelector('.comment-form .submit')?.addEventListener('click', async function() {
+                    if (!currentUser) { showPopup(); return; }
+                    const text = document.getElementById('cText')?.value?.trim();
+                    const rating = parseInt(document.getElementById('cRating')?.value || 0);
+                    if (!text) { toast('يرجى كتابة تعليق', 'تنبيه', 'error'); return; }
+                    try {
+                        await addDoc(collection(db, 'comments'), {
+                            bookId: id, userId: currentUser.uid,
+                            userName: currentUser.displayName || 'مستخدم',
+                            text, rating, isApproved: false, isFeatured: false,
+                            likes: 0, createdAt: serverTimestamp()
                         });
-                    });
-                    shareMenu.querySelector('.share-qr')?.addEventListener('click', () => {
-                        showToast(`🔲 QR Code: ${url}`, 'QR Code', 'info');
-                        shareMenu.classList.remove('active');
-                    });
-                }
-
-                // ===== Comments =====
-                // Stars
-                bookPageContent.querySelectorAll('.comment-form .star').forEach(star => {
-                    star.addEventListener('click', function() {
-                        const rating = parseInt(this.dataset.rating);
-                        bookPageContent.querySelectorAll('.comment-form .star').forEach(s => {
-                            s.classList.toggle('active', parseInt(s.dataset.rating) <= rating);
-                        });
-                        document.getElementById('commentRating').value = rating;
-                    });
+                        await updateDoc(doc(db, 'books', id), { commentsCount: increment(1) });
+                        toast('تم إرسال تعليقك للمراجعة', 'شكراً لك', 'success');
+                        document.getElementById('cText').value = '';
+                        document.getElementById('cRating').value = '0';
+                        document.querySelectorAll('.comment-form .star').forEach(s => s.classList.remove('active'));
+                        renderBook(id);
+                    } catch (e) { toast('حدث خطأ', 'خطأ', 'error'); }
                 });
 
-                // Submit Comment
-                const submitBtn = document.getElementById('submitCommentBtn');
-                if (submitBtn) {
-                    submitBtn.addEventListener('click', async function() {
-                        if (!currentUser) { showPopup(); return; }
-                        const text = document.getElementById('commentText')?.value?.trim();
-                        const rating = parseInt(document.getElementById('commentRating')?.value || 0);
-                        
-                        if (!text) {
-                            showToast('يرجى كتابة تعليق', 'تنبيه', 'error');
-                            return;
-                        }
-
-                        try {
-                            await addDoc(collection(db, 'comments'), {
-                                bookId: book.id,
-                                userId: currentUser.uid,
-                                userName: currentUser.displayName || 'مستخدم',
-                                text: text,
-                                rating: rating,
-                                isApproved: false,
-                                isFeatured: false,
-                                likes: 0,
-                                createdAt: serverTimestamp()
-                            });
-
-                            const bookRef = doc(db, 'books', book.id);
-                            await updateDoc(bookRef, {
-                                commentsCount: increment(1)
-                            });
-
-                            showToast('تم إرسال تعليقك للمراجعة', 'شكراً لك', 'success');
-                            document.getElementById('commentText').value = '';
-                            document.getElementById('commentRating').value = '0';
-                            document.querySelectorAll('.comment-form .star').forEach(s => s.classList.remove('active'));
-                            
-                            // إعادة تحميل الصفحة لعرض التعليق الجديد
-                            renderBookPage(book.id);
-                        } catch (error) {
-                            showToast('حدث خطأ في إرسال التعليق', 'خطأ', 'error');
-                        }
-                    });
-                }
-
-            } catch (error) {
-                console.error('Error rendering book page:', error);
-                showToast('حدث خطأ في تحميل الكتاب', 'خطأ', 'error');
+            } catch (e) {
+                console.error(e);
+                toast('حدث خطأ', 'خطأ', 'error');
             }
         }
 
         // ============================================================
         // Render Books
         // ============================================================
-        function renderBooks(containerId, books, title = '') {
-            const container = $(containerId);
-            if (!container) return;
-
+        function renderBooks(container, books) {
+            const el = $(container);
+            if (!el) return;
             if (!books || books.length === 0) {
-                container.innerHTML = `
-                    <div class="empty-state">
-                        <div class="empty-icon">📚</div>
-                        <h3>لم تتم إضافة ${title || 'كتب'} بعد</h3>
-                        <p>سيكون المحتوى متاحاً قريباً</p>
-                    </div>
-                `;
+                el.innerHTML = `<div class="empty"><div class="icon">📚</div><h3>لم تتم إضافة كتب بعد</h3><p>سيكون المحتوى متاحاً قريباً</p></div>`;
                 return;
             }
-
-            container.innerHTML = books.map(book => `
-                <div class="book-card" data-book-id="${book.id}">
-                    <div class="book-cover">
-                        ${book.coverUrl ? `<img src="${book.coverUrl}" alt="${book.title}">` : (book.coverEmoji || '📖')}
-                        ${book.rating >= 4.7 ? '<span class="book-badge featured"><i class="fas fa-star"></i> مميز</span>' : ''}
-                        ${book.isRecommended ? '<span class="book-badge recommended">✔ موصى به</span>' : ''}
-                        ${book.isFeatured ? '<span class="book-badge new">🔥 الأفضل</span>' : ''}
-                        <div class="book-actions-overlay">
-                            <button class="btn-preview" data-id="${book.id}"><i class="fas fa-eye"></i> معاينة</button>
-                            <button class="btn-download" data-id="${book.id}"><i class="fas fa-download"></i> تحميل</button>
-                        </div>
+            el.innerHTML = books.map(b => `
+                <div class="book-card" data-id="${b.id}">
+                    <div class="cover">
+                        ${b.coverUrl ? `<img src="${b.coverUrl}" alt="${b.title}">` : (b.coverEmoji || '📖')}
+                        ${b.rating >= 4.7 ? '<span class="badge gold">⭐ مميز</span>' : ''}
+                        ${b.isRecommended ? '<span class="badge blue">✔ موصى به</span>' : ''}
+                        ${b.isFeatured ? '<span class="badge purple">🔥 الأفضل</span>' : ''}
                     </div>
-                    <div class="book-info">
-                        <h4>${book.title || 'بدون عنوان'}</h4>
-                        <div class="book-meta">
-                            <span class="book-subject">${book.subject || 'غير محدد'}</span>
-                            <span class="book-rating">⭐ ${book.rating || 0}</span>
+                    <div class="info">
+                        <h4>${b.title || 'بدون عنوان'}</h4>
+                        <div class="meta">
+                            <span class="subject">${b.subject || 'غير محدد'}</span>
+                            <span class="rating">⭐ ${b.rating || 0}</span>
                         </div>
-                        <div class="book-meta" style="margin-top: 4px;">
-                            <span style="font-size: 12px; color: var(--text-muted);">${book.year || ''}</span>
-                            <span class="book-downloads"><i class="fas fa-download"></i> ${book.downloads || 0}</span>
+                        <div class="meta" style="margin-top:2px;">
+                            <span style="font-size:12px;color:var(--text3);">${b.year || ''}</span>
+                            <span class="downloads"><i class="fas fa-download"></i> ${b.downloads || 0}</span>
                         </div>
                     </div>
                 </div>
             `).join('');
 
-            // Events
-            container.querySelectorAll('.book-card').forEach(card => {
-                card.addEventListener('click', (e) => {
-                    if (e.target.closest('.book-actions-overlay')) return;
-                    openBookPage(card.dataset.bookId);
-                });
-            });
-
-            container.querySelectorAll('.btn-download').forEach(btn => {
-                btn.addEventListener('click', async (e) => {
-                    e.stopPropagation();
-                    if (!currentUser) { showPopup(); return; }
-                    const id = btn.dataset.id;
-                    const docRef = doc(db, 'books', id);
-                    const docSnap = await getDoc(docRef);
-                    if (docSnap.exists() && docSnap.data().pdfUrl) {
-                        await updateDoc(docRef, { downloads: increment(1) });
-                        window.open(docSnap.data().pdfUrl, '_blank');
-                    } else {
-                        showToast('لا يوجد رابط للتحميل', 'تنبيه', 'error');
-                    }
-                });
-            });
-
-            container.querySelectorAll('.btn-preview').forEach(btn => {
-                btn.addEventListener('click', async (e) => {
-                    e.stopPropagation();
-                    if (!currentUser) { showPopup(); return; }
-                    const id = btn.dataset.id;
-                    const docRef = doc(db, 'books', id);
-                    const docSnap = await getDoc(docRef);
-                    if (docSnap.exists() && docSnap.data().pdfUrl) {
-                        window.open(docSnap.data().pdfUrl, '_blank');
-                    } else {
-                        showToast('لا يوجد ملف للمعاينة', 'تنبيه', 'error');
-                    }
-                });
+            el.querySelectorAll('.book-card').forEach(c => {
+                c.addEventListener('click', () => openBook(c.dataset.id));
             });
         }
 
@@ -1778,266 +1388,170 @@
         // ============================================================
         async function loadStats() {
             try {
-                const booksColl = collection(db, 'books');
-                const summariesColl = collection(db, 'summaries');
-                const examsColl = collection(db, 'exams');
-                const usersColl = collection(db, 'users');
-
-                const [booksSnap, summariesSnap, examsSnap, usersSnap] = await Promise.all([
-                    getCountFromServer(booksColl),
-                    getCountFromServer(summariesColl),
-                    getCountFromServer(examsColl),
-                    getCountFromServer(usersColl)
+                const [b, s, e, u] = await Promise.all([
+                    getCountFromServer(collection(db, 'books')),
+                    getCountFromServer(collection(db, 'summaries')),
+                    getCountFromServer(collection(db, 'exams')),
+                    getCountFromServer(collection(db, 'users'))
                 ]);
-
-                const statBooks = $('#statBooks');
-                const statSummaries = $('#statSummaries');
-                const statExams = $('#statExams');
-                const statUsers = $('#statUsers');
-
-                if (statBooks) statBooks.textContent = booksSnap.data().count || 0;
-                if (statSummaries) statSummaries.textContent = summariesSnap.data().count || 0;
-                if (statExams) statExams.textContent = examsSnap.data().count || 0;
-                if (statUsers) statUsers.textContent = usersSnap.data().count || 0;
-            } catch (error) {
-                console.error('Error loading stats:', error);
-            }
+                $('#statBooks').textContent = b.data().count || 0;
+                $('#statSummaries').textContent = s.data().count || 0;
+                $('#statExams').textContent = e.data().count || 0;
+                $('#statUsers').textContent = u.data().count || 0;
+            } catch (e) { console.error(e); }
         }
 
         async function loadBooks() {
             try {
-                const latestQuery = query(collection(db, 'books'), orderBy('createdAt', 'desc'), limit(4));
-                const latestSnap = await getDocs(latestQuery);
-                const latestBooks = [];
-                latestSnap.forEach(doc => latestBooks.push({ id: doc.id, ...doc.data() }));
-                renderBooks('#latestBooks', latestBooks, 'كتب');
-
-                const popularQuery = query(collection(db, 'books'), orderBy('downloads', 'desc'), limit(4));
-                const popularSnap = await getDocs(popularQuery);
-                const popularBooks = [];
-                popularSnap.forEach(doc => popularBooks.push({ id: doc.id, ...doc.data() }));
-                renderBooks('#popularBooks', popularBooks, 'كتب');
-
-                const ratedQuery = query(collection(db, 'books'), orderBy('rating', 'desc'), limit(4));
-                const ratedSnap = await getDocs(ratedQuery);
-                const ratedBooks = [];
-                ratedSnap.forEach(doc => ratedBooks.push({ id: doc.id, ...doc.data() }));
-                renderBooks('#topRatedBooks', ratedBooks, 'كتب');
-            } catch (error) {
-                console.error('Error loading books:', error);
-            }
+                const [l, p, r] = await Promise.all([
+                    getDocs(query(collection(db, 'books'), orderBy('createdAt', 'desc'), limit(4))),
+                    getDocs(query(collection(db, 'books'), orderBy('downloads', 'desc'), limit(4))),
+                    getDocs(query(collection(db, 'books'), orderBy('rating', 'desc'), limit(4)))
+                ]);
+                const lb = []; l.forEach(d => lb.push({ id: d.id, ...d.data() }));
+                const pb = []; p.forEach(d => pb.push({ id: d.id, ...d.data() }));
+                const rb = []; r.forEach(d => rb.push({ id: d.id, ...d.data() }));
+                renderBooks('#latestBooks', lb);
+                renderBooks('#popularBooks', pb);
+                renderBooks('#topRatedBooks', rb);
+            } catch (e) { console.error(e); }
         }
 
         async function loadSummaries() {
             try {
                 const q = query(collection(db, 'summaries'), where('isApproved', '==', true), limit(10));
-                const snap = await getDocs(q);
-                const summaries = [];
-                snap.forEach(doc => summaries.push({ id: doc.id, ...doc.data() }));
-                summaries.sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
-                renderBooks('#latestSummaries', summaries.slice(0, 4), 'ملخصات');
-            } catch (error) {
-                console.error('Error loading summaries:', error);
-                const container = $('#latestSummaries');
-                if (container) {
-                    container.innerHTML = `
-                        <div class="empty-state">
-                            <div class="empty-icon">📝</div>
-                            <h3>لم تتم إضافة ملخصات معتمدة بعد</h3>
-                            <p>سيكون المحتوى متاحاً قريباً</p>
-                        </div>
-                    `;
-                }
-            }
+                const s = await getDocs(q);
+                const items = [];
+                s.forEach(d => items.push({ id: d.id, ...d.data() }));
+                items.sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
+                renderBooks('#latestSummaries', items.slice(0, 4));
+            } catch (e) { console.error(e); }
         }
 
         async function loadExams() {
             try {
                 const q = query(collection(db, 'exams'), orderBy('createdAt', 'desc'), limit(4));
-                const snap = await getDocs(q);
-                const exams = [];
-                snap.forEach(doc => exams.push({ id: doc.id, ...doc.data() }));
-                renderBooks('#latestExams', exams, 'امتحانات');
-            } catch (error) {
-                console.error('Error loading exams:', error);
-            }
+                const s = await getDocs(q);
+                const items = [];
+                s.forEach(d => items.push({ id: d.id, ...d.data() }));
+                renderBooks('#latestExams', items);
+            } catch (e) { console.error(e); }
         }
 
         async function loadGradeStats() {
             try {
-                for (let grade = 1; grade <= 3; grade++) {
-                    const booksColl = collection(db, 'books');
-                    const booksQuery = query(booksColl, where('grade', '==', grade));
-                    const booksSnap = await getCountFromServer(booksQuery);
-
-                    const summariesColl = collection(db, 'summaries');
-                    const summariesQuery = query(summariesColl, where('grade', '==', grade));
-                    const summariesSnap = await getCountFromServer(summariesQuery);
-
-                    const examsColl = collection(db, 'exams');
-                    const examsQuery = query(examsColl, where('grade', '==', grade));
-                    const examsSnap = await getCountFromServer(examsQuery);
-
-                    const card = document.querySelector(`.grade-${grade}`);
+                for (let g = 1; g <= 3; g++) {
+                    const b = await getCountFromServer(query(collection(db, 'books'), where('grade', '==', g)));
+                    const s = await getCountFromServer(query(collection(db, 'summaries'), where('grade', '==', g)));
+                    const e = await getCountFromServer(query(collection(db, 'exams'), where('grade', '==', g)));
+                    const card = document.querySelector(`.grade-${g}`);
                     if (card) {
-                        const bookCount = card.querySelector('.grade-book-count');
-                        const summaryCount = card.querySelector('.grade-summary-count');
-                        const examCount = card.querySelector('.grade-exam-count');
-                        if (bookCount) bookCount.textContent = booksSnap.data().count || 0;
-                        if (summaryCount) summaryCount.textContent = summariesSnap.data().count || 0;
-                        if (examCount) examCount.textContent = examsSnap.data().count || 0;
+                        card.querySelector('.g' + g + '-books').textContent = b.data().count || 0;
+                        card.querySelector('.g' + g + '-summaries').textContent = s.data().count || 0;
+                        card.querySelector('.g' + g + '-exams').textContent = e.data().count || 0;
                     }
                 }
-            } catch (error) {
-                console.error('Error loading grade stats:', error);
-            }
+            } catch (e) { console.error(e); }
         }
 
         // ============================================================
         // Search
         // ============================================================
         let searchTimeout;
-        if (searchInput) {
-            searchInput.addEventListener('input', async (e) => {
-                clearTimeout(searchTimeout);
-                const queryText = e.target.value.trim();
-                searchTimeout = setTimeout(async () => {
-                    if (queryText.length > 1) {
-                        try {
-                            const booksRef = collection(db, 'books');
-                            const q = query(booksRef, where('title', '>=', queryText), where('title', '<=', queryText + '\uf8ff'), limit(5));
-                            const snap = await getDocs(q);
-                            const results = [];
-                            snap.forEach(doc => results.push({ id: doc.id, ...doc.data() }));
-
-                            if (searchResults) {
-                                if (results.length === 0) {
-                                    searchResults.innerHTML = `
-                                        <div style="padding: 20px; text-align: center; color: var(--text-muted);">
-                                            <i class="fas fa-search" style="font-size: 24px; display: block; margin-bottom: 8px;"></i>
-                                            لا توجد نتائج للبحث عن "${queryText}"
-                                        </div>
-                                    `;
-                                } else {
-                                    searchResults.innerHTML = results.map(r => `
-                                        <div class="search-result-item" data-id="${r.id}">
-                                            <div class="result-icon" style="background: var(--grade-2-light); color: var(--grade-2-dark);">
-                                                ${r.coverEmoji || '📖'}
-                                            </div>
-                                            <div class="result-info">
-                                                <h4>${r.title || 'بدون عنوان'}</h4>
-                                                <p>${r.subject || ''} • ${r.grade ? 'صف ' + r.grade : ''}</p>
-                                            </div>
-                                            <span class="result-badge book">كتاب</span>
-                                        </div>
-                                    `).join('');
-                                    searchResults.querySelectorAll('.search-result-item').forEach(item => {
-                                        item.addEventListener('click', () => openBookPage(item.dataset.id));
-                                    });
-                                }
-                                searchResults.classList.add('active');
+        searchInput?.addEventListener('input', (e) => {
+            clearTimeout(searchTimeout);
+            const q = e.target.value.trim();
+            searchTimeout = setTimeout(async () => {
+                if (q.length > 1) {
+                    try {
+                        const snap = await getDocs(query(collection(db, 'books'), where('title', '>=', q), where('title', '<=', q + '\uf8ff'), limit(5)));
+                        const items = [];
+                        snap.forEach(d => items.push({ id: d.id, ...d.data() }));
+                        if (searchResults) {
+                            if (items.length === 0) {
+                                searchResults.innerHTML = `<div style="padding:16px;text-align:center;color:var(--text3);">لا توجد نتائج</div>`;
+                            } else {
+                                searchResults.innerHTML = items.map(i => `
+                                    <div class="search-item" data-id="${i.id}">
+                                        <div class="icon-box" style="background:var(--grade-2-light);color:var(--grade-2-dark);">${i.coverEmoji || '📖'}</div>
+                                        <div class="info"><h4>${i.title || 'بدون عنوان'}</h4><p>${i.subject || ''}</p></div>
+                                        <span class="tag book">كتاب</span>
+                                    </div>
+                                `).join('');
+                                searchResults.querySelectorAll('.search-item').forEach(item => {
+                                    item.addEventListener('click', () => { openBook(item.dataset.id); searchResults.classList.remove('active'); });
+                                });
                             }
-                        } catch (error) {
-                            console.error('Search error:', error);
+                            searchResults.classList.add('active');
                         }
-                    } else {
-                        if (searchResults) searchResults.classList.remove('active');
-                    }
-                }, 300);
-            });
-
-            searchInput.addEventListener('blur', () => {
-                setTimeout(() => {
+                    } catch (e) { console.error(e); }
+                } else {
                     if (searchResults) searchResults.classList.remove('active');
-                }, 200);
-            });
-
-            searchInput.addEventListener('focus', () => {
-                if (searchInput.value.trim().length > 1 && searchResults) {
-                    searchResults.classList.add('active');
                 }
-            });
-        }
+            }, 300);
+        });
+        searchInput?.addEventListener('blur', () => setTimeout(() => { if (searchResults) searchResults.classList.remove('active'); }, 200));
+        searchInput?.addEventListener('focus', () => {
+            if (searchInput.value.trim().length > 1 && searchResults) searchResults.classList.add('active');
+        });
 
         // ============================================================
-        // Auth State
+        // Auth
         // ============================================================
         onAuthStateChanged(auth, (user) => {
             currentUser = user;
-            const authButtons = $('#authButtons');
-            const userActionsEl = $('#userActions');
-
+            const btns = $('#authBtns');
+            const area = $('#userArea');
             if (user) {
-                if (authButtons) authButtons.style.display = 'none';
-                if (userActionsEl) {
-                    userActionsEl.style.display = 'block';
-                    const avatar = userActionsEl.querySelector('.user-avatar');
-                    if (avatar) {
-                        avatar.innerHTML = user.displayName ? user.displayName.charAt(0).toUpperCase() : '👤';
-                    }
+                if (btns) btns.style.display = 'none';
+                if (area) {
+                    area.style.display = 'block';
+                    const av = area.querySelector('.avatar');
+                    if (av) av.innerHTML = user.displayName ? user.displayName.charAt(0).toUpperCase() : '👤';
                 }
+                // Handle URL
+                const path = window.location.pathname;
+                const match = path.match(/^\/book\/(.+)$/);
+                if (match) openBook(match[1]);
             } else {
-                if (authButtons) authButtons.style.display = 'flex';
-                if (userActionsEl) userActionsEl.style.display = 'none';
-                closeBookPage();
-                closeUploadModal();
+                if (btns) btns.style.display = 'flex';
+                if (area) area.style.display = 'none';
+                closeBook();
             }
         });
 
         // ============================================================
         // Logout
         // ============================================================
-        if (logoutBtn) {
-            logoutBtn.addEventListener('click', async () => {
-                try {
-                    await signOut(auth);
-                    showToast('تم تسجيل الخروج بنجاح', 'مع السلامة', 'success');
-                } catch (error) {
-                    showToast('حدث خطأ أثناء تسجيل الخروج', 'خطأ', 'error');
-                }
-            });
-        }
+        logoutBtn?.addEventListener('click', async () => {
+            try { await signOut(auth); toast('تم تسجيل الخروج', 'مع السلامة', 'success'); } 
+            catch (e) { toast('حدث خطأ', 'خطأ', 'error'); }
+        });
 
         // ============================================================
-        // Event Listeners
+        // Events
         // ============================================================
-        if (loginBtn) loginBtn.addEventListener('click', () => window.location.href = 'login.html');
-        if (registerBtn) registerBtn.addEventListener('click', () => window.location.href = 'login.html?mode=register');
-        if (footerLogin) footerLogin.addEventListener('click', () => window.location.href = 'login.html');
-        if (footerRegister) footerRegister.addEventListener('click', () => window.location.href = 'login.html?mode=register');
+        loginBtn?.addEventListener('click', () => window.location.href = 'login.html');
+        registerBtn?.addEventListener('click', () => window.location.href = 'login.html?mode=register');
+        footerLogin?.addEventListener('click', () => window.location.href = 'login.html');
+        footerRegister?.addEventListener('click', () => window.location.href = 'login.html?mode=register');
+        popupLogin?.addEventListener('click', () => { hidePopup(); window.location.href = 'login.html'; });
+        popupRegister?.addEventListener('click', () => { hidePopup(); window.location.href = 'login.html?mode=register'; });
 
-        if (heroStartBtn) {
-            heroStartBtn.addEventListener('click', () => {
+        heroStart?.addEventListener('click', () => {
+            if (!currentUser) { showPopup(); return; }
+            document.getElementById('booksSection')?.scrollIntoView({ behavior: 'smooth' });
+        });
+        heroBrowse?.addEventListener('click', () => {
+            document.getElementById('booksSection')?.scrollIntoView({ behavior: 'smooth' });
+        });
+
+        document.querySelectorAll('.btn-grade').forEach(b => {
+            b.addEventListener('click', () => {
                 if (!currentUser) { showPopup(); return; }
-                document.getElementById('booksSection')?.scrollIntoView({ behavior: 'smooth' });
-            });
-        }
-        if (heroBrowseBtn) {
-            heroBrowseBtn.addEventListener('click', () => {
-                document.getElementById('booksSection')?.scrollIntoView({ behavior: 'smooth' });
-            });
-        }
-
-        if (popupLogin) {
-            popupLogin.addEventListener('click', () => {
-                hidePopup();
-                window.location.href = 'login.html';
-            });
-        }
-        if (popupRegister) {
-            popupRegister.addEventListener('click', () => {
-                hidePopup();
-                window.location.href = 'login.html?mode=register';
-            });
-        }
-        if (popupLater) popupLater.addEventListener('click', hidePopup);
-
-        document.querySelectorAll('.btn-grade').forEach(btn => {
-            btn.addEventListener('click', () => {
-                if (!currentUser) { showPopup(); return; }
-                const grade = btn.dataset.grade;
+                const g = b.dataset.grade;
                 const names = ['', 'أولى بكالوريا', 'ثانية بكالوريا', 'ثالثة ثانوي'];
-                showToast(`📚 ${names[grade] || 'الصف'}`, 'جاري التحميل...', 'info');
+                toast(`📚 ${names[g] || 'الصف'}`, 'جاري التحميل...', 'info');
             });
         });
 
@@ -2045,81 +1559,62 @@
             item.addEventListener('click', () => {
                 if (!currentUser) { showPopup(); return; }
                 const page = item.dataset.page;
-                if (page === 'upload') {
-                    openUploadModal();
-                } else {
-                    showToast(`🔜 سيتم فتح صفحة ${item.textContent.trim()} قريباً`, 'قريباً', 'info');
-                }
+                if (page === 'upload') openUpload();
+                else toast(`🔜 سيتم فتح صفحة ${item.textContent.trim()} قريباً`, 'قريباً', 'info');
+            });
+        });
+
+        document.querySelectorAll('[data-grade]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (!currentUser) { showPopup(); return; }
+                toast(`📚 ${link.textContent.trim()}`, 'جاري التحميل...', 'info');
             });
         });
 
         // ============================================================
-        // Upload Summary
+        // Upload
         // ============================================================
-        if (uploadForm) {
-            uploadForm.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                if (!currentUser) { showPopup(); return; }
-
-                const grade = document.getElementById('uploadGrade').value;
-                const subject = document.getElementById('uploadSubject').value.trim();
-                const unit = document.getElementById('uploadUnit').value.trim();
-                const lesson = document.getElementById('uploadLesson').value.trim();
-                const file = document.getElementById('uploadFile').files[0];
-
-                if (!grade || !subject || !lesson || !file) {
-                    showToast('يرجى ملء جميع الحقول', 'تنبيه', 'error');
-                    return;
-                }
-
-                try {
-                    const storageRef = ref(storage, `summaries/${currentUser.uid}/${Date.now()}_${file.name}`);
-                    await uploadBytes(storageRef, file);
-                    const fileUrl = await getDownloadURL(storageRef);
-
-                    await addDoc(collection(db, 'summaries'), {
-                        userId: currentUser.uid,
-                        userName: currentUser.displayName || 'مستخدم',
-                        grade: parseInt(grade),
-                        subject: subject,
-                        unit: unit,
-                        lesson: lesson,
-                        fileUrl: fileUrl,
-                        fileName: file.name,
-                        isApproved: false,
-                        downloads: 0,
-                        views: 0,
-                        rating: 0,
-                        adminRating: 0,
-                        createdAt: serverTimestamp()
-                    });
-
-                    showToast('تم إرسال ملخصك للمراجعة', 'شكراً لك', 'success');
-                    closeUploadModal();
-                } catch (error) {
-                    console.error('Upload error:', error);
-                    showToast('حدث خطأ في رفع الملف', 'خطأ', 'error');
-                }
-            });
-        }
-
-        // ============================================================
-        // Handle URL - /book/:id
-        // ============================================================
-        function handleUrl() {
-            const path = window.location.pathname;
-            const match = path.match(/^\/book\/(.+)$/);
-            if (match && currentUser) {
-                openBookPage(match[1]);
+        uploadForm?.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (!currentUser) { showPopup(); return; }
+            const grade = document.getElementById('uGrade').value;
+            const subject = document.getElementById('uSubject').value.trim();
+            const unit = document.getElementById('uUnit').value.trim();
+            const lesson = document.getElementById('uLesson').value.trim();
+            const file = document.getElementById('uFile').files[0];
+            if (!grade || !subject || !lesson || !file) {
+                toast('يرجى ملء جميع الحقول', 'تنبيه', 'error');
+                return;
             }
-        }
+            try {
+                const ref = ref(storage, `summaries/${currentUser.uid}/${Date.now()}_${file.name}`);
+                await uploadBytes(ref, file);
+                const url = await getDownloadURL(ref);
+                await addDoc(collection(db, 'summaries'), {
+                    userId: currentUser.uid, userName: currentUser.displayName || 'مستخدم',
+                    grade: parseInt(grade), subject, unit, lesson,
+                    fileUrl: url, fileName: file.name,
+                    isApproved: false, downloads: 0, views: 0, rating: 0, adminRating: 0,
+                    createdAt: serverTimestamp()
+                });
+                toast('تم إرسال ملخصك للمراجعة', 'شكراً لك', 'success');
+                closeUpload();
+            } catch (e) {
+                console.error(e);
+                toast('حدث خطأ في رفع الملف', 'خطأ', 'error');
+            }
+        });
 
+        // ============================================================
+        // Popstate
+        // ============================================================
         window.addEventListener('popstate', () => {
             const path = window.location.pathname;
-            if (path === '/') {
-                closeBookPage();
-            } else {
-                handleUrl();
+            if (path === '/') closeBook();
+            else {
+                const match = path.match(/^\/book\/(.+)$/);
+                if (match && currentUser) openBook(match[1]);
             }
         });
 
@@ -2127,27 +1622,19 @@
         // Init
         // ============================================================
         async function init() {
-            console.log('🚀 الثانوية الرسمية بلس - جاري التحميل...');
-            
-            await Promise.all([
-                loadStats(),
-                loadBooks(),
-                loadSummaries(),
-                loadExams(),
-                loadGradeStats()
-            ]);
-
-            // Check URL for book ID
-            handleUrl();
-
-            console.log('✅ تم تحميل جميع البيانات بنجاح');
+            console.log('🚀 الثانوية الرسمية بلس');
+            await Promise.all([loadStats(), loadBooks(), loadSummaries(), loadExams(), loadGradeStats()]);
+            // Check URL
+            const path = window.location.pathname;
+            const match = path.match(/^\/book\/(.+)$/);
+            if (match && currentUser) openBook(match[1]);
+            console.log('✅ جاهز');
         }
-
-        // Make functions global
-        window.openBookPage = openBookPage;
-        window.closeBookPage = closeBookPage;
-
         init();
+
+        // جعل الدوال عامة
+        window.openBook = openBook;
+        window.closeBook = closeBook;
     </script>
 </body>
 </html>
