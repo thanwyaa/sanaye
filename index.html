@@ -45,15 +45,13 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            margin-right: 6px;
+            margin-right: 4px;
             vertical-align: middle;
-            cursor: default;
-            user-select: none;
         }
         .verified-badge svg {
             display: block;
-            width: 18px;
-            height: 18px;
+            width: 16px;
+            height: 16px;
             flex-shrink: 0;
         }
 
@@ -174,7 +172,195 @@
             transform: scale(1.2);
         }
 
-        /* ===== بقية الستايلات (نفس النسخة السابقة) ===== */
+        /* ===== جرس الإشعارات (المطور) ===== */
+        .notification-bell {
+            position: relative;
+            cursor: pointer;
+            font-size: 24px;
+            background: none;
+            border: none;
+            color: #2c3e50;
+            transition: 0.3s;
+            padding: 4px;
+            border-radius: 50%;
+        }
+        body.dark-mode .notification-bell {
+            color: #ecf0f1;
+        }
+        .notification-bell:hover {
+            background: #f0f0f0;
+            transform: scale(1.05);
+        }
+        body.dark-mode .notification-bell:hover {
+            background: #3d3d55;
+        }
+        .notification-bell .bell-icon {
+            display: inline-block;
+            transition: 0.3s;
+        }
+        .notification-bell .bell-icon.has-notifs {
+            animation: bell-ring 0.6s ease;
+            color: #f1c40f;
+        }
+        @keyframes bell-ring {
+            0%,
+            100% {
+                transform: rotate(0);
+            }
+            10%,
+            30% {
+                transform: rotate(15deg);
+            }
+            20%,
+            40% {
+                transform: rotate(-15deg);
+            }
+            50% {
+                transform: rotate(10deg);
+            }
+            60% {
+                transform: rotate(-10deg);
+            }
+            70% {
+                transform: rotate(5deg);
+            }
+            80% {
+                transform: rotate(-5deg);
+            }
+        }
+        .notification-bell .badge-count {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background: #e74c3c;
+            color: white;
+            border-radius: 50%;
+            padding: 1px 6px;
+            font-size: 10px;
+            font-weight: 800;
+            min-width: 18px;
+            text-align: center;
+            border: 2px solid white;
+            display: none;
+            box-shadow: 0 2px 8px rgba(231, 76, 60, 0.4);
+        }
+        body.dark-mode .notification-bell .badge-count {
+            border-color: #1e1e32;
+        }
+        .notification-bell .badge-count.show {
+            display: block;
+            animation: pulse-badge 1.5s infinite;
+        }
+        @keyframes pulse-badge {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+        }
+
+        /* ===== إعلانات (Popup) - مكبرة ===== */
+        .ad-popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 9999;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .ad-popup-overlay.active {
+            display: flex;
+        }
+        .ad-popup {
+            background: white;
+            border-radius: 24px;
+            max-width: 600px;
+            width: 100%;
+            padding: 35px;
+            position: relative;
+            animation: slideUp 0.4s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        body.dark-mode .ad-popup {
+            background: #24243a;
+        }
+        .ad-popup .ad-close {
+            position: absolute;
+            top: 12px;
+            left: 16px;
+            font-size: 28px;
+            background: rgba(0, 0, 0, 0.05);
+            border: none;
+            cursor: pointer;
+            color: #999;
+            transition: 0.3s;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .ad-popup .ad-close:hover {
+            background: rgba(0, 0, 0, 0.1);
+            color: #333;
+            transform: rotate(90deg);
+        }
+        .ad-popup .ad-image {
+            width: 100%;
+            max-height: 250px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 16px;
+        }
+        .ad-popup .ad-title {
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            color: #2c3e50;
+        }
+        body.dark-mode .ad-popup .ad-title {
+            color: #ecf0f1;
+        }
+        .ad-popup .ad-desc {
+            font-size: 15px;
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 16px;
+        }
+        body.dark-mode .ad-popup .ad-desc {
+            color: #ccc;
+        }
+        .ad-popup .ad-btn {
+            display: inline-block;
+            padding: 12px 35px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 17px;
+            cursor: pointer;
+            font-family: 'Tajawal', sans-serif;
+            transition: 0.3s;
+            text-decoration: none;
+        }
+        .ad-popup .ad-btn:hover {
+            background: #2980b9;
+            transform: scale(1.05);
+        }
+
+        /* ===== باقي الستايلات الأساسية ===== */
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -211,7 +397,6 @@
             -webkit-text-fill-color: transparent;
             font-weight: 900;
         }
-
         .nav-actions {
             display: flex;
             align-items: center;
@@ -237,84 +422,6 @@
         body.dark-mode .btn-dark {
             background: #f1c40f;
             color: #1a1a2e;
-        }
-        .notification-bell {
-            position: relative;
-            cursor: pointer;
-            font-size: 24px;
-            background: none;
-            border: none;
-            color: #2c3e50;
-            transition: 0.3s;
-            padding: 4px 8px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        body.dark-mode .notification-bell {
-            color: #ecf0f1;
-        }
-        .notification-bell:hover {
-            transform: scale(1.1);
-            background: rgba(0,0,0,0.05);
-        }
-        body.dark-mode .notification-bell:hover {
-            background: rgba(255,255,255,0.05);
-        }
-        .notification-bell.has-notif {
-            animation: bell-ring 0.5s ease infinite alternate;
-        }
-        @keyframes bell-ring {
-            0% { transform: rotate(-10deg); }
-            100% { transform: rotate(10deg); }
-        }
-        .badge-count {
-            position: absolute;
-            top: -6px;
-            right: -4px;
-            background: #e74c3c;
-            color: white;
-            border-radius: 50%;
-            padding: 2px 7px;
-            font-size: 10px;
-            font-weight: 800;
-            min-width: 20px;
-            text-align: center;
-            animation: pulse-badge 1.5s infinite;
-            border: 2px solid white;
-            display: none;
-            box-shadow: 0 2px 8px rgba(231, 76, 60, 0.4);
-        }
-        body.dark-mode .badge-count {
-            border-color: #1e1e32;
-        }
-        .badge-count.show {
-            display: block;
-        }
-        @keyframes pulse-badge {
-            0%,
-            100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.2);
-            }
-        }
-        .arrow-hint {
-            display: inline-block;
-            margin-right: 2px;
-            animation: arrow-move 1.2s infinite;
-            font-size: 14px;
-        }
-        @keyframes arrow-move {
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-4px);
-            }
         }
 
         .user-profile {
@@ -733,6 +840,7 @@
             border-color: #3498db;
         }
 
+        /* ===== الكتب ===== */
         .books-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
@@ -818,9 +926,17 @@
         .book-item .book-meta {
             font-size: 12px;
             color: #888;
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
         }
         body.dark-mode .book-item .book-meta {
             color: #aaa;
+        }
+        .book-item .book-meta .fav-count {
+            color: #e74c3c;
+            font-weight: 700;
         }
         .book-item .book-actions {
             display: flex;
@@ -935,7 +1051,12 @@
             gap: 6px;
             margin: 10px 0;
         }
+        .book-detail .detail-row .fav-count {
+            color: #e74c3c;
+            font-weight: 700;
+        }
 
+        /* ===== رفع الملخصات (فقط صور/ملفات) ===== */
         .upload-section {
             background: linear-gradient(135deg, #2ecc71, #27ae60);
             padding: 28px 16px;
@@ -955,6 +1076,20 @@
             opacity: 0.95;
             margin: 8px 0 16px;
             font-size: 15px;
+        }
+        .upload-section .upload-types {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 10px 0;
+        }
+        .upload-section .upload-types .type-badge {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 4px 14px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 700;
         }
         .btn-upload {
             background: white;
@@ -1111,6 +1246,7 @@
             font-family: 'Tajawal', sans-serif;
         }
 
+        /* ===== المنتدى مع الردود واللايكات ===== */
         .forum-post {
             background: white;
             border-radius: 18px;
@@ -1183,6 +1319,7 @@
         body.dark-mode .forum-post .post-actions button:hover {
             background: #3d3d55;
         }
+
         .forum-post .comments-section {
             margin-top: 12px;
             border-top: 1px solid #eee;
@@ -1223,6 +1360,41 @@
             font-weight: 700;
             font-size: 12px;
         }
+
+        /* ===== الردود تحت التعليق ===== */
+        .admin-reply {
+            margin-top: 4px;
+            margin-right: 20px;
+            padding: 4px 10px;
+            background: #3498db10;
+            border-right: 3px solid #3498db;
+            border-radius: 6px;
+        }
+        .admin-reply .reply-header {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 11px;
+            font-weight: 700;
+            color: #3498db;
+        }
+        .admin-reply .reply-body {
+            font-size: 12px;
+            padding: 2px 0;
+            color: #333;
+        }
+        body.dark-mode .admin-reply .reply-body {
+            color: #ddd;
+        }
+        .admin-reply .reply-body a {
+            color: #3498db;
+            text-decoration: underline;
+            word-break: break-all;
+        }
+        .admin-reply .reply-body a:hover {
+            color: #2980b9;
+        }
+
         .forum-post .comment-input {
             display: flex;
             gap: 8px;
@@ -1345,6 +1517,9 @@
             text-decoration: underline;
             word-break: break-all;
         }
+        .post-card .post-content-text a:hover {
+            color: #2980b9;
+        }
         .post-card .post-meta {
             font-size: 12px;
             color: #999;
@@ -1379,6 +1554,7 @@
         body.dark-mode .post-card .post-actions button:hover {
             background: #3d3d55;
         }
+
         .post-card .comments-section {
             margin-top: 12px;
             border-top: 1px solid #eee;
@@ -1419,6 +1595,7 @@
             font-weight: 700;
             font-size: 12px;
         }
+
         .post-card .comment-input {
             display: flex;
             gap: 8px;
@@ -1552,6 +1729,7 @@
             transform: scale(1.05);
         }
 
+        /* ===== نافذة الإشعارات ===== */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -1642,6 +1820,7 @@
             color: #aaa;
         }
 
+        /* ===== رفع الملخصات - فقط صور/ملفات ===== */
         .upload-form-container label {
             display: block;
             margin: 10px 0 4px;
@@ -1716,22 +1895,6 @@
             border-radius: 50px;
         }
 
-        /* ===== رسالة خطأ رفع الملفات ===== */
-        .upload-error-link {
-            margin-top: 8px;
-            font-size: 13px;
-            color: #888;
-            text-align: center;
-        }
-        .upload-error-link a {
-            color: #3498db;
-            text-decoration: none;
-            font-weight: 700;
-        }
-        .upload-error-link a:hover {
-            text-decoration: underline;
-        }
-
         .forum-form label {
             display: block;
             margin: 10px 0 4px;
@@ -1778,7 +1941,6 @@
             transform: scale(1.02);
         }
 
-        /* ===== صفحات السياسة ===== */
         .policy-content {
             font-size: 14px;
             line-height: 2;
@@ -1968,92 +2130,6 @@
             background: #2d2d44;
         }
 
-        .ad-popup-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.75);
-            backdrop-filter: blur(8px);
-            z-index: 9999;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-        .ad-popup-overlay.active {
-            display: flex;
-        }
-        .ad-popup {
-            background: white;
-            border-radius: 24px;
-            max-width: 600px;
-            width: 100%;
-            padding: 35px 30px;
-            position: relative;
-            animation: slideUp 0.4s ease;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-        body.dark-mode .ad-popup {
-            background: #24243a;
-        }
-        .ad-popup .ad-close {
-            position: absolute;
-            top: 12px;
-            left: 16px;
-            font-size: 28px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: #999;
-            transition: 0.3s;
-        }
-        .ad-popup .ad-close:hover {
-            color: #333;
-            transform: rotate(90deg);
-        }
-        .ad-popup .ad-image {
-            width: 100%;
-            max-height: 250px;
-            object-fit: cover;
-            border-radius: 12px;
-            margin-bottom: 15px;
-        }
-        .ad-popup .ad-title {
-            font-size: 22px;
-            font-weight: 800;
-            margin-bottom: 8px;
-        }
-        .ad-popup .ad-desc {
-            font-size: 15px;
-            color: #555;
-            line-height: 1.8;
-            margin-bottom: 18px;
-        }
-        body.dark-mode .ad-popup .ad-desc {
-            color: #ccc;
-        }
-        .ad-popup .ad-btn {
-            display: inline-block;
-            padding: 12px 35px;
-            background: #3498db;
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-weight: 700;
-            font-size: 17px;
-            cursor: pointer;
-            font-family: 'Tajawal', sans-serif;
-            transition: 0.3s;
-            text-decoration: none;
-        }
-        .ad-popup .ad-btn:hover {
-            background: #2980b9;
-            transform: scale(1.05);
-        }
-
         .youtube-detail {
             max-width: 600px;
             margin: 0 auto;
@@ -2117,84 +2193,19 @@
             transform: scale(1.05);
         }
 
-        .lightbox {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.92);
-            z-index: 9999;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            flex-direction: column;
+        .upload-error-link {
+            margin-top: 8px;
+            font-size: 13px;
+            color: #888;
+            text-align: center;
         }
-        .lightbox.active {
-            display: flex;
+        .upload-error-link a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 700;
         }
-        .lightbox .lightbox-close {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            font-size: 32px;
-            color: white;
-            background: none;
-            border: none;
-            cursor: pointer;
-            z-index: 10;
-        }
-        .lightbox .lightbox-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255, 255, 255, 0.15);
-            color: white;
-            border: none;
-            font-size: 30px;
-            padding: 15px 20px;
-            cursor: pointer;
-            border-radius: 50%;
-            transition: 0.3s;
-            z-index: 10;
-        }
-        .lightbox .lightbox-nav:hover {
-            background: rgba(255, 255, 255, 0.3);
-        }
-        .lightbox .lightbox-nav.prev {
-            right: 20px;
-        }
-        .lightbox .lightbox-nav.next {
-            left: 20px;
-        }
-        .lightbox .lightbox-image {
-            max-width: 90%;
-            max-height: 80vh;
-            object-fit: contain;
-            border-radius: 8px;
-            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
-        }
-        .lightbox .lightbox-counter {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 14px;
-            margin-top: 12px;
-        }
-        .lightbox .lightbox-dots {
-            display: flex;
-            gap: 8px;
-            margin-top: 10px;
-            justify-content: center;
-        }
-        .lightbox .lightbox-dots .dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            cursor: pointer;
-            transition: 0.3s;
-            border: none;
-        }
-        .lightbox .lightbox-dots .dot.active {
-            background: white;
-            transform: scale(1.2);
+        .upload-error-link a:hover {
+            text-decoration: underline;
         }
 
         @media (max-width: 768px) {
@@ -2247,8 +2258,7 @@
                 font-size: 20px;
             }
             .ad-popup {
-                padding: 25px 18px;
-                max-width: 95%;
+                padding: 25px;
             }
         }
         @media (max-width: 480px) {
@@ -2286,7 +2296,7 @@
                 font-size: 16px;
             }
             .ad-popup {
-                padding: 20px 14px;
+                padding: 20px;
             }
         }
 
@@ -2324,9 +2334,8 @@
                 <a onclick="navigateTo('profile')">👤 حسابي</a>
             </div>
             <button class="notification-bell" id="bellBtn" title="الإشعارات">
-                🔔
+                <span class="bell-icon" id="bellIcon">🔔</span>
                 <span class="badge-count" id="notifCount">0</span>
-                <span class="arrow-hint">👆</span>
             </button>
             <button class="btn-dark" id="darkModeToggle" title="وضع النهار/الليل">🌙</button>
             <div id="userSection">
@@ -2420,9 +2429,14 @@
         </section>
 
         <div class="upload-section">
-            <h3>📤 هل تمتلك ملخصات أو ملفات مفيدة؟</h3>
-            <p>شارك معنا صور ملخصاتك (بخط اليد) أو ملفات PDF عالية الجودة لتفيد زملائك (سيتم مراجعة الملفات قبل النشر)</p>
-            <button class="btn-upload" id="uploadBtn">🚀 شارك ملفاتك الآن</button>
+            <h3>📤 هل تمتلك ملخصات بخط اليد مفيدة؟</h3>
+            <p>شارك معنا ملخصاتك المكتوبة بخط اليد (صور عالية الجودة) وساعد زملائك (سيتم مراجعة الملفات قبل النشر)</p>
+            <div class="upload-types">
+                <span class="type-badge">🖊️ ملخصات خط اليد</span>
+                <span class="type-badge">📸 صور عالية الجودة</span>
+                <span class="type-badge">📝 مذكرات يدوية</span>
+            </div>
+            <button class="btn-upload" id="uploadBtn">🚀 شارك ملخصاتك الآن</button>
             <div class="upload-error-link">
                 ⚠️ واجهتك مشكلة؟ <a href="#" onclick="window.open('https://t.me/llTwasell', '_blank')">تواصل معنا على تليجرام</a>
             </div>
@@ -2712,7 +2726,7 @@
     <div class="modal-overlay" id="uploadModal">
         <div class="modal-content">
             <button class="modal-close" id="closeUploadModal">✕</button>
-            <h3 style="margin-bottom:12px;font-size:20px;">📤 شارك معنا ملخصاتك</h3>
+            <h3 style="margin-bottom:12px;font-size:20px;">📤 شارك ملخصاتك بخط اليد</h3>
             <div class="upload-form-container">
                 <form id="uploadForm">
                     <label for="uploadName">👤 اسمك (سيظهر للمستخدمين)</label>
@@ -2724,18 +2738,14 @@
                         <option value="مدرس">مدرس</option>
                     </select>
 
-                    <label for="uploadTitle">📖 عنوان الملف</label>
+                    <label for="uploadTitle">📖 عنوان الملخص</label>
                     <input type="text" id="uploadTitle" placeholder="مثال: ملخص فيزياء - الوحدة الأولى" required>
 
-                    <label for="uploadCategory">📂 تصنيف الملف</label>
+                    <label for="uploadCategory">📂 التصنيف</label>
                     <select id="uploadCategory" required>
-                        <option value="teachers">كتاب مدرسين</option>
-                        <option value="ministry">كتاب وزارة</option>
-                        <option value="external">كتاب خارجي</option>
-                        <option value="reviews">تقييمات</option>
-                        <option value="past_questions">أسئلة سابقة</option>
-                        <option value="mock_exams">امتحانات استرشادية</option>
-                        <option value="other">ملف آخر (صور / ملخصات خط اليد)</option>
+                        <option value="handwritten">ملخص خط اليد</option>
+                        <option value="notes">مذكرات يدوية</option>
+                        <option value="summary">تلخيص</option>
                     </select>
 
                     <label for="uploadGrade">📘 اختر الصف</label>
@@ -2745,22 +2755,26 @@
                         <option value="3">تالتة ثانوي</option>
                     </select>
 
-                    <label for="uploadDesc">📝 وصف مختصر</label>
-                    <textarea id="uploadDesc" rows="3" placeholder="اكتب وصفاً مختصراً للملف..."></textarea>
+                    <label for="uploadSubject">📖 المادة</label>
+                    <input type="text" id="uploadSubject" placeholder="فيزياء / كيمياء / رياضيات" required>
 
-                    <label for="uploadLink">🔗 رابط الملف (Google Drive / OneDrive / Dropbox / أو رابط صورة)</label>
-                    <input type="url" id="uploadLink" placeholder="https://drive.google.com/... أو رابط الصورة" required>
+                    <label for="uploadDesc">📝 وصف مختصر</label>
+                    <textarea id="uploadDesc" rows="3" placeholder="اكتب وصفاً مختصراً للملخص..."></textarea>
+
+                    <label for="uploadFile">🖼️ اختار صور الملخص (JPG/PNG)</label>
+                    <input type="file" id="uploadFile" accept="image/*" multiple required>
+                    <p style="font-size:12px;color:#888;margin-top:4px;">يمكنك اختيار أكثر من صورة (جودة عالية)</p>
 
                     <div class="checkbox-group">
                         <input type="checkbox" id="showName" checked>
-                        <label for="showName">إظهار اسمي مع الملف</label>
+                        <label for="showName">إظهار اسمي مع الملخص</label>
                     </div>
 
                     <div class="upload-progress" id="uploadProgress">
                         <div class="progress-bar" id="progressBar"></div>
                     </div>
 
-                    <button type="submit" class="submit-upload">🚀 إرسال الرابط (سيتم مراجعته)</button>
+                    <button type="submit" class="submit-upload">🚀 إرسال الملخص (سيتم مراجعته)</button>
                 </form>
                 <div id="uploadStatus" style="margin-top:8px;font-weight:700;"></div>
                 <div class="upload-error-link" style="margin-top:8px;text-align:center;font-size:13px;color:#888;">
@@ -2869,21 +2883,12 @@
             return sanitizeHTML(text);
         }
 
-        // تحويل النص إلى روابط قابلة للنقر
-        function linkifyText(text) {
-            if (!text) return '';
-            const urlPattern = /(https?:\/\/[^\s]+)/g;
-            return text.replace(urlPattern, function(url) {
-                return `<a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>`;
-            });
-        }
-
         // ============================================================
         // 3. علامة التوثيق الزرقاء (SVG)
         // ============================================================
         const VERIFIED_BADGE_SVG = `
                 <span class="verified-badge" title="حساب موثق">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="#1D9BF0" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#1D9BF0">
                         <path d="M22.25 12c0-1.06-.82-1.95-1.88-2.07.61-.88.54-2.08-.25-2.87-.79-.79-1.99-.86-2.87-.25C17.13 5.82 16.24 5 15.18 5c-.52 0-1 .18-1.39.48A2.07 2.07 0 0 0 12 4c-.69 0-1.32.34-1.7.86A2.07 2.07 0 0 0 8.82 5c-1.06 0-1.95.82-2.07 1.88-.88-.61-2.08-.54-2.87.25-.79.79-.86 1.99-.25 2.87C2.82 10.05 2 10.94 2 12s.82 1.95 1.88 2.07c-.61.88-.54 2.08.25 2.87.79.79 1.99.86 2.87.25.12 1.06 1.01 1.88 2.07 1.88.52 0 1-.18 1.39-.48.38.52 1.01.86 1.7.86.69 0 1.32-.34 1.7-.86.39.3.87.48 1.39.48 1.06 0 1.95-.82 2.07-1.88.88.61 2.08.54 2.87-.25.79-.79.86-1.99.25-2.87A2.08 2.08 0 0 0 22.25 12z"/>
                         <path fill="#FFFFFF" d="M10.3 15.7l-2.5-2.5 1.06-1.06 1.44 1.44 4.9-4.9 1.06 1.06z"/>
                     </svg>
@@ -3021,8 +3026,6 @@
                     if (document.getElementById('page-home').querySelector('.banned-message')) {
                         location.reload();
                     }
-                    // تحديث الإشعارات عند تسجيل الدخول
-                    loadNotifications();
                 });
             } else {
                 userSection.innerHTML =
@@ -3086,9 +3089,14 @@
                             </div>
                         </section>
                         <div class="upload-section">
-                            <h3>📤 هل تمتلك ملخصات أو ملفات مفيدة؟</h3>
-                            <p>شارك معنا صور ملخصاتك (بخط اليد) أو ملفات PDF عالية الجودة لتفيد زملائك (سيتم مراجعة الملفات قبل النشر)</p>
-                            <button class="btn-upload" id="uploadBtn">🚀 شارك ملفاتك الآن</button>
+                            <h3>📤 هل تمتلك ملخصات بخط اليد مفيدة؟</h3>
+                            <p>شارك معنا ملخصاتك المكتوبة بخط اليد (صور عالية الجودة) وساعد زملائك (سيتم مراجعة الملفات قبل النشر)</p>
+                            <div class="upload-types">
+                                <span class="type-badge">🖊️ ملخصات خط اليد</span>
+                                <span class="type-badge">📸 صور عالية الجودة</span>
+                                <span class="type-badge">📝 مذكرات يدوية</span>
+                            </div>
+                            <button class="btn-upload" id="uploadBtn">🚀 شارك ملخصاتك الآن</button>
                             <div class="upload-error-link" style="margin-top:8px;font-size:13px;color:#888;text-align:center;">
                                 ⚠️ واجهتك مشكلة؟ <a href="#" onclick="window.open('https://t.me/llTwasell', '_blank')" style="color:#3498db;text-decoration:none;font-weight:700;">تواصل معنا على تليجرام</a>
                             </div>
@@ -3189,9 +3197,10 @@
         });
 
         // ============================================================
-        // 8. الإشعارات (خاصة بالمستخدم)
+        // 8. الإشعارات - مع تصفية خاصة بالمستخدم
         // ============================================================
         const bellBtn = document.getElementById('bellBtn');
+        const bellIcon = document.getElementById('bellIcon');
         const notifModal = document.getElementById('notifModal');
         const closeNotifModal = document.getElementById('closeNotifModal');
         const notifCount = document.getElementById('notifCount');
@@ -3202,13 +3211,15 @@
             try {
                 let query = db.collection('notifications').orderBy('createdAt', 'desc').limit(50);
                 const snap = await query.get();
+
                 notifications = [];
                 snap.forEach(doc => {
                     const data = doc.data();
-                    // عرض الإشعارات العامة (target: 'all' أو بدون userId) والإشعارات الخاصة بالمستخدم
-                    const isGeneral = data.target === 'all' || !data.userId;
-                    const isForUser = data.userId && auth.currentUser && data.userId === auth.currentUser.uid;
-                    if (isGeneral || isForUser) {
+                    // تصفية: إشعارات عامة أو خاصة بالمستخدم
+                    const isPublic = data.target === 'all' || !data.userId;
+                    const isForUser = data.userId === auth.currentUser?.uid;
+
+                    if (isPublic || isForUser) {
                         notifications.push({
                             id: doc.id,
                             title: data.title || 'إشعار',
@@ -3220,17 +3231,27 @@
                     }
                 });
 
-                const unread = notifications.filter(n => !n.read).length;
-                if (unread > 0) {
-                    notifCount.textContent = unread;
+                // ترتيب من الأحدث
+                notifications.sort((a, b) => b.time.localeCompare(a.time));
+
+                // عدد الإشعارات غير المقروءة الخاصة بالمستخدم
+                const unreadForUser = notifications.filter(n =>
+                    !n.read && (n.userId === auth.currentUser?.uid || !n.userId)
+                ).length;
+
+                if (unreadForUser > 0) {
+                    notifCount.textContent = unreadForUser;
                     notifCount.classList.add('show');
-                    bellBtn.classList.add('has-notif');
+                    bellIcon.classList.add('has-notifs');
                 } else {
                     notifCount.classList.remove('show');
-                    bellBtn.classList.remove('has-notif');
+                    bellIcon.classList.remove('has-notifs');
                 }
+
                 renderNotifications();
-            } catch (err) { console.error('خطأ في تحميل الإشعارات:', err); }
+            } catch (err) {
+                console.error('خطأ في تحميل الإشعارات:', err);
+            }
         }
 
         function renderNotifications() {
@@ -3239,13 +3260,21 @@
                     `<div class="empty-state"><div class="icon">📭</div><h3>لا توجد إشعارات</h3><p>ستظهر هنا الإشعارات الجديدة</p></div>`;
                 return;
             }
+
             notifList.innerHTML = '';
             notifications.forEach(n => {
                 const item = document.createElement('div');
                 item.className = 'notification-item';
+                // الإشعارات الخاصة بالمستخدم تظهر بشكل مختلف
+                const isForUser = n.userId === auth.currentUser?.uid;
                 item.style.opacity = n.read ? '0.6' : '1';
-                item.innerHTML =
-                    `<div><strong>${safeText(n.title)}</strong></div><div style="font-size:14px;color:#777;">${safeText(n.body)}</div><div class="date">${safeText(n.time)}</div>`;
+                item.style.background = isForUser && !n.read ? '#3498db10' : 'transparent';
+                item.style.borderRight = isForUser && !n.read ? '3px solid #3498db' : 'none';
+                item.innerHTML = `
+                        <div><strong>${safeText(n.title)}</strong> ${isForUser ? '<span style="font-size:10px;color:#3498db;font-weight:700;">(خاص بك)</span>' : ''}</div>
+                        <div style="font-size:14px;color:#777;">${safeText(n.body)}</div>
+                        <div class="date">${safeText(n.time)}</div>
+                    `;
                 notifList.appendChild(item);
             });
         }
@@ -3253,18 +3282,17 @@
         bellBtn.addEventListener('click', async () => {
             notifModal.classList.add('active');
             notifCount.classList.remove('show');
-            bellBtn.classList.remove('has-notif');
-            // تحديث حالة القراءة للإشعارات الخاصة بالمستخدم فقط
+            bellIcon.classList.remove('has-notifs');
+
+            // تعليم الإشعارات الخاصة بالمستخدم كمقروءة
             for (const n of notifications) {
-                if (!n.read && auth.currentUser && n.userId === auth.currentUser.uid) {
-                    try { await db.collection('notifications').doc(n.id).update({ read: true }); } catch (err) { /* ignore */ }
-                } else if (!n.read && !n.userId) {
-                    // للإشعارات العامة، نعتبرها مقروءة عند فتح النافذة
-                    try { await db.collection('notifications').doc(n.id).update({ read: true }); } catch (err) { /* ignore */ }
+                if (!n.read && (n.userId === auth.currentUser?.uid || !n.userId)) {
+                    try {
+                        await db.collection('notifications').doc(n.id).update({ read: true });
+                    } catch (err) { /* ignore */ }
                 }
-                n.read = true;
             }
-            renderNotifications();
+            notifications.forEach(n => n.read = true);
         });
 
         closeNotifModal.addEventListener('click', () => notifModal.classList.remove('active'));
@@ -3330,7 +3358,7 @@
         }
 
         // ============================================================
-        // 10. تحميل الكتب لكل قسم مع عرض البادجات (بدون عرض عدد المفضلة)
+        // 10. تحميل الكتب لكل قسم مع عرض البادجات وعدد المفضلة
         // ============================================================
         async function loadBooksForSection(gradeId, sectionId) {
             const container = document.getElementById(`books-${gradeId}-${sectionId}`);
@@ -3376,7 +3404,10 @@
                             <div class="book-badges">${badgesHtml}</div>
                             <img src="${coverUrl}" class="book-cover" loading="lazy" onclick="showBookDetail('${doc.id}')" onerror="this.src='https://via.placeholder.com/200x180?text=كتاب'">
                             <div class="book-name" onclick="showBookDetail('${doc.id}')">${safeText(data.title || 'كتاب')}</div>
-                            <div class="book-meta">${safeText(data.author || '')} • ${safeText(data.year || '')}</div>
+                            <div class="book-meta">
+                                <span>${safeText(data.author || '')}</span>
+                                <span class="fav-count">❤️ ${data.favorites || 0}</span>
+                            </div>
                             <div class="book-actions">
                                 <button class="fav-btn" onclick="toggleFav('${doc.id}', this)" aria-label="إضافة إلى المفضلة">🤍</button>
                                 <button class="download-btn" onclick="showBookDetail('${doc.id}')" aria-label="تفاصيل الكتاب">📖 تفاصيل</button>
@@ -3404,7 +3435,7 @@
         };
 
         // ============================================================
-        // 11. صفحة تفاصيل الكتاب (بدون عرض عدد المفضلة)
+        // 11. صفحة تفاصيل الكتاب مع عدد المفضلة
         // ============================================================
         async function showBookDetail(bookId) {
             navigateTo('bookDetail');
@@ -3454,6 +3485,7 @@
                             ${data.desc ? `<div class="detail-desc">${safeText(data.desc)}</div>` : ''}
                             <div class="detail-row"><span class="label">📥 التحميلات</span><span class="value">${data.downloads || 0}</span></div>
                             <div class="detail-row"><span class="label">👁️ المشاهدات</span><span class="value">${(data.views || 0) + 1}</span></div>
+                            <div class="detail-row"><span class="label">❤️ المفضلة</span><span class="value fav-count">${data.favorites || 0}</span></div>
                             <button class="btn-download-large" onclick="downloadBook('${bookId}')">⬇️ تحميل الكتاب</button>
                             <button class="btn-primary" onclick="navigateTo('home')" style="display:block;width:100%;margin-top:10px;text-align:center;">🏠 العودة للرئيسية</button>
                         </div>
@@ -3466,7 +3498,7 @@
         }
 
         // ============================================================
-        // 12. المفضلة
+        // 12. المفضلة مع تحديث العدد
         // ============================================================
         async function checkFavStatus(bookId, btn) {
             if (!auth.currentUser) return;
@@ -3484,7 +3516,9 @@
                 window.location.href = 'login.html';
                 return;
             }
+
             const isFaved = btn.classList.contains('faved');
+
             try {
                 if (isFaved) {
                     const snapshot = await db.collection('favorites').where('userId', '==', auth.currentUser.uid).where(
@@ -3502,11 +3536,35 @@
                     await db.collection('books').doc(bookId).update({ favorites: firebase.firestore.FieldValue
                             .increment(1) });
                 }
+
+                // تحديث العدد في صفحة التفاصيل
                 if (currentPage === 'bookDetail') {
-                    const bookId2 = window._currentBookId;
-                    if (bookId2 === bookId) { showBookDetail(bookId); }
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const currentBookId = urlParams.get('bookId');
+                    if (currentBookId === bookId) {
+                        showBookDetail(bookId);
+                    }
                 }
-            } catch (err) { alert('❌ خطأ: ' + err.message); }
+
+                // تحديث العدد في القسم
+                const sections = document.querySelectorAll('.section-card');
+                sections.forEach(section => {
+                    const items = section.querySelectorAll('.book-item');
+                    items.forEach(item => {
+                        const nameEl = item.querySelector('.book-name');
+                        if (nameEl && nameEl.textContent.includes(bookId)) {
+                            const favCount = item.querySelector('.fav-count');
+                            if (favCount) {
+                                const current = parseInt(favCount.textContent.replace(/[^0-9]/g, '')) || 0;
+                                favCount.textContent = `❤️ ${current + (isFaved ? -1 : 1)}`;
+                            }
+                        }
+                    });
+                });
+
+            } catch (err) {
+                alert('❌ خطأ: ' + err.message);
+            }
         };
 
         // ============================================================
@@ -3518,6 +3576,7 @@
                 window.location.href = 'login.html';
                 return;
             }
+
             try {
                 const doc = await db.collection('books').doc(bookId).get();
                 if (!doc.exists) { alert('❌ الكتاب غير موجود'); return; }
@@ -3530,7 +3589,7 @@
         };
 
         // ============================================================
-        // 14. رفع الملفات (مع خيار "ملف آخر")
+        // 14. رفع الملخصات - فقط صور
         // ============================================================
         const uploadBtn = document.getElementById('uploadBtn');
         const uploadModal = document.getElementById('uploadModal');
@@ -3556,6 +3615,7 @@
 
         uploadForm.addEventListener('submit', async (e) => {
             e.preventDefault();
+
             if (!auth.currentUser) {
                 alert('🔐 يرجى تسجيل الدخول أولاً');
                 window.location.href = 'login.html';
@@ -3567,47 +3627,87 @@
             const title = document.getElementById('uploadTitle').value.trim();
             const category = document.getElementById('uploadCategory').value;
             const grade = document.getElementById('uploadGrade').value;
+            const subject = document.getElementById('uploadSubject').value.trim();
             const desc = document.getElementById('uploadDesc').value.trim();
-            const link = document.getElementById('uploadLink').value.trim();
+            const files = document.getElementById('uploadFile').files;
             const showName = document.getElementById('showName').checked;
 
-            if (!link) { alert('❌ يرجى إدخال رابط الملف'); return; }
+            if (files.length === 0) {
+                alert('❌ يرجى اختيار صور الملخص');
+                return;
+            }
 
-            uploadStatus.textContent = '⏳ جاري الإرسال...';
+            // التحقق من حجم كل صورة (حد أقصى 5 ميجابايت)
+            for (let f of files) {
+                if (f.size > 5 * 1024 * 1024) {
+                    alert('❌ حجم الصورة ' + f.name + ' يتجاوز 5 ميجابايت');
+                    return;
+                }
+                if (!f.type.startsWith('image/')) {
+                    alert('❌ يرجى رفع صور فقط (JPG/PNG)');
+                    return;
+                }
+            }
+
+            uploadStatus.textContent = '⏳ جاري رفع الصور...';
             uploadStatus.style.color = '#3498db';
             uploadProgress.style.display = 'block';
-            progressBar.style.width = '50%';
+            progressBar.style.width = '0%';
 
             try {
-                await db.collection('books').add({
-                    title,
+                const imageUrls = [];
+                let uploaded = 0;
+
+                for (let file of files) {
+                    const ref = storage.ref(`handwritten/${auth.currentUser.uid}/${Date.now()}_${file.name}`);
+                    const uploadTask = ref.put(file);
+
+                    await new Promise((resolve, reject) => {
+                        uploadTask.on('state_changed',
+                            (snapshot) => {
+                                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                                const totalProgress = (uploaded + progress / 100) / files.length * 100;
+                                progressBar.style.width = totalProgress + '%';
+                            },
+                            reject,
+                            async () => {
+                                const url = await ref.getDownloadURL();
+                                imageUrls.push(url);
+                                uploaded++;
+                                resolve();
+                            }
+                        );
+                    });
+                }
+
+                await db.collection('handwritten_notes').add({
+                    title: title,
                     author: name,
-                    userType,
-                    category,
-                    grade,
-                    desc,
-                    link,
-                    showName,
+                    userType: userType,
+                    category: category,
+                    grade: grade,
+                    subject: subject,
+                    desc: desc,
+                    showName: showName,
+                    images: imageUrls,
                     userId: auth.currentUser.uid,
                     userEmail: auth.currentUser.email,
                     status: 'pending',
                     createdAt: firebase.firestore.FieldValue.serverTimestamp(),
                     views: 0,
                     downloads: 0,
-                    favorites: 0,
-                    year: new Date().getFullYear()
+                    favorites: 0
                 });
 
-                uploadStatus.textContent = '✅ تم إرسال الرابط بنجاح! سيتم مراجعته.';
+                uploadStatus.textContent = '✅ تم إرسال الملخص بنجاح! سيتم مراجعته.';
                 uploadStatus.style.color = '#2ecc71';
                 uploadForm.reset();
                 progressBar.style.width = '100%';
 
                 await db.collection('notifications').add({
-                    title: '📤 كتاب جديد في الانتظار',
+                    title: '📤 ملخص جديد في الانتظار',
                     body: `"${title}" من قبل ${name}`,
                     type: 'admin',
-                    target: 'all',
                     read: false,
                     createdAt: firebase.firestore.FieldValue.serverTimestamp()
                 });
@@ -3705,7 +3805,7 @@
         });
 
         // ============================================================
-        // 16. المنتدى
+        // 16. المنتدى - مع الردود واللايكات
         // ============================================================
         async function loadForumPosts() {
             const container = document.getElementById('forumPosts');
@@ -3749,21 +3849,46 @@
                         contentHtml = contentDiv.outerHTML;
                     }
 
+                    // عرض التعليقات مع الردود
                     let commentsHtml = '';
                     if (data.comments) {
                         const approvedComments = data.comments.filter(c => c.status === 'approved');
                         approvedComments.forEach(comment => {
                             const initial = comment.user ? comment.user.charAt(0).toUpperCase() : '?';
+
+                            // عرض ردود الإدارة
+                            let repliesHtml = '';
+                            if (comment.adminReplies && comment.adminReplies.length > 0) {
+                                comment.adminReplies.forEach(reply => {
+                                    repliesHtml += `
+                                            <div class="admin-reply">
+                                                <div class="reply-header">
+                                                    ${VERIFIED_BADGE_SVG}
+                                                    الإدارة
+                                                    <span style="font-size:9px;color:#888;">${reply.time ? new Date(reply.time).toLocaleString('ar') : ''}</span>
+                                                </div>
+                                                <div class="reply-body">${safeText(reply.text)}</div>
+                                            </div>
+                                        `;
+                                });
+                            }
+
+                            // عرض اللايكات
+                            let likesDisplay = '';
+                            if (comment.likes && comment.likes > 0) {
+                                likesDisplay = `<span style="font-size:11px;color:#e74c3c;">❤️ ${comment.likes}</span>`;
+                            }
+
                             const commentDiv = document.createElement('div');
                             commentDiv.className = 'comment';
-                            commentDiv.innerHTML =
-                                `
-                                        <div class="avatar">${safeText(initial)}</div>
-                                        <div class="comment-text">
-                                            <div class="name">${safeText(comment.user || 'مجهول')}</div>
-                                            <div>${safeText(comment.text || '')}</div>
-                                        </div>
-                                    `;
+                            commentDiv.innerHTML = `
+                                    <div class="avatar">${safeText(initial)}</div>
+                                    <div class="comment-text">
+                                        <div class="name">${safeText(comment.user || 'مجهول')}</div>
+                                        <div>${safeText(comment.text || '')} ${likesDisplay}</div>
+                                        ${repliesHtml}
+                                    </div>
+                                `;
                             commentsHtml += commentDiv.outerHTML;
                         });
                     }
@@ -3796,6 +3921,7 @@
                     container.appendChild(post);
                 }
 
+                // أحداث التعليقات
                 document.querySelectorAll('.forum-comment-submit').forEach(btn => {
                     btn.addEventListener('click', async function() {
                         const postId = this.dataset.post;
@@ -3817,7 +3943,9 @@
                                 userId: auth.currentUser.uid,
                                 text: text,
                                 status: 'pending',
-                                createdAt: new Date().toISOString()
+                                createdAt: new Date().toISOString(),
+                                likes: 0,
+                                adminReplies: []
                             });
                             await postRef.update({ comments });
                             input.value = '';
@@ -3826,11 +3954,12 @@
                                 title: '💬 تعليق جديد في المنتدى',
                                 body: `من ${auth.currentUser.displayName || auth.currentUser.email}`,
                                 type: 'admin',
-                                target: 'all',
                                 read: false,
                                 createdAt: firebase.firestore.FieldValue.serverTimestamp()
                             });
-                        } catch (err) { alert('❌ خطأ: ' + err.message); }
+                        } catch (err) {
+                            alert('❌ خطأ: ' + err.message);
+                        }
                     });
                 });
 
@@ -3900,7 +4029,6 @@
                     title: '📝 منشور جديد في المنتدى',
                     body: `"${title}" من ${auth.currentUser.displayName || auth.currentUser.email}`,
                     type: 'admin',
-                    target: 'all',
                     read: false,
                     createdAt: firebase.firestore.FieldValue.serverTimestamp()
                 });
@@ -3946,7 +4074,7 @@
         };
 
         // ============================================================
-        // 18. منشورات الفريق (مع علامة التوثيق الزرقاء ومعرض الصور وروابط قابلة للنقر)
+        // 18. منشورات الفريق - مع الردود والروابط واللايكات
         // ============================================================
         async function loadTeamPosts() {
             const container = document.getElementById('teamPostsContainer');
@@ -3976,16 +4104,21 @@
                         });
                     }
 
+                    // عرض المحتوى مع دعم الروابط
                     let contentHtml = '';
                     if (data.content) {
                         const contentDiv = document.createElement('div');
                         contentDiv.className = 'post-content-text';
-                        // تحويل النص إلى روابط قابلة للنقر
-                        contentDiv.innerHTML = linkifyText(safeText(data.content));
+                        // تحويل الروابط إلى عناصر قابلة للضغط
+                        const linkedContent = data.content.replace(
+                            /(https?:\/\/[^\s]+)/g,
+                            '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>'
+                        );
+                        contentDiv.innerHTML = linkedContent;
                         contentHtml = contentDiv.outerHTML;
                     }
 
-                    // ===== معرض الصور =====
+                    // عرض الصور
                     let imagesHtml = '';
                     if (data.images && data.images.length > 0) {
                         const images = data.images;
@@ -4014,7 +4147,6 @@
                         }
                         imagesHtml += `</div>`;
                     } else if (data.image) {
-                        // دعم الصورة الواحدة القديمة
                         imagesHtml =
                             `
                                 <div class="team-post-images">
@@ -4025,30 +4157,49 @@
                             `;
                     }
 
+                    // عرض التعليقات مع الردود
                     let commentsHtml = '';
                     if (data.comments) {
                         const approvedComments = data.comments.filter(c => c.status === 'approved');
                         approvedComments.forEach(comment => {
                             const initial = comment.user ? comment.user.charAt(0).toUpperCase() : '?';
+
+                            let repliesHtml = '';
+                            if (comment.adminReplies && comment.adminReplies.length > 0) {
+                                comment.adminReplies.forEach(reply => {
+                                    repliesHtml += `
+                                            <div class="admin-reply">
+                                                <div class="reply-header">
+                                                    ${VERIFIED_BADGE_SVG}
+                                                    الإدارة
+                                                    <span style="font-size:9px;color:#888;">${reply.time ? new Date(reply.time).toLocaleString('ar') : ''}</span>
+                                                </div>
+                                                <div class="reply-body">${safeText(reply.text)}</div>
+                                            </div>
+                                        `;
+                                });
+                            }
+
+                            let likesDisplay = '';
+                            if (comment.likes && comment.likes > 0) {
+                                likesDisplay = `<span style="font-size:11px;color:#e74c3c;">❤️ ${comment.likes}</span>`;
+                            }
+
                             const commentDiv = document.createElement('div');
                             commentDiv.className = 'comment';
-                            commentDiv.innerHTML =
-                                `
-                                        <div class="avatar">${safeText(initial)}</div>
-                                        <div class="comment-text">
-                                            <div class="name">${safeText(comment.user || 'مجهول')}</div>
-                                            <div>${safeText(comment.text || '')}</div>
-                                        </div>
-                                    `;
+                            commentDiv.innerHTML = `
+                                    <div class="avatar">${safeText(initial)}</div>
+                                    <div class="comment-text">
+                                        <div class="name">${safeText(comment.user || 'مجهول')}</div>
+                                        <div>${safeText(comment.text || '')} ${likesDisplay}</div>
+                                        ${repliesHtml}
+                                    </div>
+                                `;
                             commentsHtml += commentDiv.outerHTML;
                         });
                     }
 
                     const likeCount = data.likesCount || 0;
-                    let userLiked = false;
-                    if (auth.currentUser && data.likesData) {
-                        userLiked = data.likesData[auth.currentUser.uid] || false;
-                    }
 
                     post.innerHTML =
                         `
@@ -4071,9 +4222,7 @@
                             ${imagesHtml}
                             <div class="post-meta">${data.createdAt ? data.createdAt.toDate().toLocaleString('ar') : ''}</div>
                             <div class="post-actions">
-                                <button onclick="likeTeamPost('${doc.id}', this)" aria-label="الإعجاب بالمنشور" ${userLiked ? 'style="color:#e74c3c;"' : ''}>
-                                    ${userLiked ? '❤️' : '🤍'} <span>${likeCount}</span>
-                                </button>
+                                <button onclick="likeTeamPost('${doc.id}', this)" aria-label="الإعجاب بالمنشور">❤️ <span>${likeCount}</span></button>
                                 <button>💬 <span>${data.comments ? data.comments.filter(c => c.status === 'approved').length : 0}</span></button>
                             </div>
                             <div class="comments-section">
@@ -4109,7 +4258,9 @@
                                 userId: auth.currentUser.uid,
                                 text: text,
                                 status: 'pending',
-                                createdAt: new Date().toISOString()
+                                createdAt: new Date().toISOString(),
+                                likes: 0,
+                                adminReplies: []
                             });
                             await postRef.update({ comments });
                             input.value = '';
@@ -4118,11 +4269,12 @@
                                 title: '💬 تعليق جديد على منشور الفريق',
                                 body: `من ${auth.currentUser.displayName || auth.currentUser.email}`,
                                 type: 'admin',
-                                target: 'all',
                                 read: false,
                                 createdAt: firebase.firestore.FieldValue.serverTimestamp()
                             });
-                        } catch (err) { alert('❌ خطأ: ' + err.message); }
+                        } catch (err) {
+                            alert('❌ خطأ: ' + err.message);
+                        }
                     });
                 });
 
@@ -4171,8 +4323,6 @@
                 const span = btn.querySelector('span');
                 const current = parseInt(span.textContent) || 0;
                 span.textContent = current + 1;
-                btn.innerHTML = `❤️ <span>${current + 1}</span>`;
-                btn.style.color = '#e74c3c';
 
             } catch (err) {
                 console.error('خطأ في الإعجاب:', err);
@@ -4181,7 +4331,7 @@
         };
 
         // ============================================================
-        // 20. Lightbox (تكبير الصور)
+        // 20. Lightbox
         // ============================================================
         let lightboxImages = [];
         let currentLightboxIndex = 0;
@@ -4288,7 +4438,10 @@
                                     <div class="book-item">
                                         <img src="${coverUrl}" class="book-cover" loading="lazy" onclick="showBookDetail('${data.bookId}')" onerror="this.src='https://via.placeholder.com/200x180?text=كتاب'">
                                         <div class="book-name" onclick="showBookDetail('${data.bookId}')">${safeText(book.title || 'كتاب')}</div>
-                                        <div class="book-meta">${safeText(book.author || '')}</div>
+                                        <div class="book-meta">
+                                            <span>${safeText(book.author || '')}</span>
+                                            <span class="fav-count">❤️ ${book.favorites || 0}</span>
+                                        </div>
                                         <div class="book-actions">
                                             <button class="download-btn" onclick="showBookDetail('${data.bookId}')">📖 تفاصيل</button>
                                         </div>
@@ -4390,7 +4543,10 @@
             input.onchange = async function() {
                 const file = this.files[0];
                 if (!file) return;
-                // السماح بأي حجم للصورة (التحكم في Firebase)
+                if (file.size > 2 * 1024 * 1024) {
+                    alert('❌ حجم الصورة يتجاوز 2 ميجابايت');
+                    return;
+                }
                 try {
                     const ref = storage.ref(`profile/${auth.currentUser.uid}/${Date.now()}_${file.name}`);
                     await ref.put(file);
@@ -4517,17 +4673,88 @@
         }
 
         // ============================================================
-        // 27. تثبيت التطبيق (شغال 100%)
+        // 27. تثبيت التطبيق
         // ============================================================
         const installBtn = document.getElementById('installAppBtn');
         const installModal = document.getElementById('installModal');
         const closeInstallModal = document.getElementById('closeInstallModal');
         let deferredPrompt = null;
 
+        // إنشاء manifest.json ديناميكياً
+        function createManifest() {
+            const manifest = {
+                name: "الثانوية الرسمية بلس",
+                short_name: "الثانوية بلس",
+                description: "أكبر مكتبة لطلاب الثانوية العامة والبكالوريا",
+                start_url: window.location.href,
+                display: "standalone",
+                background_color: "#ffffff",
+                theme_color: "#1a2a6c",
+                icons: [{
+                    src: "https://cdn.phototourl.com/free/2026-07-21-1dd4b984-ed08-4a40-aead-9ef086ebbd45.jpg",
+                    sizes: "192x192",
+                    type: "image/jpeg"
+                }]
+            };
+
+            // محاولة تخزين المانيفست محلياً
+            try {
+                const manifestBlob = new Blob([JSON.stringify(manifest)], { type: 'application/json' });
+                const manifestURL = URL.createObjectURL(manifestBlob);
+                const link = document.createElement('link');
+                link.rel = 'manifest';
+                link.href = manifestURL;
+                document.head.appendChild(link);
+            } catch (e) {
+                // إذا فشل، نستخدم المانيفست الموجود
+            }
+        }
+
+        // إنشاء Service Worker بسيط للتثبيت
+        function registerServiceWorker() {
+            try {
+                // Service Worker بسيط للتخزين المؤقت
+                const swCode = `
+                        self.addEventListener('install', function(e) {
+                            e.waitUntil(
+                                caches.open('thanawya-plus-v1').then(function(cache) {
+                                    return cache.addAll([
+                                        '/',
+                                        '/index.html',
+                                        '/login.html',
+                                        '/admin.html'
+                                    ]);
+                                })
+                            );
+                        });
+                        self.addEventListener('fetch', function(e) {
+                            e.respondWith(
+                                caches.match(e.request).then(function(response) {
+                                    return response || fetch(e.request);
+                                })
+                            );
+                        });
+                    `;
+
+                const swBlob = new Blob([swCode], { type: 'application/javascript' });
+                const swURL = URL.createObjectURL(swBlob);
+
+                // تسجيل الـ Service Worker
+                if ('serviceWorker' in navigator) {
+                    navigator.serviceWorker.register(swURL, { scope: '/' })
+                        .then(() => console.log('✅ Service Worker مسجل'))
+                        .catch(() => console.log('⚠️ Service Worker غير مدعوم'));
+                }
+            } catch (e) {
+                console.log('⚠️ خطأ في تسجيل Service Worker');
+            }
+        }
+
+        // تشغيل التثبيت
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
-            installBtn.style.display = 'flex';
+            installBtn.style.display = 'block';
             installBtn.textContent = '📲 تثبيت التطبيق';
         });
 
@@ -4542,7 +4769,19 @@
                 }
                 deferredPrompt = null;
             } else {
-                installModal.classList.add('active');
+                // محاولة التثبيت عبر Service Worker
+                if ('serviceWorker' in navigator) {
+                    try {
+                        await navigator.serviceWorker.register('/service-worker.js');
+                        showToast('📲 جاري تثبيت التطبيق...');
+                        // عرض نافذة التثبيت اليدوية
+                        installModal.classList.add('active');
+                    } catch (e) {
+                        installModal.classList.add('active');
+                    }
+                } else {
+                    installModal.classList.add('active');
+                }
             }
         });
 
@@ -4557,6 +4796,7 @@
                 }
                 deferredPrompt = null;
             } else {
+                // إضافة دليل للمستخدم
                 if (window.navigator.userAgent.includes('Android')) {
                     showToast('📲 استخدم "إضافة إلى الشاشة الرئيسية" من قائمة المتصفح', 'warning');
                 } else if (window.navigator.userAgent.includes('iPhone')) {
@@ -4572,6 +4812,10 @@
         installModal.addEventListener('click', (e) => {
             if (e.target === installModal) installModal.classList.remove('active');
         });
+
+        // إنشاء المانيفست والتسجيل عند التحميل
+        createManifest();
+        registerServiceWorker();
 
         // ============================================================
         // 28. مشاركة المنصة
@@ -4592,7 +4836,7 @@
         });
 
         // ============================================================
-        // 29. الإعلانات (بوب كبير)
+        // 29. الإعلانات
         // ============================================================
         let currentAd = null;
 
@@ -4691,27 +4935,15 @@
 
         console.log('✅ منصة الثانوية الرسمية بلس - النسخة النهائية');
         console.log('📌 الميزات المضافة:');
-        console.log('   - علامة التوثيق الزرقاء SVG');
-        console.log('   - معرض صور متعدد في منشورات الفريق');
-        console.log('   - Lightbox لتكبير الصور');
+        console.log('   - جرس إشعارات متطور ينور عند وجود رسائل');
+        console.log('   - إشعارات خاصة بكل مستخدم');
+        console.log('   - بوب إعلانات مكبر');
         console.log('   - تثبيت التطبيق (شغال 100%)');
-        console.log('   - نظام التثبيت والتمييز (بادجات)');
-        console.log('   - الإعلانات (Popup كبير)');
-        console.log('   - الحظر الحقيقي');
-        console.log('   - نظام الإنذارات');
-        console.log('   - اللايكات (مرة واحدة لكل مستخدم)');
-        console.log('   - التعليقات (قائمة انتظار)');
-        console.log('   - المنتدى (قائمة انتظار)');
-        console.log('   - الكتب (صفحة تفاصيل)');
-        console.log('   - المفضلة (تحديث العدد الحقيقي)');
-        console.log('   - قنوات اليوتيوب (صفحة تفاصيل)');
-        console.log('   - رفع الملفات (رابط بدل رفع ملف)');
-        console.log('   - رابط تليجرام للدعم في رفع الملفات');
-        console.log('   - إشعارات خاصة بالمستخدم فقط');
-        console.log('   - جرس إشعارات متحرك وجذاب');
-        console.log('   - روابط قابلة للنقر في منشورات الفريق');
-        console.log('   - خيار "ملف آخر" في رفع الملفات');
-        console.log('   - إخفاء عدد المفضلة من واجهة الكتب');
+        console.log('   - الردود تظهر تحت التعليقات');
+        console.log('   - اللايكات (قلوب) تظهر في المنصة');
+        console.log('   - عدد المفضلة يظهر لكل كتاب');
+        console.log('   - الروابط في منشورات الفريق شغالة');
+        console.log('   - رفع ملخصات بخط اليد (صور فقط)');
     </script>
 
 </body>
