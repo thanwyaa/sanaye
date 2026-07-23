@@ -40,9 +40,7 @@
             color: #e0e0e0;
         }
 
-        /* ============================================================
-                   علامة التوثيق الزرقاء (SVG)
-                   ============================================================ */
+        /* ===== علامة التوثيق الزرقاء (SVG) ===== */
         .verified-badge {
             display: inline-flex;
             align-items: center;
@@ -59,9 +57,7 @@
             flex-shrink: 0;
         }
 
-        /* ============================================================
-                   منشورات الفريق - معرض الصور
-                   ============================================================ */
+        /* ===== معرض الصور في منشورات الفريق ===== */
         .team-post-images {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -97,9 +93,7 @@
             font-weight: 800;
         }
 
-        /* ============================================================
-                   نافذة تكبير الصور (Lightbox)
-                   ============================================================ */
+        /* ===== Lightbox ===== */
         .lightbox {
             display: none;
             position: fixed;
@@ -124,9 +118,6 @@
             border: none;
             cursor: pointer;
             z-index: 10;
-        }
-        .lightbox .lightbox-close:hover {
-            transform: scale(1.1);
         }
         .lightbox .lightbox-nav {
             position: absolute;
@@ -183,9 +174,7 @@
             transform: scale(1.2);
         }
 
-        /* ============================================================
-                   بقية الستايلات الأساسية
-                   ============================================================ */
+        /* ===== بقية الستايلات (نفس النسخة السابقة) ===== */
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -222,6 +211,7 @@
             -webkit-text-fill-color: transparent;
             font-weight: 900;
         }
+
         .nav-actions {
             display: flex;
             align-items: center;
@@ -358,6 +348,7 @@
             overflow: hidden;
             text-overflow: ellipsis;
         }
+
         .btn-login-header {
             background: #3498db;
             color: white;
@@ -1251,7 +1242,7 @@
             background: #2980b9;
         }
 
-        /* ===== منشورات الفريق مع معرض الصور ===== */
+        /* ===== منشورات الفريق ===== */
         .post-card {
             background: white;
             border-radius: 18px;
@@ -1323,7 +1314,6 @@
             gap: 6px;
             margin: 8px 0;
         }
-
         .post-card .post-content-text {
             color: #555;
             font-size: 14px;
@@ -1333,13 +1323,11 @@
         body.dark-mode .post-card .post-content-text {
             color: #ccc;
         }
-
         .post-card .post-meta {
             font-size: 12px;
             color: #999;
             margin-top: 8px;
         }
-
         .post-card .post-actions {
             display: flex;
             gap: 12px;
@@ -1369,7 +1357,6 @@
         body.dark-mode .post-card .post-actions button:hover {
             background: #3d3d55;
         }
-
         .post-card .comments-section {
             margin-top: 12px;
             border-top: 1px solid #eee;
@@ -1446,7 +1433,6 @@
             background: #27ae60;
         }
 
-        /* ===== الملف الشخصي ===== */
         .profile-card {
             background: white;
             border-radius: 22px;
@@ -1544,7 +1530,6 @@
             transform: scale(1.05);
         }
 
-        /* ===== النوافذ المنبثقة ===== */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -1709,6 +1694,22 @@
             border-radius: 50px;
         }
 
+        /* ===== رسالة خطأ رفع الملفات ===== */
+        .upload-error-link {
+            margin-top: 8px;
+            font-size: 13px;
+            color: #888;
+            text-align: center;
+        }
+        .upload-error-link a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 700;
+        }
+        .upload-error-link a:hover {
+            text-decoration: underline;
+        }
+
         .forum-form label {
             display: block;
             margin: 10px 0 4px;
@@ -1755,6 +1756,7 @@
             transform: scale(1.02);
         }
 
+        /* ===== صفحات السياسة ===== */
         .policy-content {
             font-size: 14px;
             line-height: 2;
@@ -1778,6 +1780,20 @@
         }
         body.dark-mode .policy-content .highlight {
             background: #1a2a4a;
+        }
+        .policy-content ul {
+            padding-right: 20px;
+            list-style: none;
+        }
+        .policy-content ul li {
+            margin-bottom: 4px;
+            position: relative;
+        }
+        .policy-content ul li::before {
+            content: "•";
+            color: #3498db;
+            font-weight: 700;
+            margin-left: 8px;
         }
         .contact-link {
             color: #3498db;
@@ -2079,6 +2095,86 @@
             transform: scale(1.05);
         }
 
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.92);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            flex-direction: column;
+        }
+        .lightbox.active {
+            display: flex;
+        }
+        .lightbox .lightbox-close {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 32px;
+            color: white;
+            background: none;
+            border: none;
+            cursor: pointer;
+            z-index: 10;
+        }
+        .lightbox .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            border: none;
+            font-size: 30px;
+            padding: 15px 20px;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: 0.3s;
+            z-index: 10;
+        }
+        .lightbox .lightbox-nav:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        .lightbox .lightbox-nav.prev {
+            right: 20px;
+        }
+        .lightbox .lightbox-nav.next {
+            left: 20px;
+        }
+        .lightbox .lightbox-image {
+            max-width: 90%;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+        }
+        .lightbox .lightbox-counter {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            margin-top: 12px;
+        }
+        .lightbox .lightbox-dots {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+            justify-content: center;
+        }
+        .lightbox .lightbox-dots .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: 0.3s;
+            border: none;
+        }
+        .lightbox .lightbox-dots .dot.active {
+            background: white;
+            transform: scale(1.2);
+        }
+
         @media (max-width: 768px) {
             .navbar {
                 padding: 6px 12px;
@@ -2204,7 +2300,9 @@
                 <span class="arrow-hint">👆</span>
             </button>
             <button class="btn-dark" id="darkModeToggle" title="وضع النهار/الليل">🌙</button>
-            <div id="userSection"></div>
+            <div id="userSection">
+                <!-- يتم ملؤها بواسطة JavaScript -->
+            </div>
         </div>
     </nav>
 
@@ -2296,33 +2394,254 @@
             <h3>📤 هل تمتلك ملخصات أو ملفات مفيدة؟</h3>
             <p>شارك معنا ملخصاتك، كتبك، أو نماذج امتحانات وساعد زملائك (سيتم مراجعة الملفات قبل النشر)</p>
             <button class="btn-upload" id="uploadBtn">🚀 شارك ملفاتك الآن</button>
+            <div class="upload-error-link">
+                ⚠️ واجهتك مشكلة؟ <a href="#" onclick="window.open('https://t.me/llTwasell', '_blank')">تواصل معنا على تليجرام</a>
+            </div>
         </div>
     </div>
 
-    <!-- ===== باقي الصفحات (مختصرة) ===== -->
-    <div class="page" id="page-grade"><div class="page-header"><button class="back-btn" onclick="navigateTo('home')">← العودة للرئيسية</button><h2 id="gradeTitle">أولى بكالوريا</h2></div><div id="gradeSections"></div></div>
-    <div class="page" id="page-bookDetail"><div class="page-header"><button class="back-btn" onclick="navigateTo('home')">← العودة للرئيسية</button><h2>📖 تفاصيل الكتاب</h2></div><div id="bookDetailContainer"><div class="loading-container"><div class="spinner"></div></div></div></div>
-    <div class="page" id="page-forum"><div class="page-header"><button class="back-btn" onclick="navigateTo('home')">← العودة للرئيسية</button><h2>💬 المنتدى</h2><button class="btn-primary" id="newForumPostBtn">📝 منشور جديد</button></div><p style="color:#777;margin-bottom:12px;">هنا يمكنك طرح أسئلتك. يتم اعتماد كل منشور وتعليق من الإدارة أولاً.</p><div id="forumPosts"><div class="loading-container"><div class="spinner"></div></div></div></div>
+    <!-- ===== صفحة عرض الصف ===== -->
+    <div class="page" id="page-grade">
+        <div class="page-header">
+            <button class="back-btn" onclick="navigateTo('home')">← العودة للرئيسية</button>
+            <h2 id="gradeTitle">أولى بكالوريا</h2>
+        </div>
+        <div id="gradeSections"></div>
+    </div>
 
-    <!-- ===== صفحة منشورات الفريق (مع معرض الصور) ===== -->
+    <!-- ===== صفحة تفاصيل الكتاب ===== -->
+    <div class="page" id="page-bookDetail">
+        <div class="page-header">
+            <button class="back-btn" onclick="navigateTo('home')">← العودة للرئيسية</button>
+            <h2>📖 تفاصيل الكتاب</h2>
+        </div>
+        <div id="bookDetailContainer">
+            <div class="loading-container"><div class="spinner"></div></div>
+        </div>
+    </div>
+
+    <!-- ===== صفحة المنتدى ===== -->
+    <div class="page" id="page-forum">
+        <div class="page-header">
+            <button class="back-btn" onclick="navigateTo('home')">← العودة للرئيسية</button>
+            <h2>💬 المنتدى - اسأل واستفسر</h2>
+            <button class="btn-primary" id="newForumPostBtn">📝 منشور جديد</button>
+        </div>
+        <p style="color:#777;margin-bottom:12px;">هنا يمكنك طرح أسئلتك ومشاكلك الدراسية. يتم اعتماد كل منشور وتعليق من الإدارة أولاً.</p>
+        <div id="forumPosts">
+            <div class="loading-container"><div class="spinner"></div></div>
+        </div>
+    </div>
+
+    <!-- ===== صفحة منشورات الفريق ===== -->
     <div class="page" id="page-teamPosts">
         <div class="page-header">
             <button class="back-btn" onclick="navigateTo('home')">← العودة للرئيسية</button>
             <h2>📢 آخر منشورات فريق الثانوية الرسمية بلس</h2>
         </div>
         <p style="color:#777;margin-bottom:12px;">هنا ينشر فريق الإدارة التحديثات والإعلانات المهمة.</p>
-        <div id="teamPostsContainer"><div class="loading-container"><div class="spinner"></div></div></div>
+        <div id="teamPostsContainer">
+            <div class="loading-container"><div class="spinner"></div></div>
+        </div>
     </div>
 
-    <div class="page" id="page-favorites"><div class="page-header"><button class="back-btn" onclick="navigateTo('home')">← العودة للرئيسية</button><h2>⭐ كتبي المفضلة</h2></div><div id="favoritesContainer"><div class="loading-container"><div class="spinner"></div></div></div></div>
-    <div class="page" id="page-profile"><div class="page-header"><button class="back-btn" onclick="navigateTo('home')">← العودة للرئيسية</button><h2>👤 حسابي الشخصي</h2></div><div id="profileContainer"><div class="loading-container"><div class="spinner"></div></div></div></div>
-    <div class="page" id="page-youtube"><div class="page-header"><button class="back-btn" onclick="navigateTo('home')">← العودة للرئيسية</button><h2>🎥 أفضل قنوات اليوتيوب</h2></div><p style="color:#777;margin-bottom:12px;">ترشيحات لأفضل مدرسين</p><div id="youtubeContainer"><div class="loading-container"><div class="spinner"></div></div></div></div>
-    <div class="page" id="page-youtubeDetail"><div class="page-header"><button class="back-btn" onclick="navigateTo('home')">← العودة للرئيسية</button><h2>🎥 تفاصيل القناة</h2></div><div id="youtubeDetailContainer"><div class="loading-container"><div class="spinner"></div></div></div></div>
-    <div class="page" id="page-timer"><div class="page-header"><button class="back-btn" onclick="navigateTo('home')">← العودة للرئيسية</button><h2>⏱️ مؤقت المذاكرة</h2></div><div class="timer-container"><div class="timer-display" id="timerDisplay">00:00</div><div class="timer-controls"><button class="btn-start" id="timerStart">▶️ ابدأ</button><button class="btn-pause" id="timerPause">⏸️ إيقاف مؤقت</button><button class="btn-reset" id="timerReset">🔄 إعادة ضبط</button></div><div class="timer-presets"><button data-minutes="25">25 د</button><button data-minutes="30">30 د</button><button data-minutes="45">45 د</button><button data-minutes="90">90 د</button></div><div class="timer-custom"><input type="number" id="customMinutes" min="1" max="999" placeholder="دقائق"><button id="setCustomTimer">⏱️ ضبط</button></div><div id="timerStatus" style="margin-top:8px;font-weight:700;color:#2ecc71;">⏸️ جاهز</div></div></div>
+    <!-- ===== صفحة المفضلة ===== -->
+    <div class="page" id="page-favorites">
+        <div class="page-header">
+            <button class="back-btn" onclick="navigateTo('home')">← العودة للرئيسية</button>
+            <h2>⭐ كتبي المفضلة</h2>
+        </div>
+        <div id="favoritesContainer">
+            <div class="loading-container"><div class="spinner"></div></div>
+        </div>
+    </div>
 
-    <div class="page" id="page-privacy"><div class="page-header"><button class="back-btn" onclick="navigateTo('home')">← العودة للرئيسية</button><h2>🔒 سياسة الخصوصية</h2></div><div class="policy-content"><p>مرحباً بك في منصة <strong>الثانوية الرسمية بلس</strong>. نطمئنك أن خصوصيتك وبياناتك في أمان، وهي أولوية قصوى بالنسبة لنا.</p></div></div>
-    <div class="page" id="page-dmca"><div class="page-header"><button class="back-btn" onclick="navigateTo('home')">← العودة للرئيسية</button><h2>📜 سياسة الحذف</h2></div><div class="policy-content"><p><strong>ما هي سياسة الحذف؟</strong><br>تحترم منصة <strong>الثانوية الرسمية بلس</strong> حقوق الملكية الفكرية لجميع الأطراف.</p></div></div>
-    <div class="page" id="page-about"><div class="page-header"><button class="back-btn" onclick="navigateTo('home')">← العودة للرئيسية</button><h2>👨‍👩‍👧‍👦 من نحن</h2></div><div class="policy-content"><p><strong>نحن مجموعة تطوعية شبابية</strong> بدأت الرحلة باسم <strong>"تانية ثانوي الرسمية"</strong>.</p></div></div>
+    <!-- ===== صفحة الملف الشخصي ===== -->
+    <div class="page" id="page-profile">
+        <div class="page-header">
+            <button class="back-btn" onclick="navigateTo('home')">← العودة للرئيسية</button>
+            <h2>👤 حسابي الشخصي</h2>
+        </div>
+        <div id="profileContainer">
+            <div class="loading-container"><div class="spinner"></div></div>
+        </div>
+    </div>
+
+    <!-- ===== صفحة قنوات اليوتيوب ===== -->
+    <div class="page" id="page-youtube">
+        <div class="page-header">
+            <button class="back-btn" onclick="navigateTo('home')">← العودة للرئيسية</button>
+            <h2>🎥 أفضل قنوات اليوتيوب للمدرسين</h2>
+        </div>
+        <p style="color:#777;margin-bottom:12px;">ترشيحات لأفضل مدرسين على اليوتيوب</p>
+        <div id="youtubeContainer">
+            <div class="loading-container"><div class="spinner"></div></div>
+        </div>
+    </div>
+
+    <!-- ===== صفحة تفاصيل قناة يوتيوب ===== -->
+    <div class="page" id="page-youtubeDetail">
+        <div class="page-header">
+            <button class="back-btn" onclick="navigateTo('home')">← العودة للرئيسية</button>
+            <h2>🎥 تفاصيل القناة</h2>
+        </div>
+        <div id="youtubeDetailContainer">
+            <div class="loading-container"><div class="spinner"></div></div>
+        </div>
+    </div>
+
+    <!-- ===== صفحة المؤقت ===== -->
+    <div class="page" id="page-timer">
+        <div class="page-header">
+            <button class="back-btn" onclick="navigateTo('home')">← العودة للرئيسية</button>
+            <h2>⏱️ مؤقت المذاكرة</h2>
+        </div>
+        <div class="timer-container">
+            <div class="timer-display" id="timerDisplay">00:00</div>
+            <div class="timer-controls">
+                <button class="btn-start" id="timerStart">▶️ ابدأ</button>
+                <button class="btn-pause" id="timerPause">⏸️ إيقاف مؤقت</button>
+                <button class="btn-reset" id="timerReset">🔄 إعادة ضبط</button>
+            </div>
+            <div class="timer-presets">
+                <button data-minutes="25">25 د</button>
+                <button data-minutes="30">30 د</button>
+                <button data-minutes="45">45 د</button>
+                <button data-minutes="90">90 د</button>
+            </div>
+            <div class="timer-custom">
+                <input type="number" id="customMinutes" min="1" max="999" placeholder="دقائق" aria-label="عدد الدقائق المخصص">
+                <button id="setCustomTimer">⏱️ ضبط</button>
+            </div>
+            <div id="timerStatus" style="margin-top:8px;font-weight:700;color:#2ecc71;">⏸️ جاهز</div>
+        </div>
+    </div>
+
+    <!-- ===== صفحة سياسة الخصوصية ===== -->
+    <div class="page" id="page-privacy">
+        <div class="page-header">
+            <button class="back-btn" onclick="navigateTo('home')">← العودة للرئيسية</button>
+            <h2>🔒 سياسة الخصوصية</h2>
+        </div>
+        <div class="policy-content">
+            <p>مرحباً بك في منصة <strong>الثانوية الرسمية بلس</strong>. نطمئنك أن خصوصيتك وبياناتك في أمان، وهي أولوية قصوى بالنسبة لنا.</p>
+
+            <div class="highlight">
+                <p><strong>📌 ما البيانات التي نجمعها؟</strong><br>
+                نقوم بحفظ البريد الإلكتروني والاسم لتخصيص المحتوى المناسب لك. لا نقوم بتخزين أي كلمات مرور (يتم التعامل معها عبر Firebase).</p>
+            </div>
+
+            <div class="highlight">
+                <p><strong>📍 التتبع والموقع</strong><br>
+                لا نقوم بتتبع عنوان الـ IP الخاص بك أو الموقع الجغرافي. المنصة مجانية بالكامل وتهدف لمساعدة الطلاب.</p>
+            </div>
+
+            <div class="highlight">
+                <p><strong>📚 المحتوى وحقوق النشر</strong><br>
+                إذا كنت صاحب محتوى وترى أن هناك كتاباً أو ملفاً يضر بك أو بمؤسستك، يرجى التواصل معنا وسيتم حذف المحتوى خلال 24 ساعة.</p>
+            </div>
+
+            <div class="highlight">
+                <p><strong>🔐 أمان البيانات</strong><br>
+                نحن نستخدم أحدث تقنيات الأمان لحماية بياناتك. جميع البيانات مشفرة ويتم نقلها عبر قنوات آمنة.</p>
+            </div>
+
+            <div class="highlight">
+                <p><strong>📧 التواصل معنا</strong><br>
+                لأي استفسار حول سياسة الخصوصية، يمكنك التواصل معنا عبر تليجرام: <span class="contact-link" onclick="window.open('https://t.me/llTwasell', '_blank')">@llTwasell</span></p>
+            </div>
+
+            <div class="highlight">
+                <p><strong>👨‍👩‍👧‍👦 من نحن؟</strong><br>
+                نحن فريق <strong>الثانوية الرسمية بلس</strong>، نعمل على جعل التعليم سهلاً ومتاحاً للجميع، وتخفيف الأعباء عن كاهل أولياء الأمور.</p>
+            </div>
+
+            <p style="font-weight:700;color:#2c3e50;margin-top:12px;text-align:center;">نحن لا ننتهك حقوق أي شخص، هدفنا هو تقديم محتوى تعليمي مجاني وسهل الوصول.</p>
+        </div>
+    </div>
+
+    <!-- ===== صفحة سياسة الحذف ===== -->
+    <div class="page" id="page-dmca">
+        <div class="page-header">
+            <button class="back-btn" onclick="navigateTo('home')">← العودة للرئيسية</button>
+            <h2>📜 سياسة الحذف</h2>
+        </div>
+        <div class="policy-content">
+            <p><strong>ما هي سياسة الحذف؟</strong><br>
+            تحترم منصة <strong>الثانوية الرسمية بلس</strong> حقوق الملكية الفكرية لجميع الأطراف. إذا كنت تعتقد أن أي محتوى على منصتنا ينتهك حقوق النشر الخاصة بك، يرجى إبلاغنا وسنتخذ الإجراءات اللازمة فوراً.</p>
+
+            <div class="highlight">
+                <p><strong>كيف تقدم طلب حذف؟</strong><br>
+                لطلب حذف محتوى، يرجى تزويدنا بالمعلومات التالية:</p>
+                <ul>
+                    <li><strong>بياناتك الشخصية:</strong> الاسم الكامل، البريد الإلكتروني، رقم الهاتف.</li>
+                    <li><strong>وصف المحتوى:</strong> رابط المحتوى الذي تطلب حذفه، ووصف دقيق له.</li>
+                    <li><strong>إثبات الملكية:</strong> دليل على أنك صاحب حقوق النشر أو وكيل معتمد.</li>
+                    <li><strong>توقيعك:</strong> توقيع إلكتروني أو يدوي يؤكد صحة المعلومات.</li>
+                </ul>
+            </div>
+
+            <div class="highlight">
+                <p><strong>متى يتم الحذف؟</strong><br>
+                يتم حذف المحتوى خلال <strong>24 ساعة</strong> من استلام الطلب الصحيح. سيتم إخطارك بعد الحذف مباشرة.</p>
+            </div>
+
+            <div class="highlight">
+                <p><strong>كيف تتواصل معنا؟</strong><br>
+                أرسل طلبك عبر تليجرام: <span class="contact-link" onclick="window.open('https://t.me/llTwasell', '_blank')">@llTwasell</span></p>
+            </div>
+
+            <div class="highlight">
+                <p><strong>ما هي حالات الحذف الأخرى؟</strong><br>
+                بالإضافة إلى حقوق النشر، يتم حذف أي محتوى:</p>
+                <ul>
+                    <li>يحتوي على إساءة أو تنمر</li>
+                    <li>يخالف القوانين المصرية</li>
+                    <li>يحتوي على معلومات خاطئة أو مضللة</li>
+                </ul>
+            </div>
+
+            <p style="font-weight:700;color:#2c3e50;margin-top:12px;text-align:center;">نلتزم بحماية حقوق جميع المستخدمين وصناع المحتوى.</p>
+        </div>
+    </div>
+
+    <!-- ===== صفحة من نحن ===== -->
+    <div class="page" id="page-about">
+        <div class="page-header">
+            <button class="back-btn" onclick="navigateTo('home')">← العودة للرئيسية</button>
+            <h2>👨‍👩‍👧‍👦 من نحن</h2>
+        </div>
+        <div class="policy-content">
+            <p><strong>نحن مجموعة تطوعية شبابية</strong> بدأت الرحلة باسم <strong>"تانية ثانوي الرسمية"</strong> وكانت للصف الثاني الثانوي فقط.</p>
+
+            <p>ولكن نظراً للنجاح الكبير الذي حققناه، قمنا بالتوسع وأصبحت تعرف باسم <strong>"الثانوية الرسمية بلس"</strong> لتشمل جميع صفوف الثانوية العامة والبكالوريا.</p>
+
+            <div class="highlight">
+                <p><strong>📖 رؤيتنا</strong><br>
+                قمنا بإنشاء موقع مجاني لرفع الكتب والملخصات بجودة عالية جداً، لتسهيل التعليم والوصول للطلاب في كل مكان.</p>
+            </div>
+
+            <div class="highlight">
+                <p><strong>🎯 رسالتنا</strong><br>
+                تقديم محتوى تعليمي عالي الجودة، منظم وسهل الوصول، يساعد الطلاب على التفوق الدراسي ويخفف الأعباء عن أولياء الأمور.</p>
+            </div>
+
+            <div class="highlight">
+                <p><strong>💪 فريق العمل</strong><br>
+                فريقنا مكون من شباب متطوعين من مختلف التخصصات، يجمعهم حب التعليم والرغبة في مساعدة الآخرين.</p>
+            </div>
+
+            <div class="highlight">
+                <p><strong>🤝 كيف يمكنك المساعدة؟</strong><br>
+                - مشاركة ملخصاتك وكتبك مع زملائك<br>
+                - التواصل معنا لتقديم اقتراحاتك<br>
+                - مشاركة المنصة مع أصدقائك<br>
+                معاً نجعل التعليم أفضل للجميع.</p>
+            </div>
+
+            <p style="text-align:center;margin-top:12px;font-weight:700;">للتواصل معنا: <span class="contact-link" onclick="window.open('https://t.me/llTwasell', '_blank')">@llTwasell</span></p>
+        </div>
+    </div>
 
     <!-- ===== التذييل ===== -->
     <div class="footer">
@@ -2334,8 +2653,12 @@
             <a onclick="navigateTo('teamPosts')">آخر منشورات الفريق</a>
             <a id="shareFooter">📤 شارك المنصة</a>
         </p>
-        <p style="font-size:12px;color:#888;margin-top:8px;">المنصة تحت التطوير • سيتم إضافة ميزات عظيمة قريباً ✨</p>
-        <p style="font-size:11px;color:#aaa;margin-top:4px;">أنت المسؤول عن أمان حسابك • نحن لا نبيع بياناتك لأي طرف ثالث</p>
+        <p style="font-size:12px;color:#888;margin-top:8px;">
+            المنصة تحت التطوير • سيتم إضافة ميزات عظيمة قريباً ✨
+        </p>
+        <p style="font-size:11px;color:#aaa;margin-top:4px;">
+            أنت المسؤول عن أمان حسابك • نحن لا نبيع بياناتك لأي طرف ثالث
+        </p>
     </div>
 
     <!-- ===== نافذة الإشعارات ===== -->
@@ -2343,8 +2666,16 @@
         <div class="modal-content">
             <button class="modal-close" id="closeNotifModal">✕</button>
             <h3 style="margin-bottom:12px;font-size:20px;">🔔 الإشعارات</h3>
-            <div id="notifList"><div class="empty-state"><div class="icon">📭</div><h3>لا توجد إشعارات</h3><p>ستظهر هنا الإشعارات الجديدة</p></div></div>
-            <button id="notifPermissionBtn" style="margin-top:12px;padding:8px;background:#3498db;color:white;border:none;border-radius:10px;width:100%;font-weight:700;cursor:pointer;font-family:'Tajawal',sans-serif;">🔔 فعل إشعارات الموقع</button>
+            <div id="notifList">
+                <div class="empty-state">
+                    <div class="icon">📭</div>
+                    <h3>لا توجد إشعارات</h3>
+                    <p>ستظهر هنا الإشعارات الجديدة</p>
+                </div>
+            </div>
+            <button id="notifPermissionBtn" style="margin-top:12px;padding:8px;background:#3498db;color:white;border:none;border-radius:10px;width:100%;font-weight:700;cursor:pointer;font-family:'Tajawal',sans-serif;">
+                🔔 فعل إشعارات الموقع
+            </button>
         </div>
     </div>
 
@@ -2355,25 +2686,56 @@
             <h3 style="margin-bottom:12px;font-size:20px;">📤 شارك معنا ملخصاتك</h3>
             <div class="upload-form-container">
                 <form id="uploadForm">
-                    <label for="uploadName">👤 اسمك</label>
+                    <label for="uploadName">👤 اسمك (سيظهر للمستخدمين)</label>
                     <input type="text" id="uploadName" placeholder="أدخل اسمك" required>
+
                     <label for="uploadUserType">📌 هل أنت طالب أم مدرس؟</label>
-                    <select id="uploadUserType" required><option value="طالب">طالب</option><option value="مدرس">مدرس</option></select>
+                    <select id="uploadUserType" required>
+                        <option value="طالب">طالب</option>
+                        <option value="مدرس">مدرس</option>
+                    </select>
+
                     <label for="uploadTitle">📖 عنوان الملف</label>
-                    <input type="text" id="uploadTitle" placeholder="مثال: ملخص فيزياء" required>
+                    <input type="text" id="uploadTitle" placeholder="مثال: ملخص فيزياء - الوحدة الأولى" required>
+
                     <label for="uploadCategory">📂 تصنيف الملف</label>
-                    <select id="uploadCategory" required><option value="teachers">كتاب مدرسين</option><option value="ministry">كتاب وزارة</option><option value="external">كتاب خارجي</option><option value="reviews">تقييمات</option><option value="past_questions">أسئلة سابقة</option><option value="mock_exams">امتحانات استرشادية</option></select>
+                    <select id="uploadCategory" required>
+                        <option value="teachers">كتاب مدرسين</option>
+                        <option value="ministry">كتاب وزارة</option>
+                        <option value="external">كتاب خارجي</option>
+                        <option value="reviews">تقييمات</option>
+                        <option value="past_questions">أسئلة سابقة</option>
+                        <option value="mock_exams">امتحانات استرشادية</option>
+                    </select>
+
                     <label for="uploadGrade">📘 اختر الصف</label>
-                    <select id="uploadGrade" required><option value="1">أولى بكالوريا</option><option value="2">تانية بكالوريا</option><option value="3">تالتة ثانوي</option></select>
+                    <select id="uploadGrade" required>
+                        <option value="1">أولى بكالوريا</option>
+                        <option value="2">تانية بكالوريا</option>
+                        <option value="3">تالتة ثانوي</option>
+                    </select>
+
                     <label for="uploadDesc">📝 وصف مختصر</label>
-                    <textarea id="uploadDesc" rows="3" placeholder="اكتب وصفاً مختصراً..."></textarea>
+                    <textarea id="uploadDesc" rows="3" placeholder="اكتب وصفاً مختصراً للملف..."></textarea>
+
                     <label for="uploadLink">🔗 رابط الملف (Google Drive / OneDrive / Dropbox)</label>
                     <input type="url" id="uploadLink" placeholder="https://drive.google.com/..." required>
-                    <div class="checkbox-group"><input type="checkbox" id="showName" checked><label for="showName">إظهار اسمي مع الملف</label></div>
-                    <div class="upload-progress" id="uploadProgress"><div class="progress-bar" id="progressBar"></div></div>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="showName" checked>
+                        <label for="showName">إظهار اسمي مع الملف</label>
+                    </div>
+
+                    <div class="upload-progress" id="uploadProgress">
+                        <div class="progress-bar" id="progressBar"></div>
+                    </div>
+
                     <button type="submit" class="submit-upload">🚀 إرسال الرابط (سيتم مراجعته)</button>
                 </form>
                 <div id="uploadStatus" style="margin-top:8px;font-weight:700;"></div>
+                <div class="upload-error-link" style="margin-top:8px;text-align:center;font-size:13px;color:#888;">
+                    ⚠️ واجهتك مشكلة؟ <a href="#" onclick="window.open('https://t.me/llTwasell', '_blank')" style="color:#3498db;text-decoration:none;font-weight:700;">تواصل معنا على تليجرام</a>
+                </div>
             </div>
         </div>
     </div>
@@ -2387,10 +2749,13 @@
                 <form id="forumPostForm">
                     <label for="forumPostTitle">📌 عنوان المنشور</label>
                     <input type="text" id="forumPostTitle" placeholder="مثال: مشكلة في فهم الفيزياء" required>
+
                     <label for="forumPostContent">📝 المحتوى</label>
-                    <textarea id="forumPostContent" rows="4" placeholder="اكتب سؤالك بالتفصيل..." required></textarea>
+                    <textarea id="forumPostContent" rows="4" placeholder="اكتب سؤالك أو مشكلتك بالتفصيل..." required></textarea>
+
                     <label for="forumPostImage">🖼️ رابط صورة (اختياري)</label>
                     <input type="text" id="forumPostImage" placeholder="https://...jpg">
+
                     <button type="submit" class="submit-post">📢 نشر المنشور (سيتم اعتماده من الإدارة)</button>
                 </form>
             </div>
@@ -2404,7 +2769,9 @@
             <div style="font-size:50px;margin:8px 0;">📲</div>
             <h3 style="font-size:20px;">تثبيت التطبيق</h3>
             <p style="color:#777;margin:12px 0;">يمكنك تثبيت المنصة على جهازك للوصول السريع</p>
-            <button id="doInstallBtn" style="padding:12px 40px;background:#6c5ce7;color:white;border:none;border-radius:50px;font-size:16px;font-weight:800;cursor:pointer;font-family:'Tajawal',sans-serif;transition:0.3s;">✅ تثبيت التطبيق</button>
+            <button id="doInstallBtn" style="padding:12px 40px;background:#6c5ce7;color:white;border:none;border-radius:50px;font-size:16px;font-weight:800;cursor:pointer;font-family:'Tajawal',sans-serif;transition:0.3s;">
+                ✅ تثبيت التطبيق
+            </button>
             <p style="font-size:11px;color:#aaa;margin-top:12px;">سيتم إضافة أيقونة المنصة إلى شاشتك الرئيسية</p>
         </div>
     </div>
@@ -2554,7 +2921,7 @@
         });
 
         // ============================================================
-        // 6. المصادقة
+        // 6. المصادقة (Auth) مع التحقق من الحظر
         // ============================================================
         const userSection = document.getElementById('userSection');
         let currentUserData = null;
@@ -2580,10 +2947,21 @@
             if (user) {
                 checkUserBanned(user.uid).then(result => {
                     if (result.banned) {
-                        userSection.innerHTML = `<button class="btn-login-header" onclick="auth.signOut();location.reload();">🚪 تسجيل الخروج</button>`;
+                        userSection.innerHTML =
+                            `<button class="btn-login-header" onclick="auth.signOut();location.reload();">🚪 تسجيل الخروج</button>`;
                         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
                         document.getElementById('page-home').innerHTML =
-                            `<div class="banned-message"><div class="icon">⛔</div><h2>تم حظر حسابك</h2><p>من منصة الثانوية الرسمية بلس</p><div class="reason"><strong>السبب:</strong> ${safeText(result.reason)}</div>${result.duration !== 'دائم' ? `<div><strong>المدة:</strong> ${result.duration}</div>` : ''}<br><button class="btn-primary" onclick="auth.signOut();location.reload();">🚪 تسجيل الخروج</button></div>`;
+                            `
+                                <div class="banned-message">
+                                    <div class="icon">⛔</div>
+                                    <h2>تم حظر حسابك</h2>
+                                    <p>من منصة الثانوية الرسمية بلس</p>
+                                    <div class="reason"><strong>السبب:</strong> ${safeText(result.reason)}</div>
+                                    ${result.duration !== 'دائم' ? `<div><strong>المدة:</strong> ${result.duration}</div>` : ''}
+                                    <br>
+                                    <button class="btn-primary" onclick="auth.signOut();location.reload();">🚪 تسجيل الخروج</button>
+                                </div>
+                            `;
                         document.getElementById('page-home').classList.add('active');
                         return;
                     }
@@ -2670,6 +3048,9 @@
                             <h3>📤 هل تمتلك ملخصات أو ملفات مفيدة؟</h3>
                             <p>شارك معنا ملخصاتك، كتبك، أو نماذج امتحانات وساعد زملائك (سيتم مراجعة الملفات قبل النشر)</p>
                             <button class="btn-upload" id="uploadBtn">🚀 شارك ملفاتك الآن</button>
+                            <div class="upload-error-link" style="margin-top:8px;font-size:13px;color:#888;text-align:center;">
+                                ⚠️ واجهتك مشكلة؟ <a href="#" onclick="window.open('https://t.me/llTwasell', '_blank')" style="color:#3498db;text-decoration:none;font-weight:700;">تواصل معنا على تليجرام</a>
+                            </div>
                         </div>
                     `;
                 document.getElementById('globalSearch').addEventListener('input', function() {
@@ -2845,7 +3226,7 @@
         });
 
         // ============================================================
-        // 9. عرض الصفوف
+        // 9. عرض الصفوف والأقسام
         // ============================================================
         function showGrade(gradeId) {
             navigateTo('grade');
@@ -2855,19 +3236,25 @@
                 `<span style="background:${gradeColors[gradeId]}20;color:${gradeColors[gradeId]};padding:4px 12px;border-radius:10px;">${gradeNames[gradeId]}</span>`;
 
             const sectionsConfig = {
-                '1': [{ id: 'teachers', title: '📚 كتب المدرسين', icon: '👨‍🏫' }, { id: 'ministry', title: '📖 كتب الوزارة',
-                        icon: '🏛️' }, { id: 'external', title: '📕 كتب خارجية', icon: '📗' }, { id: 'reviews',
-                        title: '⭐ تقييمات', icon: '⭐' }
-                    ],
-                '2': [{ id: 'teachers', title: '📚 كتب المدرسين', icon: '👨‍🏫' }, { id: 'ministry', title: '📖 كتب الوزارة',
-                        icon: '🏛️' }, { id: 'external', title: '📕 كتب خارجية', icon: '📗' }, { id: 'reviews',
-                        title: '⭐ تقييمات', icon: '⭐' }
-                    ],
-                '3': [{ id: 'teachers', title: '📚 كتب المدرسين', icon: '👨‍🏫' }, { id: 'ministry', title: '📖 كتب الوزارة',
-                        icon: '🏛️' }, { id: 'external', title: '📕 كتب خارجية', icon: '📗' }, { id: 'past_questions',
-                        title: '📝 أسئلة سابقة', icon: '📋' }, { id: 'mock_exams', title: '📄 امتحانات استرشادية',
-                        icon: '🧪' }
-                    ]
+                '1': [
+                    { id: 'teachers', title: '📚 كتب المدرسين', icon: '👨‍🏫' },
+                    { id: 'ministry', title: '📖 كتب الوزارة', icon: '🏛️' },
+                    { id: 'external', title: '📕 كتب خارجية', icon: '📗' },
+                    { id: 'reviews', title: '⭐ تقييمات', icon: '⭐' }
+                ],
+                '2': [
+                    { id: 'teachers', title: '📚 كتب المدرسين', icon: '👨‍🏫' },
+                    { id: 'ministry', title: '📖 كتب الوزارة', icon: '🏛️' },
+                    { id: 'external', title: '📕 كتب خارجية', icon: '📗' },
+                    { id: 'reviews', title: '⭐ تقييمات', icon: '⭐' }
+                ],
+                '3': [
+                    { id: 'teachers', title: '📚 كتب المدرسين', icon: '👨‍🏫' },
+                    { id: 'ministry', title: '📖 كتب الوزارة', icon: '🏛️' },
+                    { id: 'external', title: '📕 كتب خارجية', icon: '📗' },
+                    { id: 'past_questions', title: '📝 أسئلة سابقة', icon: '📋' },
+                    { id: 'mock_exams', title: '📄 امتحانات استرشادية', icon: '🧪' }
+                ]
             };
 
             const sections = sectionsConfig[gradeId] || [];
@@ -2896,7 +3283,7 @@
         }
 
         // ============================================================
-        // 10. تحميل الكتب لكل قسم
+        // 10. تحميل الكتب لكل قسم مع عرض البادجات
         // ============================================================
         async function loadBooksForSection(gradeId, sectionId) {
             const container = document.getElementById(`books-${gradeId}-${sectionId}`);
@@ -3752,13 +4139,9 @@
             const prevBtn = document.getElementById('lightboxPrev');
             const nextBtn = document.getElementById('lightboxNext');
 
-            // تحديث الصورة
             img.src = lightboxImages[currentLightboxIndex];
-
-            // تحديث العداد
             counter.textContent = `${currentLightboxIndex + 1} / ${lightboxImages.length}`;
 
-            // تحديث النقاط
             dots.innerHTML = '';
             for (let i = 0; i < lightboxImages.length; i++) {
                 const dot = document.createElement('button');
@@ -3769,7 +4152,6 @@
                 dots.appendChild(dot);
             }
 
-            // إظهار/إخفاء أزرار التنقل
             prevBtn.style.display = lightboxImages.length > 1 ? 'block' : 'none';
             nextBtn.style.display = lightboxImages.length > 1 ? 'block' : 'none';
 
@@ -3799,14 +4181,12 @@
             img.src = lightboxImages[currentLightboxIndex];
             counter.textContent = `${currentLightboxIndex + 1} / ${lightboxImages.length}`;
 
-            // تحديث النقاط
             const dotElements = dots.querySelectorAll('.dot');
             dotElements.forEach((dot, i) => {
                 dot.className = 'dot' + (i === currentLightboxIndex ? ' active' : '');
             });
         }
 
-        // إغلاق Lightbox بالضغط على Escape
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') closeLightbox();
             if (e.key === 'ArrowRight') changeLightboxImage(1);
@@ -4270,6 +4650,7 @@
         console.log('   - المفضلة (تحديث العدد الحقيقي)');
         console.log('   - قنوات اليوتيوب (صفحة تفاصيل)');
         console.log('   - رفع الملفات (رابط بدل رفع ملف)');
+        console.log('   - رابط تليجرام للدعم في رفع الملفات');
     </script>
 
 </body>
