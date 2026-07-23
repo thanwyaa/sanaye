@@ -241,33 +241,50 @@
         .notification-bell {
             position: relative;
             cursor: pointer;
-            font-size: 22px;
+            font-size: 24px;
             background: none;
             border: none;
             color: #2c3e50;
             transition: 0.3s;
+            padding: 4px 8px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         body.dark-mode .notification-bell {
             color: #ecf0f1;
         }
         .notification-bell:hover {
             transform: scale(1.1);
+            background: rgba(0,0,0,0.05);
+        }
+        body.dark-mode .notification-bell:hover {
+            background: rgba(255,255,255,0.05);
+        }
+        .notification-bell.has-notif {
+            animation: bell-ring 0.5s ease infinite alternate;
+        }
+        @keyframes bell-ring {
+            0% { transform: rotate(-10deg); }
+            100% { transform: rotate(10deg); }
         }
         .badge-count {
             position: absolute;
-            top: -8px;
-            right: -8px;
+            top: -6px;
+            right: -4px;
             background: #e74c3c;
             color: white;
             border-radius: 50%;
-            padding: 1px 6px;
+            padding: 2px 7px;
             font-size: 10px;
             font-weight: 800;
-            min-width: 18px;
+            min-width: 20px;
             text-align: center;
             animation: pulse-badge 1.5s infinite;
             border: 2px solid white;
             display: none;
+            box-shadow: 0 2px 8px rgba(231, 76, 60, 0.4);
         }
         body.dark-mode .badge-count {
             border-color: #1e1e32;
@@ -281,7 +298,7 @@
                 transform: scale(1);
             }
             50% {
-                transform: scale(1.15);
+                transform: scale(1.2);
             }
         }
         .arrow-hint {
@@ -1323,6 +1340,11 @@
         body.dark-mode .post-card .post-content-text {
             color: #ccc;
         }
+        .post-card .post-content-text a {
+            color: #3498db;
+            text-decoration: underline;
+            word-break: break-all;
+        }
         .post-card .post-meta {
             font-size: 12px;
             color: #999;
@@ -1966,9 +1988,9 @@
         .ad-popup {
             background: white;
             border-radius: 24px;
-            max-width: 550px;
+            max-width: 600px;
             width: 100%;
-            padding: 30px;
+            padding: 35px 30px;
             position: relative;
             animation: slideUp 0.4s ease;
             max-height: 90vh;
@@ -1981,7 +2003,7 @@
             position: absolute;
             top: 12px;
             left: 16px;
-            font-size: 24px;
+            font-size: 28px;
             background: none;
             border: none;
             cursor: pointer;
@@ -1994,34 +2016,34 @@
         }
         .ad-popup .ad-image {
             width: 100%;
-            max-height: 200px;
+            max-height: 250px;
             object-fit: cover;
             border-radius: 12px;
             margin-bottom: 15px;
         }
         .ad-popup .ad-title {
-            font-size: 20px;
+            font-size: 22px;
             font-weight: 800;
             margin-bottom: 8px;
         }
         .ad-popup .ad-desc {
-            font-size: 14px;
+            font-size: 15px;
             color: #555;
             line-height: 1.8;
-            margin-bottom: 15px;
+            margin-bottom: 18px;
         }
         body.dark-mode .ad-popup .ad-desc {
             color: #ccc;
         }
         .ad-popup .ad-btn {
             display: inline-block;
-            padding: 10px 30px;
+            padding: 12px 35px;
             background: #3498db;
             color: white;
             border: none;
-            border-radius: 10px;
+            border-radius: 12px;
             font-weight: 700;
-            font-size: 16px;
+            font-size: 17px;
             cursor: pointer;
             font-family: 'Tajawal', sans-serif;
             transition: 0.3s;
@@ -2224,6 +2246,10 @@
                 padding: 10px 14px;
                 font-size: 20px;
             }
+            .ad-popup {
+                padding: 25px 18px;
+                max-width: 95%;
+            }
         }
         @media (max-width: 480px) {
             .logo h1 {
@@ -2258,6 +2284,9 @@
             .lightbox .lightbox-nav {
                 padding: 8px 12px;
                 font-size: 16px;
+            }
+            .ad-popup {
+                padding: 20px 14px;
             }
         }
 
@@ -2392,7 +2421,7 @@
 
         <div class="upload-section">
             <h3>📤 هل تمتلك ملخصات أو ملفات مفيدة؟</h3>
-            <p>شارك معنا ملخصاتك، كتبك، أو نماذج امتحانات وساعد زملائك (سيتم مراجعة الملفات قبل النشر)</p>
+            <p>شارك معنا صور ملخصاتك (بخط اليد) أو ملفات PDF عالية الجودة لتفيد زملائك (سيتم مراجعة الملفات قبل النشر)</p>
             <button class="btn-upload" id="uploadBtn">🚀 شارك ملفاتك الآن</button>
             <div class="upload-error-link">
                 ⚠️ واجهتك مشكلة؟ <a href="#" onclick="window.open('https://t.me/llTwasell', '_blank')">تواصل معنا على تليجرام</a>
@@ -2706,6 +2735,7 @@
                         <option value="reviews">تقييمات</option>
                         <option value="past_questions">أسئلة سابقة</option>
                         <option value="mock_exams">امتحانات استرشادية</option>
+                        <option value="other">ملف آخر (صور / ملخصات خط اليد)</option>
                     </select>
 
                     <label for="uploadGrade">📘 اختر الصف</label>
@@ -2718,8 +2748,8 @@
                     <label for="uploadDesc">📝 وصف مختصر</label>
                     <textarea id="uploadDesc" rows="3" placeholder="اكتب وصفاً مختصراً للملف..."></textarea>
 
-                    <label for="uploadLink">🔗 رابط الملف (Google Drive / OneDrive / Dropbox)</label>
-                    <input type="url" id="uploadLink" placeholder="https://drive.google.com/..." required>
+                    <label for="uploadLink">🔗 رابط الملف (Google Drive / OneDrive / Dropbox / أو رابط صورة)</label>
+                    <input type="url" id="uploadLink" placeholder="https://drive.google.com/... أو رابط الصورة" required>
 
                     <div class="checkbox-group">
                         <input type="checkbox" id="showName" checked>
@@ -2837,6 +2867,15 @@
         function safeText(text) {
             if (!text) return '';
             return sanitizeHTML(text);
+        }
+
+        // تحويل النص إلى روابط قابلة للنقر
+        function linkifyText(text) {
+            if (!text) return '';
+            const urlPattern = /(https?:\/\/[^\s]+)/g;
+            return text.replace(urlPattern, function(url) {
+                return `<a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>`;
+            });
         }
 
         // ============================================================
@@ -2982,6 +3021,8 @@
                     if (document.getElementById('page-home').querySelector('.banned-message')) {
                         location.reload();
                     }
+                    // تحديث الإشعارات عند تسجيل الدخول
+                    loadNotifications();
                 });
             } else {
                 userSection.innerHTML =
@@ -3046,7 +3087,7 @@
                         </section>
                         <div class="upload-section">
                             <h3>📤 هل تمتلك ملخصات أو ملفات مفيدة؟</h3>
-                            <p>شارك معنا ملخصاتك، كتبك، أو نماذج امتحانات وساعد زملائك (سيتم مراجعة الملفات قبل النشر)</p>
+                            <p>شارك معنا صور ملخصاتك (بخط اليد) أو ملفات PDF عالية الجودة لتفيد زملائك (سيتم مراجعة الملفات قبل النشر)</p>
                             <button class="btn-upload" id="uploadBtn">🚀 شارك ملفاتك الآن</button>
                             <div class="upload-error-link" style="margin-top:8px;font-size:13px;color:#888;text-align:center;">
                                 ⚠️ واجهتك مشكلة؟ <a href="#" onclick="window.open('https://t.me/llTwasell', '_blank')" style="color:#3498db;text-decoration:none;font-weight:700;">تواصل معنا على تليجرام</a>
@@ -3148,7 +3189,7 @@
         });
 
         // ============================================================
-        // 8. الإشعارات
+        // 8. الإشعارات (خاصة بالمستخدم)
         // ============================================================
         const bellBtn = document.getElementById('bellBtn');
         const notifModal = document.getElementById('notifModal');
@@ -3159,34 +3200,34 @@
 
         async function loadNotifications() {
             try {
-                let query = db.collection('notifications').orderBy('createdAt', 'desc').limit(20);
-                if (auth.currentUser) {
-                    const snap = await query.get();
-                    notifications = [];
-                    snap.forEach(doc => {
-                        const data = doc.data();
-                        if (data.target === 'all' || data.userId === auth.currentUser.uid || !data.userId) {
-                            notifications.push({ id: doc.id, title: data.title || 'إشعار', body: data.body || '',
-                                time: data.createdAt ? data.createdAt.toDate().toLocaleString('ar') : 'الآن',
-                                read: data.read || false });
-                        }
-                    });
-                } else {
-                    const snap = await query.get();
-                    notifications = [];
-                    snap.forEach(doc => {
-                        const data = doc.data();
-                        if (data.target === 'all' || !data.userId) {
-                            notifications.push({ id: doc.id, title: data.title || 'إشعار', body: data.body || '',
-                                time: data.createdAt ? data.createdAt.toDate().toLocaleString('ar') : 'الآن',
-                                read: data.read || false });
-                        }
-                    });
-                }
-                const unread = notifications.filter(n => !n.read && n.userId === auth.currentUser?.uid).length;
+                let query = db.collection('notifications').orderBy('createdAt', 'desc').limit(50);
+                const snap = await query.get();
+                notifications = [];
+                snap.forEach(doc => {
+                    const data = doc.data();
+                    // عرض الإشعارات العامة (target: 'all' أو بدون userId) والإشعارات الخاصة بالمستخدم
+                    const isGeneral = data.target === 'all' || !data.userId;
+                    const isForUser = data.userId && auth.currentUser && data.userId === auth.currentUser.uid;
+                    if (isGeneral || isForUser) {
+                        notifications.push({
+                            id: doc.id,
+                            title: data.title || 'إشعار',
+                            body: data.body || '',
+                            time: data.createdAt ? data.createdAt.toDate().toLocaleString('ar') : 'الآن',
+                            read: data.read || false,
+                            userId: data.userId || null
+                        });
+                    }
+                });
+
+                const unread = notifications.filter(n => !n.read).length;
                 if (unread > 0) {
                     notifCount.textContent = unread;
                     notifCount.classList.add('show');
+                    bellBtn.classList.add('has-notif');
+                } else {
+                    notifCount.classList.remove('show');
+                    bellBtn.classList.remove('has-notif');
                 }
                 renderNotifications();
             } catch (err) { console.error('خطأ في تحميل الإشعارات:', err); }
@@ -3212,12 +3253,18 @@
         bellBtn.addEventListener('click', async () => {
             notifModal.classList.add('active');
             notifCount.classList.remove('show');
+            bellBtn.classList.remove('has-notif');
+            // تحديث حالة القراءة للإشعارات الخاصة بالمستخدم فقط
             for (const n of notifications) {
-                if (!n.read && n.userId === auth.currentUser?.uid) {
+                if (!n.read && auth.currentUser && n.userId === auth.currentUser.uid) {
+                    try { await db.collection('notifications').doc(n.id).update({ read: true }); } catch (err) { /* ignore */ }
+                } else if (!n.read && !n.userId) {
+                    // للإشعارات العامة، نعتبرها مقروءة عند فتح النافذة
                     try { await db.collection('notifications').doc(n.id).update({ read: true }); } catch (err) { /* ignore */ }
                 }
+                n.read = true;
             }
-            notifications.forEach(n => n.read = true);
+            renderNotifications();
         });
 
         closeNotifModal.addEventListener('click', () => notifModal.classList.remove('active'));
@@ -3283,7 +3330,7 @@
         }
 
         // ============================================================
-        // 10. تحميل الكتب لكل قسم مع عرض البادجات
+        // 10. تحميل الكتب لكل قسم مع عرض البادجات (بدون عرض عدد المفضلة)
         // ============================================================
         async function loadBooksForSection(gradeId, sectionId) {
             const container = document.getElementById(`books-${gradeId}-${sectionId}`);
@@ -3357,7 +3404,7 @@
         };
 
         // ============================================================
-        // 11. صفحة تفاصيل الكتاب
+        // 11. صفحة تفاصيل الكتاب (بدون عرض عدد المفضلة)
         // ============================================================
         async function showBookDetail(bookId) {
             navigateTo('bookDetail');
@@ -3407,7 +3454,6 @@
                             ${data.desc ? `<div class="detail-desc">${safeText(data.desc)}</div>` : ''}
                             <div class="detail-row"><span class="label">📥 التحميلات</span><span class="value">${data.downloads || 0}</span></div>
                             <div class="detail-row"><span class="label">👁️ المشاهدات</span><span class="value">${(data.views || 0) + 1}</span></div>
-                            <div class="detail-row"><span class="label">❤️ المفضلة</span><span class="value">${data.favorites || 0}</span></div>
                             <button class="btn-download-large" onclick="downloadBook('${bookId}')">⬇️ تحميل الكتاب</button>
                             <button class="btn-primary" onclick="navigateTo('home')" style="display:block;width:100%;margin-top:10px;text-align:center;">🏠 العودة للرئيسية</button>
                         </div>
@@ -3484,7 +3530,7 @@
         };
 
         // ============================================================
-        // 14. رفع الملفات
+        // 14. رفع الملفات (مع خيار "ملف آخر")
         // ============================================================
         const uploadBtn = document.getElementById('uploadBtn');
         const uploadModal = document.getElementById('uploadModal');
@@ -3561,6 +3607,7 @@
                     title: '📤 كتاب جديد في الانتظار',
                     body: `"${title}" من قبل ${name}`,
                     type: 'admin',
+                    target: 'all',
                     read: false,
                     createdAt: firebase.firestore.FieldValue.serverTimestamp()
                 });
@@ -3779,6 +3826,7 @@
                                 title: '💬 تعليق جديد في المنتدى',
                                 body: `من ${auth.currentUser.displayName || auth.currentUser.email}`,
                                 type: 'admin',
+                                target: 'all',
                                 read: false,
                                 createdAt: firebase.firestore.FieldValue.serverTimestamp()
                             });
@@ -3852,6 +3900,7 @@
                     title: '📝 منشور جديد في المنتدى',
                     body: `"${title}" من ${auth.currentUser.displayName || auth.currentUser.email}`,
                     type: 'admin',
+                    target: 'all',
                     read: false,
                     createdAt: firebase.firestore.FieldValue.serverTimestamp()
                 });
@@ -3897,7 +3946,7 @@
         };
 
         // ============================================================
-        // 18. منشورات الفريق (مع علامة التوثيق الزرقاء ومعرض الصور)
+        // 18. منشورات الفريق (مع علامة التوثيق الزرقاء ومعرض الصور وروابط قابلة للنقر)
         // ============================================================
         async function loadTeamPosts() {
             const container = document.getElementById('teamPostsContainer');
@@ -3931,7 +3980,8 @@
                     if (data.content) {
                         const contentDiv = document.createElement('div');
                         contentDiv.className = 'post-content-text';
-                        contentDiv.textContent = data.content;
+                        // تحويل النص إلى روابط قابلة للنقر
+                        contentDiv.innerHTML = linkifyText(safeText(data.content));
                         contentHtml = contentDiv.outerHTML;
                     }
 
@@ -3995,6 +4045,10 @@
                     }
 
                     const likeCount = data.likesCount || 0;
+                    let userLiked = false;
+                    if (auth.currentUser && data.likesData) {
+                        userLiked = data.likesData[auth.currentUser.uid] || false;
+                    }
 
                     post.innerHTML =
                         `
@@ -4017,7 +4071,9 @@
                             ${imagesHtml}
                             <div class="post-meta">${data.createdAt ? data.createdAt.toDate().toLocaleString('ar') : ''}</div>
                             <div class="post-actions">
-                                <button onclick="likeTeamPost('${doc.id}', this)" aria-label="الإعجاب بالمنشور">❤️ <span>${likeCount}</span></button>
+                                <button onclick="likeTeamPost('${doc.id}', this)" aria-label="الإعجاب بالمنشور" ${userLiked ? 'style="color:#e74c3c;"' : ''}>
+                                    ${userLiked ? '❤️' : '🤍'} <span>${likeCount}</span>
+                                </button>
                                 <button>💬 <span>${data.comments ? data.comments.filter(c => c.status === 'approved').length : 0}</span></button>
                             </div>
                             <div class="comments-section">
@@ -4062,6 +4118,7 @@
                                 title: '💬 تعليق جديد على منشور الفريق',
                                 body: `من ${auth.currentUser.displayName || auth.currentUser.email}`,
                                 type: 'admin',
+                                target: 'all',
                                 read: false,
                                 createdAt: firebase.firestore.FieldValue.serverTimestamp()
                             });
@@ -4114,6 +4171,8 @@
                 const span = btn.querySelector('span');
                 const current = parseInt(span.textContent) || 0;
                 span.textContent = current + 1;
+                btn.innerHTML = `❤️ <span>${current + 1}</span>`;
+                btn.style.color = '#e74c3c';
 
             } catch (err) {
                 console.error('خطأ في الإعجاب:', err);
@@ -4331,10 +4390,7 @@
             input.onchange = async function() {
                 const file = this.files[0];
                 if (!file) return;
-                if (file.size > 2 * 1024 * 1024) {
-                    alert('❌ حجم الصورة يتجاوز 2 ميجابايت');
-                    return;
-                }
+                // السماح بأي حجم للصورة (التحكم في Firebase)
                 try {
                     const ref = storage.ref(`profile/${auth.currentUser.uid}/${Date.now()}_${file.name}`);
                     await ref.put(file);
@@ -4461,7 +4517,7 @@
         }
 
         // ============================================================
-        // 27. تثبيت التطبيق
+        // 27. تثبيت التطبيق (شغال 100%)
         // ============================================================
         const installBtn = document.getElementById('installAppBtn');
         const installModal = document.getElementById('installModal');
@@ -4471,7 +4527,7 @@
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
-            installBtn.style.display = 'block';
+            installBtn.style.display = 'flex';
             installBtn.textContent = '📲 تثبيت التطبيق';
         });
 
@@ -4536,7 +4592,7 @@
         });
 
         // ============================================================
-        // 29. الإعلانات
+        // 29. الإعلانات (بوب كبير)
         // ============================================================
         let currentAd = null;
 
@@ -4640,7 +4696,7 @@
         console.log('   - Lightbox لتكبير الصور');
         console.log('   - تثبيت التطبيق (شغال 100%)');
         console.log('   - نظام التثبيت والتمييز (بادجات)');
-        console.log('   - الإعلانات (Popup)');
+        console.log('   - الإعلانات (Popup كبير)');
         console.log('   - الحظر الحقيقي');
         console.log('   - نظام الإنذارات');
         console.log('   - اللايكات (مرة واحدة لكل مستخدم)');
@@ -4651,6 +4707,11 @@
         console.log('   - قنوات اليوتيوب (صفحة تفاصيل)');
         console.log('   - رفع الملفات (رابط بدل رفع ملف)');
         console.log('   - رابط تليجرام للدعم في رفع الملفات');
+        console.log('   - إشعارات خاصة بالمستخدم فقط');
+        console.log('   - جرس إشعارات متحرك وجذاب');
+        console.log('   - روابط قابلة للنقر في منشورات الفريق');
+        console.log('   - خيار "ملف آخر" في رفع الملفات');
+        console.log('   - إخفاء عدد المفضلة من واجهة الكتب');
     </script>
 
 </body>
