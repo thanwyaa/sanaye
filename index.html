@@ -12,12 +12,12 @@
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', function() {
-                navigator.serviceWorker.register('/sw.js')
+                navigator.serviceWorker.register('./sw.js')
                     .then(function(registration) {
-                        console.log('✅ Service Worker registered successfully:', registration.scope);
+                        // console.log('✅ Service Worker registered successfully:', registration.scope);
                     })
                     .catch(function(error) {
-                        console.log('❌ Service Worker registration failed:', error);
+                        // console.error('❌ Service Worker registration failed:', error);
                     });
             });
         }
@@ -4878,7 +4878,7 @@
             e.preventDefault();
             // حفظ الحدث لاستخدامه عند ضغط الزر
             deferredPrompt = e;
-            console.log('👍 تم التقاط حدث beforeinstallprompt بنجاح');
+            // console.log('👍 تم التقاط حدث beforeinstallprompt بنجاح');
             if (installBtn) {
                 installBtn.style.display = 'inline-block';
             }
@@ -4897,7 +4897,7 @@
 
                 // معرفة هل وافق المستخدم أم رفض
                 const { outcome } = await deferredPrompt.userChoice;
-                console.log(`قرار المستخدم: ${outcome}`);
+                // console.log(`قرار المستخدم: ${outcome}`);
 
                 if (outcome === 'accepted') {
                     showToast('✅ تم تثبيت التطبيق بنجاح!');
@@ -4915,7 +4915,7 @@
 
         // مراقبة ما إذا تم تثبيت التطبيق بالفعل
         window.addEventListener('appinstalled', () => {
-            console.log('🎉 تم تثبيت التطبيق بنجاح على الجهاز');
+            // console.log('🎉 تم تثبيت التطبيق بنجاح على الجهاز');
             if (installBtn) {
                 installBtn.style.display = 'none';
             }
@@ -5082,11 +5082,11 @@
         loadNotifications();
         loadTeamPosts();
 
-        console.log('✅ منصة الثانوية الرسمية بلس - النسخة النهائية');
-        console.log('📌 تم إضافة كود التحكم بزر التثبيت');
-        console.log('📌 اللايكات والردود الرسمية تعمل بشكل صحيح');
-        console.log('📌 المنتدى في مكانه الصحيح مع القواعد');
-        console.log('📌 زر التثبيت يظهر عند توفر الحدث');
+        // console.log('✅ منصة الثانوية الرسمية بلس - النسخة النهائية');
+        // console.log('📌 تم إضافة كود التحكم بزر التثبيت');
+        // console.log('📌 اللايكات والردود الرسمية تعمل بشكل صحيح');
+        // console.log('📌 المنتدى في مكانه الصحيح مع القواعد');
+        // console.log('📌 زر التثبيت يظهر عند توفر الحدث');
     </script>
 
 </body>
