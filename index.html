@@ -2104,14 +2104,6 @@
             transition: 0.3s;
             font-family: 'Tajawal', sans-serif;
             font-size: 13px;
-            display: none;
-        }
-        .install-banner button.show {
-            display: inline-block;
-        }
-        .install-banner button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
         }
 
         .footer {
@@ -2594,9 +2586,34 @@
             <div class="search-results" id="globalSearchResults"></div>
         </div>
 
+        <!-- ===== زر تثبيت التطبيق ===== -->
         <div class="install-banner">
             <p>📱 حمل التطبيق وادرس في أي وقت</p>
-            <button id="installAppBtn">📲 تثبيت التطبيق</button>
+            <button id="installAppBtn" style="display:inline-block;">📲 تثبيت التطبيق</button>
+        </div>
+
+        <!-- ===== المنتدى ===== -->
+        <div class="page" id="page-forum" style="display:none;">
+            <div class="page-header">
+                <button class="back-btn" onclick="navigateTo('home')">← العودة للرئيسية</button>
+                <h2>💬 المنتدى - اسأل واستفسر</h2>
+                <button class="btn-primary" id="newForumPostBtn">📝 منشور جديد</button>
+            </div>
+
+            <div class="forum-rules">
+                <div style="font-size:16px;font-weight:800;margin-bottom:6px;">📋 قواعد المنتدى</div>
+                <div class="rule-item"><span class="rule-icon">🤝</span> <strong>احترم</strong> فريق الثانوية الرسمية بلس وزملائك</div>
+                <div class="rule-item"><span class="rule-icon">📝</span> اشرح سؤالك بوضوح مع <strong>صور السؤال</strong> إن وجدت</div>
+                <div class="rule-item"><span class="rule-icon">🔗</span> حول الصور لـ <strong>رابط</strong> وانزله مع زمايلك</div>
+                <div class="rule-item"><span class="rule-icon">⏳</span> يتم قبول المنشورات خلال <strong>24 ساعة</strong></div>
+                <div class="rule-item"><span class="rule-icon">🚫</span> <strong>ممنوع</strong> السب أو الإساءة - سيتم الحظر الفوري</div>
+                <div class="rule-item"><span class="rule-icon">💬</span> الردود الرسمية من الإدارة تكون <strong>موثقة</strong> بالشعار والتوثيق</div>
+            </div>
+
+            <p style="color:#777;margin-bottom:12px;">هنا يمكنك طرح أسئلتك ومشاكلك الدراسية. يتم اعتماد كل منشور وتعليق من الإدارة أولاً.</p>
+            <div id="forumPosts">
+                <div class="loading-container"><div class="spinner"></div></div>
+            </div>
         </div>
 
         <section>
@@ -2671,7 +2688,7 @@
         </div>
     </div>
 
-    <!-- ===== صفحة عرض الصف ===== -->
+    <!-- ===== باقي الصفحات ===== -->
     <div class="page" id="page-grade">
         <div class="page-header">
             <button class="back-btn" onclick="navigateTo('home')">← العودة للرئيسية</button>
@@ -2680,7 +2697,6 @@
         <div id="gradeSections"></div>
     </div>
 
-    <!-- ===== صفحة تفاصيل الكتاب ===== -->
     <div class="page" id="page-bookDetail">
         <div class="page-header">
             <button class="back-btn" onclick="navigateTo('home')">← العودة للرئيسية</button>
@@ -2691,32 +2707,6 @@
         </div>
     </div>
 
-    <!-- ===== صفحة المنتدى ===== -->
-    <div class="page" id="page-forum">
-        <div class="page-header">
-            <button class="back-btn" onclick="navigateTo('home')">← العودة للرئيسية</button>
-            <h2>💬 المنتدى - اسأل واستفسر</h2>
-            <button class="btn-primary" id="newForumPostBtn">📝 منشور جديد</button>
-        </div>
-
-        <!-- ===== قواعد المنتدى ===== -->
-        <div class="forum-rules">
-            <div style="font-size:16px;font-weight:800;margin-bottom:6px;">📋 قواعد المنتدى</div>
-            <div class="rule-item"><span class="rule-icon">🤝</span> <strong>احترم</strong> فريق الثانوية الرسمية بلس وزملائك</div>
-            <div class="rule-item"><span class="rule-icon">📝</span> اشرح سؤالك بوضوح مع <strong>صور السؤال</strong> إن وجدت</div>
-            <div class="rule-item"><span class="rule-icon">🔗</span> حول الصور لـ <strong>رابط</strong> وانزله مع زمايلك</div>
-            <div class="rule-item"><span class="rule-icon">⏳</span> يتم قبول المنشورات خلال <strong>24 ساعة</strong></div>
-            <div class="rule-item"><span class="rule-icon">🚫</span> <strong>ممنوع</strong> السب أو الإساءة - سيتم الحظر الفوري</div>
-            <div class="rule-item"><span class="rule-icon">💬</span> الردود الرسمية من الإدارة تكون <strong>موثقة</strong> بالشعار والتوثيق</div>
-        </div>
-
-        <p style="color:#777;margin-bottom:12px;">هنا يمكنك طرح أسئلتك ومشاكلك الدراسية. يتم اعتماد كل منشور وتعليق من الإدارة أولاً.</p>
-        <div id="forumPosts">
-            <div class="loading-container"><div class="spinner"></div></div>
-        </div>
-    </div>
-
-    <!-- ===== صفحة منشورات الفريق ===== -->
     <div class="page" id="page-teamPosts">
         <div class="page-header">
             <button class="back-btn" onclick="navigateTo('home')">← العودة للرئيسية</button>
@@ -2728,7 +2718,6 @@
         </div>
     </div>
 
-    <!-- ===== صفحة المفضلة ===== -->
     <div class="page" id="page-favorites">
         <div class="page-header">
             <button class="back-btn" onclick="navigateTo('home')">← العودة للرئيسية</button>
@@ -2739,7 +2728,6 @@
         </div>
     </div>
 
-    <!-- ===== صفحة الملف الشخصي ===== -->
     <div class="page" id="page-profile">
         <div class="page-header">
             <button class="back-btn" onclick="navigateTo('home')">← العودة للرئيسية</button>
@@ -2750,7 +2738,6 @@
         </div>
     </div>
 
-    <!-- ===== صفحة قنوات اليوتيوب ===== -->
     <div class="page" id="page-youtube">
         <div class="page-header">
             <button class="back-btn" onclick="navigateTo('home')">← العودة للرئيسية</button>
@@ -2762,7 +2749,6 @@
         </div>
     </div>
 
-    <!-- ===== صفحة تفاصيل قناة يوتيوب ===== -->
     <div class="page" id="page-youtubeDetail">
         <div class="page-header">
             <button class="back-btn" onclick="navigateTo('home')">← العودة للرئيسية</button>
@@ -2773,7 +2759,6 @@
         </div>
     </div>
 
-    <!-- ===== صفحة المؤقت ===== -->
     <div class="page" id="page-timer">
         <div class="page-header">
             <button class="back-btn" onclick="navigateTo('home')">← العودة للرئيسية</button>
@@ -2793,14 +2778,13 @@
                 <button data-minutes="90">90 د</button>
             </div>
             <div class="timer-custom">
-                <input type="number" id="customMinutes" min="1" max="999" placeholder="دقائق" aria-label="عدد الدقائق المخصص">
+                <input type="number" id="customMinutes" min="1" max="999" placeholder="دقائق">
                 <button id="setCustomTimer">⏱️ ضبط</button>
             </div>
             <div id="timerStatus" style="margin-top:8px;font-weight:700;color:#2ecc71;">⏸️ جاهز</div>
         </div>
     </div>
 
-    <!-- ===== صفحة سياسة الخصوصية ===== -->
     <div class="page" id="page-privacy">
         <div class="page-header">
             <button class="back-btn" onclick="navigateTo('home')">← العودة للرئيسية</button>
@@ -2836,7 +2820,6 @@
         </div>
     </div>
 
-    <!-- ===== صفحة سياسة الحذف ===== -->
     <div class="page" id="page-dmca">
         <div class="page-header">
             <button class="back-btn" onclick="navigateTo('home')">← العودة للرئيسية</button>
@@ -2876,7 +2859,6 @@
         </div>
     </div>
 
-    <!-- ===== صفحة من نحن ===== -->
     <div class="page" id="page-about">
         <div class="page-header">
             <button class="back-btn" onclick="navigateTo('home')">← العودة للرئيسية</button>
@@ -2926,7 +2908,7 @@
         </p>
     </div>
 
-    <!-- ===== نافذة الإشعارات ===== -->
+    <!-- ===== النوافذ ===== -->
     <div class="modal-overlay" id="notifModal">
         <div class="modal-content">
             <button class="modal-close" id="closeNotifModal">✕</button>
@@ -2944,7 +2926,6 @@
         </div>
     </div>
 
-    <!-- ===== نافذة رفع الملفات ===== -->
     <div class="modal-overlay" id="uploadModal">
         <div class="modal-content">
             <button class="modal-close" id="closeUploadModal">✕</button>
@@ -3005,7 +2986,6 @@
         </div>
     </div>
 
-    <!-- ===== نافذة منشور جديد في المنتدى ===== -->
     <div class="modal-overlay" id="newForumPostModal">
         <div class="modal-content">
             <button class="modal-close" id="closeForumPostModal">✕</button>
@@ -3027,7 +3007,6 @@
         </div>
     </div>
 
-    <!-- ===== نافذة تثبيت التطبيق ===== -->
     <div class="modal-overlay" id="installModal">
         <div class="modal-content" style="text-align:center;">
             <button class="modal-close" id="closeInstallModal">✕</button>
@@ -3041,7 +3020,6 @@
         </div>
     </div>
 
-    <!-- ===== نافذة الإعلانات ===== -->
     <div class="ad-popup-overlay" id="adPopup">
         <div class="ad-popup">
             <button class="ad-close" onclick="closeAdPopup()">✕</button>
@@ -3052,7 +3030,6 @@
         </div>
     </div>
 
-    <!-- ===== نافذة تكبير الصور (Lightbox) ===== -->
     <div class="lightbox" id="lightbox" onclick="closeLightbox()">
         <button class="lightbox-close" onclick="closeLightbox()">✕</button>
         <button class="lightbox-nav prev" id="lightboxPrev" onclick="event.stopPropagation();changeLightboxImage(-1)">❮</button>
@@ -3062,7 +3039,6 @@
         <div class="lightbox-dots" id="lightboxDots"></div>
     </div>
 
-    <!-- ===== بوب أب الرسائل ===== -->
     <div class="popup-message" id="popupMessage">
         <div class="popup-icon" id="popupIcon">✅</div>
         <div class="popup-title" id="popupTitle">تم الإرسال بنجاح!</div>
@@ -3070,7 +3046,6 @@
         <button class="popup-close" onclick="closePopup()">حسناً</button>
     </div>
 
-    <!-- ===== Toast ===== -->
     <div class="toast" id="toast"></div>
 
     <!-- ============================================================ -->
@@ -3313,7 +3288,7 @@
                         </div>
                         <div class="install-banner">
                             <p>📱 حمل التطبيق وادرس في أي وقت</p>
-                            <button id="installAppBtn">📲 تثبيت التطبيق</button>
+                            <button id="installAppBtn" style="display:inline-block;">📲 تثبيت التطبيق</button>
                         </div>
                         <section>
                             <h2 style="text-align:center;font-size:22px;font-weight:800;color:#2c3e50;margin-bottom:16px;">📚 اختر صفك الدراسي</h2>
@@ -4895,7 +4870,6 @@
             deferredPrompt = e;
             if (installAppBtn) {
                 installAppBtn.style.display = 'inline-block';
-                installAppBtn.classList.add('show');
             }
             console.log('✅ beforeinstallprompt captured');
         });
@@ -4921,7 +4895,6 @@
                 deferredPrompt = null;
                 if (installAppBtn) {
                     installAppBtn.style.display = 'none';
-                    installAppBtn.classList.remove('show');
                 }
             });
         }
@@ -4931,7 +4904,6 @@
             console.log('✅ PWA installed successfully');
             if (installAppBtn) {
                 installAppBtn.style.display = 'none';
-                installAppBtn.classList.remove('show');
             }
             showToast('✅ تم تثبيت التطبيق بنجاح!');
         });
@@ -5098,6 +5070,8 @@
         console.log('✅ منصة الثانوية الرسمية بلس - النسخة النهائية');
         console.log('📌 تم إصلاح زر تثبيت التطبيق');
         console.log('📌 اللايكات والردود الرسمية تعمل بشكل صحيح');
+        console.log('📌 المنتدى في مكانه الصحيح مع القواعد');
+        console.log('📌 زر التثبيت يظهر دائمًا ويشتغل مباشرة');
     </script>
 
 </body>
