@@ -1,14 +1,19 @@
 {
-  "name": "منصة الثانوية الرسمية بلس",
+  "name": "الثانوية الرسمية بلس",
   "short_name": "الثانوية بلس",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#1a2a6c",
+  "background_color": "#f0f4f8",
+  "theme_color": "#3498db",
   "icons": [
     {
       "src": "https://cdn.phototourl.com/free/2026-07-21-1dd4b984-ed08-4a40-aead-9ef086ebbd45.jpg",
       "sizes": "192x192",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "https://cdn.phototourl.com/free/2026-07-21-1dd4b984-ed08-4a40-aead-9ef086ebbd45.jpg",
+      "sizes": "512x512",
       "type": "image/jpeg"
     }
   ]
