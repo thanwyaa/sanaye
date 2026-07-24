@@ -55,6 +55,103 @@
             flex-shrink: 0;
         }
 
+        /* ===== الرد الرسمي ===== */
+        .admin-reply {
+            background: #e3f2fd;
+            border-right: 3px solid #1a237e;
+            padding: 6px 10px;
+            border-radius: 8px;
+            margin: 4px 0;
+        }
+        .admin-reply .reply-header {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 700;
+            color: #1a237e;
+            font-size: 10px;
+        }
+        .admin-reply .reply-header img {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 1px solid #1a237e;
+        }
+        .admin-reply .reply-body {
+            font-size: 10px;
+            padding: 4px 0;
+            color: #1a237e;
+        }
+        .dark-mode .admin-reply {
+            background: #1a237e40;
+            border-color: #64b5f6;
+        }
+        .dark-mode .admin-reply .reply-header {
+            color: #90caf9;
+        }
+        .dark-mode .admin-reply .reply-body {
+            color: #e3f2fd;
+        }
+
+        /* ===== لايك رسمي ===== */
+        .official-like {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: #e3f2fd;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 700;
+            color: #1a237e;
+            border: 1px solid #90caf9;
+        }
+        .official-like img {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 1px solid #1a237e;
+        }
+        .dark-mode .official-like {
+            background: #1a237e40;
+            color: #90caf9;
+            border-color: #64b5f6;
+        }
+
+        /* ===== منشور رسمي ===== */
+        .official-post {
+            background: #e3f2fd;
+            border-right: 4px solid #1a237e;
+            padding: 8px 12px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+        .official-post .post-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+            color: #1a237e;
+            font-size: 12px;
+        }
+        .official-post .post-header img {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid #1a237e;
+        }
+        .official-post .post-body {
+            padding: 6px 0;
+            font-size: 12px;
+        }
+        .dark-mode .official-post {
+            background: #1a237e40;
+            border-color: #64b5f6;
+        }
+        .dark-mode .official-post .post-header {
+            color: #90caf9;
+        }
+
         /* ===== معرض الصور ===== */
         .team-post-images {
             display: grid;
@@ -1368,13 +1465,13 @@
             font-size: 12px;
         }
 
-        /* ===== الردود ===== */
+        /* ===== الردود الرسمية ===== */
         .admin-reply {
             margin-top: 4px;
             margin-right: 20px;
             padding: 4px 10px;
-            background: #3498db10;
-            border-right: 3px solid #3498db;
+            background: #e3f2fd;
+            border-right: 3px solid #1a237e;
             border-radius: 6px;
         }
         .admin-reply .reply-header {
@@ -1383,7 +1480,7 @@
             gap: 4px;
             font-size: 11px;
             font-weight: 700;
-            color: #3498db;
+            color: #1a237e;
         }
         .admin-reply .reply-body {
             font-size: 12px;
@@ -2891,7 +2988,16 @@
             `;
 
         // ============================================================
-        // 4. إدارة الصفحات
+        // 4. الثوابت الرسمية
+        // ============================================================
+        const OFFICIAL_TEAM = {
+            name: 'فريق الثانوية الرسمية بلس',
+            logo: 'https://cdn.phototourl.com/free/2026-07-21-1dd4b984-ed08-4a40-aead-9ef086ebbd45.jpg',
+            verified: true
+        };
+
+        // ============================================================
+        // 5. إدارة الصفحات
         // ============================================================
         let currentPage = 'home';
         let timerInterval = null;
@@ -2940,7 +3046,7 @@
         }
 
         // ============================================================
-        // 5. الوضع الليلي
+        // 6. الوضع الليلي
         // ============================================================
         const darkToggle = document.getElementById('darkModeToggle');
         const body = document.body;
@@ -2960,7 +3066,7 @@
         });
 
         // ============================================================
-        // 6. المصادقة (Auth)
+        // 7. المصادقة (Auth)
         // ============================================================
         const userSection = document.getElementById('userSection');
         let currentUserData = null;
@@ -3130,7 +3236,7 @@
         });
 
         // ============================================================
-        // 7. البحث
+        // 8. البحث
         // ============================================================
         const searchInput = document.getElementById('globalSearch');
         const searchResults = document.getElementById('globalSearchResults');
@@ -3192,7 +3298,7 @@
         });
 
         // ============================================================
-        // 8. الإشعارات
+        // 9. الإشعارات
         // ============================================================
         const bellBtn = document.getElementById('bellBtn');
         const bellIcon = document.getElementById('bellIcon');
@@ -3220,7 +3326,8 @@
                             body: data.body || '',
                             time: data.createdAt ? data.createdAt.toDate().toLocaleString('ar') : 'الآن',
                             read: data.read || false,
-                            userId: data.userId || null
+                            userId: data.userId || null,
+                            isOfficial: data.isOfficial || false
                         });
                     }
                 });
@@ -3258,11 +3365,15 @@
                 const item = document.createElement('div');
                 item.className = 'notification-item';
                 const isForUser = n.userId === auth.currentUser?.uid;
+                const isOfficial = n.isOfficial || false;
                 item.style.opacity = n.read ? '0.6' : '1';
                 item.style.background = isForUser && !n.read ? '#3498db10' : 'transparent';
                 item.style.borderRight = isForUser && !n.read ? '3px solid #3498db' : 'none';
+                const officialTag = isOfficial ?
+                    `<span style="font-size:10px;color:#1a237e;font-weight:700;background:#e3f2fd;padding:0 6px;border-radius:4px;">📌 رسمي</span>` :
+                    '';
                 item.innerHTML = `
-                        <div><strong>${safeText(n.title)}</strong> ${isForUser ? '<span style="font-size:10px;color:#3498db;font-weight:700;">(خاص بك)</span>' : ''}</div>
+                        <div><strong>${safeText(n.title)}</strong> ${isForUser ? '<span style="font-size:10px;color:#3498db;font-weight:700;">(خاص بك)</span>' : ''} ${officialTag}</div>
                         <div style="font-size:14px;color:#777;">${safeText(n.body)}</div>
                         <div class="date">${safeText(n.time)}</div>
                     `;
@@ -3291,7 +3402,7 @@
         });
 
         // ============================================================
-        // 9. عرض الصفوف
+        // 10. عرض الصفوف
         // ============================================================
         function showGrade(gradeId) {
             navigateTo('grade');
@@ -3348,7 +3459,7 @@
         }
 
         // ============================================================
-        // 10. تحميل الكتب
+        // 11. تحميل الكتب
         // ============================================================
         async function loadBooksForSection(gradeId, sectionId) {
             const container = document.getElementById(`books-${gradeId}-${sectionId}`);
@@ -3425,7 +3536,7 @@
         };
 
         // ============================================================
-        // 11. تفاصيل الكتاب
+        // 12. تفاصيل الكتاب
         // ============================================================
         async function showBookDetail(bookId) {
             navigateTo('bookDetail');
@@ -3488,7 +3599,7 @@
         }
 
         // ============================================================
-        // 12. المفضلة
+        // 13. المفضلة
         // ============================================================
         async function checkFavStatus(bookId, btn) {
             if (!auth.currentUser) return;
@@ -3556,7 +3667,7 @@
         };
 
         // ============================================================
-        // 13. تحميل الكتاب
+        // 14. تحميل الكتاب
         // ============================================================
         window.downloadBook = async function(bookId) {
             if (!auth.currentUser) {
@@ -3577,7 +3688,7 @@
         };
 
         // ============================================================
-        // 14. رفع الملخصات
+        // 15. رفع الملخصات
         // ============================================================
         const uploadBtn = document.getElementById('uploadBtn');
         const uploadModal = document.getElementById('uploadModal');
@@ -3696,6 +3807,7 @@
                     body: `"${title}" من قبل ${name}`,
                     type: 'admin',
                     read: false,
+                    isOfficial: false,
                     createdAt: firebase.firestore.FieldValue.serverTimestamp()
                 });
 
@@ -3711,7 +3823,7 @@
         });
 
         // ============================================================
-        // 15. المؤقت
+        // 16. المؤقت
         // ============================================================
         const timerDisplay = document.getElementById('timerDisplay');
         const timerStatus = document.getElementById('timerStatus');
@@ -3792,7 +3904,7 @@
         });
 
         // ============================================================
-        // 16. المنتدى
+        // 17. المنتدى مع الردود الرسمية واللايكات
         // ============================================================
         async function loadForumPosts() {
             const container = document.getElementById('forumPosts');
@@ -3848,8 +3960,9 @@
                                     repliesHtml += `
                                             <div class="admin-reply">
                                                 <div class="reply-header">
+                                                    <img src="${OFFICIAL_TEAM.logo}" style="width:16px;height:16px;border-radius:50%;">
+                                                    ${OFFICIAL_TEAM.name}
                                                     ${VERIFIED_BADGE_SVG}
-                                                    الإدارة
                                                     <span style="font-size:9px;color:#888;">${reply.time ? new Date(reply.time).toLocaleString('ar') : ''}</span>
                                                 </div>
                                                 <div class="reply-body">${safeText(reply.text)}</div>
@@ -3871,6 +3984,11 @@
                                         <div class="name">${safeText(comment.user || 'مجهول')}</div>
                                         <div>${safeText(comment.text || '')} ${likesDisplay}</div>
                                         ${repliesHtml}
+                                        <div style="margin-top:4px;display:flex;gap:8px;">
+                                            <button onclick="likeForumComment('${data.id}', ${comment._index || 0}, this)" style="background:none;border:none;cursor:pointer;font-size:12px;color:#555;font-family:'Tajawal',sans-serif;">
+                                                ❤️ ${comment.likes || 0}
+                                            </button>
+                                        </div>
                                     </div>
                                 `;
                             commentsHtml += commentDiv.outerHTML;
@@ -3903,12 +4021,12 @@
                             </div>
                         `;
                     container.appendChild(post);
-                }
 
-                document.querySelectorAll('.forum-comment-submit').forEach(btn => {
-                    btn.addEventListener('click', async function() {
+                    const commentInput = post.querySelector('.forum-comment-input');
+                    const commentSubmit = post.querySelector('.forum-comment-submit');
+                    commentSubmit.addEventListener('click', async function() {
                         const postId = this.dataset.post;
-                        const input = document.querySelector(`.forum-comment-input[data-post="${postId}"]`);
+                        const input = post.querySelector('.forum-comment-input');
                         const text = input.value.trim();
                         if (!text) return;
                         if (!auth.currentUser) {
@@ -3921,15 +4039,17 @@
                             const postDoc = await postRef.get();
                             const data = postDoc.data();
                             const comments = data.comments || [];
-                            comments.push({
+                            const newComment = {
                                 user: auth.currentUser.displayName || auth.currentUser.email || 'طالب',
                                 userId: auth.currentUser.uid,
                                 text: text,
                                 status: 'pending',
                                 createdAt: new Date().toISOString(),
                                 likes: 0,
-                                adminReplies: []
-                            });
+                                adminReplies: [],
+                                _index: comments.length
+                            };
+                            comments.push(newComment);
                             await postRef.update({ comments });
                             input.value = '';
                             loadForumPosts();
@@ -3938,24 +4058,14 @@
                                 body: `من ${auth.currentUser.displayName || auth.currentUser.email}`,
                                 type: 'admin',
                                 read: false,
+                                isOfficial: false,
                                 createdAt: firebase.firestore.FieldValue.serverTimestamp()
                             });
                         } catch (err) {
                             alert('❌ خطأ: ' + err.message);
                         }
                     });
-                });
-
-                document.querySelectorAll('.forum-comment-input').forEach(input => {
-                    input.addEventListener('keypress', function(e) {
-                        if (e.key === 'Enter') {
-                            const btn = document.querySelector(
-                                `.forum-comment-submit[data-post="${this.dataset.post}"]`);
-                            if (btn) btn.click();
-                        }
-                    });
-                });
-
+                }
             } catch (err) {
                 console.error('خطأ في تحميل المنتدى:', err);
                 container.innerHTML =
@@ -3963,64 +4073,8 @@
             }
         }
 
-        document.getElementById('newForumPostBtn').addEventListener('click', () => {
-            if (!auth.currentUser) {
-                alert('🔐 يرجى تسجيل الدخول أولاً');
-                window.location.href = 'login.html';
-                return;
-            }
-            document.getElementById('newForumPostModal').classList.add('active');
-        });
-
-        document.getElementById('closeForumPostModal').addEventListener('click', () => {
-            document.getElementById('newForumPostModal').classList.remove('active');
-        });
-
-        document.getElementById('forumPostForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            if (!auth.currentUser) {
-                alert('🔐 يرجى تسجيل الدخول أولاً');
-                window.location.href = 'login.html';
-                return;
-            }
-
-            const title = document.getElementById('forumPostTitle').value.trim();
-            const content = document.getElementById('forumPostContent').value.trim();
-            const image = document.getElementById('forumPostImage').value.trim();
-
-            if (!title || !content) { alert('❌ يرجى ملء جميع الحقول'); return; }
-
-            try {
-                await db.collection('forum_posts').add({
-                    title,
-                    content,
-                    image: image || '',
-                    author: auth.currentUser.displayName || auth.currentUser.email || 'طالب',
-                    userId: auth.currentUser.uid,
-                    status: 'pending',
-                    likes: 0,
-                    comments: [],
-                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
-                });
-
-                alert('✅ تم نشر المنشور! سيتم اعتماده من الإدارة قريباً.');
-                document.getElementById('forumPostForm').reset();
-                document.getElementById('newForumPostModal').classList.remove('active');
-                loadForumPosts();
-
-                await db.collection('notifications').add({
-                    title: '📝 منشور جديد في المنتدى',
-                    body: `"${title}" من ${auth.currentUser.displayName || auth.currentUser.email}`,
-                    type: 'admin',
-                    read: false,
-                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
-                });
-
-            } catch (err) { alert('❌ خطأ: ' + err.message); }
-        });
-
         // ============================================================
-        // 17. الإعجاب بالمنشور
+        // 18. الإعجاب بمنشور المنتدى
         // ============================================================
         window.likeForumPost = async function(postId, btn) {
             if (!auth.currentUser) {
@@ -4057,7 +4111,40 @@
         };
 
         // ============================================================
-        // 18. منشورات الفريق (مع الصورة والتوثيق)
+        // 19. الإعجاب بتعليق المنتدى
+        // ============================================================
+        window.likeForumComment = async function(postId, commentIndex, btn) {
+            if (!auth.currentUser) {
+                alert('🔐 يرجى تسجيل الدخول أولاً');
+                window.location.href = 'login.html';
+                return;
+            }
+
+            try {
+                const postRef = db.collection('forum_posts').doc(postId);
+                const postDoc = await postRef.get();
+                const data = postDoc.data();
+                const comments = data.comments || [];
+
+                if (commentIndex >= comments.length) return;
+
+                const comment = comments[commentIndex];
+                if (!comment || comment.status !== 'approved') return;
+
+                const likes = comment.likes || 0;
+                comment.likes = likes + 1;
+                await postRef.update({ comments });
+
+                btn.textContent = `❤️ ${likes + 1}`;
+
+            } catch (err) {
+                console.error('خطأ في الإعجاب بالتعليق:', err);
+                alert('❌ خطأ: ' + err.message);
+            }
+        };
+
+        // ============================================================
+        // 20. منشورات الفريق (مع الصورة والتوثيق واللايكات الرسمية)
         // ============================================================
         async function loadTeamPosts() {
             const container = document.getElementById('teamPostsContainer');
@@ -4149,8 +4236,9 @@
                                     repliesHtml += `
                                             <div class="admin-reply">
                                                 <div class="reply-header">
+                                                    <img src="${OFFICIAL_TEAM.logo}" style="width:16px;height:16px;border-radius:50%;">
+                                                    ${OFFICIAL_TEAM.name}
                                                     ${VERIFIED_BADGE_SVG}
-                                                    الإدارة
                                                     <span style="font-size:9px;color:#888;">${reply.time ? new Date(reply.time).toLocaleString('ar') : ''}</span>
                                                 </div>
                                                 <div class="reply-body">${safeText(reply.text)}</div>
@@ -4172,6 +4260,11 @@
                                         <div class="name">${safeText(comment.user || 'مجهول')}</div>
                                         <div>${safeText(comment.text || '')} ${likesDisplay}</div>
                                         ${repliesHtml}
+                                        <div style="margin-top:4px;display:flex;gap:8px;">
+                                            <button onclick="likeTeamComment('${doc.id}', ${comment._index || 0}, this)" style="background:none;border:none;cursor:pointer;font-size:12px;color:#555;font-family:'Tajawal',sans-serif;">
+                                                ❤️ ${comment.likes || 0}
+                                            </button>
+                                        </div>
                                     </div>
                                 `;
                             commentsHtml += commentDiv.outerHTML;
@@ -4183,10 +4276,10 @@
                     post.innerHTML =
                         `
                             <div class="admin-header">
-                                <img src="https://cdn.phototourl.com/free/2026-07-21-1dd4b984-ed08-4a40-aead-9ef086ebbd45.jpg" class="admin-logo" alt="شعار المنصة">
+                                <img src="${OFFICIAL_TEAM.logo}" class="admin-logo" alt="شعار المنصة">
                                 <div class="admin-info">
                                     <div class="admin-name">
-                                        فريق الثانوية الرسمية بلس
+                                        ${OFFICIAL_TEAM.name}
                                         ${VERIFIED_BADGE_SVG}
                                         <span class="admin-verified-label">موثق</span>
                                     </div>
@@ -4213,12 +4306,12 @@
                             </div>
                         `;
                     container.appendChild(post);
-                });
 
-                document.querySelectorAll('.team-comment-submit').forEach(btn => {
-                    btn.addEventListener('click', async function() {
+                    const commentInput = post.querySelector('.team-comment-input');
+                    const commentSubmit = post.querySelector('.team-comment-submit');
+                    commentSubmit.addEventListener('click', async function() {
                         const postId = this.dataset.post;
-                        const input = document.querySelector(`.team-comment-input[data-post="${postId}"]`);
+                        const input = post.querySelector('.team-comment-input');
                         const text = input.value.trim();
                         if (!text) return;
                         if (!auth.currentUser) {
@@ -4231,15 +4324,17 @@
                             const postDoc = await postRef.get();
                             const data = postDoc.data();
                             const comments = data.comments || [];
-                            comments.push({
+                            const newComment = {
                                 user: auth.currentUser.displayName || auth.currentUser.email || 'طالب',
                                 userId: auth.currentUser.uid,
                                 text: text,
                                 status: 'pending',
                                 createdAt: new Date().toISOString(),
                                 likes: 0,
-                                adminReplies: []
-                            });
+                                adminReplies: [],
+                                _index: comments.length
+                            };
+                            comments.push(newComment);
                             await postRef.update({ comments });
                             input.value = '';
                             loadTeamPosts();
@@ -4248,6 +4343,7 @@
                                 body: `من ${auth.currentUser.displayName || auth.currentUser.email}`,
                                 type: 'admin',
                                 read: false,
+                                isOfficial: false,
                                 createdAt: firebase.firestore.FieldValue.serverTimestamp()
                             });
                         } catch (err) {
@@ -4255,17 +4351,6 @@
                         }
                     });
                 });
-
-                document.querySelectorAll('.team-comment-input').forEach(input => {
-                    input.addEventListener('keypress', function(e) {
-                        if (e.key === 'Enter') {
-                            const btn = document.querySelector(
-                                `.team-comment-submit[data-post="${this.dataset.post}"]`);
-                            if (btn) btn.click();
-                        }
-                    });
-                });
-
             } catch (err) {
                 console.error('خطأ في تحميل منشورات الفريق:', err);
                 container.innerHTML =
@@ -4274,7 +4359,7 @@
         }
 
         // ============================================================
-        // 19. الإعجاب بمنشور الفريق
+        // 21. الإعجاب بمنشور الفريق
         // ============================================================
         window.likeTeamPost = async function(postId, btn) {
             if (!auth.currentUser) {
@@ -4309,7 +4394,40 @@
         };
 
         // ============================================================
-        // 20. Lightbox
+        // 22. الإعجاب بتعليق منشور الفريق
+        // ============================================================
+        window.likeTeamComment = async function(postId, commentIndex, btn) {
+            if (!auth.currentUser) {
+                alert('🔐 يرجى تسجيل الدخول أولاً');
+                window.location.href = 'login.html';
+                return;
+            }
+
+            try {
+                const postRef = db.collection('team_posts').doc(postId);
+                const postDoc = await postRef.get();
+                const data = postDoc.data();
+                const comments = data.comments || [];
+
+                if (commentIndex >= comments.length) return;
+
+                const comment = comments[commentIndex];
+                if (!comment || comment.status !== 'approved') return;
+
+                const likes = comment.likes || 0;
+                comment.likes = likes + 1;
+                await postRef.update({ comments });
+
+                btn.textContent = `❤️ ${likes + 1}`;
+
+            } catch (err) {
+                console.error('خطأ في الإعجاب بالتعليق:', err);
+                alert('❌ خطأ: ' + err.message);
+            }
+        };
+
+        // ============================================================
+        // 23. Lightbox
         // ============================================================
         let lightboxImages = [];
         let currentLightboxIndex = 0;
@@ -4381,7 +4499,7 @@
         });
 
         // ============================================================
-        // 21. المفضلة
+        // 24. المفضلة
         // ============================================================
         async function loadFavorites() {
             const container = document.getElementById('favoritesContainer');
@@ -4438,7 +4556,7 @@
         }
 
         // ============================================================
-        // 22. الملف الشخصي
+        // 25. الملف الشخصي
         // ============================================================
         async function loadProfile() {
             const container = document.getElementById('profileContainer');
@@ -4511,7 +4629,7 @@
         }
 
         // ============================================================
-        // 23. تغيير الصورة والاسم
+        // 26. تغيير الصورة والاسم
         // ============================================================
         window.uploadProfileImage = function() {
             if (!auth.currentUser) return;
@@ -4559,7 +4677,7 @@
         };
 
         // ============================================================
-        // 24. قنوات اليوتيوب
+        // 27. قنوات اليوتيوب
         // ============================================================
         async function loadYoutubeChannels() {
             const container = document.getElementById('youtubeContainer');
@@ -4607,7 +4725,7 @@
         }
 
         // ============================================================
-        // 25. تفاصيل قناة يوتيوب
+        // 28. تفاصيل قناة يوتيوب
         // ============================================================
         async function showYoutubeDetail(channelId) {
             navigateTo('youtubeDetail');
@@ -4648,7 +4766,7 @@
         }
 
         // ============================================================
-        // 26. تثبيت التطبيق
+        // 29. تثبيت التطبيق
         // ============================================================
         const installBtn = document.getElementById('installAppBtn');
         const installModal = document.getElementById('installModal');
@@ -4769,7 +4887,7 @@
         registerServiceWorker();
 
         // ============================================================
-        // 27. مشاركة المنصة
+        // 30. مشاركة المنصة
         // ============================================================
         document.getElementById('shareFooter').addEventListener('click', (e) => {
             e.preventDefault();
@@ -4787,7 +4905,7 @@
         });
 
         // ============================================================
-        // 28. الإعلانات
+        // 31. الإعلانات
         // ============================================================
         let currentAd = null;
 
@@ -4841,7 +4959,7 @@
         }
 
         // ============================================================
-        // 29. Toast
+        // 32. Toast
         // ============================================================
         function showToast(message, type = 'success') {
             const toast = document.getElementById('toast') || createToast();
@@ -4869,7 +4987,7 @@
         }
 
         // ============================================================
-        // 30. عرض ملف المستخدم
+        // 33. عرض ملف المستخدم
         // ============================================================
         window.viewUserProfile = function(userId) {
             if (!userId) return;
@@ -4878,7 +4996,67 @@
         };
 
         // ============================================================
-        // 31. تحميل البيانات عند بدء التشغيل
+        // 34. منشورات الفريق - زر جديد
+        // ============================================================
+        document.getElementById('newForumPostBtn').addEventListener('click', () => {
+            if (!auth.currentUser) {
+                alert('🔐 يرجى تسجيل الدخول أولاً');
+                window.location.href = 'login.html';
+                return;
+            }
+            document.getElementById('newForumPostModal').classList.add('active');
+        });
+
+        document.getElementById('closeForumPostModal').addEventListener('click', () => {
+            document.getElementById('newForumPostModal').classList.remove('active');
+        });
+
+        document.getElementById('forumPostForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (!auth.currentUser) {
+                alert('🔐 يرجى تسجيل الدخول أولاً');
+                window.location.href = 'login.html';
+                return;
+            }
+
+            const title = document.getElementById('forumPostTitle').value.trim();
+            const content = document.getElementById('forumPostContent').value.trim();
+            const image = document.getElementById('forumPostImage').value.trim();
+
+            if (!title || !content) { alert('❌ يرجى ملء جميع الحقول'); return; }
+
+            try {
+                await db.collection('forum_posts').add({
+                    title,
+                    content,
+                    image: image || '',
+                    author: auth.currentUser.displayName || auth.currentUser.email || 'طالب',
+                    userId: auth.currentUser.uid,
+                    status: 'pending',
+                    likes: 0,
+                    comments: [],
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+
+                alert('✅ تم نشر المنشور! سيتم اعتماده من الإدارة قريباً.');
+                document.getElementById('forumPostForm').reset();
+                document.getElementById('newForumPostModal').classList.remove('active');
+                loadForumPosts();
+
+                await db.collection('notifications').add({
+                    title: '📝 منشور جديد في المنتدى',
+                    body: `"${title}" من ${auth.currentUser.displayName || auth.currentUser.email}`,
+                    type: 'admin',
+                    read: false,
+                    isOfficial: false,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+
+            } catch (err) { alert('❌ خطأ: ' + err.message); }
+        });
+
+        // ============================================================
+        // 35. تحميل البيانات عند بدء التشغيل
         // ============================================================
         loadBooksForSearch();
         loadNotifications();
@@ -4887,6 +5065,7 @@
         console.log('✅ منصة الثانوية الرسمية بلس - النسخة النهائية');
         console.log('📌 منشورات الفريق تظهر مع الصورة والتوثيق');
         console.log('📌 اللايكات (القلوب) تظهر على المنشورات والتعليقات');
+        console.log('📌 الردود الرسمية تظهر باسم الفريق وعلامة التوثيق');
     </script>
 
 </body>
