@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
     <title>الثانوية الرسمية بلس</title>
 
+    <!-- ===== Manifest ===== -->
+    <link rel="manifest" href="manifest.json" />
+
     <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js">
     </script>
@@ -19,7 +22,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js">
     </script>
 
-    <link rel="manifest" href="manifest.json" />
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet" />
 
     <style>
@@ -97,9 +99,9 @@
         .official-like {
             display: inline-flex;
             align-items: center;
-            gap: 4px;
+            gap: 6px;
             background: #e3f2fd;
-            padding: 2px 8px;
+            padding: 3px 10px;
             border-radius: 20px;
             font-size: 10px;
             font-weight: 700;
@@ -118,38 +120,14 @@
             border-color: #64b5f6;
         }
 
-        /* ===== منشور رسمي ===== */
-        .official-post {
-            background: #e3f2fd;
-            border-right: 4px solid #1a237e;
-            padding: 8px 12px;
-            border-radius: 8px;
-            margin-bottom: 8px;
-        }
-        .official-post .post-header {
-            display: flex;
+        /* ===== لايكات المستخدمين ===== */
+        .user-like {
+            display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 4px;
+            font-size: 10px;
+            color: #e74c3c;
             font-weight: 700;
-            color: #1a237e;
-            font-size: 12px;
-        }
-        .official-post .post-header img {
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            border: 2px solid #1a237e;
-        }
-        .official-post .post-body {
-            padding: 6px 0;
-            font-size: 12px;
-        }
-        .dark-mode .official-post {
-            background: #1a237e40;
-            border-color: #64b5f6;
-        }
-        .dark-mode .official-post .post-header {
-            color: #90caf9;
         }
 
         /* ===== معرض الصور ===== */
@@ -1482,6 +1460,12 @@
             font-weight: 700;
             color: #1a237e;
         }
+        .admin-reply .reply-header img {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 1px solid #1a237e;
+        }
         .admin-reply .reply-body {
             font-size: 12px;
             padding: 2px 0;
@@ -1829,13 +1813,6 @@
         .profile-card .profile-actions .btn-upload-img:hover {
             transform: scale(1.05);
         }
-        .profile-card .profile-actions .btn-change-name {
-            background: #2ecc71;
-            color: white;
-        }
-        .profile-card .profile-actions .btn-change-name:hover {
-            transform: scale(1.05);
-        }
 
         /* ===== النوافذ ===== */
         .modal-overlay {
@@ -2127,6 +2104,10 @@
             transition: 0.3s;
             font-family: 'Tajawal', sans-serif;
             font-size: 13px;
+            display: none;
+        }
+        .install-banner button.show {
+            display: inline-block;
         }
         .install-banner button:hover {
             transform: scale(1.05);
@@ -2318,6 +2299,127 @@
             text-decoration: underline;
         }
 
+        /* ===== قواعد المنتدى ===== */
+        .forum-rules {
+            background: #e3f2fd;
+            border-right: 4px solid #1a237e;
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+        body.dark-mode .forum-rules {
+            background: #1a237e40;
+            border-color: #64b5f6;
+            color: #e3f2fd;
+        }
+        .forum-rules strong {
+            color: #1a237e;
+        }
+        body.dark-mode .forum-rules strong {
+            color: #90caf9;
+        }
+        .forum-rules .rule-icon {
+            font-size: 18px;
+            margin-left: 6px;
+        }
+
+        .forum-rules .rule-item {
+            padding: 4px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* ===== بوب أب ===== */
+        .popup-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            background: white;
+            padding: 30px 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            z-index: 10000;
+            text-align: center;
+            opacity: 0;
+            transition: all 0.3s ease;
+            pointer-events: none;
+            max-width: 90%;
+        }
+        .popup-message.active {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+            pointer-events: auto;
+        }
+        body.dark-mode .popup-message {
+            background: #24243a;
+            color: #eee;
+        }
+        .popup-message .popup-icon {
+            font-size: 50px;
+            margin-bottom: 10px;
+        }
+        .popup-message .popup-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: #2ecc71;
+        }
+        body.dark-mode .popup-message .popup-title {
+            color: #2ecc71;
+        }
+        .popup-message .popup-desc {
+            font-size: 14px;
+            color: #777;
+            margin: 10px 0;
+        }
+        body.dark-mode .popup-message .popup-desc {
+            color: #aaa;
+        }
+        .popup-message .popup-close {
+            margin-top: 12px;
+            padding: 8px 30px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 14px;
+        }
+        .popup-message .popup-close:hover {
+            background: #2980b9;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: #2ecc71;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-family: 'Tajawal', sans-serif;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            z-index: 9999;
+            display: none;
+            max-width: 90%;
+        }
+        .toast.error {
+            background: #e74c3c;
+        }
+        .toast.warning {
+            background: #f39c12;
+        }
+        .toast.show {
+            display: block;
+            animation: slideUp 0.3s ease;
+        }
+
         @media (max-width: 768px) {
             .navbar {
                 padding: 6px 12px;
@@ -2370,6 +2472,9 @@
             .ad-popup {
                 padding: 25px;
             }
+            .popup-message {
+                padding: 25px 20px;
+            }
         }
         @media (max-width: 480px) {
             .logo h1 {
@@ -2407,6 +2512,19 @@
             }
             .ad-popup {
                 padding: 20px;
+            }
+            .popup-message {
+                padding: 20px 16px;
+            }
+            .popup-message .popup-icon {
+                font-size: 36px;
+            }
+            .popup-message .popup-title {
+                font-size: 16px;
+            }
+            .forum-rules {
+                font-size: 12px;
+                padding: 12px 14px;
             }
         }
 
@@ -2548,7 +2666,7 @@
             </div>
             <button class="btn-upload" id="uploadBtn">🚀 شارك ملخصاتك الآن</button>
             <div class="upload-error-link">
-                ⚠️ واجهتك مشكلة؟ <a href="#" onclick="window.open('https://t.me/llTwasell', '_blank')">تواصل معنا على تليجرام</a>
+                ⚠️ واجهتك مشكلة في الرفع؟ <a href="#" onclick="window.open('https://t.me/llTwasell', '_blank')">تواصل معنا على تليجرام</a>
             </div>
         </div>
     </div>
@@ -2580,13 +2698,25 @@
             <h2>💬 المنتدى - اسأل واستفسر</h2>
             <button class="btn-primary" id="newForumPostBtn">📝 منشور جديد</button>
         </div>
+
+        <!-- ===== قواعد المنتدى ===== -->
+        <div class="forum-rules">
+            <div style="font-size:16px;font-weight:800;margin-bottom:6px;">📋 قواعد المنتدى</div>
+            <div class="rule-item"><span class="rule-icon">🤝</span> <strong>احترم</strong> فريق الثانوية الرسمية بلس وزملائك</div>
+            <div class="rule-item"><span class="rule-icon">📝</span> اشرح سؤالك بوضوح مع <strong>صور السؤال</strong> إن وجدت</div>
+            <div class="rule-item"><span class="rule-icon">🔗</span> حول الصور لـ <strong>رابط</strong> وانزله مع زمايلك</div>
+            <div class="rule-item"><span class="rule-icon">⏳</span> يتم قبول المنشورات خلال <strong>24 ساعة</strong></div>
+            <div class="rule-item"><span class="rule-icon">🚫</span> <strong>ممنوع</strong> السب أو الإساءة - سيتم الحظر الفوري</div>
+            <div class="rule-item"><span class="rule-icon">💬</span> الردود الرسمية من الإدارة تكون <strong>موثقة</strong> بالشعار والتوثيق</div>
+        </div>
+
         <p style="color:#777;margin-bottom:12px;">هنا يمكنك طرح أسئلتك ومشاكلك الدراسية. يتم اعتماد كل منشور وتعليق من الإدارة أولاً.</p>
         <div id="forumPosts">
             <div class="loading-container"><div class="spinner"></div></div>
         </div>
     </div>
 
-    <!-- ===== صفحة منشورات الفريق (مع الصورة والتوثيق) ===== -->
+    <!-- ===== صفحة منشورات الفريق ===== -->
     <div class="page" id="page-teamPosts">
         <div class="page-header">
             <button class="back-btn" onclick="navigateTo('home')">← العودة للرئيسية</button>
@@ -2853,9 +2983,8 @@
                     <label for="uploadDesc">📝 وصف مختصر</label>
                     <textarea id="uploadDesc" rows="3" placeholder="اكتب وصفاً مختصراً للملخص..."></textarea>
 
-                    <label for="uploadFile">🖼️ اختار صور الملخص (JPG/PNG)</label>
-                    <input type="file" id="uploadFile" accept="image/*" multiple required>
-                    <p style="font-size:12px;color:#888;margin-top:4px;">يمكنك اختيار أكثر من صورة (جودة عالية)</p>
+                    <label for="uploadLink">🔗 رابط الملخص (Google Drive / Dropbox / إلخ)</label>
+                    <input type="url" id="uploadLink" placeholder="https://drive.google.com/..." required>
 
                     <div class="checkbox-group">
                         <input type="checkbox" id="showName" checked>
@@ -2870,7 +2999,7 @@
                 </form>
                 <div id="uploadStatus" style="margin-top:8px;font-weight:700;"></div>
                 <div class="upload-error-link" style="margin-top:8px;text-align:center;font-size:13px;color:#888;">
-                    ⚠️ واجهتك مشكلة؟ <a href="#" onclick="window.open('https://t.me/llTwasell', '_blank')" style="color:#3498db;text-decoration:none;font-weight:700;">تواصل معنا على تليجرام</a>
+                    ⚠️ واجهتك مشكلة في الرفع؟ <a href="#" onclick="window.open('https://t.me/llTwasell', '_blank')" style="color:#3498db;text-decoration:none;font-weight:700;">تواصل معنا على تليجرام</a>
                 </div>
             </div>
         </div>
@@ -2889,7 +3018,7 @@
                     <label for="forumPostContent">📝 المحتوى</label>
                     <textarea id="forumPostContent" rows="4" placeholder="اكتب سؤالك أو مشكلتك بالتفصيل..." required></textarea>
 
-                    <label for="forumPostImage">🖼️ رابط صورة (اختياري)</label>
+                    <label for="forumPostImage">🖼️ رابط صورة السؤال (اختياري)</label>
                     <input type="text" id="forumPostImage" placeholder="https://...jpg">
 
                     <button type="submit" class="submit-post">📢 نشر المنشور (سيتم اعتماده من الإدارة)</button>
@@ -2932,6 +3061,17 @@
         <div class="lightbox-counter" id="lightboxCounter"></div>
         <div class="lightbox-dots" id="lightboxDots"></div>
     </div>
+
+    <!-- ===== بوب أب الرسائل ===== -->
+    <div class="popup-message" id="popupMessage">
+        <div class="popup-icon" id="popupIcon">✅</div>
+        <div class="popup-title" id="popupTitle">تم الإرسال بنجاح!</div>
+        <div class="popup-desc" id="popupDesc">تم إرسال تعليقك للإدارة للمراجعة</div>
+        <button class="popup-close" onclick="closePopup()">حسناً</button>
+    </div>
+
+    <!-- ===== Toast ===== -->
+    <div class="toast" id="toast"></div>
 
     <!-- ============================================================ -->
     <!-- JavaScript -->
@@ -2997,7 +3137,25 @@
         };
 
         // ============================================================
-        // 5. إدارة الصفحات
+        // 5. بوب أب
+        // ============================================================
+        function showPopup(icon, title, desc) {
+            const popup = document.getElementById('popupMessage');
+            document.getElementById('popupIcon').textContent = icon || '✅';
+            document.getElementById('popupTitle').textContent = title || 'تم الإرسال بنجاح!';
+            document.getElementById('popupDesc').textContent = desc || 'تم إرسال تعليقك للإدارة للمراجعة';
+            popup.classList.add('active');
+            setTimeout(() => {
+                popup.classList.remove('active');
+            }, 5000);
+        }
+
+        function closePopup() {
+            document.getElementById('popupMessage').classList.remove('active');
+        }
+
+        // ============================================================
+        // 6. إدارة الصفحات
         // ============================================================
         let currentPage = 'home';
         let timerInterval = null;
@@ -3046,7 +3204,7 @@
         }
 
         // ============================================================
-        // 6. الوضع الليلي
+        // 7. الوضع الليلي
         // ============================================================
         const darkToggle = document.getElementById('darkModeToggle');
         const body = document.body;
@@ -3066,7 +3224,7 @@
         });
 
         // ============================================================
-        // 7. المصادقة (Auth)
+        // 8. المصادقة (Auth)
         // ============================================================
         const userSection = document.getElementById('userSection');
         let currentUserData = null;
@@ -3134,7 +3292,6 @@
                 document.getElementById('loginBtn').addEventListener('click', () => {
                     window.location.href = 'login.html';
                 });
-                // استعادة الصفحة الرئيسية
                 document.getElementById('page-home').innerHTML = `
                         <header class="main-header">
                             <div class="logo-big">
@@ -3199,7 +3356,7 @@
                             </div>
                             <button class="btn-upload" id="uploadBtn">🚀 شارك ملخصاتك الآن</button>
                             <div class="upload-error-link" style="margin-top:8px;font-size:13px;color:#888;text-align:center;">
-                                ⚠️ واجهتك مشكلة؟ <a href="#" onclick="window.open('https://t.me/llTwasell', '_blank')" style="color:#3498db;text-decoration:none;font-weight:700;">تواصل معنا على تليجرام</a>
+                                ⚠️ واجهتك مشكلة في الرفع؟ <a href="#" onclick="window.open('https://t.me/llTwasell', '_blank')" style="color:#3498db;text-decoration:none;font-weight:700;">تواصل معنا على تليجرام</a>
                             </div>
                         </div>
                     `;
@@ -3236,7 +3393,7 @@
         });
 
         // ============================================================
-        // 8. البحث
+        // 9. البحث
         // ============================================================
         const searchInput = document.getElementById('globalSearch');
         const searchResults = document.getElementById('globalSearchResults');
@@ -3298,7 +3455,7 @@
         });
 
         // ============================================================
-        // 9. الإشعارات
+        // 10. الإشعارات
         // ============================================================
         const bellBtn = document.getElementById('bellBtn');
         const bellIcon = document.getElementById('bellIcon');
@@ -3402,7 +3559,7 @@
         });
 
         // ============================================================
-        // 10. عرض الصفوف
+        // 11. عرض الصفوف
         // ============================================================
         function showGrade(gradeId) {
             navigateTo('grade');
@@ -3459,7 +3616,7 @@
         }
 
         // ============================================================
-        // 11. تحميل الكتب
+        // 12. تحميل الكتب
         // ============================================================
         async function loadBooksForSection(gradeId, sectionId) {
             const container = document.getElementById(`books-${gradeId}-${sectionId}`);
@@ -3536,7 +3693,7 @@
         };
 
         // ============================================================
-        // 12. تفاصيل الكتاب
+        // 13. تفاصيل الكتاب
         // ============================================================
         async function showBookDetail(bookId) {
             navigateTo('bookDetail');
@@ -3599,7 +3756,7 @@
         }
 
         // ============================================================
-        // 13. المفضلة
+        // 14. المفضلة
         // ============================================================
         async function checkFavStatus(bookId, btn) {
             if (!auth.currentUser) return;
@@ -3667,7 +3824,7 @@
         };
 
         // ============================================================
-        // 14. تحميل الكتاب
+        // 15. تحميل الكتاب
         // ============================================================
         window.downloadBook = async function(bookId) {
             if (!auth.currentUser) {
@@ -3688,14 +3845,12 @@
         };
 
         // ============================================================
-        // 15. رفع الملخصات
+        // 16. رفع الملخصات (رابط فقط)
         // ============================================================
         const uploadBtn = document.getElementById('uploadBtn');
         const uploadModal = document.getElementById('uploadModal');
         const closeUploadModal = document.getElementById('closeUploadModal');
         const uploadForm = document.getElementById('uploadForm');
-        const uploadProgress = document.getElementById('uploadProgress');
-        const progressBar = document.getElementById('progressBar');
         const uploadStatus = document.getElementById('uploadStatus');
 
         uploadBtn.addEventListener('click', () => {
@@ -3728,56 +3883,18 @@
             const grade = document.getElementById('uploadGrade').value;
             const subject = document.getElementById('uploadSubject').value.trim();
             const desc = document.getElementById('uploadDesc').value.trim();
-            const files = document.getElementById('uploadFile').files;
+            const link = document.getElementById('uploadLink').value.trim();
             const showName = document.getElementById('showName').checked;
 
-            if (files.length === 0) {
-                alert('❌ يرجى اختيار صور الملخص');
+            if (!name || !title || !link) {
+                alert('❌ يرجى ملء جميع الحقول المطلوبة');
                 return;
             }
 
-            for (let f of files) {
-                if (f.size > 5 * 1024 * 1024) {
-                    alert('❌ حجم الصورة ' + f.name + ' يتجاوز 5 ميجابايت');
-                    return;
-                }
-                if (!f.type.startsWith('image/')) {
-                    alert('❌ يرجى رفع صور فقط (JPG/PNG)');
-                    return;
-                }
-            }
-
-            uploadStatus.textContent = '⏳ جاري رفع الصور...';
+            uploadStatus.textContent = '⏳ جاري الإرسال...';
             uploadStatus.style.color = '#3498db';
-            uploadProgress.style.display = 'block';
-            progressBar.style.width = '0%';
 
             try {
-                const imageUrls = [];
-                let uploaded = 0;
-
-                for (let file of files) {
-                    const ref = storage.ref(`handwritten/${auth.currentUser.uid}/${Date.now()}_${file.name}`);
-                    const uploadTask = ref.put(file);
-
-                    await new Promise((resolve, reject) => {
-                        uploadTask.on('state_changed',
-                            (snapshot) => {
-                                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                                const totalProgress = (uploaded + progress / 100) / files.length * 100;
-                                progressBar.style.width = totalProgress + '%';
-                            },
-                            reject,
-                            async () => {
-                                const url = await ref.getDownloadURL();
-                                imageUrls.push(url);
-                                uploaded++;
-                                resolve();
-                            }
-                        );
-                    });
-                }
-
                 await db.collection('handwritten_notes').add({
                     title: title,
                     author: name,
@@ -3786,8 +3903,8 @@
                     grade: grade,
                     subject: subject,
                     desc: desc,
+                    link: link,
                     showName: showName,
-                    images: imageUrls,
                     userId: auth.currentUser.uid,
                     userEmail: auth.currentUser.email,
                     status: 'pending',
@@ -3800,7 +3917,6 @@
                 uploadStatus.textContent = '✅ تم إرسال الملخص بنجاح! سيتم مراجعته.';
                 uploadStatus.style.color = '#2ecc71';
                 uploadForm.reset();
-                progressBar.style.width = '100%';
 
                 await db.collection('notifications').add({
                     title: '📤 ملخص جديد في الانتظار',
@@ -3813,17 +3929,15 @@
 
                 setTimeout(() => {
                     uploadModal.classList.remove('active');
-                    uploadProgress.style.display = 'none';
                 }, 2000);
             } catch (error) {
                 uploadStatus.textContent = '❌ خطأ: ' + error.message;
                 uploadStatus.style.color = '#e74c3c';
-                uploadProgress.style.display = 'none';
             }
         });
 
         // ============================================================
-        // 16. المؤقت
+        // 17. المؤقت
         // ============================================================
         const timerDisplay = document.getElementById('timerDisplay');
         const timerStatus = document.getElementById('timerStatus');
@@ -3904,7 +4018,7 @@
         });
 
         // ============================================================
-        // 17. المنتدى مع الردود الرسمية واللايكات
+        // 18. المنتدى مع الردود الرسمية واللايكات
         // ============================================================
         async function loadForumPosts() {
             const container = document.getElementById('forumPosts');
@@ -3949,10 +4063,12 @@
                     }
 
                     let commentsHtml = '';
+                    let commentCounter = 0;
                     if (data.comments) {
                         const approvedComments = data.comments.filter(c => c.status === 'approved');
                         approvedComments.forEach(comment => {
                             const initial = comment.user ? comment.user.charAt(0).toUpperCase() : '?';
+                            const commentIdx = commentCounter;
 
                             let repliesHtml = '';
                             if (comment.adminReplies && comment.adminReplies.length > 0) {
@@ -3973,7 +4089,7 @@
 
                             let likesDisplay = '';
                             if (comment.likes && comment.likes > 0) {
-                                likesDisplay = `<span style="font-size:11px;color:#e74c3c;">❤️ ${comment.likes}</span>`;
+                                likesDisplay = `<span class="user-like">❤️ ${comment.likes}</span>`;
                             }
 
                             const commentDiv = document.createElement('div');
@@ -3982,16 +4098,18 @@
                                     <div class="avatar">${safeText(initial)}</div>
                                     <div class="comment-text">
                                         <div class="name">${safeText(comment.user || 'مجهول')}</div>
-                                        <div>${safeText(comment.text || '')} ${likesDisplay}</div>
+                                        <div>${safeText(comment.text || '')}</div>
                                         ${repliesHtml}
-                                        <div style="margin-top:4px;display:flex;gap:8px;">
-                                            <button onclick="likeForumComment('${data.id}', ${comment._index || 0}, this)" style="background:none;border:none;cursor:pointer;font-size:12px;color:#555;font-family:'Tajawal',sans-serif;">
-                                                ❤️ ${comment.likes || 0}
+                                        <div style="margin-top:4px;display:flex;gap:8px;align-items:center;">
+                                            <button onclick="likeForumComment('${data.id}', ${commentIdx}, this)" style="background:none;border:none;cursor:pointer;font-size:12px;color:#555;font-family:'Tajawal',sans-serif;display:flex;align-items:center;gap:4px;">
+                                                ❤️ <span>${comment.likes || 0}</span>
                                             </button>
+                                            ${likesDisplay}
                                         </div>
                                     </div>
                                 `;
                             commentsHtml += commentDiv.outerHTML;
+                            commentCounter++;
                         });
                     }
 
@@ -4052,7 +4170,8 @@
                             comments.push(newComment);
                             await postRef.update({ comments });
                             input.value = '';
-                            loadForumPosts();
+                            showPopup('✅', 'تم إرسال تعليقك!',
+                                'تم إرسال تعليقك للإدارة للمراجعة');
                             await db.collection('notifications').add({
                                 title: '💬 تعليق جديد في المنتدى',
                                 body: `من ${auth.currentUser.displayName || auth.currentUser.email}`,
@@ -4061,6 +4180,7 @@
                                 isOfficial: false,
                                 createdAt: firebase.firestore.FieldValue.serverTimestamp()
                             });
+                            loadForumPosts();
                         } catch (err) {
                             alert('❌ خطأ: ' + err.message);
                         }
@@ -4074,7 +4194,7 @@
         }
 
         // ============================================================
-        // 18. الإعجاب بمنشور المنتدى
+        // 19. الإعجاب بمنشور المنتدى
         // ============================================================
         window.likeForumPost = async function(postId, btn) {
             if (!auth.currentUser) {
@@ -4111,7 +4231,7 @@
         };
 
         // ============================================================
-        // 19. الإعجاب بتعليق المنتدى
+        // 20. الإعجاب بتعليق المنتدى
         // ============================================================
         window.likeForumComment = async function(postId, commentIndex, btn) {
             if (!auth.currentUser) {
@@ -4135,7 +4255,8 @@
                 comment.likes = likes + 1;
                 await postRef.update({ comments });
 
-                btn.textContent = `❤️ ${likes + 1}`;
+                const span = btn.querySelector('span');
+                span.textContent = likes + 1;
 
             } catch (err) {
                 console.error('خطأ في الإعجاب بالتعليق:', err);
@@ -4144,7 +4265,7 @@
         };
 
         // ============================================================
-        // 20. منشورات الفريق (مع الصورة والتوثيق واللايكات الرسمية)
+        // 21. منشورات الفريق (مع الصورة والتوثيق واللايكات الرسمية)
         // ============================================================
         async function loadTeamPosts() {
             const container = document.getElementById('teamPostsContainer');
@@ -4225,10 +4346,12 @@
                     }
 
                     let commentsHtml = '';
+                    let commentCounter = 0;
                     if (data.comments) {
                         const approvedComments = data.comments.filter(c => c.status === 'approved');
                         approvedComments.forEach(comment => {
                             const initial = comment.user ? comment.user.charAt(0).toUpperCase() : '?';
+                            const commentIdx = commentCounter;
 
                             let repliesHtml = '';
                             if (comment.adminReplies && comment.adminReplies.length > 0) {
@@ -4249,7 +4372,7 @@
 
                             let likesDisplay = '';
                             if (comment.likes && comment.likes > 0) {
-                                likesDisplay = `<span style="font-size:11px;color:#e74c3c;">❤️ ${comment.likes}</span>`;
+                                likesDisplay = `<span class="user-like">❤️ ${comment.likes}</span>`;
                             }
 
                             const commentDiv = document.createElement('div');
@@ -4258,16 +4381,18 @@
                                     <div class="avatar">${safeText(initial)}</div>
                                     <div class="comment-text">
                                         <div class="name">${safeText(comment.user || 'مجهول')}</div>
-                                        <div>${safeText(comment.text || '')} ${likesDisplay}</div>
+                                        <div>${safeText(comment.text || '')}</div>
                                         ${repliesHtml}
-                                        <div style="margin-top:4px;display:flex;gap:8px;">
-                                            <button onclick="likeTeamComment('${doc.id}', ${comment._index || 0}, this)" style="background:none;border:none;cursor:pointer;font-size:12px;color:#555;font-family:'Tajawal',sans-serif;">
-                                                ❤️ ${comment.likes || 0}
+                                        <div style="margin-top:4px;display:flex;gap:8px;align-items:center;">
+                                            <button onclick="likeTeamComment('${doc.id}', ${commentIdx}, this)" style="background:none;border:none;cursor:pointer;font-size:12px;color:#555;font-family:'Tajawal',sans-serif;display:flex;align-items:center;gap:4px;">
+                                                ❤️ <span>${comment.likes || 0}</span>
                                             </button>
+                                            ${likesDisplay}
                                         </div>
                                     </div>
                                 `;
                             commentsHtml += commentDiv.outerHTML;
+                            commentCounter++;
                         });
                     }
 
@@ -4337,7 +4462,8 @@
                             comments.push(newComment);
                             await postRef.update({ comments });
                             input.value = '';
-                            loadTeamPosts();
+                            showPopup('✅', 'تم إرسال تعليقك!',
+                                'تم إرسال تعليقك للإدارة للمراجعة');
                             await db.collection('notifications').add({
                                 title: '💬 تعليق جديد على منشور الفريق',
                                 body: `من ${auth.currentUser.displayName || auth.currentUser.email}`,
@@ -4346,6 +4472,7 @@
                                 isOfficial: false,
                                 createdAt: firebase.firestore.FieldValue.serverTimestamp()
                             });
+                            loadTeamPosts();
                         } catch (err) {
                             alert('❌ خطأ: ' + err.message);
                         }
@@ -4359,7 +4486,7 @@
         }
 
         // ============================================================
-        // 21. الإعجاب بمنشور الفريق
+        // 22. الإعجاب بمنشور الفريق
         // ============================================================
         window.likeTeamPost = async function(postId, btn) {
             if (!auth.currentUser) {
@@ -4394,7 +4521,7 @@
         };
 
         // ============================================================
-        // 22. الإعجاب بتعليق منشور الفريق
+        // 23. الإعجاب بتعليق منشور الفريق
         // ============================================================
         window.likeTeamComment = async function(postId, commentIndex, btn) {
             if (!auth.currentUser) {
@@ -4418,7 +4545,8 @@
                 comment.likes = likes + 1;
                 await postRef.update({ comments });
 
-                btn.textContent = `❤️ ${likes + 1}`;
+                const span = btn.querySelector('span');
+                span.textContent = likes + 1;
 
             } catch (err) {
                 console.error('خطأ في الإعجاب بالتعليق:', err);
@@ -4427,7 +4555,7 @@
         };
 
         // ============================================================
-        // 23. Lightbox
+        // 24. Lightbox
         // ============================================================
         let lightboxImages = [];
         let currentLightboxIndex = 0;
@@ -4499,7 +4627,7 @@
         });
 
         // ============================================================
-        // 24. المفضلة
+        // 25. المفضلة
         // ============================================================
         async function loadFavorites() {
             const container = document.getElementById('favoritesContainer');
@@ -4556,7 +4684,7 @@
         }
 
         // ============================================================
-        // 25. الملف الشخصي
+        // 26. الملف الشخصي
         // ============================================================
         async function loadProfile() {
             const container = document.getElementById('profileContainer');
@@ -4622,14 +4750,13 @@
                         ${warningsHtml}
                         <div class="profile-actions">
                             <button class="btn-upload-img" onclick="uploadProfileImage()" aria-label="تغيير الصورة">🖼️ تغيير الصورة</button>
-                            <button class="btn-change-name" onclick="changeDisplayName()" aria-label="تغيير الاسم">✏️ تغيير الاسم</button>
                         </div>
                     </div>
                 `;
         }
 
         // ============================================================
-        // 26. تغيير الصورة والاسم
+        // 27. تغيير الصورة
         // ============================================================
         window.uploadProfileImage = function() {
             if (!auth.currentUser) return;
@@ -4658,26 +4785,8 @@
             input.click();
         };
 
-        window.changeDisplayName = function() {
-            if (!auth.currentUser) return;
-            const newName = prompt('✏️ أدخل الاسم الجديد:', auth.currentUser.displayName || '');
-            if (!newName || newName.trim() === '') return;
-
-            auth.currentUser.updateProfile({ displayName: newName.trim() })
-                .then(() => {
-                    db.collection('users').doc(auth.currentUser.uid).set({ displayName: newName.trim(),
-                        updatedAt: firebase.firestore.FieldValue.serverTimestamp() }, { merge: true })
-                    .then(() => {
-                        alert('✅ تم تحديث الاسم بنجاح');
-                        loadProfile();
-                        location.reload();
-                    });
-                })
-                .catch(err => { alert('❌ خطأ: ' + err.message); });
-        };
-
         // ============================================================
-        // 27. قنوات اليوتيوب
+        // 28. قنوات اليوتيوب
         // ============================================================
         async function loadYoutubeChannels() {
             const container = document.getElementById('youtubeContainer');
@@ -4725,7 +4834,7 @@
         }
 
         // ============================================================
-        // 28. تفاصيل قناة يوتيوب
+        // 29. تفاصيل قناة يوتيوب
         // ============================================================
         async function showYoutubeDetail(channelId) {
             navigateTo('youtubeDetail');
@@ -4766,128 +4875,69 @@
         }
 
         // ============================================================
-        // 29. تثبيت التطبيق
+        // 30. تثبيت التطبيق (الجزء المصلح)
         // ============================================================
-        const installBtn = document.getElementById('installAppBtn');
-        const installModal = document.getElementById('installModal');
-        const closeInstallModal = document.getElementById('closeInstallModal');
         let deferredPrompt = null;
+        const installAppBtn = document.getElementById('installAppBtn');
 
-        function createManifest() {
-            const manifest = {
-                name: "الثانوية الرسمية بلس",
-                short_name: "الثانوية بلس",
-                description: "أكبر مكتبة لطلاب الثانوية العامة والبكالوريا",
-                start_url: window.location.href,
-                display: "standalone",
-                background_color: "#ffffff",
-                theme_color: "#1a2a6c",
-                icons: [{
-                    src: "https://cdn.phototourl.com/free/2026-07-21-1dd4b984-ed08-4a40-aead-9ef086ebbd45.jpg",
-                    sizes: "192x192",
-                    type: "image/jpeg"
-                }]
-            };
-
-            try {
-                const manifestBlob = new Blob([JSON.stringify(manifest)], { type: 'application/json' });
-                const manifestURL = URL.createObjectURL(manifestBlob);
-                const link = document.createElement('link');
-                link.rel = 'manifest';
-                link.href = manifestURL;
-                document.head.appendChild(link);
-            } catch (e) {}
+        // تسجيل Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(reg => console.log('✅ Service Worker registered with scope:', reg.scope))
+                    .catch(err => console.error('❌ Service Worker registration failed:', err));
+            });
         }
 
-        function registerServiceWorker() {
-            try {
-                const swCode = `
-                        self.addEventListener('install', function(e) {
-                            e.waitUntil(
-                                caches.open('thanawya-plus-v1').then(function(cache) {
-                                    return cache.addAll([
-                                        '/',
-                                        '/index.html',
-                                        '/login.html',
-                                        '/admin.html'
-                                    ]);
-                                })
-                            );
-                        });
-                        self.addEventListener('fetch', function(e) {
-                            e.respondWith(
-                                caches.match(e.request).then(function(response) {
-                                    return response || fetch(e.request);
-                                })
-                            );
-                        });
-                    `;
-
-                const swBlob = new Blob([swCode], { type: 'application/javascript' });
-                const swURL = URL.createObjectURL(swBlob);
-
-                if ('serviceWorker' in navigator) {
-                    navigator.serviceWorker.register(swURL, { scope: '/' })
-                        .then(() => console.log('✅ Service Worker مسجل'))
-                        .catch(() => console.log('⚠️ Service Worker غير مدعوم'));
-                }
-            } catch (e) {}
-        }
-
+        // الاستماع لحدث جاهزية التثبيت من المتصفح
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
-            installBtn.style.display = 'block';
-            installBtn.textContent = '📲 تثبيت التطبيق';
+            if (installAppBtn) {
+                installAppBtn.style.display = 'inline-block';
+                installAppBtn.classList.add('show');
+            }
+            console.log('✅ beforeinstallprompt captured');
         });
 
-        installBtn.addEventListener('click', async () => {
-            if (deferredPrompt) {
+        // تفعيل الزر عند النقر عليه
+        if (installAppBtn) {
+            installAppBtn.addEventListener('click', async () => {
+                if (!deferredPrompt) {
+                    showToast('⚠️ التثبيت غير متاح حالياً. استخدم القائمة العلوية.', 'warning');
+                    return;
+                }
+
                 deferredPrompt.prompt();
-                const result = await deferredPrompt.userChoice;
-                if (result.outcome === 'accepted') {
+                const { outcome } = await deferredPrompt.userChoice;
+                console.log(`✅ User response: ${outcome}`);
+
+                if (outcome === 'accepted') {
                     showToast('✅ تم تثبيت التطبيق بنجاح!');
                 } else {
                     showToast('❌ تم إلغاء التثبيت', 'error');
                 }
+
                 deferredPrompt = null;
-            } else {
-                installModal.classList.add('active');
-            }
-        });
-
-        document.getElementById('doInstallBtn').addEventListener('click', async () => {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                const result = await deferredPrompt.userChoice;
-                if (result.outcome === 'accepted') {
-                    showToast('✅ تم تثبيت التطبيق بنجاح!');
-                } else {
-                    showToast('❌ تم إلغاء التثبيت', 'error');
+                if (installAppBtn) {
+                    installAppBtn.style.display = 'none';
+                    installAppBtn.classList.remove('show');
                 }
-                deferredPrompt = null;
-            } else {
-                if (window.navigator.userAgent.includes('Android')) {
-                    showToast('📲 استخدم "إضافة إلى الشاشة الرئيسية" من قائمة المتصفح', 'warning');
-                } else if (window.navigator.userAgent.includes('iPhone')) {
-                    showToast('📲 اضغط على زر المشاركة ثم "إضافة إلى الشاشة الرئيسية"', 'warning');
-                } else {
-                    showToast('📲 استخدم خيار "تثبيت" أو "إضافة إلى الشاشة الرئيسية" من المتصفح', 'warning');
-                }
+            });
+        }
+
+        // مراقبة نجاح عملية التثبيت
+        window.addEventListener('appinstalled', () => {
+            console.log('✅ PWA installed successfully');
+            if (installAppBtn) {
+                installAppBtn.style.display = 'none';
+                installAppBtn.classList.remove('show');
             }
-            installModal.classList.remove('active');
+            showToast('✅ تم تثبيت التطبيق بنجاح!');
         });
-
-        closeInstallModal.addEventListener('click', () => installModal.classList.remove('active'));
-        installModal.addEventListener('click', (e) => {
-            if (e.target === installModal) installModal.classList.remove('active');
-        });
-
-        createManifest();
-        registerServiceWorker();
 
         // ============================================================
-        // 30. مشاركة المنصة
+        // 31. مشاركة المنصة
         // ============================================================
         document.getElementById('shareFooter').addEventListener('click', (e) => {
             e.preventDefault();
@@ -4905,7 +4955,7 @@
         });
 
         // ============================================================
-        // 31. الإعلانات
+        // 32. الإعلانات
         // ============================================================
         let currentAd = null;
 
@@ -4959,35 +5009,18 @@
         }
 
         // ============================================================
-        // 32. Toast
+        // 33. Toast
         // ============================================================
         function showToast(message, type = 'success') {
-            const toast = document.getElementById('toast') || createToast();
+            const toast = document.getElementById('toast');
             toast.textContent = message;
             toast.className = 'toast show ' + type;
             clearTimeout(toast._timer);
             toast._timer = setTimeout(() => toast.classList.remove('show'), 3000);
         }
 
-        function createToast() {
-            const toast = document.createElement('div');
-            toast.id = 'toast';
-            toast.style.cssText =
-                `
-                    position: fixed; bottom: 20px; left: 20px; 
-                    background: #2ecc71; color: white; 
-                    padding: 12px 24px; border-radius: 12px; 
-                    font-weight: 700; z-index: 9999; 
-                    display: none; max-width: 90%;
-                    font-family: 'Tajawal', sans-serif;
-                    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-                `;
-            document.body.appendChild(toast);
-            return toast;
-        }
-
         // ============================================================
-        // 33. عرض ملف المستخدم
+        // 34. عرض ملف المستخدم
         // ============================================================
         window.viewUserProfile = function(userId) {
             if (!userId) return;
@@ -4996,7 +5029,7 @@
         };
 
         // ============================================================
-        // 34. منشورات الفريق - زر جديد
+        // 35. منشورات المنتدى - زر جديد
         // ============================================================
         document.getElementById('newForumPostBtn').addEventListener('click', () => {
             if (!auth.currentUser) {
@@ -5038,7 +5071,7 @@
                     createdAt: firebase.firestore.FieldValue.serverTimestamp()
                 });
 
-                alert('✅ تم نشر المنشور! سيتم اعتماده من الإدارة قريباً.');
+                showPopup('✅', 'تم إرسال منشورك!', 'تم إرسال المنشور للإدارة للمراجعة');
                 document.getElementById('forumPostForm').reset();
                 document.getElementById('newForumPostModal').classList.remove('active');
                 loadForumPosts();
@@ -5056,16 +5089,15 @@
         });
 
         // ============================================================
-        // 35. تحميل البيانات عند بدء التشغيل
+        // 36. تحميل البيانات عند بدء التشغيل
         // ============================================================
         loadBooksForSearch();
         loadNotifications();
         loadTeamPosts();
 
         console.log('✅ منصة الثانوية الرسمية بلس - النسخة النهائية');
-        console.log('📌 منشورات الفريق تظهر مع الصورة والتوثيق');
-        console.log('📌 اللايكات (القلوب) تظهر على المنشورات والتعليقات');
-        console.log('📌 الردود الرسمية تظهر باسم الفريق وعلامة التوثيق');
+        console.log('📌 تم إصلاح زر تثبيت التطبيق');
+        console.log('📌 اللايكات والردود الرسمية تعمل بشكل صحيح');
     </script>
 
 </body>
