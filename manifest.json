@@ -3,24 +3,23 @@
   "name": "الثانوية الرسمية بلس",
   "short_name": "الثانوية بلس",
   "description": "منصة الثانوية الرسمية بلس - أكبر منصة تعليمية مجانية لطلاب الثانوية العامة والأزهر",
+  "lang": "ar",
+  "dir": "rtl",
+
   "start_url": "./",
   "scope": "/sanaye/",
+
   "display": "standalone",
   "orientation": "portrait",
+
   "background_color": "#f0f4f8",
   "theme_color": "#3498db",
 
   "icons": [
     {
-      "src": "./icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "./icon-512.png",
+      "src": "./icon-512.jpg",
       "sizes": "512x512",
-      "type": "image/png",
+      "type": "image/jpeg",
       "purpose": "any maskable"
     }
   ]
