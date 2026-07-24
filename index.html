@@ -8,6 +8,21 @@
     <!-- ===== Manifest ===== -->
     <link rel="manifest" href="manifest.json" />
 
+    <!-- ===== Service Worker Registration ===== -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(function(registration) {
+                        console.log('✅ Service Worker registered successfully:', registration.scope);
+                    })
+                    .catch(function(error) {
+                        console.log('❌ Service Worker registration failed:', error);
+                    });
+            });
+        }
+    </script>
+
     <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js">
     </script>
@@ -2104,6 +2119,7 @@
             transition: 0.3s;
             font-family: 'Tajawal', sans-serif;
             font-size: 13px;
+            display: inline-block;
         }
 
         .footer {
@@ -2589,31 +2605,7 @@
         <!-- ===== زر تثبيت التطبيق ===== -->
         <div class="install-banner">
             <p>📱 حمل التطبيق وادرس في أي وقت</p>
-            <button id="installAppBtn" style="display:inline-block;">📲 تثبيت التطبيق</button>
-        </div>
-
-        <!-- ===== المنتدى ===== -->
-        <div class="page" id="page-forum" style="display:none;">
-            <div class="page-header">
-                <button class="back-btn" onclick="navigateTo('home')">← العودة للرئيسية</button>
-                <h2>💬 المنتدى - اسأل واستفسر</h2>
-                <button class="btn-primary" id="newForumPostBtn">📝 منشور جديد</button>
-            </div>
-
-            <div class="forum-rules">
-                <div style="font-size:16px;font-weight:800;margin-bottom:6px;">📋 قواعد المنتدى</div>
-                <div class="rule-item"><span class="rule-icon">🤝</span> <strong>احترم</strong> فريق الثانوية الرسمية بلس وزملائك</div>
-                <div class="rule-item"><span class="rule-icon">📝</span> اشرح سؤالك بوضوح مع <strong>صور السؤال</strong> إن وجدت</div>
-                <div class="rule-item"><span class="rule-icon">🔗</span> حول الصور لـ <strong>رابط</strong> وانزله مع زمايلك</div>
-                <div class="rule-item"><span class="rule-icon">⏳</span> يتم قبول المنشورات خلال <strong>24 ساعة</strong></div>
-                <div class="rule-item"><span class="rule-icon">🚫</span> <strong>ممنوع</strong> السب أو الإساءة - سيتم الحظر الفوري</div>
-                <div class="rule-item"><span class="rule-icon">💬</span> الردود الرسمية من الإدارة تكون <strong>موثقة</strong> بالشعار والتوثيق</div>
-            </div>
-
-            <p style="color:#777;margin-bottom:12px;">هنا يمكنك طرح أسئلتك ومشاكلك الدراسية. يتم اعتماد كل منشور وتعليق من الإدارة أولاً.</p>
-            <div id="forumPosts">
-                <div class="loading-container"><div class="spinner"></div></div>
-            </div>
+            <button id="installAppBtn">📲 تثبيت التطبيق</button>
         </div>
 
         <section>
@@ -2685,6 +2677,31 @@
             <div class="upload-error-link">
                 ⚠️ واجهتك مشكلة في الرفع؟ <a href="#" onclick="window.open('https://t.me/llTwasell', '_blank')">تواصل معنا على تليجرام</a>
             </div>
+        </div>
+    </div>
+
+    <!-- ===== صفحة المنتدى ===== -->
+    <div class="page" id="page-forum">
+        <div class="page-header">
+            <button class="back-btn" onclick="navigateTo('home')">← العودة للرئيسية</button>
+            <h2>💬 المنتدى - اسأل واستفسر</h2>
+            <button class="btn-primary" id="newForumPostBtn">📝 منشور جديد</button>
+        </div>
+
+        <!-- ===== قواعد المنتدى ===== -->
+        <div class="forum-rules">
+            <div style="font-size:16px;font-weight:800;margin-bottom:6px;">📋 قواعد المنتدى</div>
+            <div class="rule-item"><span class="rule-icon">🤝</span> <strong>احترم</strong> فريق الثانوية الرسمية بلس وزملائك</div>
+            <div class="rule-item"><span class="rule-icon">📝</span> اشرح سؤالك بوضوح مع <strong>صور السؤال</strong> إن وجدت</div>
+            <div class="rule-item"><span class="rule-icon">🔗</span> حول الصور لـ <strong>رابط</strong> وانزله مع زمايلك</div>
+            <div class="rule-item"><span class="rule-icon">⏳</span> يتم قبول المنشورات خلال <strong>24 ساعة</strong></div>
+            <div class="rule-item"><span class="rule-icon">🚫</span> <strong>ممنوع</strong> السب أو الإساءة - سيتم الحظر الفوري</div>
+            <div class="rule-item"><span class="rule-icon">💬</span> الردود الرسمية من الإدارة تكون <strong>موثقة</strong> بالشعار والتوثيق</div>
+        </div>
+
+        <p style="color:#777;margin-bottom:12px;">هنا يمكنك طرح أسئلتك ومشاكلك الدراسية. يتم اعتماد كل منشور وتعليق من الإدارة أولاً.</p>
+        <div id="forumPosts">
+            <div class="loading-container"><div class="spinner"></div></div>
         </div>
     </div>
 
@@ -3288,7 +3305,7 @@
                         </div>
                         <div class="install-banner">
                             <p>📱 حمل التطبيق وادرس في أي وقت</p>
-                            <button id="installAppBtn" style="display:inline-block;">📲 تثبيت التطبيق</button>
+                            <button id="installAppBtn">📲 تثبيت التطبيق</button>
                         </div>
                         <section>
                             <h2 style="text-align:center;font-size:22px;font-weight:800;color:#2c3e50;margin-bottom:16px;">📚 اختر صفك الدراسي</h2>
@@ -4854,15 +4871,6 @@
         // ============================================================
         let deferredPrompt = null;
         const installAppBtn = document.getElementById('installAppBtn');
-
-        // تسجيل Service Worker
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js')
-                    .then(reg => console.log('✅ Service Worker registered with scope:', reg.scope))
-                    .catch(err => console.error('❌ Service Worker registration failed:', err));
-            });
-        }
 
         // الاستماع لحدث جاهزية التثبيت من المتصفح
         window.addEventListener('beforeinstallprompt', (e) => {
