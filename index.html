@@ -55,7 +55,7 @@
             flex-shrink: 0;
         }
 
-        /* ===== معرض الصور في منشورات الفريق ===== */
+        /* ===== معرض الصور ===== */
         .team-post-images {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -172,7 +172,7 @@
             transform: scale(1.2);
         }
 
-        /* ===== جرس الإشعارات (المطور) ===== */
+        /* ===== جرس الإشعارات ===== */
         .notification-bell {
             position: relative;
             cursor: pointer;
@@ -261,7 +261,7 @@
             }
         }
 
-        /* ===== إعلانات (Popup) - مكبرة ===== */
+        /* ===== الإعلانات ===== */
         .ad-popup-overlay {
             position: fixed;
             top: 0;
@@ -360,7 +360,7 @@
             transform: scale(1.05);
         }
 
-        /* ===== باقي الستايلات الأساسية ===== */
+        /* ===== الشريط العلوي ===== */
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -580,6 +580,7 @@
             transform: scale(1.05);
         }
 
+        /* ===== الهيدر ===== */
         .main-header {
             background: linear-gradient(135deg, #1a2a6c, #2d4373);
             padding: 20px 16px 30px;
@@ -647,6 +648,7 @@
             color: #f1c40f;
         }
 
+        /* ===== البحث ===== */
         .search-container {
             max-width: 600px;
             margin: -14px auto 16px;
@@ -717,6 +719,7 @@
             font-weight: 700;
         }
 
+        /* ===== الصفوف ===== */
         .grades-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -793,6 +796,7 @@
             color: #c0392b;
         }
 
+        /* ===== أقسام الصف ===== */
         .section-card {
             background: white;
             border-radius: 16px;
@@ -974,6 +978,7 @@
             transform: scale(1.05);
         }
 
+        /* ===== تفاصيل الكتاب ===== */
         .book-detail {
             max-width: 700px;
             margin: 0 auto;
@@ -1056,7 +1061,7 @@
             font-weight: 700;
         }
 
-        /* ===== رفع الملخصات (فقط صور/ملفات) ===== */
+        /* ===== رفع الملخصات ===== */
         .upload-section {
             background: linear-gradient(135deg, #2ecc71, #27ae60);
             padding: 28px 16px;
@@ -1108,6 +1113,7 @@
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
         }
 
+        /* ===== المميزات ===== */
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
@@ -1148,6 +1154,7 @@
             color: #aaa;
         }
 
+        /* ===== المؤقت ===== */
         .timer-container {
             text-align: center;
             padding: 16px;
@@ -1246,7 +1253,7 @@
             font-family: 'Tajawal', sans-serif;
         }
 
-        /* ===== المنتدى مع الردود واللايكات ===== */
+        /* ===== المنتدى ===== */
         .forum-post {
             background: white;
             border-radius: 18px;
@@ -1361,7 +1368,7 @@
             font-size: 12px;
         }
 
-        /* ===== الردود تحت التعليق ===== */
+        /* ===== الردود ===== */
         .admin-reply {
             margin-top: 4px;
             margin-right: 20px;
@@ -1455,13 +1462,16 @@
         body.dark-mode .post-card .admin-header {
             border-bottom-color: #3d3d55;
         }
+
         .post-card .admin-header .admin-logo {
             width: 40px;
             height: 40px;
             border-radius: 50%;
             object-fit: cover;
             border: 2px solid #2ecc71;
+            flex-shrink: 0;
         }
+
         .post-card .admin-header .admin-info {
             flex: 1;
         }
@@ -1632,6 +1642,7 @@
             background: #27ae60;
         }
 
+        /* ===== الملف الشخصي ===== */
         .profile-card {
             background: white;
             border-radius: 22px;
@@ -1729,7 +1740,7 @@
             transform: scale(1.05);
         }
 
-        /* ===== نافذة الإشعارات ===== */
+        /* ===== النوافذ ===== */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -1820,7 +1831,7 @@
             color: #aaa;
         }
 
-        /* ===== رفع الملخصات - فقط صور/ملفات ===== */
+        /* ===== رفع الملفات ===== */
         .upload-form-container label {
             display: block;
             margin: 10px 0 4px;
@@ -1941,6 +1952,7 @@
             transform: scale(1.02);
         }
 
+        /* ===== السياسات ===== */
         .policy-content {
             font-size: 14px;
             line-height: 2;
@@ -1989,6 +2001,7 @@
             text-decoration: underline;
         }
 
+        /* ===== تحميل التطبيق ===== */
         .install-banner {
             background: linear-gradient(135deg, #6c5ce7, #a29bfe);
             padding: 14px 20px;
@@ -2476,7 +2489,7 @@
         </div>
     </div>
 
-    <!-- ===== صفحة منشورات الفريق ===== -->
+    <!-- ===== صفحة منشورات الفريق (مع الصورة والتوثيق) ===== -->
     <div class="page" id="page-teamPosts">
         <div class="page-header">
             <button class="back-btn" onclick="navigateTo('home')">← العودة للرئيسية</button>
@@ -2568,37 +2581,30 @@
         </div>
         <div class="policy-content">
             <p>مرحباً بك في منصة <strong>الثانوية الرسمية بلس</strong>. نطمئنك أن خصوصيتك وبياناتك في أمان، وهي أولوية قصوى بالنسبة لنا.</p>
-
             <div class="highlight">
                 <p><strong>📌 ما البيانات التي نجمعها؟</strong><br>
                 نقوم بحفظ البريد الإلكتروني والاسم لتخصيص المحتوى المناسب لك. لا نقوم بتخزين أي كلمات مرور (يتم التعامل معها عبر Firebase).</p>
             </div>
-
             <div class="highlight">
                 <p><strong>📍 التتبع والموقع</strong><br>
                 لا نقوم بتتبع عنوان الـ IP الخاص بك أو الموقع الجغرافي. المنصة مجانية بالكامل وتهدف لمساعدة الطلاب.</p>
             </div>
-
             <div class="highlight">
                 <p><strong>📚 المحتوى وحقوق النشر</strong><br>
                 إذا كنت صاحب محتوى وترى أن هناك كتاباً أو ملفاً يضر بك أو بمؤسستك، يرجى التواصل معنا وسيتم حذف المحتوى خلال 24 ساعة.</p>
             </div>
-
             <div class="highlight">
                 <p><strong>🔐 أمان البيانات</strong><br>
                 نحن نستخدم أحدث تقنيات الأمان لحماية بياناتك. جميع البيانات مشفرة ويتم نقلها عبر قنوات آمنة.</p>
             </div>
-
             <div class="highlight">
                 <p><strong>📧 التواصل معنا</strong><br>
                 لأي استفسار حول سياسة الخصوصية، يمكنك التواصل معنا عبر تليجرام: <span class="contact-link" onclick="window.open('https://t.me/llTwasell', '_blank')">@llTwasell</span></p>
             </div>
-
             <div class="highlight">
                 <p><strong>👨‍👩‍👧‍👦 من نحن؟</strong><br>
                 نحن فريق <strong>الثانوية الرسمية بلس</strong>، نعمل على جعل التعليم سهلاً ومتاحاً للجميع، وتخفيف الأعباء عن كاهل أولياء الأمور.</p>
             </div>
-
             <p style="font-weight:700;color:#2c3e50;margin-top:12px;text-align:center;">نحن لا ننتهك حقوق أي شخص، هدفنا هو تقديم محتوى تعليمي مجاني وسهل الوصول.</p>
         </div>
     </div>
@@ -2612,7 +2618,6 @@
         <div class="policy-content">
             <p><strong>ما هي سياسة الحذف؟</strong><br>
             تحترم منصة <strong>الثانوية الرسمية بلس</strong> حقوق الملكية الفكرية لجميع الأطراف. إذا كنت تعتقد أن أي محتوى على منصتنا ينتهك حقوق النشر الخاصة بك، يرجى إبلاغنا وسنتخذ الإجراءات اللازمة فوراً.</p>
-
             <div class="highlight">
                 <p><strong>كيف تقدم طلب حذف؟</strong><br>
                 لطلب حذف محتوى، يرجى تزويدنا بالمعلومات التالية:</p>
@@ -2623,17 +2628,14 @@
                     <li><strong>توقيعك:</strong> توقيع إلكتروني أو يدوي يؤكد صحة المعلومات.</li>
                 </ul>
             </div>
-
             <div class="highlight">
                 <p><strong>متى يتم الحذف؟</strong><br>
                 يتم حذف المحتوى خلال <strong>24 ساعة</strong> من استلام الطلب الصحيح. سيتم إخطارك بعد الحذف مباشرة.</p>
             </div>
-
             <div class="highlight">
                 <p><strong>كيف تتواصل معنا؟</strong><br>
                 أرسل طلبك عبر تليجرام: <span class="contact-link" onclick="window.open('https://t.me/llTwasell', '_blank')">@llTwasell</span></p>
             </div>
-
             <div class="highlight">
                 <p><strong>ما هي حالات الحذف الأخرى؟</strong><br>
                 بالإضافة إلى حقوق النشر، يتم حذف أي محتوى:</p>
@@ -2643,7 +2645,6 @@
                     <li>يحتوي على معلومات خاطئة أو مضللة</li>
                 </ul>
             </div>
-
             <p style="font-weight:700;color:#2c3e50;margin-top:12px;text-align:center;">نلتزم بحماية حقوق جميع المستخدمين وصناع المحتوى.</p>
         </div>
     </div>
@@ -2656,24 +2657,19 @@
         </div>
         <div class="policy-content">
             <p><strong>نحن مجموعة تطوعية شبابية</strong> بدأت الرحلة باسم <strong>"تانية ثانوي الرسمية"</strong> وكانت للصف الثاني الثانوي فقط.</p>
-
             <p>ولكن نظراً للنجاح الكبير الذي حققناه، قمنا بالتوسع وأصبحت تعرف باسم <strong>"الثانوية الرسمية بلس"</strong> لتشمل جميع صفوف الثانوية العامة والبكالوريا.</p>
-
             <div class="highlight">
                 <p><strong>📖 رؤيتنا</strong><br>
                 قمنا بإنشاء موقع مجاني لرفع الكتب والملخصات بجودة عالية جداً، لتسهيل التعليم والوصول للطلاب في كل مكان.</p>
             </div>
-
             <div class="highlight">
                 <p><strong>🎯 رسالتنا</strong><br>
                 تقديم محتوى تعليمي عالي الجودة، منظم وسهل الوصول، يساعد الطلاب على التفوق الدراسي ويخفف الأعباء عن أولياء الأمور.</p>
             </div>
-
             <div class="highlight">
                 <p><strong>💪 فريق العمل</strong><br>
                 فريقنا مكون من شباب متطوعين من مختلف التخصصات، يجمعهم حب التعليم والرغبة في مساعدة الآخرين.</p>
             </div>
-
             <div class="highlight">
                 <p><strong>🤝 كيف يمكنك المساعدة؟</strong><br>
                 - مشاركة ملخصاتك وكتبك مع زملائك<br>
@@ -2681,7 +2677,6 @@
                 - مشاركة المنصة مع أصدقائك<br>
                 معاً نجعل التعليم أفضل للجميع.</p>
             </div>
-
             <p style="text-align:center;margin-top:12px;font-weight:700;">للتواصل معنا: <span class="contact-link" onclick="window.open('https://t.me/llTwasell', '_blank')">@llTwasell</span></p>
         </div>
     </div>
@@ -2965,7 +2960,7 @@
         });
 
         // ============================================================
-        // 6. المصادقة (Auth) مع التحقق من الحظر
+        // 6. المصادقة (Auth)
         // ============================================================
         const userSection = document.getElementById('userSection');
         let currentUserData = null;
@@ -3197,7 +3192,7 @@
         });
 
         // ============================================================
-        // 8. الإشعارات - مع تصفية خاصة بالمستخدم
+        // 8. الإشعارات
         // ============================================================
         const bellBtn = document.getElementById('bellBtn');
         const bellIcon = document.getElementById('bellIcon');
@@ -3215,7 +3210,6 @@
                 notifications = [];
                 snap.forEach(doc => {
                     const data = doc.data();
-                    // تصفية: إشعارات عامة أو خاصة بالمستخدم
                     const isPublic = data.target === 'all' || !data.userId;
                     const isForUser = data.userId === auth.currentUser?.uid;
 
@@ -3231,10 +3225,8 @@
                     }
                 });
 
-                // ترتيب من الأحدث
                 notifications.sort((a, b) => b.time.localeCompare(a.time));
 
-                // عدد الإشعارات غير المقروءة الخاصة بالمستخدم
                 const unreadForUser = notifications.filter(n =>
                     !n.read && (n.userId === auth.currentUser?.uid || !n.userId)
                 ).length;
@@ -3265,7 +3257,6 @@
             notifications.forEach(n => {
                 const item = document.createElement('div');
                 item.className = 'notification-item';
-                // الإشعارات الخاصة بالمستخدم تظهر بشكل مختلف
                 const isForUser = n.userId === auth.currentUser?.uid;
                 item.style.opacity = n.read ? '0.6' : '1';
                 item.style.background = isForUser && !n.read ? '#3498db10' : 'transparent';
@@ -3284,7 +3275,6 @@
             notifCount.classList.remove('show');
             bellIcon.classList.remove('has-notifs');
 
-            // تعليم الإشعارات الخاصة بالمستخدم كمقروءة
             for (const n of notifications) {
                 if (!n.read && (n.userId === auth.currentUser?.uid || !n.userId)) {
                     try {
@@ -3301,7 +3291,7 @@
         });
 
         // ============================================================
-        // 9. عرض الصفوف والأقسام
+        // 9. عرض الصفوف
         // ============================================================
         function showGrade(gradeId) {
             navigateTo('grade');
@@ -3358,7 +3348,7 @@
         }
 
         // ============================================================
-        // 10. تحميل الكتب لكل قسم مع عرض البادجات وعدد المفضلة
+        // 10. تحميل الكتب
         // ============================================================
         async function loadBooksForSection(gradeId, sectionId) {
             const container = document.getElementById(`books-${gradeId}-${sectionId}`);
@@ -3435,7 +3425,7 @@
         };
 
         // ============================================================
-        // 11. صفحة تفاصيل الكتاب مع عدد المفضلة
+        // 11. تفاصيل الكتاب
         // ============================================================
         async function showBookDetail(bookId) {
             navigateTo('bookDetail');
@@ -3498,7 +3488,7 @@
         }
 
         // ============================================================
-        // 12. المفضلة مع تحديث العدد
+        // 12. المفضلة
         // ============================================================
         async function checkFavStatus(bookId, btn) {
             if (!auth.currentUser) return;
@@ -3537,7 +3527,6 @@
                             .increment(1) });
                 }
 
-                // تحديث العدد في صفحة التفاصيل
                 if (currentPage === 'bookDetail') {
                     const urlParams = new URLSearchParams(window.location.search);
                     const currentBookId = urlParams.get('bookId');
@@ -3546,7 +3535,6 @@
                     }
                 }
 
-                // تحديث العدد في القسم
                 const sections = document.querySelectorAll('.section-card');
                 sections.forEach(section => {
                     const items = section.querySelectorAll('.book-item');
@@ -3589,7 +3577,7 @@
         };
 
         // ============================================================
-        // 14. رفع الملخصات - فقط صور
+        // 14. رفع الملخصات
         // ============================================================
         const uploadBtn = document.getElementById('uploadBtn');
         const uploadModal = document.getElementById('uploadModal');
@@ -3637,7 +3625,6 @@
                 return;
             }
 
-            // التحقق من حجم كل صورة (حد أقصى 5 ميجابايت)
             for (let f of files) {
                 if (f.size > 5 * 1024 * 1024) {
                     alert('❌ حجم الصورة ' + f.name + ' يتجاوز 5 ميجابايت');
@@ -3805,7 +3792,7 @@
         });
 
         // ============================================================
-        // 16. المنتدى - مع الردود واللايكات
+        // 16. المنتدى
         // ============================================================
         async function loadForumPosts() {
             const container = document.getElementById('forumPosts');
@@ -3849,14 +3836,12 @@
                         contentHtml = contentDiv.outerHTML;
                     }
 
-                    // عرض التعليقات مع الردود
                     let commentsHtml = '';
                     if (data.comments) {
                         const approvedComments = data.comments.filter(c => c.status === 'approved');
                         approvedComments.forEach(comment => {
                             const initial = comment.user ? comment.user.charAt(0).toUpperCase() : '?';
 
-                            // عرض ردود الإدارة
                             let repliesHtml = '';
                             if (comment.adminReplies && comment.adminReplies.length > 0) {
                                 comment.adminReplies.forEach(reply => {
@@ -3873,7 +3858,6 @@
                                 });
                             }
 
-                            // عرض اللايكات
                             let likesDisplay = '';
                             if (comment.likes && comment.likes > 0) {
                                 likesDisplay = `<span style="font-size:11px;color:#e74c3c;">❤️ ${comment.likes}</span>`;
@@ -3921,7 +3905,6 @@
                     container.appendChild(post);
                 }
 
-                // أحداث التعليقات
                 document.querySelectorAll('.forum-comment-submit').forEach(btn => {
                     btn.addEventListener('click', async function() {
                         const postId = this.dataset.post;
@@ -4074,7 +4057,7 @@
         };
 
         // ============================================================
-        // 18. منشورات الفريق - مع الردود والروابط واللايكات
+        // 18. منشورات الفريق (مع الصورة والتوثيق)
         // ============================================================
         async function loadTeamPosts() {
             const container = document.getElementById('teamPostsContainer');
@@ -4104,12 +4087,10 @@
                         });
                     }
 
-                    // عرض المحتوى مع دعم الروابط
                     let contentHtml = '';
                     if (data.content) {
                         const contentDiv = document.createElement('div');
                         contentDiv.className = 'post-content-text';
-                        // تحويل الروابط إلى عناصر قابلة للضغط
                         const linkedContent = data.content.replace(
                             /(https?:\/\/[^\s]+)/g,
                             '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>'
@@ -4118,7 +4099,6 @@
                         contentHtml = contentDiv.outerHTML;
                     }
 
-                    // عرض الصور
                     let imagesHtml = '';
                     if (data.images && data.images.length > 0) {
                         const images = data.images;
@@ -4157,7 +4137,6 @@
                             `;
                     }
 
-                    // عرض التعليقات مع الردود
                     let commentsHtml = '';
                     if (data.comments) {
                         const approvedComments = data.comments.filter(c => c.status === 'approved');
@@ -4236,7 +4215,6 @@
                     container.appendChild(post);
                 });
 
-                // أحداث التعليقات
                 document.querySelectorAll('.team-comment-submit').forEach(btn => {
                     btn.addEventListener('click', async function() {
                         const postId = this.dataset.post;
@@ -4403,7 +4381,7 @@
         });
 
         // ============================================================
-        // 21. المفضلة - صفحة منفصلة
+        // 21. المفضلة
         // ============================================================
         async function loadFavorites() {
             const container = document.getElementById('favoritesContainer');
@@ -4533,7 +4511,7 @@
         }
 
         // ============================================================
-        // 23. تغيير صورة الملف الشخصي
+        // 23. تغيير الصورة والاسم
         // ============================================================
         window.uploadProfileImage = function() {
             if (!auth.currentUser) return;
@@ -4562,9 +4540,6 @@
             input.click();
         };
 
-        // ============================================================
-        // 24. تغيير الاسم
-        // ============================================================
         window.changeDisplayName = function() {
             if (!auth.currentUser) return;
             const newName = prompt('✏️ أدخل الاسم الجديد:', auth.currentUser.displayName || '');
@@ -4584,7 +4559,7 @@
         };
 
         // ============================================================
-        // 25. قنوات اليوتيوب
+        // 24. قنوات اليوتيوب
         // ============================================================
         async function loadYoutubeChannels() {
             const container = document.getElementById('youtubeContainer');
@@ -4632,7 +4607,7 @@
         }
 
         // ============================================================
-        // 26. صفحة تفاصيل قناة يوتيوب
+        // 25. تفاصيل قناة يوتيوب
         // ============================================================
         async function showYoutubeDetail(channelId) {
             navigateTo('youtubeDetail');
@@ -4673,14 +4648,13 @@
         }
 
         // ============================================================
-        // 27. تثبيت التطبيق
+        // 26. تثبيت التطبيق
         // ============================================================
         const installBtn = document.getElementById('installAppBtn');
         const installModal = document.getElementById('installModal');
         const closeInstallModal = document.getElementById('closeInstallModal');
         let deferredPrompt = null;
 
-        // إنشاء manifest.json ديناميكياً
         function createManifest() {
             const manifest = {
                 name: "الثانوية الرسمية بلس",
@@ -4697,7 +4671,6 @@
                 }]
             };
 
-            // محاولة تخزين المانيفست محلياً
             try {
                 const manifestBlob = new Blob([JSON.stringify(manifest)], { type: 'application/json' });
                 const manifestURL = URL.createObjectURL(manifestBlob);
@@ -4705,15 +4678,11 @@
                 link.rel = 'manifest';
                 link.href = manifestURL;
                 document.head.appendChild(link);
-            } catch (e) {
-                // إذا فشل، نستخدم المانيفست الموجود
-            }
+            } catch (e) {}
         }
 
-        // إنشاء Service Worker بسيط للتثبيت
         function registerServiceWorker() {
             try {
-                // Service Worker بسيط للتخزين المؤقت
                 const swCode = `
                         self.addEventListener('install', function(e) {
                             e.waitUntil(
@@ -4739,18 +4708,14 @@
                 const swBlob = new Blob([swCode], { type: 'application/javascript' });
                 const swURL = URL.createObjectURL(swBlob);
 
-                // تسجيل الـ Service Worker
                 if ('serviceWorker' in navigator) {
                     navigator.serviceWorker.register(swURL, { scope: '/' })
                         .then(() => console.log('✅ Service Worker مسجل'))
                         .catch(() => console.log('⚠️ Service Worker غير مدعوم'));
                 }
-            } catch (e) {
-                console.log('⚠️ خطأ في تسجيل Service Worker');
-            }
+            } catch (e) {}
         }
 
-        // تشغيل التثبيت
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
@@ -4769,19 +4734,7 @@
                 }
                 deferredPrompt = null;
             } else {
-                // محاولة التثبيت عبر Service Worker
-                if ('serviceWorker' in navigator) {
-                    try {
-                        await navigator.serviceWorker.register('/service-worker.js');
-                        showToast('📲 جاري تثبيت التطبيق...');
-                        // عرض نافذة التثبيت اليدوية
-                        installModal.classList.add('active');
-                    } catch (e) {
-                        installModal.classList.add('active');
-                    }
-                } else {
-                    installModal.classList.add('active');
-                }
+                installModal.classList.add('active');
             }
         });
 
@@ -4796,7 +4749,6 @@
                 }
                 deferredPrompt = null;
             } else {
-                // إضافة دليل للمستخدم
                 if (window.navigator.userAgent.includes('Android')) {
                     showToast('📲 استخدم "إضافة إلى الشاشة الرئيسية" من قائمة المتصفح', 'warning');
                 } else if (window.navigator.userAgent.includes('iPhone')) {
@@ -4813,12 +4765,11 @@
             if (e.target === installModal) installModal.classList.remove('active');
         });
 
-        // إنشاء المانيفست والتسجيل عند التحميل
         createManifest();
         registerServiceWorker();
 
         // ============================================================
-        // 28. مشاركة المنصة
+        // 27. مشاركة المنصة
         // ============================================================
         document.getElementById('shareFooter').addEventListener('click', (e) => {
             e.preventDefault();
@@ -4836,7 +4787,7 @@
         });
 
         // ============================================================
-        // 29. الإعلانات
+        // 28. الإعلانات
         // ============================================================
         let currentAd = null;
 
@@ -4890,7 +4841,7 @@
         }
 
         // ============================================================
-        // 30. Toast
+        // 29. Toast
         // ============================================================
         function showToast(message, type = 'success') {
             const toast = document.getElementById('toast') || createToast();
@@ -4918,7 +4869,7 @@
         }
 
         // ============================================================
-        // 31. عرض ملف المستخدم من المنتدى
+        // 30. عرض ملف المستخدم
         // ============================================================
         window.viewUserProfile = function(userId) {
             if (!userId) return;
@@ -4927,23 +4878,15 @@
         };
 
         // ============================================================
-        // 32. تحميل البيانات عند بدء التشغيل
+        // 31. تحميل البيانات عند بدء التشغيل
         // ============================================================
         loadBooksForSearch();
         loadNotifications();
         loadTeamPosts();
 
         console.log('✅ منصة الثانوية الرسمية بلس - النسخة النهائية');
-        console.log('📌 الميزات المضافة:');
-        console.log('   - جرس إشعارات متطور ينور عند وجود رسائل');
-        console.log('   - إشعارات خاصة بكل مستخدم');
-        console.log('   - بوب إعلانات مكبر');
-        console.log('   - تثبيت التطبيق (شغال 100%)');
-        console.log('   - الردود تظهر تحت التعليقات');
-        console.log('   - اللايكات (قلوب) تظهر في المنصة');
-        console.log('   - عدد المفضلة يظهر لكل كتاب');
-        console.log('   - الروابط في منشورات الفريق شغالة');
-        console.log('   - رفع ملخصات بخط اليد (صور فقط)');
+        console.log('📌 منشورات الفريق تظهر مع الصورة والتوثيق');
+        console.log('📌 اللايكات (القلوب) تظهر على المنشورات والتعليقات');
     </script>
 
 </body>
