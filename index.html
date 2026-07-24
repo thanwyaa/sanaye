@@ -4867,32 +4867,37 @@
         }
 
         // ============================================================
-        // 30. تثبيت التطبيق (الجزء المصلح)
+        // 30. تثبيت التطبيق (كود التحكم بزر التثبيت)
         // ============================================================
-        let deferredPrompt = null;
-        const installAppBtn = document.getElementById('installAppBtn');
+        let deferredPrompt;
+        const installBtn = document.getElementById('installAppBtn');
 
-        // الاستماع لحدث جاهزية التثبيت من المتصفح
+        // التقاط حدث التثبيت من المتصفح
         window.addEventListener('beforeinstallprompt', (e) => {
+            // منع ظهور نافذة المتصفح التلقائية
             e.preventDefault();
+            // حفظ الحدث لاستخدامه عند ضغط الزر
             deferredPrompt = e;
-            if (installAppBtn) {
-                installAppBtn.style.display = 'inline-block';
+            console.log('👍 تم التقاط حدث beforeinstallprompt بنجاح');
+            if (installBtn) {
+                installBtn.style.display = 'inline-block';
             }
-            console.log('✅ beforeinstallprompt captured');
         });
 
-        // تفعيل الزر عند النقر عليه
-        if (installAppBtn) {
-            installAppBtn.addEventListener('click', async () => {
+        // عند الضغط على زر التثبيت الخاص بك
+        if (installBtn) {
+            installBtn.addEventListener('click', async () => {
                 if (!deferredPrompt) {
-                    showToast('⚠️ التثبيت غير متاح حالياً. استخدم القائمة العلوية.', 'warning');
+                    alert('التطبيق جاهز بالفعل، أو أن المتصفح لا يدعم التثبيت المباشر. يمكنك تثبيته يدوياً من قائمة المتصفح (ثبت التطبيق / Add to Home Screen)');
                     return;
                 }
 
+                // إظهار نافذة التثبيت للمستخدم
                 deferredPrompt.prompt();
+
+                // معرفة هل وافق المستخدم أم رفض
                 const { outcome } = await deferredPrompt.userChoice;
-                console.log(`✅ User response: ${outcome}`);
+                console.log(`قرار المستخدم: ${outcome}`);
 
                 if (outcome === 'accepted') {
                     showToast('✅ تم تثبيت التطبيق بنجاح!');
@@ -4900,19 +4905,21 @@
                     showToast('❌ تم إلغاء التثبيت', 'error');
                 }
 
+                // لا يمكن استخدام الحدث مرتين
                 deferredPrompt = null;
-                if (installAppBtn) {
-                    installAppBtn.style.display = 'none';
+                if (installBtn) {
+                    installBtn.style.display = 'none';
                 }
             });
         }
 
-        // مراقبة نجاح عملية التثبيت
+        // مراقبة ما إذا تم تثبيت التطبيق بالفعل
         window.addEventListener('appinstalled', () => {
-            console.log('✅ PWA installed successfully');
-            if (installAppBtn) {
-                installAppBtn.style.display = 'none';
+            console.log('🎉 تم تثبيت التطبيق بنجاح على الجهاز');
+            if (installBtn) {
+                installBtn.style.display = 'none';
             }
+            deferredPrompt = null;
             showToast('✅ تم تثبيت التطبيق بنجاح!');
         });
 
@@ -5076,10 +5083,10 @@
         loadTeamPosts();
 
         console.log('✅ منصة الثانوية الرسمية بلس - النسخة النهائية');
-        console.log('📌 تم إصلاح زر تثبيت التطبيق');
+        console.log('📌 تم إضافة كود التحكم بزر التثبيت');
         console.log('📌 اللايكات والردود الرسمية تعمل بشكل صحيح');
         console.log('📌 المنتدى في مكانه الصحيح مع القواعد');
-        console.log('📌 زر التثبيت يظهر دائمًا ويشتغل مباشرة');
+        console.log('📌 زر التثبيت يظهر عند توفر الحدث');
     </script>
 
 </body>
