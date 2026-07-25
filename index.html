@@ -40,7 +40,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet" />
 
     <style>
-        /* ===== الأساسيات ===== */
+        /* ===== كل الأنماط السابقة موجودة ===== */
         * {
             margin: 0;
             padding: 0;
@@ -56,8 +56,6 @@
             background: #12121f;
             color: #e0e0e0;
         }
-
-        /* ===== علامة التوثيق الزرقاء (SVG) ===== */
         .verified-badge {
             display: inline-flex;
             align-items: center;
@@ -71,8 +69,6 @@
             height: 16px;
             flex-shrink: 0;
         }
-
-        /* ===== الرد الرسمي ===== */
         .admin-reply {
             background: #e3f2fd;
             border-right: 3px solid #1a237e;
@@ -109,8 +105,6 @@
         .dark-mode .admin-reply .reply-body {
             color: #e3f2fd;
         }
-
-        /* ===== لايك رسمي ===== */
         .official-like {
             display: inline-flex;
             align-items: center;
@@ -134,8 +128,6 @@
             color: #90caf9;
             border-color: #64b5f6;
         }
-
-        /* ===== لايكات المستخدمين ===== */
         .user-like {
             display: inline-flex;
             align-items: center;
@@ -144,8 +136,6 @@
             color: #e74c3c;
             font-weight: 700;
         }
-
-        /* ===== معرض الصور ===== */
         .team-post-images {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -180,8 +170,6 @@
             font-size: 24px;
             font-weight: 800;
         }
-
-        /* ===== Lightbox ===== */
         .lightbox {
             display: none;
             position: fixed;
@@ -261,8 +249,6 @@
             background: white;
             transform: scale(1.2);
         }
-
-        /* ===== جرس الإشعارات ===== */
         .notification-bell {
             position: relative;
             cursor: pointer;
@@ -350,8 +336,6 @@
                 transform: scale(1.2);
             }
         }
-
-        /* ===== الإعلانات ===== */
         .ad-popup-overlay {
             position: fixed;
             top: 0;
@@ -449,8 +433,6 @@
             background: #2980b9;
             transform: scale(1.05);
         }
-
-        /* ===== الشريط العلوي ===== */
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -513,7 +495,6 @@
             background: #f1c40f;
             color: #1a1a2e;
         }
-
         .user-profile {
             display: flex;
             align-items: center;
@@ -562,7 +543,6 @@
             overflow: hidden;
             text-overflow: ellipsis;
         }
-
         .btn-login-header {
             background: #3498db;
             color: white;
@@ -595,7 +575,6 @@
             background: #c0392b;
             transform: scale(1.05);
         }
-
         .nav-links {
             display: flex;
             gap: 4px;
@@ -628,7 +607,6 @@
         body.dark-mode .nav-links a.active-link {
             background: #3498db40;
         }
-
         .page {
             display: none;
             padding: 15px 12px;
@@ -669,8 +647,6 @@
         .back-btn:hover {
             transform: scale(1.05);
         }
-
-        /* ===== الهيدر ===== */
         .main-header {
             background: linear-gradient(135deg, #1a2a6c, #2d4373);
             padding: 20px 16px 30px;
@@ -737,8 +713,6 @@
         .main-header .sub-text strong {
             color: #f1c40f;
         }
-
-        /* ===== البحث ===== */
         .search-container {
             max-width: 600px;
             margin: -14px auto 16px;
@@ -808,8 +782,6 @@
             font-size: 10px;
             font-weight: 700;
         }
-
-        /* ===== الصفوف ===== */
         .grades-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -885,8 +857,6 @@
         .grade-3 h3 {
             color: #c0392b;
         }
-
-        /* ===== أقسام الصف ===== */
         .section-card {
             background: white;
             border-radius: 16px;
@@ -933,8 +903,6 @@
         .section-search:focus {
             border-color: #3498db;
         }
-
-        /* ===== الكتب ===== */
         .books-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
@@ -1067,8 +1035,6 @@
         .book-item .book-actions .fav-btn:hover {
             transform: scale(1.05);
         }
-
-        /* ===== تفاصيل الكتاب ===== */
         .book-detail {
             max-width: 700px;
             margin: 0 auto;
@@ -1150,8 +1116,6 @@
             color: #e74c3c;
             font-weight: 700;
         }
-
-        /* ===== رفع الملخصات ===== */
         .upload-section {
             background: linear-gradient(135deg, #2ecc71, #27ae60);
             padding: 28px 16px;
@@ -1202,8 +1166,6 @@
             transform: scale(1.05);
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
         }
-
-        /* ===== المميزات ===== */
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
@@ -1243,8 +1205,6 @@
         body.dark-mode .feature-card p {
             color: #aaa;
         }
-
-        /* ===== المؤقت ===== */
         .timer-container {
             text-align: center;
             padding: 16px;
@@ -1342,8 +1302,6 @@
             cursor: pointer;
             font-family: 'Tajawal', sans-serif;
         }
-
-        /* ===== المنتدى ===== */
         .forum-post {
             background: white;
             border-radius: 18px;
@@ -1416,7 +1374,6 @@
         body.dark-mode .forum-post .post-actions button:hover {
             background: #3d3d55;
         }
-
         .forum-post .comments-section {
             margin-top: 12px;
             border-top: 1px solid #eee;
@@ -1457,47 +1414,6 @@
             font-weight: 700;
             font-size: 12px;
         }
-
-        /* ===== الردود الرسمية ===== */
-        .admin-reply {
-            margin-top: 4px;
-            margin-right: 20px;
-            padding: 4px 10px;
-            background: #e3f2fd;
-            border-right: 3px solid #1a237e;
-            border-radius: 6px;
-        }
-        .admin-reply .reply-header {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            font-size: 11px;
-            font-weight: 700;
-            color: #1a237e;
-        }
-        .admin-reply .reply-header img {
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            border: 1px solid #1a237e;
-        }
-        .admin-reply .reply-body {
-            font-size: 12px;
-            padding: 2px 0;
-            color: #333;
-        }
-        body.dark-mode .admin-reply .reply-body {
-            color: #ddd;
-        }
-        .admin-reply .reply-body a {
-            color: #3498db;
-            text-decoration: underline;
-            word-break: break-all;
-        }
-        .admin-reply .reply-body a:hover {
-            color: #2980b9;
-        }
-
         .forum-post .comment-input {
             display: flex;
             gap: 8px;
@@ -1533,8 +1449,6 @@
         .forum-post .comment-input button:hover {
             background: #2980b9;
         }
-
-        /* ===== منشورات الفريق ===== */
         .post-card {
             background: white;
             border-radius: 18px;
@@ -1546,7 +1460,6 @@
         body.dark-mode .post-card {
             background: #24243a;
         }
-
         .post-card .admin-header {
             display: flex;
             align-items: center;
@@ -1558,7 +1471,6 @@
         body.dark-mode .post-card .admin-header {
             border-bottom-color: #3d3d55;
         }
-
         .post-card .admin-header .admin-logo {
             width: 40px;
             height: 40px;
@@ -1567,7 +1479,6 @@
             border: 2px solid #2ecc71;
             flex-shrink: 0;
         }
-
         .post-card .admin-header .admin-info {
             flex: 1;
         }
@@ -1602,7 +1513,6 @@
             border-radius: 50px;
             border: 1px solid #1da1f230;
         }
-
         .post-card .post-badges {
             display: flex;
             flex-wrap: wrap;
@@ -1660,7 +1570,6 @@
         body.dark-mode .post-card .post-actions button:hover {
             background: #3d3d55;
         }
-
         .post-card .comments-section {
             margin-top: 12px;
             border-top: 1px solid #eee;
@@ -1701,7 +1610,6 @@
             font-weight: 700;
             font-size: 12px;
         }
-
         .post-card .comment-input {
             display: flex;
             gap: 8px;
@@ -1737,8 +1645,6 @@
         .post-card .comment-input button:hover {
             background: #27ae60;
         }
-
-        /* ===== الملف الشخصي ===== */
         .profile-card {
             background: white;
             border-radius: 22px;
@@ -1828,8 +1734,6 @@
         .profile-card .profile-actions .btn-upload-img:hover {
             transform: scale(1.05);
         }
-
-        /* ===== النوافذ ===== */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -1887,7 +1791,6 @@
             color: #333;
             transform: rotate(90deg);
         }
-
         .notification-item {
             padding: 12px 0;
             border-bottom: 1px solid #f0f0f0;
@@ -1902,7 +1805,6 @@
             font-size: 11px;
             color: #999;
         }
-
         .empty-state {
             text-align: center;
             padding: 30px 16px;
@@ -1919,8 +1821,6 @@
         body.dark-mode .empty-state h3 {
             color: #aaa;
         }
-
-        /* ===== رفع الملفات ===== */
         .upload-form-container label {
             display: block;
             margin: 10px 0 4px;
@@ -1994,7 +1894,6 @@
             transition: width 0.3s;
             border-radius: 50px;
         }
-
         .forum-form label {
             display: block;
             margin: 10px 0 4px;
@@ -2040,8 +1939,6 @@
         .forum-form .submit-post:hover {
             transform: scale(1.02);
         }
-
-        /* ===== السياسات ===== */
         .policy-content {
             font-size: 14px;
             line-height: 2;
@@ -2089,8 +1986,6 @@
         .contact-link:hover {
             text-decoration: underline;
         }
-
-        /* ===== تحميل التطبيق ===== */
         .install-banner {
             background: linear-gradient(135deg, #6c5ce7, #a29bfe);
             padding: 14px 20px;
@@ -2121,7 +2016,6 @@
             font-size: 13px;
             display: inline-block;
         }
-
         .footer {
             text-align: center;
             padding: 24px 16px;
@@ -2144,7 +2038,6 @@
         .footer a:hover {
             text-decoration: underline;
         }
-
         .spinner {
             display: inline-block;
             width: 24px;
@@ -2166,7 +2059,6 @@
             text-align: center;
             padding: 20px;
         }
-
         .btn-primary {
             background: #2ecc71;
             color: white;
@@ -2196,7 +2088,6 @@
             background: #2ecc7120;
             color: #2ecc71;
         }
-
         .banned-message {
             text-align: center;
             padding: 40px 20px;
@@ -2228,7 +2119,6 @@
         body.dark-mode .banned-message .reason {
             background: #2d2d44;
         }
-
         .youtube-detail {
             max-width: 600px;
             margin: 0 auto;
@@ -2291,7 +2181,6 @@
             background: #cc0000;
             transform: scale(1.05);
         }
-
         .upload-error-link {
             margin-top: 8px;
             font-size: 13px;
@@ -2306,8 +2195,6 @@
         .upload-error-link a:hover {
             text-decoration: underline;
         }
-
-        /* ===== قواعد المنتدى ===== */
         .forum-rules {
             background: #e3f2fd;
             border-right: 4px solid #1a237e;
@@ -2332,15 +2219,12 @@
             font-size: 18px;
             margin-left: 6px;
         }
-
         .forum-rules .rule-item {
             padding: 4px 0;
             display: flex;
             align-items: center;
             gap: 8px;
         }
-
-        /* ===== بوب أب ===== */
         .popup-message {
             position: fixed;
             top: 50%;
@@ -2401,7 +2285,6 @@
         .popup-message .popup-close:hover {
             background: #2980b9;
         }
-
         .toast {
             position: fixed;
             bottom: 20px;
@@ -2427,7 +2310,6 @@
             display: block;
             animation: slideUp 0.3s ease;
         }
-
         @media (max-width: 768px) {
             .navbar {
                 padding: 6px 12px;
@@ -2535,7 +2417,6 @@
                 padding: 12px 14px;
             }
         }
-
         ::-webkit-scrollbar {
             width: 5px;
         }
@@ -3128,7 +3009,27 @@
         };
 
         // ============================================================
-        // 5. بوب أب
+        // 5. نظام الإشعارات الذكي
+        // ============================================================
+        async function sendSmartNotification(userId, title, body, type = 'info', isOfficial = false) {
+            if (!userId) return;
+            try {
+                await db.collection('notifications').add({
+                    title: title,
+                    body: body,
+                    userId: userId,
+                    type: type,
+                    isOfficial: isOfficial,
+                    read: false,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+            } catch (err) {
+                console.error('❌ خطأ في إرسال الإشعار:', err);
+            }
+        }
+
+        // ============================================================
+        // 6. بوب أب
         // ============================================================
         function showPopup(icon, title, desc) {
             const popup = document.getElementById('popupMessage');
@@ -3146,7 +3047,7 @@
         }
 
         // ============================================================
-        // 6. إدارة الصفحات
+        // 7. إدارة الصفحات
         // ============================================================
         let currentPage = 'home';
         let timerInterval = null;
@@ -3195,7 +3096,7 @@
         }
 
         // ============================================================
-        // 7. الوضع الليلي
+        // 8. الوضع الليلي
         // ============================================================
         const darkToggle = document.getElementById('darkModeToggle');
         const body = document.body;
@@ -3215,14 +3116,11 @@
         });
 
         // ============================================================
-        // 8. المصادقة (Auth) مع حفظ المستخدم في Firestore
+        // 9. المصادقة (Auth) مع حفظ المستخدم في Firestore
         // ============================================================
         const userSection = document.getElementById('userSection');
         let currentUserData = null;
 
-        // ============================================================
-        // 🔥 كود تسجيل المستخدمين الجدد في Firestore
-        // ============================================================
         async function registerUserInFirestore(user) {
             try {
                 const doc = await db.collection('users').doc(user.uid).get();
@@ -3240,7 +3138,6 @@
                         isActive: true,
                         createdAt: firebase.firestore.FieldValue.serverTimestamp()
                     };
-
                     await db.collection('users').doc(user.uid).set(userData);
                     console.log('✅ تم إضافة المستخدم إلى Firestore');
                     return true;
@@ -3271,7 +3168,6 @@
 
         function updateUIForUser(user) {
             if (user) {
-                // ✅ تسجيل المستخدم في Firestore إذا كان جديداً
                 registerUserInFirestore(user);
 
                 checkUserBanned(user.uid).then(result => {
@@ -3319,7 +3215,6 @@
                 document.getElementById('loginBtn').addEventListener('click', () => {
                     window.location.href = 'login.html';
                 });
-                // استعادة الصفحة الرئيسية
                 document.getElementById('page-home').innerHTML = `
                         <header class="main-header">
                             <div class="logo-big">
@@ -3423,7 +3318,7 @@
         });
 
         // ============================================================
-        // 9. البحث مع تحسين الضغط على النتيجة
+        // 10. البحث
         // ============================================================
         const searchInput = document.getElementById('globalSearch');
         const searchResults = document.getElementById('globalSearchResults');
@@ -3476,9 +3371,6 @@
             container.classList.add('active');
         }
 
-        // ============================================================
-        // وظيفة جديدة: تذهب للصف ثم تفاصيل الكتاب مباشرة
-        // ============================================================
         function showGradeAndBook(gradeId, bookId) {
             showGrade(gradeId);
             setTimeout(() => {
@@ -3495,7 +3387,7 @@
         });
 
         // ============================================================
-        // 10. الإشعارات
+        // 11. الإشعارات
         // ============================================================
         const bellBtn = document.getElementById('bellBtn');
         const bellIcon = document.getElementById('bellIcon');
@@ -3524,7 +3416,8 @@
                             time: data.createdAt ? data.createdAt.toDate().toLocaleString('ar') : 'الآن',
                             read: data.read || false,
                             userId: data.userId || null,
-                            isOfficial: data.isOfficial || false
+                            isOfficial: data.isOfficial || false,
+                            type: data.type || 'info'
                         });
                     }
                 });
@@ -3569,8 +3462,10 @@
                 const officialTag = isOfficial ?
                     `<span style="font-size:10px;color:#1a237e;font-weight:700;background:#e3f2fd;padding:0 6px;border-radius:4px;">📌 رسمي</span>` :
                     '';
+                const typeIcon = n.type === 'book' ? '📚' : n.type === 'reply' ? '💬' : n.type === 'like' ? '❤️' :
+                    n.type === 'comment' ? '💬' : '📢';
                 item.innerHTML = `
-                        <div><strong>${safeText(n.title)}</strong> ${isForUser ? '<span style="font-size:10px;color:#3498db;font-weight:700;">(خاص بك)</span>' : ''} ${officialTag}</div>
+                        <div><strong>${typeIcon} ${safeText(n.title)}</strong> ${isForUser ? '<span style="font-size:10px;color:#3498db;font-weight:700;">(خاص بك)</span>' : ''} ${officialTag}</div>
                         <div style="font-size:14px;color:#777;">${safeText(n.body)}</div>
                         <div class="date">${safeText(n.time)}</div>
                     `;
@@ -3599,7 +3494,7 @@
         });
 
         // ============================================================
-        // 11. عرض الصفوف
+        // 12. عرض الصفوف
         // ============================================================
         function showGrade(gradeId) {
             navigateTo('grade');
@@ -3656,7 +3551,7 @@
         }
 
         // ============================================================
-        // 12. تحميل الكتب
+        // 13. تحميل الكتب
         // ============================================================
         async function loadBooksForSection(gradeId, sectionId) {
             const container = document.getElementById(`books-${gradeId}-${sectionId}`);
@@ -3733,7 +3628,7 @@
         };
 
         // ============================================================
-        // 13. تفاصيل الكتاب
+        // 14. تفاصيل الكتاب
         // ============================================================
         async function showBookDetail(bookId) {
             navigateTo('bookDetail');
@@ -3796,7 +3691,7 @@
         }
 
         // ============================================================
-        // 14. المفضلة
+        // 15. المفضلة
         // ============================================================
         async function checkFavStatus(bookId, btn) {
             if (!auth.currentUser) return;
@@ -3864,7 +3759,7 @@
         };
 
         // ============================================================
-        // 15. تحميل الكتاب
+        // 16. تحميل الكتاب
         // ============================================================
         window.downloadBook = async function(bookId) {
             if (!auth.currentUser) {
@@ -3885,7 +3780,7 @@
         };
 
         // ============================================================
-        // 16. رفع الملخصات (رابط فقط)
+        // 17. رفع الملخصات (رابط فقط)
         // ============================================================
         const uploadBtn = document.getElementById('uploadBtn');
         const uploadModal = document.getElementById('uploadModal');
@@ -3961,9 +3856,9 @@
                 await db.collection('notifications').add({
                     title: '📤 ملخص جديد في الانتظار',
                     body: `"${title}" من قبل ${name}`,
-                    type: 'admin',
-                    read: false,
+                    type: 'upload',
                     isOfficial: false,
+                    read: false,
                     createdAt: firebase.firestore.FieldValue.serverTimestamp()
                 });
 
@@ -3977,7 +3872,7 @@
         });
 
         // ============================================================
-        // 17. المؤقت
+        // 18. المؤقت
         // ============================================================
         const timerDisplay = document.getElementById('timerDisplay');
         const timerStatus = document.getElementById('timerStatus');
@@ -4058,7 +3953,7 @@
         });
 
         // ============================================================
-        // 18. المنتدى مع الردود الرسمية واللايكات
+        // 19. المنتدى مع الإشعارات الذكية
         // ============================================================
         async function loadForumPosts() {
             const container = document.getElementById('forumPosts');
@@ -4215,9 +4110,9 @@
                             await db.collection('notifications').add({
                                 title: '💬 تعليق جديد في المنتدى',
                                 body: `من ${auth.currentUser.displayName || auth.currentUser.email}`,
-                                type: 'admin',
-                                read: false,
+                                type: 'comment',
                                 isOfficial: false,
+                                read: false,
                                 createdAt: firebase.firestore.FieldValue.serverTimestamp()
                             });
                             loadForumPosts();
@@ -4234,7 +4129,7 @@
         }
 
         // ============================================================
-        // 19. الإعجاب بمنشور المنتدى
+        // 20. الإعجاب بمنشور المنتدى
         // ============================================================
         window.likeForumPost = async function(postId, btn) {
             if (!auth.currentUser) {
@@ -4271,7 +4166,7 @@
         };
 
         // ============================================================
-        // 20. الإعجاب بتعليق المنتدى
+        // 21. الإعجاب بتعليق المنتدى
         // ============================================================
         window.likeForumComment = async function(postId, commentIndex, btn) {
             if (!auth.currentUser) {
@@ -4305,7 +4200,7 @@
         };
 
         // ============================================================
-        // 21. منشورات الفريق (مع الصورة والتوثيق واللايكات الرسمية)
+        // 22. منشورات الفريق مع الإشعارات
         // ============================================================
         async function loadTeamPosts() {
             const container = document.getElementById('teamPostsContainer');
@@ -4507,9 +4402,9 @@
                             await db.collection('notifications').add({
                                 title: '💬 تعليق جديد على منشور الفريق',
                                 body: `من ${auth.currentUser.displayName || auth.currentUser.email}`,
-                                type: 'admin',
-                                read: false,
+                                type: 'comment',
                                 isOfficial: false,
+                                read: false,
                                 createdAt: firebase.firestore.FieldValue.serverTimestamp()
                             });
                             loadTeamPosts();
@@ -4526,7 +4421,7 @@
         }
 
         // ============================================================
-        // 22. الإعجاب بمنشور الفريق
+        // 23. الإعجاب بمنشور الفريق
         // ============================================================
         window.likeTeamPost = async function(postId, btn) {
             if (!auth.currentUser) {
@@ -4561,7 +4456,7 @@
         };
 
         // ============================================================
-        // 23. الإعجاب بتعليق منشور الفريق
+        // 24. الإعجاب بتعليق منشور الفريق
         // ============================================================
         window.likeTeamComment = async function(postId, commentIndex, btn) {
             if (!auth.currentUser) {
@@ -4595,7 +4490,7 @@
         };
 
         // ============================================================
-        // 24. Lightbox
+        // 25. Lightbox
         // ============================================================
         let lightboxImages = [];
         let currentLightboxIndex = 0;
@@ -4667,7 +4562,7 @@
         });
 
         // ============================================================
-        // 25. المفضلة
+        // 26. المفضلة
         // ============================================================
         async function loadFavorites() {
             const container = document.getElementById('favoritesContainer');
@@ -4724,7 +4619,7 @@
         }
 
         // ============================================================
-        // 26. الملف الشخصي
+        // 27. الملف الشخصي
         // ============================================================
         async function loadProfile() {
             const container = document.getElementById('profileContainer');
@@ -4796,7 +4691,7 @@
         }
 
         // ============================================================
-        // 27. تغيير الصورة
+        // 28. تغيير الصورة
         // ============================================================
         window.uploadProfileImage = function() {
             if (!auth.currentUser) return;
@@ -4826,7 +4721,7 @@
         };
 
         // ============================================================
-        // 28. قنوات اليوتيوب
+        // 29. قنوات اليوتيوب
         // ============================================================
         async function loadYoutubeChannels() {
             const container = document.getElementById('youtubeContainer');
@@ -4874,7 +4769,7 @@
         }
 
         // ============================================================
-        // 29. تفاصيل قناة يوتيوب
+        // 30. تفاصيل قناة يوتيوب
         // ============================================================
         async function showYoutubeDetail(channelId) {
             navigateTo('youtubeDetail');
@@ -4915,7 +4810,7 @@
         }
 
         // ============================================================
-        // 30. تثبيت التطبيق (كود التحكم بزر التثبيت)
+        // 31. تثبيت التطبيق
         // ============================================================
         let deferredPrompt;
         const installBtn = document.getElementById('installAppBtn');
@@ -4960,7 +4855,7 @@
         });
 
         // ============================================================
-        // 31. مشاركة المنصة
+        // 32. مشاركة المنصة
         // ============================================================
         document.getElementById('shareFooter').addEventListener('click', (e) => {
             e.preventDefault();
@@ -4978,7 +4873,7 @@
         });
 
         // ============================================================
-        // 32. الإعلانات
+        // 33. الإعلانات
         // ============================================================
         let currentAd = null;
 
@@ -5032,7 +4927,7 @@
         }
 
         // ============================================================
-        // 33. Toast
+        // 34. Toast
         // ============================================================
         function showToast(message, type = 'success') {
             const toast = document.getElementById('toast');
@@ -5043,7 +4938,7 @@
         }
 
         // ============================================================
-        // 34. عرض ملف المستخدم
+        // 35. عرض ملف المستخدم
         // ============================================================
         window.viewUserProfile = function(userId) {
             if (!userId) return;
@@ -5052,7 +4947,7 @@
         };
 
         // ============================================================
-        // 35. منشورات المنتدى - زر جديد
+        // 36. منشورات المنتدى - زر جديد
         // ============================================================
         document.getElementById('newForumPostBtn').addEventListener('click', () => {
             if (!auth.currentUser) {
@@ -5102,9 +4997,9 @@
                 await db.collection('notifications').add({
                     title: '📝 منشور جديد في المنتدى',
                     body: `"${title}" من ${auth.currentUser.displayName || auth.currentUser.email}`,
-                    type: 'admin',
-                    read: false,
+                    type: 'forum',
                     isOfficial: false,
+                    read: false,
                     createdAt: firebase.firestore.FieldValue.serverTimestamp()
                 });
 
@@ -5112,23 +5007,16 @@
         });
 
         // ============================================================
-        // 36. تحميل البيانات عند بدء التشغيل مع الحفاظ على الجلسة
+        // 37. تحميل البيانات عند بدء التشغيل
         // ============================================================
-        // منع الرفرش من العودة للصفحة الرئيسية
         if (window.history && window.history.pushState) {
             window.history.pushState(null, null, window.location.href);
             window.onpopstate = function() {
-                // الحفاظ على الصفحة الحالية
-                if (currentPage && currentPage !== 'home') {
-                    // لا تفعل شيء، ابق في الصفحة الحالية
-                }
+                if (currentPage && currentPage !== 'home') {}
             };
         }
 
-        // التحقق من حالة تسجيل الدخول عند بدء التشغيل
-        if (localStorage.getItem('userLoggedIn') === 'true' && auth.currentUser) {
-            // المستخدم مسجل دخول، لا تفعل شيء
-        }
+        if (localStorage.getItem('userLoggedIn') === 'true' && auth.currentUser) {}
 
         loadBooksForSearch();
         loadNotifications();
