@@ -1,61 +1,67 @@
-const CACHE_NAME = "thanawya-plus-v1";
+// ============================================================
+// Service Worker - نسخة معدلة لتجنب أخطاء Chrome Extensions
+// ============================================================
 
-const ASSETS = [
-  "./",
-  "./index.html",
-  "./manifest.json"
+const CACHE_NAME = 'thanawya-plus-v1';
+
+// الملفات المطلوب تخزينها مؤقتاً
+const urlsToCache = [
+    '/',
+    '/index.html',
+    '/manifest.json',
+    '/icon-512.jpg'
 ];
 
-self.addEventListener("install", event => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => cache.addAll(ASSETS))
-  );
-  self.skipWaiting();
+// ✅ تثبيت Service Worker
+self.addEventListener('install', function(event) {
+    event.waitUntil(
+        caches.open(CACHE_NAME)
+            .then(function(cache) {
+                // ✅ استخدام try/catch لتجنب أخطاء chrome-extension
+                return cache.addAll(urlsToCache).catch(function(err) {
+                    console.warn('⚠️ بعض الملفات لم يتم تخزينها:', err);
+                    // نحاول تخزين الملفات واحداً واحداً
+                    urlsToCache.forEach(function(url) {
+                        try {
+                            cache.add(url).catch(function() {});
+                        } catch (e) {}
+                    });
+                });
+            })
+    );
 });
 
-self.addEventListener("activate", event => {
-  event.waitUntil(
-    Promise.all([
-      caches.keys().then(keys =>
-        Promise.all(
-          keys.map(key => {
-            if (key !== CACHE_NAME) {
-              return caches.delete(key);
-            }
-          })
-        )
-      ),
-      self.clients.claim()
-    ])
-  );
+// ✅ تفعيل Service Worker
+self.addEventListener('activate', function(event) {
+    event.waitUntil(
+        caches.keys().then(function(cacheNames) {
+            return Promise.all(
+                cacheNames.map(function(cacheName) {
+                    if (cacheName !== CACHE_NAME) {
+                        return caches.delete(cacheName);
+                    }
+                })
+            );
+        })
+    );
 });
 
-self.addEventListener("fetch", event => {
-
-  if (event.request.method !== "GET") return;
-
-  event.respondWith(
-    fetch(event.request)
-      .then(response => {
-        const copy = response.clone();
-
-        caches.open(CACHE_NAME).then(cache => {
-          cache.put(event.request, copy);
-        });
-
-        return response;
-      })
-      .catch(async () => {
-
-        const cached = await caches.match(event.request);
-
-        if (cached) return cached;
-
-        return new Response("Offline", {
-          status: 503,
-          statusText: "Offline"
-        });
-
-      })
-  );
+// ✅ التعامل مع الطلبات - تجنب chrome-extension
+self.addEventListener('fetch', function(event) {
+    // ✅ تجاهل طلبات chrome-extension
+    if (event.request.url.startsWith('chrome-extension://')) {
+        return;
+    }
+    
+    event.respondWith(
+        caches.match(event.request)
+            .then(function(response) {
+                if (response) {
+                    return response;
+                }
+                return fetch(event.request).catch(function() {
+                    // في حالة عدم وجود شبكة
+                });
+            })
+    );
 });
