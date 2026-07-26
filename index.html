@@ -18,10 +18,10 @@
             window.addEventListener('load', function() {
                 navigator.serviceWorker.register('./sw.js')
                     .then(function(registration) {
-                        console.log('✅ Service Worker مسجل');
+                        // ✅ منع ظهور أي رسالة في الكونسول
                     })
                     .catch(function(error) {
-                        console.log('❌ فشل تسجيل Service Worker:', error);
+                        // تجاهل الأخطاء
                     });
             });
         }
@@ -42,7 +42,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet" />
 
     <style>
-        /* ===== كل الأنماط السابقة موجودة ===== */
+        /* ===== الأساسيات ===== */
         * {
             margin: 0;
             padding: 0;
@@ -2637,7 +2637,6 @@
         /* ===== ONLINE USERS BADGE - مخفي للطلاب ===== */
         .online-badge {
             display: none;
-            /* مخفي للطلاب - يظهر فقط في لوحة التحكم */
             align-items: center;
             gap: 4px;
             background: #2ecc7120;
@@ -2666,7 +2665,6 @@
             }
         }
 
-        /* ===== ADMIN ONLY ===== */
         .admin-only {
             display: none;
         }
@@ -2693,7 +2691,6 @@
                 <span class="bell-icon" id="bellIcon">🔔</span>
                 <span class="badge-count" id="notifCount">0</span>
             </button>
-            <!-- ===== ONLINE BADGE - ADMIN ONLY ===== -->
             <span class="online-badge admin-only" id="onlineBadge">
                 <span class="dot"></span>
                 <span id="onlineCount">0</span>
@@ -2727,13 +2724,11 @@
             <div class="search-results" id="globalSearchResults"></div>
         </div>
 
-        <!-- ===== زر تثبيت التطبيق ===== -->
         <div class="install-banner">
             <p>📱 حمل التطبيق وادرس في أي وقت</p>
             <button id="installAppBtn">📲 تثبيت التطبيق</button>
         </div>
 
-        <!-- ===== FORUM HERO SECTION ===== -->
         <div class="forum-hero" onclick="navigateTo('forum')">
             <span class="forum-icon">💬</span>
             <h2>المنتدى</h2>
@@ -2820,7 +2815,6 @@
             <button class="btn-primary" id="newForumPostBtn">📝 منشور جديد</button>
         </div>
 
-        <!-- ===== Rules Card ===== -->
         <div class="rules-card">
             <h3>📋 قواعد المنتدى</h3>
             <div class="rule-item">
@@ -2850,7 +2844,6 @@
             <button class="rules-btn" onclick="document.querySelector('.rules-card').style.opacity='0.5';document.querySelector('.rules-card').style.transition='0.3s';this.textContent='✅ تم القراءة';this.disabled=true;">📖 قرأت القواعد</button>
         </div>
 
-        <!-- ===== Notice ===== -->
         <div class="forum-notice">
             📢 جميع المنشورات والتعليقات تتم مراجعتها من فريق الثانوية الرسمية بلس، وقد يستغرق قبولها حتى 24 ساعة
         </div>
@@ -2879,7 +2872,6 @@
         </div>
     </div>
 
-    <!-- ===== TEAM POSTS PAGE (NEW LOCATION) ===== -->
     <div class="page" id="page-teamPosts">
         <div class="page-header">
             <button class="back-btn" onclick="navigateTo('home')">← العودة للرئيسية</button>
@@ -3112,54 +3104,38 @@
                 <form id="uploadForm">
                     <label for="uploadName">👤 اسمك (سيظهر للمستخدمين)</label>
                     <input type="text" id="uploadName" placeholder="أدخل اسمك" required>
-
                     <label for="uploadUserType">📌 هل أنت طالب أم مدرس؟</label>
                     <select id="uploadUserType" required>
                         <option value="طالب">طالب</option>
                         <option value="مدرس">مدرس</option>
                     </select>
-
                     <label for="uploadTitle">📖 عنوان الملخص</label>
                     <input type="text" id="uploadTitle" placeholder="مثال: ملخص فيزياء - الوحدة الأولى" required>
-
                     <label for="uploadCategory">📂 التصنيف</label>
                     <select id="uploadCategory" required>
                         <option value="handwritten">ملخص خط اليد</option>
                         <option value="notes">مذكرات يدوية</option>
                         <option value="summary">تلخيص</option>
                     </select>
-
                     <label for="uploadGrade">📘 اختر الصف</label>
                     <select id="uploadGrade" required>
                         <option value="1">أولى بكالوريا</option>
                         <option value="2">تانية بكالوريا</option>
                         <option value="3">تالتة ثانوي</option>
                     </select>
-
                     <label for="uploadSubject">📖 المادة</label>
                     <input type="text" id="uploadSubject" placeholder="فيزياء / كيمياء / رياضيات" required>
-
                     <label for="uploadDesc">📝 وصف مختصر</label>
                     <textarea id="uploadDesc" rows="3" placeholder="اكتب وصفاً مختصراً للملخص..."></textarea>
-
                     <label for="uploadLink">🔗 رابط الملخص (Google Drive / Dropbox / إلخ)</label>
                     <input type="url" id="uploadLink" placeholder="https://drive.google.com/..." required>
-
                     <div class="checkbox-group">
                         <input type="checkbox" id="showName" checked>
                         <label for="showName">إظهار اسمي مع الملخص</label>
                     </div>
-
-                    <div class="upload-progress" id="uploadProgress">
-                        <div class="progress-bar" id="progressBar"></div>
-                    </div>
-
                     <button type="submit" class="submit-upload">🚀 إرسال الملخص (سيتم مراجعته)</button>
                 </form>
                 <div id="uploadStatus" style="margin-top:8px;font-weight:700;"></div>
-                <div class="upload-error-link" style="margin-top:8px;text-align:center;font-size:13px;color:#888;">
-                    ⚠️ واجهتك مشكلة في الرفع؟ <a href="#" onclick="window.open('https://t.me/llTwasell', '_blank')" style="color:#3498db;text-decoration:none;font-weight:700;">تواصل معنا على تليجرام</a>
-                </div>
             </div>
         </div>
     </div>
@@ -3172,13 +3148,10 @@
                 <form id="forumPostForm">
                     <label for="forumPostTitle">📌 عنوان المنشور</label>
                     <input type="text" id="forumPostTitle" placeholder="مثال: مشكلة في فهم الفيزياء" required>
-
                     <label for="forumPostContent">📝 المحتوى</label>
                     <textarea id="forumPostContent" rows="4" placeholder="اكتب سؤالك أو مشكلتك بالتفصيل..." required></textarea>
-
                     <label for="forumPostImage">🖼️ رابط صورة السؤال (اختياري)</label>
                     <input type="text" id="forumPostImage" placeholder="https://...jpg">
-
                     <button type="submit" class="submit-post">📢 نشر المنشور (سيتم اعتماده من الإدارة)</button>
                 </form>
             </div>
@@ -3230,6 +3203,61 @@
     <!-- JavaScript - Realtime Database -->
     <!-- ============================================================ -->
     <script>
+        // ============================================================
+        // ✅ إخفاء رسائل الكونسول في الإنتاج
+        // ============================================================
+        
+        // حفظ الـ console الأصلي
+        const originalConsoleLog = console.log;
+        const originalConsoleWarn = console.warn;
+        const originalConsoleInfo = console.info;
+        const originalConsoleError = console.error;
+        
+        // ✅ منع ظهور الرسائل في الإنتاج
+        if (window.location.hostname !== 'localhost' && !window.location.hostname.includes('127.0.0.1')) {
+            console.log = function() {};
+            console.warn = function() {};
+            console.info = function() {};
+            // ✅ بسيب error عشان لو في مشكلة حقيقية تظهر
+        }
+        
+        // ✅ تصفية تحذيرات Firebase
+        console.warn = function(...args) {
+            // تجاهل تحذيرات Firebase index
+            if (args[0] && typeof args[0] === 'string' && 
+                args[0].includes('FIREBASE WARNING: Using an unspecified index')) {
+                return;
+            }
+            // تجاهل تحذيرات Service Worker
+            if (args[0] && typeof args[0] === 'string' && 
+                args[0].includes('chrome-extension')) {
+                return;
+            }
+            if (typeof originalConsoleWarn === 'function') {
+                originalConsoleWarn.apply(console, args);
+            }
+        };
+        
+        // ============================================================
+        // ✅ الصفحة تفتح من الأعلى
+        // ============================================================
+        
+        window.addEventListener('load', function() {
+            window.scrollTo(0, 0);
+            if (document.activeElement) {
+                document.activeElement.blur();
+            }
+        });
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            window.scrollTo(0, 0);
+        });
+        
+        // منع أي سلوك يخلي الصفحة تتمركز في النص
+        window.addEventListener('beforeunload', function() {
+            sessionStorage.setItem('scrollPos', '0');
+        });
+        
         // ============================================================
         // 1. تهيئة Firebase - Realtime Database
         // ============================================================
@@ -3631,8 +3659,6 @@
 
         function startOnlineUsersListener() {
             if (onlineUsersListener) return;
-
-            // ✅ فقط لو كان المستخدم أدمن
             if (!isAdminUser) {
                 document.getElementById('onlineBadge').style.display = 'none';
                 return;
@@ -3819,8 +3845,6 @@
 
                 getUser(user.uid).then(async data => {
                     currentUserData = data;
-
-                    // ✅ التحقق من صلاحيات الأدمن
                     isAdminUser = await checkIsAdmin(user.uid);
 
                     if (isAdminUser) {
@@ -3866,7 +3890,7 @@
         });
 
         // ============================================================
-        // 17. تحميل جميع البيانات (Caching)
+        // 17. تحميل جميع البيانات
         // ============================================================
         let allBooksCache = [];
         let allSummariesCache = [];
@@ -3889,10 +3913,7 @@
                 if (auth.currentUser) {
                     allFavoritesCache = await getUserFavorites(auth.currentUser.uid);
                 }
-                updateBadges();
-            } catch (err) {
-                console.error('❌ خطأ في تحميل البيانات:', err);
-            }
+            } catch (err) {}
         }
 
         // ============================================================
@@ -4479,6 +4500,9 @@
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             const target = document.getElementById('page-' + pageId);
             if (target) target.classList.add('active');
+            
+            // ✅ الصفحة تفتح من الأعلى
+            window.scrollTo(0, 0);
 
             switch (pageId) {
                 case 'forum':
@@ -4523,7 +4547,7 @@
                 profileData = await getUser(user.uid);
                 const favs = await getUserFavorites(user.uid);
                 favoritesCount = favs.length;
-            } catch (err) { console.error('خطأ:', err); }
+            } catch (err) { }
 
             const photoURL = profileData?.photoURL || user.photoURL || '';
             const displayName = profileData?.name || user.displayName || user.email || 'مستخدم';
@@ -4740,7 +4764,7 @@
                     });
                     document.getElementById('notifList').innerHTML = html;
                 }
-            } catch (err) { /* ignore */ }
+            } catch (err) { }
         }
 
         document.getElementById('bellBtn').addEventListener('click', () => {
@@ -4871,7 +4895,7 @@
                     showAdPopup(ad);
                     return;
                 }
-            } catch (err) { console.error('خطأ في تحميل الإعلانات:', err); }
+            } catch (err) { }
         }
 
         function showAdPopup(ad) {
@@ -4919,14 +4943,7 @@
         }
 
         // ============================================================
-        // 39. Update Badges
-        // ============================================================
-        function updateBadges() {
-            // يمكن إضافة تحديثات للشارات هنا
-        }
-
-        // ============================================================
-        // 40. Lightbox
+        // 39. Lightbox
         // ============================================================
         let lightboxImages = [];
         let currentLightboxIndex = 0;
@@ -4993,7 +5010,7 @@
         });
 
         // ============================================================
-        // 41. تثبيت التطبيق
+        // 40. تثبيت التطبيق
         // ============================================================
         let deferredPrompt;
         document.getElementById('installAppBtn').addEventListener('click', async () => {
@@ -5017,7 +5034,7 @@
         });
 
         // ============================================================
-        // 42. مشاركة المنصة
+        // 41. مشاركة المنصة
         // ============================================================
         document.getElementById('shareFooter').addEventListener('click', (e) => {
             e.preventDefault();
@@ -5035,7 +5052,7 @@
         });
 
         // ============================================================
-        // 43. الوضع الليلي
+        // 42. الوضع الليلي
         // ============================================================
         const darkToggle = document.getElementById('darkModeToggle');
         if (localStorage.getItem('darkMode') === 'enabled') {
@@ -5054,7 +5071,7 @@
         });
 
         // ============================================================
-        // 44. المؤقت
+        // 43. المؤقت
         // ============================================================
         const timerDisplay = document.getElementById('timerDisplay');
         const timerStatus = document.getElementById('timerStatus');
@@ -5135,7 +5152,7 @@
         });
 
         // ============================================================
-        // 45. بدء التشغيل
+        // 44. بدء التشغيل
         // ============================================================
         if (window.history && window.history.pushState) {
             window.history.pushState(null, null, window.location.href);
@@ -5150,9 +5167,6 @@
                 updateOnlineStatus(auth.currentUser);
             }
         }, 30000);
-
-        console.log('✅ المنصة تعمل على Realtime Database - مجاني بالكامل 🎉');
-        console.log('👑 المتصلون يظهرون فقط للأدمن');
     </script>
 
 </body>
