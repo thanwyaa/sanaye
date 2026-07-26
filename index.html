@@ -27,7 +27,7 @@
         }
     </script>
 
-    <!-- Firebase - Realtime Database Only -->
+    <!-- Firebase - Realtime Database -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js">
     </script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js">
@@ -42,7 +42,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet" />
 
     <style>
-        /* ===== الأساسيات ===== */
+        /* ===== كل الأنماط السابقة موجودة ===== */
         * {
             margin: 0;
             padding: 0;
@@ -2469,6 +2469,7 @@
             display: block;
             margin-bottom: 10px;
         }
+
         .team-posts-hero {
             background: linear-gradient(135deg, #3498db, #2980b9);
             padding: 30px 20px;
@@ -2490,6 +2491,7 @@
             max-width: 600px;
             margin: 0 auto;
         }
+
         .rules-card {
             background: white;
             border-radius: 18px;
@@ -2552,6 +2554,7 @@
             background: #27ae60;
             transform: scale(1.02);
         }
+
         .forum-notice {
             background: #f39c1220;
             border-right: 4px solid #f39c12;
@@ -2566,6 +2569,7 @@
         body.dark-mode .forum-notice {
             background: #f39c1210;
         }
+
         .student-summary-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
@@ -2630,9 +2634,10 @@
             transform: scale(1.05);
         }
 
-        /* ===== ONLINE USERS BADGE ===== */
+        /* ===== ONLINE USERS BADGE - مخفي للطلاب ===== */
         .online-badge {
-            display: inline-flex;
+            display: none;
+            /* مخفي للطلاب - يظهر فقط في لوحة التحكم */
             align-items: center;
             gap: 4px;
             background: #2ecc7120;
@@ -2660,6 +2665,14 @@
                 transform: scale(0.8);
             }
         }
+
+        /* ===== ADMIN ONLY ===== */
+        .admin-only {
+            display: none;
+        }
+        body.is-admin .admin-only {
+            display: inline-flex;
+        }
     </style>
 </head>
 <body>
@@ -2680,7 +2693,8 @@
                 <span class="bell-icon" id="bellIcon">🔔</span>
                 <span class="badge-count" id="notifCount">0</span>
             </button>
-            <span class="online-badge" id="onlineBadge">
+            <!-- ===== ONLINE BADGE - ADMIN ONLY ===== -->
+            <span class="online-badge admin-only" id="onlineBadge">
                 <span class="dot"></span>
                 <span id="onlineCount">0</span>
             </span>
@@ -2949,9 +2963,110 @@
         </div>
     </div>
 
-    <div class="page" id="page-privacy">...</div>
-    <div class="page" id="page-dmca">...</div>
-    <div class="page" id="page-about">...</div>
+    <div class="page" id="page-privacy">
+        <div class="page-header">
+            <button class="back-btn" onclick="navigateTo('home')">← العودة للرئيسية</button>
+            <h2>🔒 سياسة الخصوصية</h2>
+        </div>
+        <div class="policy-content">
+            <p>مرحباً بك في منصة <strong>الثانوية الرسمية بلس</strong>. نطمئنك أن خصوصيتك وبياناتك في أمان، وهي أولوية قصوى بالنسبة لنا.</p>
+            <div class="highlight">
+                <p><strong>📌 ما البيانات التي نجمعها؟</strong><br>
+                نقوم بحفظ البريد الإلكتروني والاسم لتخصيص المحتوى المناسب لك. لا نقوم بتخزين أي كلمات مرور (يتم التعامل معها عبر Firebase).</p>
+            </div>
+            <div class="highlight">
+                <p><strong>📍 التتبع والموقع</strong><br>
+                لا نقوم بتتبع عنوان الـ IP الخاص بك أو الموقع الجغرافي. المنصة مجانية بالكامل وتهدف لمساعدة الطلاب.</p>
+            </div>
+            <div class="highlight">
+                <p><strong>📚 المحتوى وحقوق النشر</strong><br>
+                إذا كنت صاحب محتوى وترى أن هناك كتاباً أو ملفاً يضر بك أو بمؤسستك، يرجى التواصل معنا وسيتم حذف المحتوى خلال 24 ساعة.</p>
+            </div>
+            <div class="highlight">
+                <p><strong>🔐 أمان البيانات</strong><br>
+                نحن نستخدم أحدث تقنيات الأمان لحماية بياناتك. جميع البيانات مشفرة ويتم نقلها عبر قنوات آمنة.</p>
+            </div>
+            <div class="highlight">
+                <p><strong>📧 التواصل معنا</strong><br>
+                لأي استفسار حول سياسة الخصوصية، يمكنك التواصل معنا عبر تليجرام: <span class="contact-link" onclick="window.open('https://t.me/llTwasell', '_blank')">@llTwasell</span></p>
+            </div>
+            <div class="highlight">
+                <p><strong>👨‍👩‍👧‍👦 من نحن؟</strong><br>
+                نحن فريق <strong>الثانوية الرسمية بلس</strong>، نعمل على جعل التعليم سهلاً ومتاحاً للجميع، وتخفيف الأعباء عن كاهل أولياء الأمور.</p>
+            </div>
+            <p style="font-weight:700;color:#2c3e50;margin-top:12px;text-align:center;">نحن لا ننتهك حقوق أي شخص، هدفنا هو تقديم محتوى تعليمي مجاني وسهل الوصول.</p>
+        </div>
+    </div>
+
+    <div class="page" id="page-dmca">
+        <div class="page-header">
+            <button class="back-btn" onclick="navigateTo('home')">← العودة للرئيسية</button>
+            <h2>📜 سياسة الحذف</h2>
+        </div>
+        <div class="policy-content">
+            <p><strong>ما هي سياسة الحذف؟</strong><br>
+            تحترم منصة <strong>الثانوية الرسمية بلس</strong> حقوق الملكية الفكرية لجميع الأطراف. إذا كنت تعتقد أن أي محتوى على منصتنا ينتهك حقوق النشر الخاصة بك، يرجى إبلاغنا وسنتخذ الإجراءات اللازمة فوراً.</p>
+            <div class="highlight">
+                <p><strong>كيف تقدم طلب حذف؟</strong><br>
+                لطلب حذف محتوى، يرجى تزويدنا بالمعلومات التالية:</p>
+                <ul>
+                    <li><strong>بياناتك الشخصية:</strong> الاسم الكامل، البريد الإلكتروني، رقم الهاتف.</li>
+                    <li><strong>وصف المحتوى:</strong> رابط المحتوى الذي تطلب حذفه، ووصف دقيق له.</li>
+                    <li><strong>إثبات الملكية:</strong> دليل على أنك صاحب حقوق النشر أو وكيل معتمد.</li>
+                    <li><strong>توقيعك:</strong> توقيع إلكتروني أو يدوي يؤكد صحة المعلومات.</li>
+                </ul>
+            </div>
+            <div class="highlight">
+                <p><strong>متى يتم الحذف؟</strong><br>
+                يتم حذف المحتوى خلال <strong>24 ساعة</strong> من استلام الطلب الصحيح. سيتم إخطارك بعد الحذف مباشرة.</p>
+            </div>
+            <div class="highlight">
+                <p><strong>كيف تتواصل معنا؟</strong><br>
+                أرسل طلبك عبر تليجرام: <span class="contact-link" onclick="window.open('https://t.me/llTwasell', '_blank')">@llTwasell</span></p>
+            </div>
+            <div class="highlight">
+                <p><strong>ما هي حالات الحذف الأخرى؟</strong><br>
+                بالإضافة إلى حقوق النشر، يتم حذف أي محتوى:</p>
+                <ul>
+                    <li>يحتوي على إساءة أو تنمر</li>
+                    <li>يخالف القوانين المصرية</li>
+                    <li>يحتوي على معلومات خاطئة أو مضللة</li>
+                </ul>
+            </div>
+            <p style="font-weight:700;color:#2c3e50;margin-top:12px;text-align:center;">نلتزم بحماية حقوق جميع المستخدمين وصناع المحتوى.</p>
+        </div>
+    </div>
+
+    <div class="page" id="page-about">
+        <div class="page-header">
+            <button class="back-btn" onclick="navigateTo('home')">← العودة للرئيسية</button>
+            <h2>👨‍👩‍👧‍👦 من نحن</h2>
+        </div>
+        <div class="policy-content">
+            <p><strong>نحن مجموعة تطوعية شبابية</strong> بدأت الرحلة باسم <strong>"تانية ثانوي الرسمية"</strong> وكانت للصف الثاني الثانوي فقط.</p>
+            <p>ولكن نظراً للنجاح الكبير الذي حققناه، قمنا بالتوسع وأصبحت تعرف باسم <strong>"الثانوية الرسمية بلس"</strong> لتشمل جميع صفوف الثانوية العامة والبكالوريا.</p>
+            <div class="highlight">
+                <p><strong>📖 رؤيتنا</strong><br>
+                قمنا بإنشاء موقع مجاني لرفع الكتب والملخصات بجودة عالية جداً، لتسهيل التعليم والوصول للطلاب في كل مكان.</p>
+            </div>
+            <div class="highlight">
+                <p><strong>🎯 رسالتنا</strong><br>
+                تقديم محتوى تعليمي عالي الجودة، منظم وسهل الوصول، يساعد الطلاب على التفوق الدراسي ويخفف الأعباء عن أولياء الأمور.</p>
+            </div>
+            <div class="highlight">
+                <p><strong>💪 فريق العمل</strong><br>
+                فريقنا مكون من شباب متطوعين من مختلف التخصصات، يجمعهم حب التعليم والرغبة في مساعدة الآخرين.</p>
+            </div>
+            <div class="highlight">
+                <p><strong>🤝 كيف يمكنك المساعدة؟</strong><br>
+                - مشاركة ملخصاتك وكتبك مع زملائك<br>
+                - التواصل معنا لتقديم اقتراحاتك<br>
+                - مشاركة المنصة مع أصدقائك<br>
+                معاً نجعل التعليم أفضل للجميع.</p>
+            </div>
+            <p style="text-align:center;margin-top:12px;font-weight:700;">للتواصل معنا: <span class="contact-link" onclick="window.open('https://t.me/llTwasell', '_blank')">@llTwasell</span></p>
+        </div>
+    </div>
 
     <!-- ===== التذييل ===== -->
     <div class="footer">
@@ -2983,6 +3098,9 @@
                     <p>ستظهر هنا الإشعارات الجديدة</p>
                 </div>
             </div>
+            <button id="notifPermissionBtn" style="margin-top:12px;padding:8px;background:#3498db;color:white;border:none;border-radius:10px;width:100%;font-weight:700;cursor:pointer;font-family:'Tajawal',sans-serif;">
+                🔔 فعل إشعارات الموقع
+            </button>
         </div>
     </div>
 
@@ -2994,38 +3112,54 @@
                 <form id="uploadForm">
                     <label for="uploadName">👤 اسمك (سيظهر للمستخدمين)</label>
                     <input type="text" id="uploadName" placeholder="أدخل اسمك" required>
+
                     <label for="uploadUserType">📌 هل أنت طالب أم مدرس؟</label>
                     <select id="uploadUserType" required>
                         <option value="طالب">طالب</option>
                         <option value="مدرس">مدرس</option>
                     </select>
+
                     <label for="uploadTitle">📖 عنوان الملخص</label>
                     <input type="text" id="uploadTitle" placeholder="مثال: ملخص فيزياء - الوحدة الأولى" required>
+
                     <label for="uploadCategory">📂 التصنيف</label>
                     <select id="uploadCategory" required>
                         <option value="handwritten">ملخص خط اليد</option>
                         <option value="notes">مذكرات يدوية</option>
                         <option value="summary">تلخيص</option>
                     </select>
+
                     <label for="uploadGrade">📘 اختر الصف</label>
                     <select id="uploadGrade" required>
                         <option value="1">أولى بكالوريا</option>
                         <option value="2">تانية بكالوريا</option>
                         <option value="3">تالتة ثانوي</option>
                     </select>
+
                     <label for="uploadSubject">📖 المادة</label>
                     <input type="text" id="uploadSubject" placeholder="فيزياء / كيمياء / رياضيات" required>
+
                     <label for="uploadDesc">📝 وصف مختصر</label>
                     <textarea id="uploadDesc" rows="3" placeholder="اكتب وصفاً مختصراً للملخص..."></textarea>
+
                     <label for="uploadLink">🔗 رابط الملخص (Google Drive / Dropbox / إلخ)</label>
                     <input type="url" id="uploadLink" placeholder="https://drive.google.com/..." required>
+
                     <div class="checkbox-group">
                         <input type="checkbox" id="showName" checked>
                         <label for="showName">إظهار اسمي مع الملخص</label>
                     </div>
+
+                    <div class="upload-progress" id="uploadProgress">
+                        <div class="progress-bar" id="progressBar"></div>
+                    </div>
+
                     <button type="submit" class="submit-upload">🚀 إرسال الملخص (سيتم مراجعته)</button>
                 </form>
                 <div id="uploadStatus" style="margin-top:8px;font-weight:700;"></div>
+                <div class="upload-error-link" style="margin-top:8px;text-align:center;font-size:13px;color:#888;">
+                    ⚠️ واجهتك مشكلة في الرفع؟ <a href="#" onclick="window.open('https://t.me/llTwasell', '_blank')" style="color:#3498db;text-decoration:none;font-weight:700;">تواصل معنا على تليجرام</a>
+                </div>
             </div>
         </div>
     </div>
@@ -3038,10 +3172,13 @@
                 <form id="forumPostForm">
                     <label for="forumPostTitle">📌 عنوان المنشور</label>
                     <input type="text" id="forumPostTitle" placeholder="مثال: مشكلة في فهم الفيزياء" required>
+
                     <label for="forumPostContent">📝 المحتوى</label>
                     <textarea id="forumPostContent" rows="4" placeholder="اكتب سؤالك أو مشكلتك بالتفصيل..." required></textarea>
+
                     <label for="forumPostImage">🖼️ رابط صورة السؤال (اختياري)</label>
                     <input type="text" id="forumPostImage" placeholder="https://...jpg">
+
                     <button type="submit" class="submit-post">📢 نشر المنشور (سيتم اعتماده من الإدارة)</button>
                 </form>
             </div>
@@ -3090,7 +3227,7 @@
     <div class="toast" id="toast"></div>
 
     <!-- ============================================================ -->
-    <!-- JavaScript - Realtime Database Only -->
+    <!-- JavaScript - Realtime Database -->
     <!-- ============================================================ -->
     <script>
         // ============================================================
@@ -3103,7 +3240,7 @@
             storageBucket: "thanawya-official-plus.firebasestorage.app",
             messagingSenderId: "883728724353",
             appId: "1:883728724353:web:3f611e29d556d03c61b880",
-            databaseURL: "https://thanawya-official-plus-default-rtdb.firebaseio.com/"
+            databaseURL: "https://thanawya-official-plus-default-rtdb.europe-west1.firebasedatabase.app"
         };
 
         firebase.initializeApp(firebaseConfig);
@@ -3128,7 +3265,25 @@
         }
 
         // ============================================================
-        // 3. دوال Realtime Database - CRUD
+        // 3. علامة التوثيق
+        // ============================================================
+        const VERIFIED_BADGE_SVG = `
+            <span class="verified-badge" title="حساب موثق">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#1D9BF0">
+                    <path d="M22.25 12c0-1.06-.82-1.95-1.88-2.07.61-.88.54-2.08-.25-2.87-.79-.79-1.99-.86-2.87-.25C17.13 5.82 16.24 5 15.18 5c-.52 0-1 .18-1.39.48A2.07 2.07 0 0 0 12 4c-.69 0-1.32.34-1.7.86A2.07 2.07 0 0 0 8.82 5c-1.06 0-1.95.82-2.07 1.88-.88-.61-2.08-.54-2.87.25-.79.79-.86 1.99-.25 2.87C2.82 10.05 2 10.94 2 12s.82 1.95 1.88 2.07c-.61.88-.54 2.08.25 2.87.79.79 1.99.86 2.87.25.12 1.06 1.01 1.88 2.07 1.88.52 0 1-.18 1.39-.48.38.52 1.01.86 1.7.86.69 0 1.32-.34 1.7-.86.39.3.87.48 1.39.48 1.06 0 1.95-.82 2.07-1.88.88.61 2.08.54 2.87-.25.79-.79.86-1.99.25-2.87A2.08 2.08 0 0 0 22.25 12z"/>
+                    <path fill="#FFFFFF" d="M10.3 15.7l-2.5-2.5 1.06-1.06 1.44 1.44 4.9-4.9 1.06 1.06z"/>
+                </svg>
+            </span>
+        `;
+
+        const OFFICIAL_TEAM = {
+            name: 'فريق الثانوية الرسمية بلس',
+            logo: 'https://cdn.phototourl.com/free/2026-07-21-1dd4b984-ed08-4a40-aead-9ef086ebbd45.jpg',
+            verified: true
+        };
+
+        // ============================================================
+        // 4. دوال Realtime Database - CRUD
         // ============================================================
         function getAllData(path) {
             return new Promise((resolve, reject) => {
@@ -3181,19 +3336,10 @@
         }
 
         // ============================================================
-        // 4. دوال الكتب
+        // 5. دوال الكتب
         // ============================================================
         function getAllBooks() {
             return getAllData('books');
-        }
-
-        async function getBooksByGradeAndCategory(grade, category) {
-            const allBooks = await getAllBooks();
-            return allBooks.filter(book =>
-                book.grade === grade &&
-                book.category === category &&
-                book.status === 'approved'
-            );
         }
 
         function getBook(bookId) {
@@ -3233,7 +3379,7 @@
         }
 
         // ============================================================
-        // 5. دوال المستخدمين
+        // 6. دوال المستخدمين
         // ============================================================
         function getAllUsers() {
             return getAllData('users');
@@ -3276,7 +3422,7 @@
         }
 
         // ============================================================
-        // 6. دوال الملخصات
+        // 7. دوال الملخصات
         // ============================================================
         function getAllSummaries() {
             return getAllData('handwritten_notes');
@@ -3316,7 +3462,7 @@
         }
 
         // ============================================================
-        // 7. دوال المنتدى
+        // 8. دوال المنتدى
         // ============================================================
         function getAllForumPosts() {
             return getAllData('forum_posts');
@@ -3394,7 +3540,7 @@
         }
 
         // ============================================================
-        // 8. دوال منشورات الفريق
+        // 9. دوال منشورات الفريق
         // ============================================================
         function getAllTeamPosts() {
             return getAllData('team_posts');
@@ -3461,9 +3607,10 @@
         }
 
         // ============================================================
-        // 9. دوال المتصلين
+        // 10. دوال المتصلين - ADMIN ONLY
         // ============================================================
         let onlineUsersCount = 0;
+        let isAdminUser = false;
 
         function updateOnlineStatus(user) {
             if (!user) return;
@@ -3484,6 +3631,13 @@
 
         function startOnlineUsersListener() {
             if (onlineUsersListener) return;
+
+            // ✅ فقط لو كان المستخدم أدمن
+            if (!isAdminUser) {
+                document.getElementById('onlineBadge').style.display = 'none';
+                return;
+            }
+
             const onlineRef = db.ref('online_users');
             onlineUsersListener = onlineRef.on('value', (snapshot) => {
                 const data = snapshot.val();
@@ -3512,7 +3666,7 @@
         }
 
         // ============================================================
-        // 10. دوال الإعلانات
+        // 11. دوال الإعلانات
         // ============================================================
         function getAllAds() {
             return getAllData('ads');
@@ -3536,7 +3690,7 @@
         }
 
         // ============================================================
-        // 11. دوال الإشعارات
+        // 12. دوال الإشعارات
         // ============================================================
         function getUserNotifications(userId) {
             return new Promise((resolve, reject) => {
@@ -3571,7 +3725,7 @@
         }
 
         // ============================================================
-        // 12. دوال المفضلات
+        // 13. دوال المفضلات
         // ============================================================
         function getUserFavorites(userId) {
             return new Promise((resolve, reject) => {
@@ -3599,7 +3753,7 @@
         }
 
         // ============================================================
-        // 13. دوال البلاغات
+        // 14. دوال البلاغات
         // ============================================================
         function getAllReports() {
             return getAllData('reports');
@@ -3621,7 +3775,7 @@
         }
 
         // ============================================================
-        // 14. دوال قنوات يوتيوب
+        // 15. دوال قنوات يوتيوب
         // ============================================================
         function getAllYoutubeChannels() {
             return getAllData('youtube_channels');
@@ -3640,45 +3794,20 @@
         }
 
         // ============================================================
-        // 15. دوال الإعدادات
-        // ============================================================
-        function getSettings() {
-            return new Promise((resolve, reject) => {
-                db.ref('settings').once('value', (snapshot) => {
-                    resolve(snapshot.val());
-                }, reject);
-            });
-        }
-
-        function updateSettings(settingsData) {
-            return db.ref('settings').update(settingsData);
-        }
-
-        // ============================================================
-        // 16. دوال سجل العمليات
-        // ============================================================
-        function logActivity(action, performedBy, details) {
-            return addData('audit_logs', {
-                action: action,
-                performedBy: performedBy,
-                details: details || {},
-                timestamp: firebase.database.ServerValue.TIMESTAMP
-            });
-        }
-
-        function getAuditLogs() {
-            return getAllData('audit_logs');
-        }
-
-        // ============================================================
-        // 17. نظام المصادقة
+        // 16. نظام المصادقة
         // ============================================================
         const userSection = document.getElementById('userSection');
         let currentUserData = null;
 
+        async function checkIsAdmin(userId) {
+            try {
+                const data = await getUser(userId);
+                return data?.role === 'admin' || data?.role === 'superAdmin';
+            } catch (err) { return false; }
+        }
+
         function updateUIForUser(user) {
             if (user) {
-                // تسجيل المستخدم
                 registerUser(user.uid, {
                     name: user.displayName || user.email || 'مستخدم',
                     email: user.email || '',
@@ -3688,8 +3817,22 @@
                     year: '2027'
                 });
 
-                getUser(user.uid).then(data => {
+                getUser(user.uid).then(async data => {
                     currentUserData = data;
+
+                    // ✅ التحقق من صلاحيات الأدمن
+                    isAdminUser = await checkIsAdmin(user.uid);
+
+                    if (isAdminUser) {
+                        document.body.classList.add('is-admin');
+                        document.getElementById('onlineBadge').style.display = 'inline-flex';
+                        startOnlineUsersListener();
+                    } else {
+                        document.body.classList.remove('is-admin');
+                        document.getElementById('onlineBadge').style.display = 'none';
+                        stopOnlineUsersListener();
+                    }
+
                     if (data?.isBanned) {
                         userSection.innerHTML =
                             `<button class="btn-login-header" onclick="auth.signOut();location.reload();">🚪 تسجيل الخروج</button>`;
@@ -3706,14 +3849,15 @@
                         <button class="btn-logout-header" onclick="auth.signOut();location.reload();">🚪 خروج</button>
                     `;
 
-                    // تحديث حالة المتصلين
                     updateOnlineStatus(user);
-                    startOnlineUsersListener();
                     loadAllData();
                 });
             } else {
                 userSection.innerHTML =
                     `<button class="btn-login-header" onclick="window.location.href='login.html'">🔐 تسجيل الدخول</button>`;
+                document.body.classList.remove('is-admin');
+                document.getElementById('onlineBadge').style.display = 'none';
+                stopOnlineUsersListener();
             }
         }
 
@@ -3722,7 +3866,7 @@
         });
 
         // ============================================================
-        // 18. تحميل جميع البيانات (Caching)
+        // 17. تحميل جميع البيانات (Caching)
         // ============================================================
         let allBooksCache = [];
         let allSummariesCache = [];
@@ -3745,7 +3889,6 @@
                 if (auth.currentUser) {
                     allFavoritesCache = await getUserFavorites(auth.currentUser.uid);
                 }
-                updateDashboard();
                 updateBadges();
             } catch (err) {
                 console.error('❌ خطأ في تحميل البيانات:', err);
@@ -3753,7 +3896,7 @@
         }
 
         // ============================================================
-        // 19. عرض الصفوف
+        // 18. عرض الصفوف
         // ============================================================
         function showGrade(gradeId) {
             navigateTo('grade');
@@ -3809,7 +3952,7 @@
         }
 
         // ============================================================
-        // 20. تحميل الكتب
+        // 19. تحميل الكتب
         // ============================================================
         async function loadBooksForSection(gradeId, sectionId) {
             const container = document.getElementById(`books-${gradeId}-${sectionId}`);
@@ -3858,7 +4001,7 @@
         }
 
         // ============================================================
-        // 21. تحميل ملخصات الطلاب
+        // 20. تحميل ملخصات الطلاب
         // ============================================================
         async function loadStudentSummaries(gradeId, container) {
             if (!container) return;
@@ -3908,7 +4051,7 @@
         };
 
         // ============================================================
-        // 22. تفاصيل الكتاب
+        // 21. تفاصيل الكتاب
         // ============================================================
         async function showBookDetail(bookId) {
             navigateTo('bookDetail');
@@ -3951,7 +4094,7 @@
         }
 
         // ============================================================
-        // 23. تحميل الكتاب
+        // 22. تحميل الكتاب
         // ============================================================
         window.downloadBook = async function(bookId) {
             if (!auth.currentUser) {
@@ -3970,7 +4113,7 @@
         };
 
         // ============================================================
-        // 24. المفضلة
+        // 23. المفضلة
         // ============================================================
         window.toggleFav = async function(bookId, btn) {
             if (!auth.currentUser) {
@@ -4008,7 +4151,7 @@
         };
 
         // ============================================================
-        // 25. المنتدى
+        // 24. المنتدى
         // ============================================================
         async function loadForumPosts() {
             const container = document.getElementById('forumPosts');
@@ -4119,7 +4262,7 @@
         }
 
         // ============================================================
-        // 26. الإعجاب بمنشور المنتدى
+        // 25. الإعجابات
         // ============================================================
         window.likeForumPost = async function(postId, btn) {
             if (!auth.currentUser) {
@@ -4144,9 +4287,6 @@
             }
         };
 
-        // ============================================================
-        // 27. الإعجاب بتعليق المنتدى
-        // ============================================================
         window.likeForumComment = async function(postId, commentIndex, btn) {
             if (!auth.currentUser) {
                 alert('🔐 يرجى تسجيل الدخول أولاً');
@@ -4171,7 +4311,7 @@
         };
 
         // ============================================================
-        // 28. منشورات الفريق
+        // 26. منشورات الفريق
         // ============================================================
         async function loadTeamPosts() {
             const container = document.getElementById('teamPostsContainer');
@@ -4286,7 +4426,7 @@
         }
 
         // ============================================================
-        // 29. الإعجاب بمنشور الفريق
+        // 27. الإعجابات على منشورات الفريق
         // ============================================================
         window.likeTeamPost = async function(postId, btn) {
             if (!auth.currentUser) {
@@ -4309,9 +4449,6 @@
             }
         };
 
-        // ============================================================
-        // 30. الإعجاب بتعليق منشور الفريق
-        // ============================================================
         window.likeTeamComment = async function(postId, commentIndex, btn) {
             if (!auth.currentUser) {
                 alert('🔐 يرجى تسجيل الدخول أولاً');
@@ -4336,7 +4473,7 @@
         };
 
         // ============================================================
-        // 31. إدارة الصفحات
+        // 28. إدارة الصفحات
         // ============================================================
         function navigateTo(pageId) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -4366,7 +4503,7 @@
         }
 
         // ============================================================
-        // 32. الملف الشخصي
+        // 29. الملف الشخصي
         // ============================================================
         async function loadProfile() {
             const container = document.getElementById('profileContainer');
@@ -4408,7 +4545,7 @@
         }
 
         // ============================================================
-        // 33. المفضلة
+        // 30. المفضلة
         // ============================================================
         async function loadFavorites() {
             const container = document.getElementById('favoritesContainer');
@@ -4452,7 +4589,7 @@
         }
 
         // ============================================================
-        // 34. قنوات يوتيوب
+        // 31. قنوات يوتيوب
         // ============================================================
         async function loadYoutubeChannels() {
             const container = document.getElementById('youtubeContainer');
@@ -4489,7 +4626,7 @@
         }
 
         // ============================================================
-        // 35. تفاصيل قناة يوتيوب
+        // 32. تفاصيل قناة يوتيوب
         // ============================================================
         async function showYoutubeDetail(channelId) {
             navigateTo('youtubeDetail');
@@ -4528,7 +4665,7 @@
         }
 
         // ============================================================
-        // 36. البحث
+        // 33. البحث
         // ============================================================
         document.addEventListener('DOMContentLoaded', function() {
             const searchInput = document.getElementById('globalSearch');
@@ -4575,7 +4712,7 @@
         });
 
         // ============================================================
-        // 37. الإشعارات
+        // 34. الإشعارات
         // ============================================================
         async function loadNotifications() {
             if (!auth.currentUser) return;
@@ -4614,12 +4751,8 @@
             document.getElementById('notifModal').classList.remove('active');
         });
 
-        notifModal.addEventListener('click', (e) => {
-            if (e.target === notifModal) notifModal.classList.remove('active');
-        });
-
         // ============================================================
-        // 38. منشور جديد في المنتدى
+        // 35. منشور جديد في المنتدى
         // ============================================================
         document.getElementById('newForumPostBtn').addEventListener('click', () => {
             if (!auth.currentUser) {
@@ -4659,7 +4792,7 @@
         });
 
         // ============================================================
-        // 39. رفع الملخصات
+        // 36. رفع الملخصات
         // ============================================================
         document.getElementById('uploadBtn').addEventListener('click', () => {
             if (!auth.currentUser) {
@@ -4672,10 +4805,6 @@
 
         document.getElementById('closeUploadModal').addEventListener('click', () => {
             document.getElementById('uploadModal').classList.remove('active');
-        });
-
-        uploadModal.addEventListener('click', (e) => {
-            if (e.target === uploadModal) uploadModal.classList.remove('active');
         });
 
         document.getElementById('uploadForm').addEventListener('submit', async (e) => {
@@ -4722,7 +4851,7 @@
         });
 
         // ============================================================
-        // 40. الإعلانات
+        // 37. الإعلانات
         // ============================================================
         async function checkAdPopup() {
             try {
@@ -4766,7 +4895,7 @@
         }
 
         // ============================================================
-        // 41. Popup
+        // 38. Popup و Toast
         // ============================================================
         function showPopup(icon, title, desc) {
             const popup = document.getElementById('popupMessage');
@@ -4781,9 +4910,6 @@
             document.getElementById('popupMessage').classList.remove('active');
         }
 
-        // ============================================================
-        // 42. Toast
-        // ============================================================
         function showToast(message, type = 'success') {
             const toast = document.getElementById('toast');
             toast.textContent = message;
@@ -4793,21 +4919,14 @@
         }
 
         // ============================================================
-        // 43. Update Badges
+        // 39. Update Badges
         // ============================================================
         function updateBadges() {
             // يمكن إضافة تحديثات للشارات هنا
         }
 
         // ============================================================
-        // 44. Update Dashboard
-        // ============================================================
-        function updateDashboard() {
-            // يمكن إضافة تحديثات للوحة التحكم هنا
-        }
-
-        // ============================================================
-        // 45. Lightbox
+        // 40. Lightbox
         // ============================================================
         let lightboxImages = [];
         let currentLightboxIndex = 0;
@@ -4874,7 +4993,7 @@
         });
 
         // ============================================================
-        // 46. تثبيت التطبيق
+        // 41. تثبيت التطبيق
         // ============================================================
         let deferredPrompt;
         document.getElementById('installAppBtn').addEventListener('click', async () => {
@@ -4898,7 +5017,7 @@
         });
 
         // ============================================================
-        // 47. مشاركة المنصة
+        // 42. مشاركة المنصة
         // ============================================================
         document.getElementById('shareFooter').addEventListener('click', (e) => {
             e.preventDefault();
@@ -4916,7 +5035,7 @@
         });
 
         // ============================================================
-        // 48. الوضع الليلي
+        // 43. الوضع الليلي
         // ============================================================
         const darkToggle = document.getElementById('darkModeToggle');
         if (localStorage.getItem('darkMode') === 'enabled') {
@@ -4935,19 +5054,88 @@
         });
 
         // ============================================================
-        // 49. علامة التوثيق
+        // 44. المؤقت
         // ============================================================
-        const VERIFIED_BADGE_SVG = `
-            <span class="verified-badge" title="حساب موثق">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#1D9BF0">
-                    <path d="M22.25 12c0-1.06-.82-1.95-1.88-2.07.61-.88.54-2.08-.25-2.87-.79-.79-1.99-.86-2.87-.25C17.13 5.82 16.24 5 15.18 5c-.52 0-1 .18-1.39.48A2.07 2.07 0 0 0 12 4c-.69 0-1.32.34-1.7.86A2.07 2.07 0 0 0 8.82 5c-1.06 0-1.95.82-2.07 1.88-.88-.61-2.08-.54-2.87.25-.79.79-.86 1.99-.25 2.87C2.82 10.05 2 10.94 2 12s.82 1.95 1.88 2.07c-.61.88-.54 2.08.25 2.87.79.79 1.99.86 2.87.25.12 1.06 1.01 1.88 2.07 1.88.52 0 1-.18 1.39-.48.38.52 1.01.86 1.7.86.69 0 1.32-.34 1.7-.86.39.3.87.48 1.39.48 1.06 0 1.95-.82 2.07-1.88.88.61 2.08.54 2.87-.25.79-.79.86-1.99.25-2.87A2.08 2.08 0 0 0 22.25 12z"/>
-                    <path fill="#FFFFFF" d="M10.3 15.7l-2.5-2.5 1.06-1.06 1.44 1.44 4.9-4.9 1.06 1.06z"/>
-                </svg>
-            </span>
-        `;
+        const timerDisplay = document.getElementById('timerDisplay');
+        const timerStatus = document.getElementById('timerStatus');
+        let timerSeconds = 0,
+            timerRunning = false,
+            timerPaused = false;
+
+        function updateTimerDisplay() {
+            const mins = Math.floor(timerSeconds / 60);
+            const secs = timerSeconds % 60;
+            timerDisplay.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+        }
+
+        function resetTimer() {
+            if (timerInterval) { clearInterval(timerInterval);
+                timerInterval = null; }
+            timerRunning = false;
+            timerPaused = false;
+            timerSeconds = 0;
+            updateTimerDisplay();
+            timerStatus.textContent = '⏸️ جاهز';
+            timerStatus.style.color = '#3498db';
+        }
+
+        function startTimer() {
+            if (timerRunning) return;
+            if (timerSeconds <= 0) { alert('⏱️ يرجى ضبط وقت أولاً'); return; }
+            timerRunning = true;
+            timerPaused = false;
+            timerStatus.textContent = '▶️ جاري المذاكرة...';
+            timerStatus.style.color = '#2ecc71';
+            if (timerInterval) clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                if (timerPaused) return;
+                timerSeconds--;
+                updateTimerDisplay();
+                if (timerSeconds <= 0) {
+                    clearInterval(timerInterval);
+                    timerInterval = null;
+                    timerRunning = false;
+                    timerStatus.textContent = '⏰ انتهى الوقت! 🎉';
+                    timerStatus.style.color = '#e74c3c';
+                    try { new Audio('https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3').play(); } catch (
+                    e) {}
+                    alert('⏰ انتهى وقت المذاكرة! أحسنت 👏');
+                }
+            }, 1000);
+        }
+
+        document.getElementById('timerStart').addEventListener('click', startTimer);
+        document.getElementById('timerPause').addEventListener('click', () => {
+            if (!timerRunning) return;
+            timerPaused = !timerPaused;
+            timerStatus.textContent = timerPaused ? '⏸️ متوقف مؤقتاً' : '▶️ جاري المذاكرة...';
+            timerStatus.style.color = timerPaused ? '#f39c12' : '#2ecc71';
+        });
+        document.getElementById('timerReset').addEventListener('click', resetTimer);
+
+        document.querySelectorAll('.timer-presets button').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const mins = parseInt(this.dataset.minutes);
+                resetTimer();
+                timerSeconds = mins * 60;
+                updateTimerDisplay();
+                timerStatus.textContent = `⏱️ ${mins} دقيقة`;
+                timerStatus.style.color = '#3498db';
+            });
+        });
+
+        document.getElementById('setCustomTimer').addEventListener('click', () => {
+            const mins = parseInt(document.getElementById('customMinutes').value);
+            if (!mins || mins < 1) { alert('❌ يرجى إدخال عدد دقائق صحيح'); return; }
+            resetTimer();
+            timerSeconds = mins * 60;
+            updateTimerDisplay();
+            timerStatus.textContent = `⏱️ ${mins} دقيقة (مخصص)`;
+            timerStatus.style.color = '#3498db';
+        });
 
         // ============================================================
-        // 50. بدء التشغيل
+        // 45. بدء التشغيل
         // ============================================================
         if (window.history && window.history.pushState) {
             window.history.pushState(null, null, window.location.href);
@@ -4956,7 +5144,7 @@
         loadAllData();
         loadNotifications();
 
-        // تحديث المتصلين كل 30 ثانية
+        // تحديث المتصلين كل 30 ثانية (يشتغل فقط لو أدمن)
         setInterval(() => {
             if (auth.currentUser) {
                 updateOnlineStatus(auth.currentUser);
@@ -4964,6 +5152,7 @@
         }, 30000);
 
         console.log('✅ المنصة تعمل على Realtime Database - مجاني بالكامل 🎉');
+        console.log('👑 المتصلون يظهرون فقط للأدمن');
     </script>
 
 </body>
