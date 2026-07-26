@@ -6,27 +6,24 @@
     <meta name="theme-color" content="#3498db" />
     <title>الثانوية الرسمية بلس</title>
 
-    <!-- ===== Manifest ===== -->
     <link rel="manifest" href="./manifest.json" />
-
-    <!-- ===== Apple Touch Icon ===== -->
     <link rel="apple-touch-icon" href="./icon-512.jpg" />
 
     <!-- ============================================================
-    🔒 حماية متوازنة - تحمي من الهكرز بدون تعطيل المنصة
+    🛡️ حماية متطورة ضد الحلقات اللانهائية - تمنع Maximum call stack
     ============================================================ -->
     <script>
         // ============================================================
-        // 🛡️ حماية متوازنة
+        // 🛡️ حماية فورية ضد الحلقات اللانهائية
         // ============================================================
         (function() {
             'use strict';
-            
+
             // ✅ منع F12 و Ctrl+Shift+I و Ctrl+U
             document.addEventListener('keydown', function(e) {
-                if (e.key === 'F12' || 
-                    (e.ctrlKey && e.shiftKey && ['I','J','C'].includes(e.key)) ||
-                    (e.ctrlKey && ['U','S'].includes(e.key))) {
+                if (e.key === 'F12' ||
+                    (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(e.key)) ||
+                    (e.ctrlKey && ['U', 'S'].includes(e.key))) {
                     e.preventDefault();
                     return false;
                 }
@@ -40,8 +37,8 @@
 
             // ✅ منع تحديد النص (مع السماح للحقول)
             document.addEventListener('selectstart', function(e) {
-                if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA' && 
-                    !e.target.classList.contains('search-input') && 
+                if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA' &&
+                    !e.target.classList.contains('search-input') &&
                     !e.target.classList.contains('section-search')) {
                     e.preventDefault();
                     return false;
@@ -56,18 +53,59 @@
                 }
             });
 
-            // ✅ تعطيل Console في الإنتاج (مع ترك الأخطاء المهمة)
+            // ✅ منع الحلقات اللانهائية في الـ Events
+            let _eventCounter = {};
+            let _lastClickTime = 0;
+
+            document.addEventListener('click', function(e) {
+                const now = Date.now();
+                if (now - _lastClickTime < 50) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    return false;
+                }
+                _lastClickTime = now;
+
+                const target = e.target;
+                const key = (target.id || target.className || 'unknown').toString();
+                _eventCounter[key] = (_eventCounter[key] || 0) + 1;
+
+                setTimeout(() => {
+                    _eventCounter[key] = 0;
+                }, 1000);
+
+                if (_eventCounter[key] > 8) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    _eventCounter[key] = 0;
+                    return false;
+                }
+            }, true);
+
+            // ✅ مراقبة setInterval - منع الفواصل الصغيرة جداً
+            const _setInterval = window.setInterval;
+            window.setInterval = function(fn, delay) {
+                if (delay < 100) {
+                    console.warn('⚠️ تم تعديل setInterval من ' + delay + 'ms إلى 100ms');
+                    delay = 100;
+                }
+                return _setInterval(fn, delay);
+            };
+
+            // ✅ تعطيل Console في الإنتاج
             if (window.location.hostname !== 'localhost' && !window.location.hostname.includes('127.0.0.1')) {
                 const noop = function() {};
                 const originalError = console.error;
-                
-                ['log','warn','info','debug','trace','dir','dirxml','group','groupEnd','time','timeEnd','count','assert','table','clear'].forEach(function(method) {
+
+                ['log', 'warn', 'info', 'debug', 'trace', 'dir', 'dirxml', 'group', 'groupEnd', 'time', 'timeEnd',
+                    'count', 'assert', 'table', 'clear'
+                ].forEach(function(method) {
                     if (console[method]) console[method] = noop;
                 });
-                
+
                 console.error = function(...args) {
                     if (args[0] && typeof args[0] === 'string') {
-                        if (args[0].includes('FIREBASE') || 
+                        if (args[0].includes('FIREBASE') ||
                             args[0].includes('permission_denied') ||
                             args[0].includes('@firebase')) {
                             return;
@@ -76,6 +114,23 @@
                     originalError.apply(console, ['⚠️ حدث خطأ في المنصة']);
                 };
             }
+
+            // ✅ منع الحلقات اللانهائية في الدوال
+            window._callStack = {};
+            window._safeCall = function(name, fn) {
+                if (window._callStack[name]) {
+                    console.warn('⚠️ تم منع تكرار استدعاء: ' + name);
+                    return null;
+                }
+                window._callStack[name] = true;
+                try {
+                    return fn();
+                } finally {
+                    setTimeout(function() {
+                        window._callStack[name] = false;
+                    }, 200);
+                }
+            };
         })();
     </script>
 
@@ -105,7 +160,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet" />
 
     <style>
-        /* ===== كل الأنماط السابقة موجودة ===== */
+        /* ===== كل الأنماط موجودة ===== */
         * {
             margin: 0;
             padding: 0;
@@ -2697,7 +2752,6 @@
             transform: scale(1.05);
         }
 
-        /* ===== ONLINE USERS BADGE - مخفي للطلاب ===== */
         .online-badge {
             display: none;
             align-items: center;
@@ -2916,7 +2970,7 @@
         </div>
     </div>
 
-    <!-- ===== باقي الصفحات (نفسها) ===== -->
+    <!-- ===== باقي الصفحات ===== -->
     <div class="page" id="page-grade">
         <div class="page-header">
             <button class="back-btn" onclick="navigateTo('home')">← العودة للرئيسية</button>
@@ -3158,7 +3212,7 @@
     <div class="toast" id="toast"></div>
 
     <!-- ============================================================ -->
-    <!-- JavaScript (كامل بنفسه) -->
+    <!-- JavaScript - نسخة آمنة 100% -->
     <!-- ============================================================ -->
     <script>
         // ============================================================
@@ -3168,6 +3222,27 @@
             console.log = function() {};
             console.warn = function() {};
             console.info = function() {};
+        }
+
+        // ============================================================
+        // ✅ منع الحلقات اللانهائية - حماية إضافية
+        // ============================================================
+        let _isNavigating = false;
+        let _loadingLocks = {};
+
+        function safeLoadData(key, fn) {
+            if (_loadingLocks[key]) {
+                console.warn('⚠️ تم منع تحميل متكرر: ' + key);
+                return;
+            }
+            _loadingLocks[key] = true;
+            try {
+                fn();
+            } finally {
+                setTimeout(function() {
+                    _loadingLocks[key] = false;
+                }, 500);
+            }
         }
 
         // ============================================================
@@ -3676,24 +3751,28 @@
         });
 
         // ============================================================
-        // 17. تحميل جميع البيانات
+        // 17. تحميل جميع البيانات (آمن)
         // ============================================================
         let allBooksCache = [];
         let allSummariesCache = [];
         let allForumPostsCache = [];
         let allTeamPostsCache = [];
         let allFavoritesCache = [];
+        let allYoutubeCache = [];
 
         async function loadAllData() {
-            try {
-                allBooksCache = await getAllBooks();
-                allSummariesCache = await getAllSummaries();
-                allForumPostsCache = await getAllForumPosts();
-                allTeamPostsCache = await getAllTeamPosts();
-                if (auth.currentUser) {
-                    allFavoritesCache = await getUserFavorites(auth.currentUser.uid);
-                }
-            } catch (err) {}
+            safeLoadData('loadAllData', async function() {
+                try {
+                    allBooksCache = await getAllBooks();
+                    allSummariesCache = await getAllSummaries();
+                    allForumPostsCache = await getAllForumPosts();
+                    allTeamPostsCache = await getAllTeamPosts();
+                    allYoutubeCache = await getAllYoutubeChannels();
+                    if (auth.currentUser) {
+                        allFavoritesCache = await getUserFavorites(auth.currentUser.uid);
+                    }
+                } catch (err) {}
+            });
         }
 
         // ============================================================
@@ -3753,7 +3832,7 @@
         }
 
         // ============================================================
-        // 19. تحميل الكتب
+        // 19. تحميل الكتب (آمن)
         // ============================================================
         async function loadBooksForSection(gradeId, sectionId) {
             const container = document.getElementById(`books-${gradeId}-${sectionId}`);
@@ -3952,114 +4031,119 @@
         };
 
         // ============================================================
-        // 24. المنتدى
+        // 24. المنتدى (آمن)
         // ============================================================
         async function loadForumPosts() {
-            const container = document.getElementById('forumPosts');
-            container.innerHTML = '<div class="loading-container"><div class="spinner"></div></div>';
+            safeLoadData('loadForumPosts', async function() {
+                const container = document.getElementById('forumPosts');
+                container.innerHTML = '<div class="loading-container"><div class="spinner"></div></div>';
 
-            try {
-                const posts = await getApprovedForumPosts();
+                try {
+                    const posts = await getApprovedForumPosts();
 
-                if (posts.length === 0) {
-                    container.innerHTML =
-                        `<div class="empty-state"><div class="icon">💬</div><h3>لا توجد منشورات</h3><p>كن أول من يسأل!</p></div>`;
-                    return;
-                }
-
-                container.innerHTML = '';
-                for (const data of posts) {
-                    const post = document.createElement('div');
-                    post.className = 'forum-post';
-
-                    let userLiked = false;
-                    if (auth.currentUser && data.likesData) {
-                        userLiked = data.likesData[auth.currentUser.uid] || false;
+                    if (posts.length === 0) {
+                        container.innerHTML =
+                            `<div class="empty-state"><div class="icon">💬</div><h3>لا توجد منشورات</h3><p>كن أول من يسأل!</p></div>`;
+                        return;
                     }
 
-                    let commentsHtml = '';
-                    let commentCounter = 0;
-                    if (data.comments) {
-                        const approvedComments = data.comments.filter(c => c.status === 'approved');
-                        approvedComments.forEach(comment => {
-                            const initial = comment.user ? comment.user.charAt(0).toUpperCase() : '?';
-                            const commentIdx = commentCounter;
-                            let userCommentLiked = false;
-                            if (auth.currentUser && comment.likesData) {
-                                userCommentLiked = comment.likesData[auth.currentUser.uid] || false;
-                            }
+                    container.innerHTML = '';
+                    for (const data of posts) {
+                        const post = document.createElement('div');
+                        post.className = 'forum-post';
 
-                            const commentDiv = document.createElement('div');
-                            commentDiv.className = 'comment';
-                            commentDiv.innerHTML = `
-                                <div class="avatar">${safeText(initial)}</div>
-                                <div class="comment-text">
-                                    <div class="name">${safeText(comment.user || 'مجهول')}</div>
-                                    <div>${safeText(comment.text || '')}</div>
-                                    <div style="margin-top:4px;display:flex;gap:8px;align-items:center;">
-                                        <button onclick="likeForumComment('${data.id}', ${commentIdx}, this)" style="background:none;border:none;cursor:pointer;font-size:12px;color:${userCommentLiked ? '#e74c3c' : '#555'};font-family:'Tajawal',sans-serif;display:flex;align-items:center;gap:4px;">
-                                            ${userCommentLiked ? '❤️' : '🤍'} <span>${comment.likes || 0}</span>
-                                        </button>
+                        let userLiked = false;
+                        if (auth.currentUser && data.likesData) {
+                            userLiked = data.likesData[auth.currentUser.uid] || false;
+                        }
+
+                        let commentsHtml = '';
+                        let commentCounter = 0;
+                        if (data.comments) {
+                            const approvedComments = data.comments.filter(c => c.status === 'approved');
+                            approvedComments.forEach(comment => {
+                                const initial = comment.user ? comment.user.charAt(0).toUpperCase() :
+                                '?';
+                                const commentIdx = commentCounter;
+                                let userCommentLiked = false;
+                                if (auth.currentUser && comment.likesData) {
+                                    userCommentLiked = comment.likesData[auth.currentUser.uid] ||
+                                    false;
+                                }
+
+                                const commentDiv = document.createElement('div');
+                                commentDiv.className = 'comment';
+                                commentDiv.innerHTML = `
+                                    <div class="avatar">${safeText(initial)}</div>
+                                    <div class="comment-text">
+                                        <div class="name">${safeText(comment.user || 'مجهول')}</div>
+                                        <div>${safeText(comment.text || '')}</div>
+                                        <div style="margin-top:4px;display:flex;gap:8px;align-items:center;">
+                                            <button onclick="likeForumComment('${data.id}', ${commentIdx}, this)" style="background:none;border:none;cursor:pointer;font-size:12px;color:${userCommentLiked ? '#e74c3c' : '#555'};font-family:'Tajawal',sans-serif;display:flex;align-items:center;gap:4px;">
+                                                ${userCommentLiked ? '❤️' : '🤍'} <span>${comment.likes || 0}</span>
+                                            </button>
+                                        </div>
                                     </div>
+                                `;
+                                commentsHtml += commentDiv.outerHTML;
+                                commentCounter++;
+                            });
+                        }
+
+                        const likeCount = data.likesCount || 0;
+
+                        post.innerHTML = `
+                            <div class="post-header">
+                                <span class="user">👤 ${safeText(data.author || 'طالب')}</span>
+                                <span class="date">${data.createdAt ? new Date(data.createdAt).toLocaleString('ar') : ''}</span>
+                            </div>
+                            <h4 style="color:#2ecc71;">${safeText(data.title || 'سؤال')}</h4>
+                            <div class="post-content">${safeText(data.content || '')}</div>
+                            ${data.image ? `<img src="${safeText(data.image)}" class="post-image" loading="lazy">` : ''}
+                            <div class="post-actions">
+                                <button onclick="likeForumPost('${data.id}', this)" ${userLiked ? 'style="color:#e74c3c;"' : ''}>
+                                    ${userLiked ? '❤️' : '🤍'} <span>${likeCount}</span>
+                                </button>
+                                <button>💬 <span>${data.comments ? data.comments.filter(c => c.status === 'approved').length : 0}</span></button>
+                            </div>
+                            <div class="comments-section">
+                                ${commentsHtml}
+                                <div class="comment-input">
+                                    <input type="text" placeholder="اكتب تعليقك..." class="forum-comment-input" data-post="${data.id}">
+                                    <button class="forum-comment-submit" data-post="${data.id}">نشر</button>
                                 </div>
-                            `;
-                            commentsHtml += commentDiv.outerHTML;
-                            commentCounter++;
+                            </div>
+                        `;
+                        container.appendChild(post);
+
+                        const commentSubmit = post.querySelector('.forum-comment-submit');
+                        commentSubmit.addEventListener('click', async function() {
+                            const postId = this.dataset.post;
+                            const input = post.querySelector('.forum-comment-input');
+                            const text = input.value.trim();
+                            if (!text) return;
+                            if (!auth.currentUser) {
+                                alert('🔐 يرجى تسجيل الدخول أولاً');
+                                window.location.href = 'login.html';
+                                return;
+                            }
+                            try {
+                                await addForumComment(postId, { text: text }, auth.currentUser
+                                    .uid,
+                                    auth.currentUser.displayName || auth.currentUser.email);
+                                input.value = '';
+                                showPopup('✅', 'تم إرسال تعليقك!', 'تم إرسال تعليقك للإدارة للمراجعة');
+                                loadForumPosts();
+                            } catch (err) {
+                                alert('❌ خطأ: ' + err.message);
+                            }
                         });
                     }
-
-                    const likeCount = data.likesCount || 0;
-
-                    post.innerHTML = `
-                        <div class="post-header">
-                            <span class="user">👤 ${safeText(data.author || 'طالب')}</span>
-                            <span class="date">${data.createdAt ? new Date(data.createdAt).toLocaleString('ar') : ''}</span>
-                        </div>
-                        <h4 style="color:#2ecc71;">${safeText(data.title || 'سؤال')}</h4>
-                        <div class="post-content">${safeText(data.content || '')}</div>
-                        ${data.image ? `<img src="${safeText(data.image)}" class="post-image" loading="lazy">` : ''}
-                        <div class="post-actions">
-                            <button onclick="likeForumPost('${data.id}', this)" ${userLiked ? 'style="color:#e74c3c;"' : ''}>
-                                ${userLiked ? '❤️' : '🤍'} <span>${likeCount}</span>
-                            </button>
-                            <button>💬 <span>${data.comments ? data.comments.filter(c => c.status === 'approved').length : 0}</span></button>
-                        </div>
-                        <div class="comments-section">
-                            ${commentsHtml}
-                            <div class="comment-input">
-                                <input type="text" placeholder="اكتب تعليقك..." class="forum-comment-input" data-post="${data.id}">
-                                <button class="forum-comment-submit" data-post="${data.id}">نشر</button>
-                            </div>
-                        </div>
-                    `;
-                    container.appendChild(post);
-
-                    const commentSubmit = post.querySelector('.forum-comment-submit');
-                    commentSubmit.addEventListener('click', async function() {
-                        const postId = this.dataset.post;
-                        const input = post.querySelector('.forum-comment-input');
-                        const text = input.value.trim();
-                        if (!text) return;
-                        if (!auth.currentUser) {
-                            alert('🔐 يرجى تسجيل الدخول أولاً');
-                            window.location.href = 'login.html';
-                            return;
-                        }
-                        try {
-                            await addForumComment(postId, { text: text }, auth.currentUser.uid,
-                                auth.currentUser.displayName || auth.currentUser.email);
-                            input.value = '';
-                            showPopup('✅', 'تم إرسال تعليقك!', 'تم إرسال تعليقك للإدارة للمراجعة');
-                            loadForumPosts();
-                        } catch (err) {
-                            alert('❌ خطأ: ' + err.message);
-                        }
-                    });
+                } catch (err) {
+                    container.innerHTML =
+                        `<div class="empty-state"><div class="icon">❌</div><h3>حدث خطأ</h3></div>`;
                 }
-            } catch (err) {
-                container.innerHTML =
-                    `<div class="empty-state"><div class="icon">❌</div><h3>حدث خطأ</h3></div>`;
-            }
+            });
         }
 
         // ============================================================
@@ -4112,118 +4196,123 @@
         };
 
         // ============================================================
-        // 26. منشورات الفريق
+        // 26. منشورات الفريق (آمن)
         // ============================================================
         async function loadTeamPosts() {
-            const container = document.getElementById('teamPostsContainer');
-            container.innerHTML = '<div class="loading-container"><div class="spinner"></div></div>';
+            safeLoadData('loadTeamPosts', async function() {
+                const container = document.getElementById('teamPostsContainer');
+                container.innerHTML = '<div class="loading-container"><div class="spinner"></div></div>';
 
-            try {
-                const posts = await getAllTeamPosts();
-                posts.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+                try {
+                    const posts = await getAllTeamPosts();
+                    posts.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
 
-                if (posts.length === 0) {
-                    container.innerHTML =
-                        `<div class="empty-state"><div class="icon">📢</div><h3>لا توجد منشورات</h3></div>`;
-                    return;
-                }
-
-                container.innerHTML = '';
-                posts.forEach(data => {
-                    const post = document.createElement('div');
-                    post.className = 'post-card';
-
-                    let userLiked = false;
-                    if (auth.currentUser && data.likesData) {
-                        userLiked = data.likesData[auth.currentUser.uid] || false;
+                    if (posts.length === 0) {
+                        container.innerHTML =
+                            `<div class="empty-state"><div class="icon">📢</div><h3>لا توجد منشورات</h3></div>`;
+                        return;
                     }
 
-                    let commentsHtml = '';
-                    let commentCounter = 0;
-                    if (data.comments) {
-                        const approvedComments = data.comments.filter(c => c.status === 'approved');
-                        approvedComments.forEach(comment => {
-                            const initial = comment.user ? comment.user.charAt(0).toUpperCase() : '?';
-                            const commentIdx = commentCounter;
-                            let userCommentLiked = false;
-                            if (auth.currentUser && comment.likesData) {
-                                userCommentLiked = comment.likesData[auth.currentUser.uid] || false;
-                            }
+                    container.innerHTML = '';
+                    posts.forEach(data => {
+                        const post = document.createElement('div');
+                        post.className = 'post-card';
 
-                            const commentDiv = document.createElement('div');
-                            commentDiv.className = 'comment';
-                            commentDiv.innerHTML = `
-                                <div class="avatar">${safeText(initial)}</div>
-                                <div class="comment-text">
-                                    <div class="name">${safeText(comment.user || 'مجهول')}</div>
-                                    <div>${safeText(comment.text || '')}</div>
-                                    <div style="margin-top:4px;display:flex;gap:8px;align-items:center;">
-                                        <button onclick="likeTeamComment('${data.id}', ${commentIdx}, this)" style="background:none;border:none;cursor:pointer;font-size:12px;color:${userCommentLiked ? '#e74c3c' : '#555'};font-family:'Tajawal',sans-serif;display:flex;align-items:center;gap:4px;">
-                                            ${userCommentLiked ? '❤️' : '🤍'} <span>${comment.likes || 0}</span>
-                                        </button>
+                        let userLiked = false;
+                        if (auth.currentUser && data.likesData) {
+                            userLiked = data.likesData[auth.currentUser.uid] || false;
+                        }
+
+                        let commentsHtml = '';
+                        let commentCounter = 0;
+                        if (data.comments) {
+                            const approvedComments = data.comments.filter(c => c.status === 'approved');
+                            approvedComments.forEach(comment => {
+                                const initial = comment.user ? comment.user.charAt(0).toUpperCase() :
+                                '?';
+                                const commentIdx = commentCounter;
+                                let userCommentLiked = false;
+                                if (auth.currentUser && comment.likesData) {
+                                    userCommentLiked = comment.likesData[auth.currentUser.uid] ||
+                                    false;
+                                }
+
+                                const commentDiv = document.createElement('div');
+                                commentDiv.className = 'comment';
+                                commentDiv.innerHTML = `
+                                    <div class="avatar">${safeText(initial)}</div>
+                                    <div class="comment-text">
+                                        <div class="name">${safeText(comment.user || 'مجهول')}</div>
+                                        <div>${safeText(comment.text || '')}</div>
+                                        <div style="margin-top:4px;display:flex;gap:8px;align-items:center;">
+                                            <button onclick="likeTeamComment('${data.id}', ${commentIdx}, this)" style="background:none;border:none;cursor:pointer;font-size:12px;color:${userCommentLiked ? '#e74c3c' : '#555'};font-family:'Tajawal',sans-serif;display:flex;align-items:center;gap:4px;">
+                                                ${userCommentLiked ? '❤️' : '🤍'} <span>${comment.likes || 0}</span>
+                                            </button>
+                                        </div>
                                     </div>
+                                `;
+                                commentsHtml += commentDiv.outerHTML;
+                                commentCounter++;
+                            });
+                        }
+
+                        const likeCount = data.likesCount || 0;
+
+                        post.innerHTML = `
+                            <div class="admin-header">
+                                <img src="https://cdn.phototourl.com/free/2026-07-21-1dd4b984-ed08-4a40-aead-9ef086ebbd45.jpg" class="admin-logo">
+                                <div class="admin-info">
+                                    <div class="admin-name">فريق الثانوية الرسمية بلس ${VERIFIED_BADGE_SVG}</div>
+                                    <div><span class="admin-badge">📢 حساب رسمي</span></div>
                                 </div>
-                            `;
-                            commentsHtml += commentDiv.outerHTML;
-                            commentCounter++;
+                            </div>
+                            <h4 style="color:#2ecc71;font-size:18px;">${safeText(data.title || 'منشور')}</h4>
+                            <div class="post-content-text">${safeText(data.content || '')}</div>
+                            <div class="post-meta">${data.createdAt ? new Date(data.createdAt).toLocaleString('ar') : ''}</div>
+                            <div class="post-actions">
+                                <button onclick="likeTeamPost('${data.id}', this)" ${userLiked ? 'style="color:#e74c3c;"' : ''}>
+                                    ${userLiked ? '❤️' : '🤍'} <span>${likeCount}</span>
+                                </button>
+                                <button>💬 <span>${data.comments ? data.comments.filter(c => c.status === 'approved').length : 0}</span></button>
+                            </div>
+                            <div class="comments-section">
+                                ${commentsHtml}
+                                <div class="comment-input">
+                                    <input type="text" placeholder="اكتب تعليقك..." class="team-comment-input" data-post="${data.id}">
+                                    <button class="team-comment-submit" data-post="${data.id}">نشر</button>
+                                </div>
+                            </div>
+                        `;
+                        container.appendChild(post);
+
+                        const commentSubmit = post.querySelector('.team-comment-submit');
+                        commentSubmit.addEventListener('click', async function() {
+                            const postId = this.dataset.post;
+                            const input = post.querySelector('.team-comment-input');
+                            const text = input.value.trim();
+                            if (!text) return;
+                            if (!auth.currentUser) {
+                                alert('🔐 يرجى تسجيل الدخول أولاً');
+                                window.location.href = 'login.html';
+                                return;
+                            }
+                            try {
+                                await addTeamComment(postId, { text: text }, auth.currentUser
+                                    .uid,
+                                    auth.currentUser.displayName || auth.currentUser.email);
+                                input.value = '';
+                                showPopup('✅', 'تم إرسال تعليقك!', 'تم إرسال تعليقك للإدارة للمراجعة');
+                                loadTeamPosts();
+                            } catch (err) {
+                                alert('❌ خطأ: ' + err.message);
+                            }
                         });
-                    }
-
-                    const likeCount = data.likesCount || 0;
-
-                    post.innerHTML = `
-                        <div class="admin-header">
-                            <img src="https://cdn.phototourl.com/free/2026-07-21-1dd4b984-ed08-4a40-aead-9ef086ebbd45.jpg" class="admin-logo">
-                            <div class="admin-info">
-                                <div class="admin-name">فريق الثانوية الرسمية بلس ${VERIFIED_BADGE_SVG}</div>
-                                <div><span class="admin-badge">📢 حساب رسمي</span></div>
-                            </div>
-                        </div>
-                        <h4 style="color:#2ecc71;font-size:18px;">${safeText(data.title || 'منشور')}</h4>
-                        <div class="post-content-text">${safeText(data.content || '')}</div>
-                        <div class="post-meta">${data.createdAt ? new Date(data.createdAt).toLocaleString('ar') : ''}</div>
-                        <div class="post-actions">
-                            <button onclick="likeTeamPost('${data.id}', this)" ${userLiked ? 'style="color:#e74c3c;"' : ''}>
-                                ${userLiked ? '❤️' : '🤍'} <span>${likeCount}</span>
-                            </button>
-                            <button>💬 <span>${data.comments ? data.comments.filter(c => c.status === 'approved').length : 0}</span></button>
-                        </div>
-                        <div class="comments-section">
-                            ${commentsHtml}
-                            <div class="comment-input">
-                                <input type="text" placeholder="اكتب تعليقك..." class="team-comment-input" data-post="${data.id}">
-                                <button class="team-comment-submit" data-post="${data.id}">نشر</button>
-                            </div>
-                        </div>
-                    `;
-                    container.appendChild(post);
-
-                    const commentSubmit = post.querySelector('.team-comment-submit');
-                    commentSubmit.addEventListener('click', async function() {
-                        const postId = this.dataset.post;
-                        const input = post.querySelector('.team-comment-input');
-                        const text = input.value.trim();
-                        if (!text) return;
-                        if (!auth.currentUser) {
-                            alert('🔐 يرجى تسجيل الدخول أولاً');
-                            window.location.href = 'login.html';
-                            return;
-                        }
-                        try {
-                            await addTeamComment(postId, { text: text }, auth.currentUser.uid,
-                                auth.currentUser.displayName || auth.currentUser.email);
-                            input.value = '';
-                            showPopup('✅', 'تم إرسال تعليقك!', 'تم إرسال تعليقك للإدارة للمراجعة');
-                            loadTeamPosts();
-                        } catch (err) {
-                            alert('❌ خطأ: ' + err.message);
-                        }
                     });
-                });
-            } catch (err) {
-                container.innerHTML =
-                    `<div class="empty-state"><div class="icon">❌</div><h3>حدث خطأ</h3></div>`;
-            }
+                } catch (err) {
+                    container.innerHTML =
+                        `<div class="empty-state"><div class="icon">❌</div><h3>حدث خطأ</h3></div>`;
+                }
+            });
         }
 
         window.likeTeamPost = async function(postId, btn) {
@@ -4271,33 +4360,46 @@
         };
 
         // ============================================================
-        // 27. إدارة الصفحات
+        // 27. إدارة الصفحات (آمنة)
         // ============================================================
         function navigateTo(pageId) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            const target = document.getElementById('page-' + pageId);
-            if (target) target.classList.add('active');
-            window.scrollTo(0, 0);
+            if (_isNavigating) return;
+            _isNavigating = true;
 
-            switch (pageId) {
-                case 'forum':
-                    loadForumPosts();
-                    break;
-                case 'teamPosts':
-                    loadTeamPosts();
-                    break;
-                case 'favorites':
-                    loadFavorites();
-                    break;
-                case 'profile':
-                    loadProfile();
-                    break;
-                case 'youtube':
-                    loadYoutubeChannels();
-                    break;
-                case 'home':
-                    loadAllData();
-                    break;
+            try {
+                document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+                const target = document.getElementById('page-' + pageId);
+                if (target) target.classList.add('active');
+                window.scrollTo(0, 0);
+
+                switch (pageId) {
+                    case 'forum':
+                        loadForumPosts();
+                        break;
+                    case 'teamPosts':
+                        loadTeamPosts();
+                        break;
+                    case 'favorites':
+                        loadFavorites();
+                        break;
+                    case 'profile':
+                        loadProfile();
+                        break;
+                    case 'youtube':
+                        loadYoutubeChannels();
+                        break;
+                    case 'home':
+                        loadAllData();
+                        break;
+                    default:
+                        break;
+                }
+            } catch (err) {
+                console.error('خطأ في التنقل:', err);
+            } finally {
+                setTimeout(function() {
+                    _isNavigating = false;
+                }, 300);
             }
         }
 
@@ -4344,7 +4446,7 @@
         }
 
         // ============================================================
-        // 29. تغيير الصورة
+        // 29. تغيير الصورة (آمن - بدون حلقة لا نهائية)
         // ============================================================
         function uploadProfileImage() {
             if (!auth.currentUser) {
@@ -4355,17 +4457,20 @@
             const input = document.createElement('input');
             input.type = 'file';
             input.accept = 'image/*';
-            input.onchange = function() {
+
+            // ✅ استخدام once لمنع التكرار
+            input.addEventListener('change', function(e) {
                 const file = this.files[0];
                 if (!file) return;
 
                 if (file.size > 2 * 1024 * 1024) {
                     alert('❌ حجم الصورة يتجاوز 2 ميجابايت');
+                    this.value = '';
                     return;
                 }
 
                 const reader = new FileReader();
-                reader.onload = async function(e) {
+                reader.addEventListener('load', async function(e) {
                     const base64Image = e.target.result;
 
                     try {
@@ -4397,9 +4502,12 @@
                     } catch (err) {
                         alert('❌ خطأ: ' + err.message);
                     }
-                };
+                }, { once: true });
+
                 reader.readAsDataURL(file);
-            };
+                this.value = '';
+            }, { once: true });
+
             input.click();
         }
 
@@ -4977,9 +5085,11 @@
             window.history.pushState(null, null, window.location.href);
         }
 
+        // تحميل البيانات الأولية
         loadAllData();
         loadNotifications();
 
+        // تحديث حالة المتصلين كل 30 ثانية
         setInterval(() => {
             if (auth.currentUser) {
                 updateOnlineStatus(auth.currentUser);
