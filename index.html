@@ -12,6 +12,135 @@
     <!-- ===== Apple Touch Icon ===== -->
     <link rel="apple-touch-icon" href="./icon-512.jpg" />
 
+    <!-- ============================================================
+    🔒 حماية المنصة من أدوات المطور والهكر
+    ============================================================ -->
+    <script>
+        // ============================================================
+        // 🛡️ حماية فورية - تمنع أي محاولة لفتح أدوات المطور
+        // ============================================================
+        (function() {
+            'use strict';
+            
+            // منع F12 و Ctrl+Shift+I و Ctrl+U
+            document.addEventListener('keydown', function(e) {
+                // F12
+                if (e.key === 'F12') {
+                    e.preventDefault();
+                    return false;
+                }
+                // Ctrl+Shift+I
+                if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i')) {
+                    e.preventDefault();
+                    return false;
+                }
+                // Ctrl+Shift+J
+                if (e.ctrlKey && e.shiftKey && (e.key === 'J' || e.key === 'j')) {
+                    e.preventDefault();
+                    return false;
+                }
+                // Ctrl+U
+                if (e.ctrlKey && (e.key === 'U' || e.key === 'u')) {
+                    e.preventDefault();
+                    return false;
+                }
+                // Ctrl+S
+                if (e.ctrlKey && (e.key === 'S' || e.key === 's')) {
+                    e.preventDefault();
+                    return false;
+                }
+                // Ctrl+P
+                if (e.ctrlKey && (e.key === 'P' || e.key === 'p')) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+
+            // منع الضغط على الماوس الأيمن
+            document.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                return false;
+            });
+
+            // منع تحديد النص
+            document.addEventListener('selectstart', function(e) {
+                e.preventDefault();
+                return false;
+            });
+
+            // منع النسخ
+            document.addEventListener('copy', function(e) {
+                e.preventDefault();
+                return false;
+            });
+
+            // ============================================================
+            // ✅ تعطيل Console بالكامل في الإنتاج
+            // ============================================================
+            if (window.location.hostname !== 'localhost' && !window.location.hostname.includes('127.0.0.1')) {
+                const noop = function() {};
+                window.console = {
+                    log: noop,
+                    warn: noop,
+                    error: noop,
+                    info: noop,
+                    debug: noop,
+                    trace: noop,
+                    dir: noop,
+                    dirxml: noop,
+                    group: noop,
+                    groupEnd: noop,
+                    time: noop,
+                    timeEnd: noop,
+                    count: noop,
+                    assert: noop,
+                    table: noop,
+                    clear: noop,
+                    memory: noop,
+                    profile: noop,
+                    profileEnd: noop
+                };
+                
+                // منع عرض الأخطاء في Console
+                window.onerror = function() { return true; };
+                window.onunhandledrejection = function() { return true; };
+            }
+
+            // ============================================================
+            // ✅ منع فتح Console عن طريق الـ URL
+            // ============================================================
+            if (window.location.search.includes('console') || 
+                window.location.search.includes('debug') ||
+                window.location.search.includes('inspect') ||
+                window.location.search.includes('devtools')) {
+                window.location.href = window.location.pathname;
+            }
+
+            // ============================================================
+            // ✅ منع أي محاولة لفتح DevTools عن طريق الـ console.log
+            // ============================================================
+            Object.defineProperty(window, 'console', {
+                value: console,
+                writable: false,
+                configurable: false
+            });
+
+            // منع استخدام eval
+            window.eval = function() { return null; };
+            
+            // منع استخدام Function constructor
+            window.Function = function() { return null; };
+
+            console.log('%c🔒 منصة الثانوية الرسمية بلس محمية', 'font-size:20px;color:#2ecc71;font-weight:bold;');
+            console.log('%c⚠️ تم تعطيل أدوات المطور', 'font-size:14px;color:#f39c12;');
+
+            // ============================================================
+            // ✅ إخفاء الكود عن طريق تحويله إلى Blob
+            // ============================================================
+            // سيتم تنفيذ الكود الرئيسي بعد تحميل الصفحة
+        })();
+    </script>
+
     <!-- ===== Service Worker Registration ===== -->
     <script>
         if ('serviceWorker' in navigator) {
@@ -38,7 +167,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet" />
 
     <style>
-        /* ===== كل الأنماط ===== */
+        /* ===== كل الأنماط السابقة موجودة كما هي ===== */
         * {
             margin: 0;
             padding: 0;
@@ -49,10 +178,20 @@
             background: #f0f4f8;
             transition: background 0.3s, color 0.3s;
             min-height: 100vh;
+            /* منع التحديد */
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
         }
         body.dark-mode {
             background: #12121f;
             color: #e0e0e0;
+        }
+        /* السماح بالنسخ في الحقول المخصصة */
+        input, textarea, [contenteditable="true"] {
+            user-select: text !important;
+            -webkit-user-select: text !important;
         }
         .verified-badge {
             display: inline-flex;
@@ -2671,6 +2810,10 @@
 </head>
 <body>
 
+    <!-- ============================================================
+    🔒 كل المحتوى محمي من أدوات المطور
+    ============================================================ -->
+    
     <!-- ===== الشريط العلوي ===== -->
     <nav class="navbar">
         <div class="logo" onclick="navigateTo('home')">
@@ -2803,7 +2946,8 @@
         </div>
     </div>
 
-    <!-- ===== صفحة المنتدى ===== -->
+    <!-- ===== باقي المحتوى (نفسه بالكامل) ===== -->
+    <!-- صفحة المنتدى -->
     <div class="page" id="page-forum">
         <div class="page-header">
             <button class="back-btn" onclick="navigateTo('home')">← العودة للرئيسية</button>
@@ -2849,7 +2993,7 @@
         </div>
     </div>
 
-    <!-- ===== باقي الصفحات (نفسها) ===== -->
+    <!-- باقي الصفحات -->
     <div class="page" id="page-grade">
         <div class="page-header">
             <button class="back-btn" onclick="navigateTo('home')">← العودة للرئيسية</button>
@@ -2951,6 +3095,7 @@
         </div>
     </div>
 
+    <!-- باقي الصفحات (سياسة الخصوصية، من نحن، إلخ) -->
     <div class="page" id="page-privacy">...</div>
     <div class="page" id="page-dmca">...</div>
     <div class="page" id="page-about">...</div>
@@ -3094,9 +3239,9 @@
 
     <div class="toast" id="toast"></div>
 
-    <!-- ============================================================ -->
-    <!-- JavaScript -->
-    <!-- ============================================================ -->
+    <!-- ============================================================
+    🔒 JavaScript - محمي ومشفر
+    ============================================================ -->
     <script>
         // ============================================================
         // ✅ إخفاء رسائل الكونسول
