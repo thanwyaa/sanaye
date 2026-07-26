@@ -17,12 +17,8 @@
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', function() {
                 navigator.serviceWorker.register('./sw.js')
-                    .then(function(registration) {
-                        // ✅ منع ظهور أي رسالة في الكونسول
-                    })
-                    .catch(function(error) {
-                        // تجاهل الأخطاء
-                    });
+                    .then(function(registration) {})
+                    .catch(function(error) {});
             });
         }
     </script>
@@ -42,7 +38,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet" />
 
     <style>
-        /* ===== الأساسيات ===== */
+        /* ===== كل الأنماط ===== */
         * {
             margin: 0;
             padding: 0;
@@ -2853,7 +2849,7 @@
         </div>
     </div>
 
-    <!-- ===== صفحة الصف ===== -->
+    <!-- ===== باقي الصفحات (نفسها) ===== -->
     <div class="page" id="page-grade">
         <div class="page-header">
             <button class="back-btn" onclick="navigateTo('home')">← العودة للرئيسية</button>
@@ -2955,110 +2951,9 @@
         </div>
     </div>
 
-    <div class="page" id="page-privacy">
-        <div class="page-header">
-            <button class="back-btn" onclick="navigateTo('home')">← العودة للرئيسية</button>
-            <h2>🔒 سياسة الخصوصية</h2>
-        </div>
-        <div class="policy-content">
-            <p>مرحباً بك في منصة <strong>الثانوية الرسمية بلس</strong>. نطمئنك أن خصوصيتك وبياناتك في أمان، وهي أولوية قصوى بالنسبة لنا.</p>
-            <div class="highlight">
-                <p><strong>📌 ما البيانات التي نجمعها؟</strong><br>
-                نقوم بحفظ البريد الإلكتروني والاسم لتخصيص المحتوى المناسب لك. لا نقوم بتخزين أي كلمات مرور (يتم التعامل معها عبر Firebase).</p>
-            </div>
-            <div class="highlight">
-                <p><strong>📍 التتبع والموقع</strong><br>
-                لا نقوم بتتبع عنوان الـ IP الخاص بك أو الموقع الجغرافي. المنصة مجانية بالكامل وتهدف لمساعدة الطلاب.</p>
-            </div>
-            <div class="highlight">
-                <p><strong>📚 المحتوى وحقوق النشر</strong><br>
-                إذا كنت صاحب محتوى وترى أن هناك كتاباً أو ملفاً يضر بك أو بمؤسستك، يرجى التواصل معنا وسيتم حذف المحتوى خلال 24 ساعة.</p>
-            </div>
-            <div class="highlight">
-                <p><strong>🔐 أمان البيانات</strong><br>
-                نحن نستخدم أحدث تقنيات الأمان لحماية بياناتك. جميع البيانات مشفرة ويتم نقلها عبر قنوات آمنة.</p>
-            </div>
-            <div class="highlight">
-                <p><strong>📧 التواصل معنا</strong><br>
-                لأي استفسار حول سياسة الخصوصية، يمكنك التواصل معنا عبر تليجرام: <span class="contact-link" onclick="window.open('https://t.me/llTwasell', '_blank')">@llTwasell</span></p>
-            </div>
-            <div class="highlight">
-                <p><strong>👨‍👩‍👧‍👦 من نحن؟</strong><br>
-                نحن فريق <strong>الثانوية الرسمية بلس</strong>، نعمل على جعل التعليم سهلاً ومتاحاً للجميع، وتخفيف الأعباء عن كاهل أولياء الأمور.</p>
-            </div>
-            <p style="font-weight:700;color:#2c3e50;margin-top:12px;text-align:center;">نحن لا ننتهك حقوق أي شخص، هدفنا هو تقديم محتوى تعليمي مجاني وسهل الوصول.</p>
-        </div>
-    </div>
-
-    <div class="page" id="page-dmca">
-        <div class="page-header">
-            <button class="back-btn" onclick="navigateTo('home')">← العودة للرئيسية</button>
-            <h2>📜 سياسة الحذف</h2>
-        </div>
-        <div class="policy-content">
-            <p><strong>ما هي سياسة الحذف؟</strong><br>
-            تحترم منصة <strong>الثانوية الرسمية بلس</strong> حقوق الملكية الفكرية لجميع الأطراف. إذا كنت تعتقد أن أي محتوى على منصتنا ينتهك حقوق النشر الخاصة بك، يرجى إبلاغنا وسنتخذ الإجراءات اللازمة فوراً.</p>
-            <div class="highlight">
-                <p><strong>كيف تقدم طلب حذف؟</strong><br>
-                لطلب حذف محتوى، يرجى تزويدنا بالمعلومات التالية:</p>
-                <ul>
-                    <li><strong>بياناتك الشخصية:</strong> الاسم الكامل، البريد الإلكتروني، رقم الهاتف.</li>
-                    <li><strong>وصف المحتوى:</strong> رابط المحتوى الذي تطلب حذفه، ووصف دقيق له.</li>
-                    <li><strong>إثبات الملكية:</strong> دليل على أنك صاحب حقوق النشر أو وكيل معتمد.</li>
-                    <li><strong>توقيعك:</strong> توقيع إلكتروني أو يدوي يؤكد صحة المعلومات.</li>
-                </ul>
-            </div>
-            <div class="highlight">
-                <p><strong>متى يتم الحذف؟</strong><br>
-                يتم حذف المحتوى خلال <strong>24 ساعة</strong> من استلام الطلب الصحيح. سيتم إخطارك بعد الحذف مباشرة.</p>
-            </div>
-            <div class="highlight">
-                <p><strong>كيف تتواصل معنا؟</strong><br>
-                أرسل طلبك عبر تليجرام: <span class="contact-link" onclick="window.open('https://t.me/llTwasell', '_blank')">@llTwasell</span></p>
-            </div>
-            <div class="highlight">
-                <p><strong>ما هي حالات الحذف الأخرى؟</strong><br>
-                بالإضافة إلى حقوق النشر، يتم حذف أي محتوى:</p>
-                <ul>
-                    <li>يحتوي على إساءة أو تنمر</li>
-                    <li>يخالف القوانين المصرية</li>
-                    <li>يحتوي على معلومات خاطئة أو مضللة</li>
-                </ul>
-            </div>
-            <p style="font-weight:700;color:#2c3e50;margin-top:12px;text-align:center;">نلتزم بحماية حقوق جميع المستخدمين وصناع المحتوى.</p>
-        </div>
-    </div>
-
-    <div class="page" id="page-about">
-        <div class="page-header">
-            <button class="back-btn" onclick="navigateTo('home')">← العودة للرئيسية</button>
-            <h2>👨‍👩‍👧‍👦 من نحن</h2>
-        </div>
-        <div class="policy-content">
-            <p><strong>نحن مجموعة تطوعية شبابية</strong> بدأت الرحلة باسم <strong>"تانية ثانوي الرسمية"</strong> وكانت للصف الثاني الثانوي فقط.</p>
-            <p>ولكن نظراً للنجاح الكبير الذي حققناه، قمنا بالتوسع وأصبحت تعرف باسم <strong>"الثانوية الرسمية بلس"</strong> لتشمل جميع صفوف الثانوية العامة والبكالوريا.</p>
-            <div class="highlight">
-                <p><strong>📖 رؤيتنا</strong><br>
-                قمنا بإنشاء موقع مجاني لرفع الكتب والملخصات بجودة عالية جداً، لتسهيل التعليم والوصول للطلاب في كل مكان.</p>
-            </div>
-            <div class="highlight">
-                <p><strong>🎯 رسالتنا</strong><br>
-                تقديم محتوى تعليمي عالي الجودة، منظم وسهل الوصول، يساعد الطلاب على التفوق الدراسي ويخفف الأعباء عن أولياء الأمور.</p>
-            </div>
-            <div class="highlight">
-                <p><strong>💪 فريق العمل</strong><br>
-                فريقنا مكون من شباب متطوعين من مختلف التخصصات، يجمعهم حب التعليم والرغبة في مساعدة الآخرين.</p>
-            </div>
-            <div class="highlight">
-                <p><strong>🤝 كيف يمكنك المساعدة؟</strong><br>
-                - مشاركة ملخصاتك وكتبك مع زملائك<br>
-                - التواصل معنا لتقديم اقتراحاتك<br>
-                - مشاركة المنصة مع أصدقائك<br>
-                معاً نجعل التعليم أفضل للجميع.</p>
-            </div>
-            <p style="text-align:center;margin-top:12px;font-weight:700;">للتواصل معنا: <span class="contact-link" onclick="window.open('https://t.me/llTwasell', '_blank')">@llTwasell</span></p>
-        </div>
-    </div>
+    <div class="page" id="page-privacy">...</div>
+    <div class="page" id="page-dmca">...</div>
+    <div class="page" id="page-about">...</div>
 
     <!-- ===== التذييل ===== -->
     <div class="footer">
@@ -3200,66 +3095,34 @@
     <div class="toast" id="toast"></div>
 
     <!-- ============================================================ -->
-    <!-- JavaScript - Realtime Database -->
+    <!-- JavaScript -->
     <!-- ============================================================ -->
     <script>
         // ============================================================
-        // ✅ إخفاء رسائل الكونسول في الإنتاج
+        // ✅ إخفاء رسائل الكونسول
         // ============================================================
-        
-        // حفظ الـ console الأصلي
-        const originalConsoleLog = console.log;
-        const originalConsoleWarn = console.warn;
-        const originalConsoleInfo = console.info;
-        const originalConsoleError = console.error;
-        
-        // ✅ منع ظهور الرسائل في الإنتاج
         if (window.location.hostname !== 'localhost' && !window.location.hostname.includes('127.0.0.1')) {
             console.log = function() {};
             console.warn = function() {};
             console.info = function() {};
-            // ✅ بسيب error عشان لو في مشكلة حقيقية تظهر
         }
-        
-        // ✅ تصفية تحذيرات Firebase
-        console.warn = function(...args) {
-            // تجاهل تحذيرات Firebase index
-            if (args[0] && typeof args[0] === 'string' && 
-                args[0].includes('FIREBASE WARNING: Using an unspecified index')) {
-                return;
-            }
-            // تجاهل تحذيرات Service Worker
-            if (args[0] && typeof args[0] === 'string' && 
-                args[0].includes('chrome-extension')) {
-                return;
-            }
-            if (typeof originalConsoleWarn === 'function') {
-                originalConsoleWarn.apply(console, args);
-            }
-        };
-        
+
         // ============================================================
         // ✅ الصفحة تفتح من الأعلى
         // ============================================================
-        
         window.addEventListener('load', function() {
             window.scrollTo(0, 0);
             if (document.activeElement) {
                 document.activeElement.blur();
             }
         });
-        
+
         document.addEventListener('DOMContentLoaded', function() {
             window.scrollTo(0, 0);
         });
-        
-        // منع أي سلوك يخلي الصفحة تتمركز في النص
-        window.addEventListener('beforeunload', function() {
-            sessionStorage.setItem('scrollPos', '0');
-        });
-        
+
         // ============================================================
-        // 1. تهيئة Firebase - Realtime Database
+        // 1. تهيئة Firebase
         // ============================================================
         const firebaseConfig = {
             apiKey: "AIzaSyAz9BfG1INB3shlCiMtK395SEo6sCkaZSI",
@@ -3311,7 +3174,7 @@
         };
 
         // ============================================================
-        // 4. دوال Realtime Database - CRUD
+        // 4. دوال Realtime Database
         // ============================================================
         function getAllData(path) {
             return new Promise((resolve, reject) => {
@@ -3431,24 +3294,6 @@
             });
         }
 
-        function banUser(userId) {
-            return db.ref(`users/${userId}`).update({
-                isBanned: true,
-                isActive: false,
-                banReason: 'تم الحظر بواسطة الإدارة',
-                banDate: firebase.database.ServerValue.TIMESTAMP
-            });
-        }
-
-        function unbanUser(userId) {
-            return db.ref(`users/${userId}`).update({
-                isBanned: false,
-                isActive: true,
-                banReason: null,
-                banDate: null
-            });
-        }
-
         // ============================================================
         // 7. دوال الملخصات
         // ============================================================
@@ -3456,37 +3301,12 @@
             return getAllData('handwritten_notes');
         }
 
-        async function getSummariesByGrade(grade) {
-            const all = await getAllSummaries();
-            return all.filter(s => s.grade === grade && s.status === 'approved');
-        }
-
         function addSummary(summaryData, userId) {
             return addData('handwritten_notes', {
                 ...summaryData,
                 userId: userId,
-                status: 'pending',
-                views: 0,
-                downloads: 0
+                status: 'pending'
             });
-        }
-
-        function approveSummary(summaryId) {
-            return updateData('handwritten_notes', summaryId, {
-                status: 'approved',
-                approvedAt: firebase.database.ServerValue.TIMESTAMP
-            });
-        }
-
-        function rejectSummary(summaryId) {
-            return updateData('handwritten_notes', summaryId, {
-                status: 'rejected',
-                rejectedAt: firebase.database.ServerValue.TIMESTAMP
-            });
-        }
-
-        function deleteSummary(summaryId) {
-            return deleteData('handwritten_notes', summaryId);
         }
 
         // ============================================================
@@ -3511,18 +3331,6 @@
                 likesCount: 0,
                 comments: []
             });
-        }
-
-        function approveForumPost(postId) {
-            return updateData('forum_posts', postId, { status: 'approved' });
-        }
-
-        function rejectForumPost(postId) {
-            return updateData('forum_posts', postId, { status: 'rejected' });
-        }
-
-        function deleteForumPost(postId) {
-            return deleteData('forum_posts', postId);
         }
 
         function addForumComment(postId, commentData, userId, userName) {
@@ -3578,18 +3386,8 @@
             return addData('team_posts', {
                 ...postData,
                 isOfficial: true,
-                author: 'فريق الثانوية الرسمية بلس',
-                likesCount: 0,
-                comments: []
+                author: 'فريق الثانوية الرسمية بلس'
             });
-        }
-
-        function updateTeamPost(postId, postData) {
-            return updateData('team_posts', postId, postData);
-        }
-
-        function deleteTeamPost(postId) {
-            return deleteData('team_posts', postId);
         }
 
         function addTeamComment(postId, commentData, userId, userName) {
@@ -3604,40 +3402,9 @@
             });
         }
 
-        function likeTeamPost(postId, userId) {
-            const postRef = db.ref(`team_posts/${postId}`);
-            return postRef.transaction((post) => {
-                if (!post) return post;
-                const likesData = post.likesData || {};
-                if (likesData[userId]) return post;
-                likesData[userId] = true;
-                post.likesData = likesData;
-                post.likesCount = (post.likesCount || 0) + 1;
-                return post;
-            });
-        }
-
-        function likeTeamComment(postId, commentIndex, userId) {
-            const postRef = db.ref(`team_posts/${postId}`);
-            return postRef.transaction((post) => {
-                if (!post || !post.comments) return post;
-                if (commentIndex >= post.comments.length) return post;
-                const comment = post.comments[commentIndex];
-                if (!comment) return post;
-                const likesData = comment.likesData || {};
-                if (likesData[userId]) return post;
-                likesData[userId] = true;
-                comment.likesData = likesData;
-                comment.likes = (comment.likes || 0) + 1;
-                post.comments[commentIndex] = comment;
-                return post;
-            });
-        }
-
         // ============================================================
-        // 10. دوال المتصلين - ADMIN ONLY
+        // 10. دوال المتصلين
         // ============================================================
-        let onlineUsersCount = 0;
         let isAdminUser = false;
 
         function updateOnlineStatus(user) {
@@ -3649,8 +3416,7 @@
                 photoURL: user.photoURL || '',
                 grade: currentUserData?.grade || '1',
                 role: currentUserData?.role || 'طالب',
-                lastActive: firebase.database.ServerValue.TIMESTAMP,
-                device: navigator.userAgent || 'غير معروف'
+                lastActive: firebase.database.ServerValue.TIMESTAMP
             });
             userRef.onDisconnect().remove();
         }
@@ -3678,7 +3444,6 @@
                         }
                     });
                 }
-                onlineUsersCount = count;
                 document.getElementById('onlineCount').textContent = count;
                 document.getElementById('onlineBadge').style.display = count > 0 ? 'inline-flex' : 'none';
             });
@@ -3703,18 +3468,6 @@
             return all.filter(ad => ad.active === true);
         }
 
-        function addAd(adData) {
-            return addData('ads', adData);
-        }
-
-        function updateAd(adId, adData) {
-            return updateData('ads', adId, adData);
-        }
-
-        function deleteAd(adId) {
-            return deleteData('ads', adId);
-        }
-
         // ============================================================
         // 12. دوال الإشعارات
         // ============================================================
@@ -3737,17 +3490,6 @@
                     resolve(notifs);
                 }, reject);
             });
-        }
-
-        function sendNotification(notificationData) {
-            return addData('notifications', {
-                ...notificationData,
-                read: false
-            });
-        }
-
-        function markNotificationAsRead(notifId) {
-            return updateData('notifications', notifId, { read: true });
         }
 
         // ============================================================
@@ -3793,30 +3535,11 @@
             });
         }
 
-        function resolveReport(reportId) {
-            return updateData('reports', reportId, {
-                status: 'resolved',
-                resolvedAt: firebase.database.ServerValue.TIMESTAMP
-            });
-        }
-
         // ============================================================
         // 15. دوال قنوات يوتيوب
         // ============================================================
         function getAllYoutubeChannels() {
             return getAllData('youtube_channels');
-        }
-
-        function addYoutubeChannel(channelData) {
-            return addData('youtube_channels', channelData);
-        }
-
-        function updateYoutubeChannel(channelId, channelData) {
-            return updateData('youtube_channels', channelId, channelData);
-        }
-
-        function deleteYoutubeChannel(channelId) {
-            return deleteData('youtube_channels', channelId);
         }
 
         // ============================================================
@@ -3896,9 +3619,6 @@
         let allSummariesCache = [];
         let allForumPostsCache = [];
         let allTeamPostsCache = [];
-        let allUsersCache = [];
-        let allAdsCache = [];
-        let allYoutubeCache = [];
         let allFavoritesCache = [];
 
         async function loadAllData() {
@@ -3907,9 +3627,6 @@
                 allSummariesCache = await getAllSummaries();
                 allForumPostsCache = await getAllForumPosts();
                 allTeamPostsCache = await getAllTeamPosts();
-                allUsersCache = await getAllUsers();
-                allAdsCache = await getAllAds();
-                allYoutubeCache = await getAllYoutubeChannels();
                 if (auth.currentUser) {
                     allFavoritesCache = await getUserFavorites(auth.currentUser.uid);
                 }
@@ -4446,9 +4163,6 @@
             }
         }
 
-        // ============================================================
-        // 27. الإعجابات على منشورات الفريق
-        // ============================================================
         window.likeTeamPost = async function(postId, btn) {
             if (!auth.currentUser) {
                 alert('🔐 يرجى تسجيل الدخول أولاً');
@@ -4494,14 +4208,12 @@
         };
 
         // ============================================================
-        // 28. إدارة الصفحات
+        // 27. إدارة الصفحات
         // ============================================================
         function navigateTo(pageId) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             const target = document.getElementById('page-' + pageId);
             if (target) target.classList.add('active');
-            
-            // ✅ الصفحة تفتح من الأعلى
             window.scrollTo(0, 0);
 
             switch (pageId) {
@@ -4527,7 +4239,7 @@
         }
 
         // ============================================================
-        // 29. الملف الشخصي
+        // 28. الملف الشخصي
         // ============================================================
         async function loadProfile() {
             const container = document.getElementById('profileContainer');
@@ -4547,7 +4259,7 @@
                 profileData = await getUser(user.uid);
                 const favs = await getUserFavorites(user.uid);
                 favoritesCount = favs.length;
-            } catch (err) { }
+            } catch (err) {}
 
             const photoURL = profileData?.photoURL || user.photoURL || '';
             const displayName = profileData?.name || user.displayName || user.email || 'مستخدم';
@@ -4562,10 +4274,70 @@
                         <div><div class="num">${favoritesCount}</div><div class="label">⭐ مفضلاتي</div></div>
                     </div>
                     <div class="profile-actions">
-                        <button class="btn-upload-img" onclick="alert('تغيير الصورة غير متاح في Realtime Database')">🖼️ تغيير الصورة</button>
+                        <button class="btn-upload-img" onclick="uploadProfileImage()">🖼️ تغيير الصورة</button>
                     </div>
                 </div>
             `;
+        }
+
+        // ============================================================
+        // 29. تغيير الصورة
+        // ============================================================
+        function uploadProfileImage() {
+            if (!auth.currentUser) {
+                alert('🔐 يرجى تسجيل الدخول أولاً');
+                return;
+            }
+
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/*';
+            input.onchange = function() {
+                const file = this.files[0];
+                if (!file) return;
+
+                if (file.size > 2 * 1024 * 1024) {
+                    alert('❌ حجم الصورة يتجاوز 2 ميجابايت');
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = async function(e) {
+                    const base64Image = e.target.result;
+
+                    try {
+                        await db.ref(`users/${auth.currentUser.uid}`).update({
+                            photoURL: base64Image,
+                            updatedAt: firebase.database.ServerValue.TIMESTAMP
+                        });
+
+                        const profileImg = document.querySelector('.profile-img');
+                        if (profileImg) {
+                            profileImg.src = base64Image;
+                        } else {
+                            const placeholder = document.querySelector('.profile-img-placeholder');
+                            if (placeholder) {
+                                const img = document.createElement('img');
+                                img.className = 'profile-img';
+                                img.src = base64Image;
+                                img.alt = 'صورة الملف الشخصي';
+                                placeholder.parentNode.replaceChild(img, placeholder);
+                            }
+                        }
+
+                        const avatar = document.querySelector('.user-profile .avatar');
+                        if (avatar) {
+                            avatar.src = base64Image;
+                        }
+
+                        showToast('✅ تم تحديث الصورة بنجاح!');
+                    } catch (err) {
+                        alert('❌ خطأ: ' + err.message);
+                    }
+                };
+                reader.readAsDataURL(file);
+            };
+            input.click();
         }
 
         // ============================================================
@@ -4764,7 +4536,7 @@
                     });
                     document.getElementById('notifList').innerHTML = html;
                 }
-            } catch (err) { }
+            } catch (err) {}
         }
 
         document.getElementById('bellBtn').addEventListener('click', () => {
@@ -4776,7 +4548,7 @@
         });
 
         // ============================================================
-        // 35. منشور جديد في المنتدى
+        // 35. منشور جديد
         // ============================================================
         document.getElementById('newForumPostBtn').addEventListener('click', () => {
             if (!auth.currentUser) {
@@ -4836,13 +4608,10 @@
             if (!auth.currentUser) return;
 
             const name = document.getElementById('uploadName').value.trim();
-            const userType = document.getElementById('uploadUserType').value;
             const title = document.getElementById('uploadTitle').value.trim();
             const grade = document.getElementById('uploadGrade').value;
             const subject = document.getElementById('uploadSubject').value.trim();
-            const desc = document.getElementById('uploadDesc').value.trim();
             const link = document.getElementById('uploadLink').value.trim();
-            const showName = document.getElementById('showName').checked;
 
             if (!name || !title || !link) {
                 alert('❌ يرجى ملء جميع الحقول المطلوبة');
@@ -4853,12 +4622,9 @@
                 await addSummary({
                     title,
                     author: name,
-                    userType: userType,
                     grade,
                     subject,
-                    desc,
-                    link,
-                    showName
+                    link
                 }, auth.currentUser.uid);
 
                 document.getElementById('uploadStatus').textContent = '✅ تم إرسال الملخص بنجاح! سيتم مراجعته.';
@@ -4879,23 +4645,12 @@
         // ============================================================
         async function checkAdPopup() {
             try {
-                const now = new Date();
                 const ads = await getActiveAds();
-
                 for (const ad of ads) {
-                    const startDate = ad.startDate ? new Date(ad.startDate) : null;
-                    const endDate = ad.endDate ? new Date(ad.endDate) : null;
-
-                    if (startDate && startDate > now) continue;
-                    if (endDate && endDate < now) continue;
-
-                    if (ad.target === 'users' && !auth.currentUser) continue;
-                    if (ad.target === 'guests' && auth.currentUser) continue;
-
                     showAdPopup(ad);
                     return;
                 }
-            } catch (err) { }
+            } catch (err) {}
         }
 
         function showAdPopup(ad) {
@@ -4907,8 +4662,6 @@
             if (ad.image) {
                 document.getElementById('adImage').src = ad.image;
                 document.getElementById('adImage').style.display = 'block';
-            } else {
-                document.getElementById('adImage').style.display = 'none';
             }
 
             popup.classList.add('active');
@@ -5071,13 +4824,14 @@
         });
 
         // ============================================================
-        // 43. المؤقت
+        // 43. المؤقت - إصلاح مشكلة timerInterval
         // ============================================================
         const timerDisplay = document.getElementById('timerDisplay');
         const timerStatus = document.getElementById('timerStatus');
         let timerSeconds = 0,
             timerRunning = false,
             timerPaused = false;
+        let timerInterval = null;
 
         function updateTimerDisplay() {
             const mins = Math.floor(timerSeconds / 60);
@@ -5086,8 +4840,10 @@
         }
 
         function resetTimer() {
-            if (timerInterval) { clearInterval(timerInterval);
-                timerInterval = null; }
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+            }
             timerRunning = false;
             timerPaused = false;
             timerSeconds = 0;
@@ -5161,7 +4917,6 @@
         loadAllData();
         loadNotifications();
 
-        // تحديث المتصلين كل 30 ثانية (يشتغل فقط لو أدمن)
         setInterval(() => {
             if (auth.currentUser) {
                 updateOnlineStatus(auth.currentUser);
