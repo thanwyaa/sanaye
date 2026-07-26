@@ -3860,6 +3860,7 @@
                         return;
                     }
 
+                    // ✅ جلب الصورة من قاعدة البيانات أولاً (عشان تفضل بعد الريفرش)
                     const photoURL = data?.photoURL || user.photoURL || '';
                     const displayName = data?.name || user.displayName || user.email || 'مستخدم';
                     userSection.innerHTML = `
@@ -3902,6 +3903,24 @@
                 allYoutubeCache = await getAllYoutubeChannels();
                 if (auth.currentUser) {
                     allFavoritesCache = await getUserFavorites(auth.currentUser.uid);
+                    // ✅ تحديث الصورة في الشريط بعد تحميل البيانات
+                    const userData = await getUser(auth.currentUser.uid);
+                    if (userData?.photoURL) {
+                        const navbarAvatar = document.getElementById('navbarAvatar');
+                        if (navbarAvatar) {
+                            if (navbarAvatar.tagName === 'IMG') {
+                                navbarAvatar.src = userData.photoURL;
+                            } else {
+                                const parent = navbarAvatar.parentNode;
+                                const img = document.createElement('img');
+                                img.className = 'avatar';
+                                img.id = 'navbarAvatar';
+                                img.src = userData.photoURL;
+                                img.alt = 'صورة الملف الشخصي';
+                                parent.replaceChild(img, navbarAvatar);
+                            }
+                        }
+                    }
                 }
             } catch (err) {}
         }
@@ -4552,6 +4571,7 @@
             `;
         }
 
+        // ✅ دالة رفع الصورة - بتخزن في Realtime Database عشان تفضل بعد الريفرش
         function uploadProfileImage() {
             if (!auth.currentUser) {
                 alert('🔐 يرجى تسجيل الدخول أولاً');
@@ -4577,11 +4597,13 @@
                     const base64Image = e.target.result;
 
                     try {
+                        // ✅ تخزين الصورة في Realtime Database
                         await db.ref(`users/${auth.currentUser.uid}`).update({
                             photoURL: base64Image,
                             updatedAt: firebase.database.ServerValue.TIMESTAMP
                         });
 
+                        // ✅ تحديث الصورة في الملف الشخصي
                         const profileImg = document.querySelector('.profile-img');
                         if (profileImg) {
                             profileImg.src = base64Image;
@@ -4596,6 +4618,7 @@
                             }
                         }
 
+                        // ✅ تحديث الصورة في الشريط العلوي
                         const navbarAvatar = document.getElementById('navbarAvatar');
                         if (navbarAvatar) {
                             if (navbarAvatar.tagName === 'IMG') {
@@ -4611,6 +4634,7 @@
                             }
                         }
 
+                        // ✅ تحديث أي صورة تانية في الصفحة
                         document.querySelectorAll('.user-avatar, .avatar').forEach(el => {
                             if (el.tagName === 'IMG' && el.id !== 'navbarAvatar') {
                                 el.src = base64Image;
@@ -4618,7 +4642,9 @@
                         });
 
                         showToast('✅ تم تحديث الصورة بنجاح!');
-                        loadAllData();
+
+                        // ✅ تحديث الكاش
+                        await loadAllData();
 
                     } catch (err) {
                         alert('❌ خطأ: ' + err.message);
