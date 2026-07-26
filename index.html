@@ -9,17 +9,10 @@
     <link rel="manifest" href="./manifest.json" />
     <link rel="apple-touch-icon" href="./icon-512.jpg" />
 
-    <!-- ============================================================
-    🛡️ حماية متطورة ضد الحلقات اللانهائية - تمنع Maximum call stack
-    ============================================================ -->
     <script>
-        // ============================================================
-        // 🛡️ حماية فورية ضد الحلقات اللانهائية
-        // ============================================================
         (function() {
             'use strict';
 
-            // ✅ منع F12 و Ctrl+Shift+I و Ctrl+U
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'F12' ||
                     (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(e.key)) ||
@@ -29,13 +22,11 @@
                 }
             });
 
-            // ✅ منع الماوس الأيمن
             document.addEventListener('contextmenu', function(e) {
                 e.preventDefault();
                 return false;
             });
 
-            // ✅ منع تحديد النص (مع السماح للحقول)
             document.addEventListener('selectstart', function(e) {
                 if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA' &&
                     !e.target.classList.contains('search-input') &&
@@ -45,7 +36,6 @@
                 }
             });
 
-            // ✅ منع النسخ (مع السماح للحقول)
             document.addEventListener('copy', function(e) {
                 if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
                     e.preventDefault();
@@ -53,7 +43,28 @@
                 }
             });
 
-            // ✅ منع الحلقات اللانهائية في الـ Events
+            if (window.location.hostname !== 'localhost' && !window.location.hostname.includes('127.0.0.1')) {
+                const noop = function() {};
+                const originalError = console.error;
+
+                ['log', 'warn', 'info', 'debug', 'trace', 'dir', 'dirxml', 'group', 'groupEnd', 'time', 'timeEnd',
+                    'count', 'assert', 'table', 'clear'
+                ].forEach(function(method) {
+                    if (console[method]) console[method] = noop;
+                });
+
+                console.error = function(...args) {
+                    if (args[0] && typeof args[0] === 'string') {
+                        if (args[0].includes('FIREBASE') ||
+                            args[0].includes('permission_denied') ||
+                            args[0].includes('@firebase')) {
+                            return;
+                        }
+                    }
+                    originalError.apply(console, ['⚠️ حدث خطأ في المنصة']);
+                };
+            }
+
             let _eventCounter = {};
             let _lastClickTime = 0;
 
@@ -82,44 +93,17 @@
                 }
             }, true);
 
-            // ✅ مراقبة setInterval - منع الفواصل الصغيرة جداً
             const _setInterval = window.setInterval;
             window.setInterval = function(fn, delay) {
                 if (delay < 100) {
-                    console.warn('⚠️ تم تعديل setInterval من ' + delay + 'ms إلى 100ms');
                     delay = 100;
                 }
                 return _setInterval(fn, delay);
             };
 
-            // ✅ تعطيل Console في الإنتاج
-            if (window.location.hostname !== 'localhost' && !window.location.hostname.includes('127.0.0.1')) {
-                const noop = function() {};
-                const originalError = console.error;
-
-                ['log', 'warn', 'info', 'debug', 'trace', 'dir', 'dirxml', 'group', 'groupEnd', 'time', 'timeEnd',
-                    'count', 'assert', 'table', 'clear'
-                ].forEach(function(method) {
-                    if (console[method]) console[method] = noop;
-                });
-
-                console.error = function(...args) {
-                    if (args[0] && typeof args[0] === 'string') {
-                        if (args[0].includes('FIREBASE') ||
-                            args[0].includes('permission_denied') ||
-                            args[0].includes('@firebase')) {
-                            return;
-                        }
-                    }
-                    originalError.apply(console, ['⚠️ حدث خطأ في المنصة']);
-                };
-            }
-
-            // ✅ منع الحلقات اللانهائية في الدوال
             window._callStack = {};
             window._safeCall = function(name, fn) {
                 if (window._callStack[name]) {
-                    console.warn('⚠️ تم منع تكرار استدعاء: ' + name);
                     return null;
                 }
                 window._callStack[name] = true;
@@ -134,7 +118,6 @@
         })();
     </script>
 
-    <!-- ===== Service Worker Registration ===== -->
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', function() {
@@ -145,7 +128,6 @@
         }
     </script>
 
-    <!-- Firebase - Realtime Database -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js">
     </script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js">
@@ -153,14 +135,12 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js">
     </script>
 
-    <!-- DOMPurify -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js">
     </script>
 
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet" />
 
     <style>
-        /* ===== كل الأنماط موجودة ===== */
         * {
             margin: 0;
             padding: 0;
@@ -1445,9 +1425,19 @@
             font-weight: 700;
             color: #3498db;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
         .forum-post .post-header .user:hover {
             text-decoration: underline;
+        }
+        .forum-post .post-header .user-avatar {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid #3498db;
         }
         .forum-post .post-header .date {
             font-size: 11px;
@@ -1513,6 +1503,8 @@
             width: 30px;
             height: 30px;
             border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid #3498db;
             background: #3498db;
             color: white;
             display: flex;
@@ -1533,6 +1525,15 @@
         .forum-post .comment .comment-text .name {
             font-weight: 700;
             font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .forum-post .comment .comment-text .name .user-avatar-small {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            object-fit: cover;
         }
         .forum-post .comment-input {
             display: flex;
@@ -1709,6 +1710,8 @@
             width: 30px;
             height: 30px;
             border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid #2ecc71;
             background: #2ecc71;
             color: white;
             display: flex;
@@ -1729,6 +1732,15 @@
         .post-card .comment .comment-text .name {
             font-weight: 700;
             font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .post-card .comment .comment-text .name .user-avatar-small {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            object-fit: cover;
         }
         .post-card .comment-input {
             display: flex;
@@ -2554,7 +2566,6 @@
             background: #555;
         }
 
-        /* ===== NEW STYLES ===== */
         .forum-hero {
             background: linear-gradient(135deg, #2ecc71, #27ae60);
             padding: 30px 20px;
@@ -3072,14 +3083,213 @@
         </div>
     </div>
 
+    <!-- ===== صفحة من نحن ===== -->
+    <div class="page" id="page-about">
+        <div class="page-header">
+            <button class="back-btn" onclick="navigateTo('home')">← العودة للرئيسية</button>
+            <h2>👤 من نحن</h2>
+        </div>
+        <div class="policy-content" style="max-width:700px;margin:0 auto;background:white;padding:30px;border-radius:20px;box-shadow:0 4px 20px rgba(0,0,0,0.06);">
+            <div style="text-align:center;margin-bottom:20px;">
+                <img src="https://cdn.phototourl.com/free/2026-07-21-1dd4b984-ed08-4a40-aead-9ef086ebbd45.jpg" style="width:100px;height:100px;border-radius:50%;border:4px solid #3498db;margin-bottom:10px;">
+                <h2 style="color:#2c3e50;font-weight:900;">الثانوية الرسمية بلس</h2>
+                <p style="color:#888;">منصة تعليمية مجانية لطلاب الثانوية العامة والبكالوريا</p>
+            </div>
+
+            <div class="highlight">
+                <strong>🚀 البداية</strong><br>
+                نحن مجموعة تطوعية شبابية بدأت الرحلة باسم <strong>"تانية ثانوي الرسمية"</strong> وكانت للصف الثاني الثانوي فقط.<br><br>
+                ولكن نظراً للنجاح الكبير الذي حققناه، قمنا بالتوسع وأصبحت تعرف باسم <strong>"الثانوية الرسمية بلس"</strong> لتشمل جميع صفوف الثانوية العامة والبكالوريا.
+            </div>
+
+            <div class="highlight" style="border-color:#2ecc71;">
+                <strong>📖 رؤيتنا</strong><br>
+                قمنا بإنشاء موقع مجاني لرفع الكتب والملخصات بجودة عالية جداً، لتسهيل التعليم والوصول للطلاب في كل مكان.
+            </div>
+
+            <div class="highlight" style="border-color:#f39c12;">
+                <strong>🎯 رسالتنا</strong><br>
+                تقديم محتوى تعليمي عالي الجودة، منظم وسهل الوصول، يساعد الطلاب على التفوق الدراسي ويخفف الأعباء عن أولياء الأمور.
+            </div>
+
+            <h3 style="margin-top:20px;color:#2c3e50;">💪 فريق العمل</h3>
+            <p>فريقنا مكون من شباب متطوعين من مختلف التخصصات، يجمعهم حب التعليم والرغبة في مساعدة الآخرين.</p>
+
+            <h3 style="margin-top:16px;color:#2c3e50;">🤝 كيف يمكنك المساعدة؟</h3>
+            <ul>
+                <li>مشاركة ملخصاتك وكتبك مع زملائك</li>
+                <li>التواصل معنا لتقديم اقتراحاتك</li>
+                <li>مشاركة المنصة مع أصدقائك</li>
+            </ul>
+
+            <div style="margin-top:16px;padding:12px;background:#f0f8ff;border-radius:10px;text-align:center;border-right:4px solid #3498db;">
+                <p style="font-size:14px;color:#2c3e50;font-weight:700;">معاً نجعل التعليم أفضل للجميع 💙</p>
+            </div>
+
+            <div style="margin-top:16px;padding:12px;background:#f8f9fa;border-radius:10px;text-align:center;font-size:13px;color:#888;">
+                📱 تواصل معنا على تليجرام: <a href="https://t.me/llTwasell" target="_blank" style="color:#3498db;font-weight:700;">@llTwasell</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== صفحة سياسة الخصوصية ===== -->
+    <div class="page" id="page-privacy">
+        <div class="page-header">
+            <button class="back-btn" onclick="navigateTo('home')">← العودة للرئيسية</button>
+            <h2>🔒 سياسة الخصوصية</h2>
+        </div>
+        <div class="policy-content" style="max-width:700px;margin:0 auto;background:white;padding:30px;border-radius:20px;box-shadow:0 4px 20px rgba(0,0,0,0.06);">
+            
+            <div style="text-align:center;margin-bottom:16px;">
+                <p style="font-size:16px;color:#2c3e50;font-weight:700;">مرحباً بك في منصة الثانوية الرسمية بلس</p>
+                <p style="color:#555;">نطمئنك أن خصوصيتك وبياناتك في أمان، وهي أولوية قصوى بالنسبة لنا.</p>
+            </div>
+
+            <div class="highlight">
+                <strong>📌 ما البيانات التي نجمعها؟</strong><br>
+                نقوم بحفظ البريد الإلكتروني والاسم لتخصيص المحتوى المناسب لك. لا نقوم بتخزين أي كلمات مرور (يتم التعامل معها عبر Firebase).
+            </div>
+
+            <div class="highlight" style="border-color:#f39c12;">
+                <strong>📍 التتبع والموقع</strong><br>
+                لا نقوم بتتبع عنوان الـ IP الخاص بك أو الموقع الجغرافي. المنصة مجانية بالكامل وتهدف لمساعدة الطلاب.
+            </div>
+
+            <div class="highlight" style="border-color:#e74c3c;">
+                <strong>📚 المحتوى وحقوق النشر</strong><br>
+                إذا كنت صاحب محتوى وترى أن هناك كتاباً أو ملفاً يضر بك أو بمؤسستك، يرجى التواصل معنا وسيتم حذف المحتوى خلال 24 ساعة.
+            </div>
+
+            <div class="highlight" style="border-color:#2ecc71;">
+                <strong>🔐 أمان البيانات</strong><br>
+                نحن نستخدم أحدث تقنيات الأمان لحماية بياناتك. جميع البيانات مشفرة ويتم نقلها عبر قنوات آمنة.
+            </div>
+
+            <div style="margin-top:16px;padding:12px;background:#f0f8ff;border-radius:10px;text-align:center;border-right:4px solid #3498db;">
+                <p style="font-size:14px;color:#2c3e50;">👨‍👩‍👧‍👦 من نحن؟</p>
+                <p style="font-size:13px;color:#555;">نحن فريق الثانوية الرسمية بلس، نعمل على جعل التعليم سهلاً ومتاحاً للجميع، وتخفيف الأعباء عن كاهل أولياء الأمور.</p>
+                <p style="font-size:13px;color:#555;margin-top:4px;">نحن لا ننتهك حقوق أي شخص، هدفنا هو تقديم محتوى تعليمي مجاني وسهل الوصول.</p>
+            </div>
+
+            <div style="margin-top:16px;padding:12px;background:#f8f9fa;border-radius:10px;text-align:center;font-size:13px;color:#888;">
+                📧 للتواصل: <a href="https://t.me/llTwasell" target="_blank" style="color:#3498db;font-weight:700;">تليجرام @llTwasell</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== صفحة سياسة الحذف ===== -->
+    <div class="page" id="page-dmca">
+        <div class="page-header">
+            <button class="back-btn" onclick="navigateTo('home')">← العودة للرئيسية</button>
+            <h2>⚖️ سياسة الحذف</h2>
+        </div>
+        <div class="policy-content" style="max-width:700px;margin:0 auto;background:white;padding:30px;border-radius:20px;box-shadow:0 4px 20px rgba(0,0,0,0.06);">
+            
+            <div style="text-align:center;margin-bottom:16px;">
+                <p style="font-size:16px;color:#2c3e50;font-weight:700;">سياسة الحذف - الثانوية الرسمية بلس</p>
+            </div>
+
+            <div class="highlight" style="border-color:#2ecc71;">
+                <strong>📌 ما هي سياسة الحذف؟</strong><br>
+                تحترم منصة الثانوية الرسمية بلس حقوق الملكية الفكرية لجميع الأطراف. إذا كنت تعتقد أن أي محتوى على منصتنا ينتهك حقوق النشر الخاصة بك، يرجى إبلاغنا وسنتخذ الإجراءات اللازمة فوراً.
+            </div>
+
+            <h3 style="color:#2c3e50;margin-top:16px;">📋 كيف تقدم طلب حذف؟</h3>
+            <p>لطلب حذف محتوى، يرجى تزويدنا بالمعلومات التالية:</p>
+            <ul>
+                <li><strong>بياناتك الشخصية:</strong> الاسم الكامل، البريد الإلكتروني، رقم الهاتف</li>
+                <li><strong>وصف المحتوى:</strong> رابط المحتوى الذي تطلب حذفه، ووصف دقيق له</li>
+                <li><strong>إثبات الملكية:</strong> دليل على أنك صاحب حقوق النشر أو وكيل معتمد</li>
+                <li><strong>توقيعك:</strong> توقيع إلكتروني أو يدوي يؤكد صحة المعلومات</li>
+            </ul>
+
+            <h3 style="color:#2c3e50;margin-top:16px;">⏳ متى يتم الحذف؟</h3>
+            <div class="highlight" style="border-color:#3498db;">
+                يتم حذف المحتوى خلال <strong>24 ساعة</strong> من استلام الطلب الصحيح. سيتم إخطارك بعد الحذف مباشرة.
+            </div>
+
+            <h3 style="color:#2c3e50;margin-top:16px;">📱 كيف تتواصل معنا؟</h3>
+            <p>أرسل طلبك عبر تليجرام: <a href="https://t.me/llTwasell" target="_blank" style="color:#3498db;font-weight:700;">@llTwasell</a></p>
+
+            <h3 style="color:#2c3e50;margin-top:16px;">⚠️ ما هي حالات الحذف الأخرى؟</h3>
+            <p>بالإضافة إلى حقوق النشر، يتم حذف أي محتوى:</p>
+            <ul>
+                <li>يحتوي على إساءة أو تنمر</li>
+                <li>يخالف القوانين المصرية</li>
+                <li>يحتوي على معلومات خاطئة أو مضللة</li>
+            </ul>
+
+            <div style="margin-top:16px;padding:12px;background:#f0f8ff;border-radius:10px;text-align:center;border-right:4px solid #3498db;">
+                <p style="font-size:14px;color:#2c3e50;font-weight:700;">نلتزم بحماية حقوق جميع المستخدمين وصناع المحتوى 🤝</p>
+            </div>
+
+            <div style="margin-top:16px;padding:12px;background:#f8f9fa;border-radius:10px;text-align:center;font-size:13px;color:#888;">
+                📧 للتواصل: <a href="https://t.me/llTwasell" target="_blank" style="color:#3498db;font-weight:700;">تليجرام @llTwasell</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== صفحة الشروط والأحكام ===== -->
+    <div class="page" id="page-terms">
+        <div class="page-header">
+            <button class="back-btn" onclick="navigateTo('home')">← العودة للرئيسية</button>
+            <h2>📜 الشروط والأحكام</h2>
+        </div>
+        <div class="policy-content" style="max-width:700px;margin:0 auto;background:white;padding:30px;border-radius:20px;box-shadow:0 4px 20px rgba(0,0,0,0.06);">
+            
+            <div class="highlight">
+                <strong>📋 الشروط والأحكام - الثانوية الرسمية بلس</strong><br>
+                باستخدامك لمنصة الثانوية الرسمية بلس، فإنك توافق على هذه الشروط والأحكام. يرجى قراءتها بعناية.
+            </div>
+
+            <h3 style="color:#2c3e50;margin-top:16px;">1. قبول الشروط</h3>
+            <p>باستخدامك للمنصة، فإنك توافق على الالتزام بجميع الشروط والأحكام المذكورة هنا. إذا كنت لا توافق على هذه الشروط، يرجى التوقف عن استخدام المنصة.</p>
+
+            <h3 style="color:#2c3e50;margin-top:16px;">2. المحتوى والسلوك</h3>
+            <ul>
+                <li>أنت المسؤول الوحيد عن المحتوى الذي تنشره على المنصة</li>
+                <li>يحظر نشر محتوى مسيء، عنصري، غير قانوني، أو ينتهك حقوق الآخرين</li>
+                <li>يحظر انتحال شخصية الآخرين أو استخدام حسابات مزيفة</li>
+                <li>جميع المحتويات المنشورة تخضع للمراجعة وقد يتم حذفها دون إشعار مسبق</li>
+            </ul>
+
+            <h3 style="color:#2c3e50;margin-top:16px;">3. حقوق الملكية الفكرية</h3>
+            <ul>
+                <li>جميع المحتويات المنشورة على المنصة محمية بحقوق النشر</li>
+                <li>لا يجوز نسخ أو توزيع المحتويات دون إذن صريح من صاحب الحق</li>
+                <li>الكتب والملخصات المنشورة من قبل المستخدمين هي ملك لأصحابها</li>
+            </ul>
+
+            <h3 style="color:#2c3e50;margin-top:16px;">4. الحسابات</h3>
+            <ul>
+                <li>أنت المسؤول عن أمان حسابك وكلمة المرور</li>
+                <li>لا تشارك حسابك مع الآخرين</li>
+                <li>يحق لنا تعليق أو حذف أي حساب يخالف الشروط</li>
+            </ul>
+
+            <h3 style="color:#2c3e50;margin-top:16px;">5. سياسة الحذف</h3>
+            <p>إذا وجدت محتوى ينتهك حقوقك، يمكنك تقديم طلب حذف وفقاً لـ <a href="#" onclick="navigateTo('dmca')" style="color:#3498db;">سياسة الحذف</a> الخاصة بنا.</p>
+
+            <h3 style="color:#2c3e50;margin-top:16px;">6. التواصل</h3>
+            <ul>
+                <li>📱 تليجرام: <a href="https://t.me/llTwasell" target="_blank" style="color:#3498db;">@llTwasell</a></li>
+            </ul>
+
+            <div style="margin-top:16px;padding:12px;background:#f8f9fa;border-radius:10px;text-align:center;font-size:13px;color:#888;">
+                آخر تحديث: يوليو 2026
+            </div>
+        </div>
+    </div>
+
     <!-- ===== التذييل ===== -->
     <div class="footer">
         <p>© 2026 الثانوية الرسمية بلس - جميع الحقوق محفوظة</p>
         <p>
-            <a onclick="navigateTo('privacy')">سياسة الخصوصية</a>
-            <a onclick="navigateTo('dmca')">سياسة الحذف</a>
-            <a onclick="navigateTo('about')">من نحن</a>
-            <a onclick="navigateTo('teamPosts')">آخر منشورات الفريق</a>
+            <a onclick="navigateTo('privacy')">🔒 سياسة الخصوصية</a>
+            <a onclick="navigateTo('dmca')">⚖️ سياسة الحذف</a>
+            <a onclick="navigateTo('terms')">📜 الشروط والأحكام</a>
+            <a onclick="navigateTo('about')">👤 من نحن</a>
+            <a onclick="navigateTo('teamPosts')">📢 آخر منشورات الفريق</a>
             <a id="shareFooter">📤 شارك المنصة</a>
         </p>
         <p style="font-size:12px;color:#888;margin-top:8px;">
@@ -3087,6 +3297,9 @@
         </p>
         <p style="font-size:11px;color:#aaa;margin-top:4px;">
             أنت المسؤول عن أمان حسابك • نحن لا نبيع بياناتك لأي طرف ثالث
+        </p>
+        <p style="font-size:11px;color:#aaa;margin-top:4px;">
+            📱 تواصل معنا: <a href="https://t.me/llTwasell" target="_blank" style="color:#3498db;">تليجرام @llTwasell</a>
         </p>
     </div>
 
@@ -3212,42 +3425,15 @@
     <div class="toast" id="toast"></div>
 
     <!-- ============================================================ -->
-    <!-- JavaScript - نسخة آمنة 100% -->
+    <!-- JavaScript -->
     <!-- ============================================================ -->
     <script>
-        // ============================================================
-        // ✅ إخفاء رسائل الكونسول
-        // ============================================================
         if (window.location.hostname !== 'localhost' && !window.location.hostname.includes('127.0.0.1')) {
             console.log = function() {};
             console.warn = function() {};
             console.info = function() {};
         }
 
-        // ============================================================
-        // ✅ منع الحلقات اللانهائية - حماية إضافية
-        // ============================================================
-        let _isNavigating = false;
-        let _loadingLocks = {};
-
-        function safeLoadData(key, fn) {
-            if (_loadingLocks[key]) {
-                console.warn('⚠️ تم منع تحميل متكرر: ' + key);
-                return;
-            }
-            _loadingLocks[key] = true;
-            try {
-                fn();
-            } finally {
-                setTimeout(function() {
-                    _loadingLocks[key] = false;
-                }, 500);
-            }
-        }
-
-        // ============================================================
-        // ✅ الصفحة تفتح من الأعلى
-        // ============================================================
         window.addEventListener('load', function() {
             window.scrollTo(0, 0);
             if (document.activeElement) {
@@ -3259,9 +3445,6 @@
             window.scrollTo(0, 0);
         });
 
-        // ============================================================
-        // 1. تهيئة Firebase
-        // ============================================================
         const firebaseConfig = {
             apiKey: "AIzaSyAz9BfG1INB3shlCiMtK395SEo6sCkaZSI",
             authDomain: "thanawya-official-plus.firebaseapp.com",
@@ -3276,9 +3459,6 @@
         const auth = firebase.auth();
         const db = firebase.database();
 
-        // ============================================================
-        // 2. دوال الأمان
-        // ============================================================
         function sanitizeHTML(html) {
             if (typeof DOMPurify !== 'undefined') {
                 return DOMPurify.sanitize(html);
@@ -3293,9 +3473,6 @@
             return sanitizeHTML(text);
         }
 
-        // ============================================================
-        // 3. علامة التوثيق
-        // ============================================================
         const VERIFIED_BADGE_SVG = `
             <span class="verified-badge" title="حساب موثق">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#1D9BF0">
@@ -3305,15 +3482,6 @@
             </span>
         `;
 
-        const OFFICIAL_TEAM = {
-            name: 'فريق الثانوية الرسمية بلس',
-            logo: 'https://cdn.phototourl.com/free/2026-07-21-1dd4b984-ed08-4a40-aead-9ef086ebbd45.jpg',
-            verified: true
-        };
-
-        // ============================================================
-        // 4. دوال Realtime Database
-        // ============================================================
         function getAllData(path) {
             return new Promise((resolve, reject) => {
                 db.ref(path).once('value', (snapshot) => {
@@ -3364,9 +3532,6 @@
             });
         }
 
-        // ============================================================
-        // 5. دوال الكتب
-        // ============================================================
         function getAllBooks() {
             return getAllData('books');
         }
@@ -3407,9 +3572,6 @@
             );
         }
 
-        // ============================================================
-        // 6. دوال المستخدمين
-        // ============================================================
         function getAllUsers() {
             return getAllData('users');
         }
@@ -3432,9 +3594,6 @@
             });
         }
 
-        // ============================================================
-        // 7. دوال الملخصات
-        // ============================================================
         function getAllSummaries() {
             return getAllData('handwritten_notes');
         }
@@ -3447,9 +3606,6 @@
             });
         }
 
-        // ============================================================
-        // 8. دوال المنتدى
-        // ============================================================
         function getAllForumPosts() {
             return getAllData('forum_posts');
         }
@@ -3460,23 +3616,25 @@
                 .sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
         }
 
-        function addForumPost(postData, userId, userName) {
+        function addForumPost(postData, userId, userName, userPhoto) {
             return addData('forum_posts', {
                 ...postData,
                 userId: userId,
                 author: userName || 'طالب',
+                authorPhoto: userPhoto || '',
                 status: 'pending',
                 likesCount: 0,
                 comments: []
             });
         }
 
-        function addForumComment(postId, commentData, userId, userName) {
+        function addForumComment(postId, commentData, userId, userName, userPhoto) {
             const newRef = db.ref(`forum_posts/${postId}/comments`).push();
             return newRef.set({
                 ...commentData,
                 userId: userId,
                 user: userName || 'طالب',
+                userPhoto: userPhoto || '',
                 status: 'pending',
                 likes: 0,
                 createdAt: firebase.database.ServerValue.TIMESTAMP
@@ -3513,9 +3671,6 @@
             });
         }
 
-        // ============================================================
-        // 9. دوال منشورات الفريق
-        // ============================================================
         function getAllTeamPosts() {
             return getAllData('team_posts');
         }
@@ -3528,21 +3683,19 @@
             });
         }
 
-        function addTeamComment(postId, commentData, userId, userName) {
+        function addTeamComment(postId, commentData, userId, userName, userPhoto) {
             const newRef = db.ref(`team_posts/${postId}/comments`).push();
             return newRef.set({
                 ...commentData,
                 userId: userId,
                 user: userName || 'طالب',
+                userPhoto: userPhoto || '',
                 status: 'pending',
                 likes: 0,
                 createdAt: firebase.database.ServerValue.TIMESTAMP
             });
         }
 
-        // ============================================================
-        // 10. دوال المتصلين
-        // ============================================================
         let isAdminUser = false;
 
         function updateOnlineStatus(user) {
@@ -3594,9 +3747,6 @@
             }
         }
 
-        // ============================================================
-        // 11. دوال الإعلانات
-        // ============================================================
         function getAllAds() {
             return getAllData('ads');
         }
@@ -3606,9 +3756,6 @@
             return all.filter(ad => ad.active === true);
         }
 
-        // ============================================================
-        // 12. دوال الإشعارات
-        // ============================================================
         function getUserNotifications(userId) {
             return new Promise((resolve, reject) => {
                 db.ref('notifications').orderByChild('createdAt').once('value', (snapshot) => {
@@ -3630,9 +3777,6 @@
             });
         }
 
-        // ============================================================
-        // 13. دوال المفضلات
-        // ============================================================
         function getUserFavorites(userId) {
             return new Promise((resolve, reject) => {
                 db.ref('favorites').orderByChild('userId').equalTo(userId).once('value', (snapshot) => {
@@ -3658,9 +3802,6 @@
             return deleteData('favorites', favId);
         }
 
-        // ============================================================
-        // 14. دوال البلاغات
-        // ============================================================
         function getAllReports() {
             return getAllData('reports');
         }
@@ -3673,16 +3814,10 @@
             });
         }
 
-        // ============================================================
-        // 15. دوال قنوات يوتيوب
-        // ============================================================
         function getAllYoutubeChannels() {
             return getAllData('youtube_channels');
         }
 
-        // ============================================================
-        // 16. نظام المصادقة
-        // ============================================================
         const userSection = document.getElementById('userSection');
         let currentUserData = null;
 
@@ -3701,7 +3836,8 @@
                     role: 'طالب',
                     grade: '1',
                     system: 'عام',
-                    year: '2027'
+                    year: '2027',
+                    photoURL: user.photoURL || ''
                 });
 
                 getUser(user.uid).then(async data => {
@@ -3724,11 +3860,11 @@
                         return;
                     }
 
-                    const photoURL = user.photoURL || '';
-                    const displayName = user.displayName || user.email || 'مستخدم';
+                    const photoURL = data?.photoURL || user.photoURL || '';
+                    const displayName = data?.name || user.displayName || user.email || 'مستخدم';
                     userSection.innerHTML = `
                         <div class="user-profile" onclick="navigateTo('profile')">
-                            ${photoURL ? `<img src="${photoURL}" class="avatar">` : `<div class="avatar-placeholder">${displayName.charAt(0).toUpperCase()}</div>`}
+                            ${photoURL ? `<img src="${photoURL}" class="avatar" id="navbarAvatar">` : `<div class="avatar-placeholder" id="navbarAvatar">${displayName.charAt(0).toUpperCase()}</div>`}
                             <span class="user-name">${safeText(displayName)}</span>
                         </div>
                         <button class="btn-logout-header" onclick="auth.signOut();location.reload();">🚪 خروج</button>
@@ -3750,9 +3886,6 @@
             updateUIForUser(user);
         });
 
-        // ============================================================
-        // 17. تحميل جميع البيانات (آمن)
-        // ============================================================
         let allBooksCache = [];
         let allSummariesCache = [];
         let allForumPostsCache = [];
@@ -3761,23 +3894,18 @@
         let allYoutubeCache = [];
 
         async function loadAllData() {
-            safeLoadData('loadAllData', async function() {
-                try {
-                    allBooksCache = await getAllBooks();
-                    allSummariesCache = await getAllSummaries();
-                    allForumPostsCache = await getAllForumPosts();
-                    allTeamPostsCache = await getAllTeamPosts();
-                    allYoutubeCache = await getAllYoutubeChannels();
-                    if (auth.currentUser) {
-                        allFavoritesCache = await getUserFavorites(auth.currentUser.uid);
-                    }
-                } catch (err) {}
-            });
+            try {
+                allBooksCache = await getAllBooks();
+                allSummariesCache = await getAllSummaries();
+                allForumPostsCache = await getAllForumPosts();
+                allTeamPostsCache = await getAllTeamPosts();
+                allYoutubeCache = await getAllYoutubeChannels();
+                if (auth.currentUser) {
+                    allFavoritesCache = await getUserFavorites(auth.currentUser.uid);
+                }
+            } catch (err) {}
         }
 
-        // ============================================================
-        // 18. عرض الصفوف
-        // ============================================================
         function showGrade(gradeId) {
             navigateTo('grade');
             const gradeNames = { '1': 'أولى بكالوريا', '2': 'تانية بكالوريا', '3': 'تالتة ثانوي' };
@@ -3831,9 +3959,6 @@
             });
         }
 
-        // ============================================================
-        // 19. تحميل الكتب (آمن)
-        // ============================================================
         async function loadBooksForSection(gradeId, sectionId) {
             const container = document.getElementById(`books-${gradeId}-${sectionId}`);
             if (!container) return;
@@ -3880,9 +4005,6 @@
             }
         }
 
-        // ============================================================
-        // 20. تحميل ملخصات الطلاب
-        // ============================================================
         async function loadStudentSummaries(gradeId, container) {
             if (!container) return;
 
@@ -3930,9 +4052,6 @@
             });
         };
 
-        // ============================================================
-        // 21. تفاصيل الكتاب
-        // ============================================================
         async function showBookDetail(bookId) {
             navigateTo('bookDetail');
             const container = document.getElementById('bookDetailContainer');
@@ -3973,9 +4092,6 @@
             }
         }
 
-        // ============================================================
-        // 22. تحميل الكتاب
-        // ============================================================
         window.downloadBook = async function(bookId) {
             if (!auth.currentUser) {
                 alert('🔐 يرجى تسجيل الدخول أولاً');
@@ -3992,9 +4108,6 @@
             } catch (err) { alert('❌ خطأ: ' + err.message); }
         };
 
-        // ============================================================
-        // 23. المفضلة
-        // ============================================================
         window.toggleFav = async function(bookId, btn) {
             if (!auth.currentUser) {
                 alert('🔐 يرجى تسجيل الدخول أولاً');
@@ -4030,125 +4143,124 @@
             }
         };
 
-        // ============================================================
-        // 24. المنتدى (آمن)
-        // ============================================================
         async function loadForumPosts() {
-            safeLoadData('loadForumPosts', async function() {
-                const container = document.getElementById('forumPosts');
-                container.innerHTML = '<div class="loading-container"><div class="spinner"></div></div>';
+            const container = document.getElementById('forumPosts');
+            container.innerHTML = '<div class="loading-container"><div class="spinner"></div></div>';
 
-                try {
-                    const posts = await getApprovedForumPosts();
+            try {
+                const posts = await getApprovedForumPosts();
 
-                    if (posts.length === 0) {
-                        container.innerHTML =
-                            `<div class="empty-state"><div class="icon">💬</div><h3>لا توجد منشورات</h3><p>كن أول من يسأل!</p></div>`;
-                        return;
+                if (posts.length === 0) {
+                    container.innerHTML =
+                        `<div class="empty-state"><div class="icon">💬</div><h3>لا توجد منشورات</h3><p>كن أول من يسأل!</p></div>`;
+                    return;
+                }
+
+                container.innerHTML = '';
+                for (const data of posts) {
+                    const post = document.createElement('div');
+                    post.className = 'forum-post';
+
+                    let userLiked = false;
+                    if (auth.currentUser && data.likesData) {
+                        userLiked = data.likesData[auth.currentUser.uid] || false;
                     }
 
-                    container.innerHTML = '';
-                    for (const data of posts) {
-                        const post = document.createElement('div');
-                        post.className = 'forum-post';
+                    let commentsHtml = '';
+                    let commentCounter = 0;
+                    if (data.comments) {
+                        const approvedComments = data.comments.filter(c => c.status === 'approved');
+                        approvedComments.forEach(comment => {
+                            const initial = comment.user ? comment.user.charAt(0).toUpperCase() : '?';
+                            const commentIdx = commentCounter;
+                            let userCommentLiked = false;
+                            if (auth.currentUser && comment.likesData) {
+                                userCommentLiked = comment.likesData[auth.currentUser.uid] || false;
+                            }
 
-                        let userLiked = false;
-                        if (auth.currentUser && data.likesData) {
-                            userLiked = data.likesData[auth.currentUser.uid] || false;
-                        }
-
-                        let commentsHtml = '';
-                        let commentCounter = 0;
-                        if (data.comments) {
-                            const approvedComments = data.comments.filter(c => c.status === 'approved');
-                            approvedComments.forEach(comment => {
-                                const initial = comment.user ? comment.user.charAt(0).toUpperCase() :
-                                '?';
-                                const commentIdx = commentCounter;
-                                let userCommentLiked = false;
-                                if (auth.currentUser && comment.likesData) {
-                                    userCommentLiked = comment.likesData[auth.currentUser.uid] ||
-                                    false;
-                                }
-
-                                const commentDiv = document.createElement('div');
-                                commentDiv.className = 'comment';
-                                commentDiv.innerHTML = `
-                                    <div class="avatar">${safeText(initial)}</div>
-                                    <div class="comment-text">
-                                        <div class="name">${safeText(comment.user || 'مجهول')}</div>
-                                        <div>${safeText(comment.text || '')}</div>
-                                        <div style="margin-top:4px;display:flex;gap:8px;align-items:center;">
-                                            <button onclick="likeForumComment('${data.id}', ${commentIdx}, this)" style="background:none;border:none;cursor:pointer;font-size:12px;color:${userCommentLiked ? '#e74c3c' : '#555'};font-family:'Tajawal',sans-serif;display:flex;align-items:center;gap:4px;">
-                                                ${userCommentLiked ? '❤️' : '🤍'} <span>${comment.likes || 0}</span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                `;
-                                commentsHtml += commentDiv.outerHTML;
-                                commentCounter++;
-                            });
-                        }
-
-                        const likeCount = data.likesCount || 0;
-
-                        post.innerHTML = `
-                            <div class="post-header">
-                                <span class="user">👤 ${safeText(data.author || 'طالب')}</span>
-                                <span class="date">${data.createdAt ? new Date(data.createdAt).toLocaleString('ar') : ''}</span>
-                            </div>
-                            <h4 style="color:#2ecc71;">${safeText(data.title || 'سؤال')}</h4>
-                            <div class="post-content">${safeText(data.content || '')}</div>
-                            ${data.image ? `<img src="${safeText(data.image)}" class="post-image" loading="lazy">` : ''}
-                            <div class="post-actions">
-                                <button onclick="likeForumPost('${data.id}', this)" ${userLiked ? 'style="color:#e74c3c;"' : ''}>
-                                    ${userLiked ? '❤️' : '🤍'} <span>${likeCount}</span>
-                                </button>
-                                <button>💬 <span>${data.comments ? data.comments.filter(c => c.status === 'approved').length : 0}</span></button>
-                            </div>
-                            <div class="comments-section">
-                                ${commentsHtml}
-                                <div class="comment-input">
-                                    <input type="text" placeholder="اكتب تعليقك..." class="forum-comment-input" data-post="${data.id}">
-                                    <button class="forum-comment-submit" data-post="${data.id}">نشر</button>
+                            const commentDiv = document.createElement('div');
+                            commentDiv.className = 'comment';
+                            commentDiv.innerHTML = `
+                                <div class="avatar" style="background-image:url('${comment.userPhoto || ''}');background-size:cover;background-position:center;${comment.userPhoto ? '' : 'background:#3498db;'}">
+                                    ${!comment.userPhoto ? initial : ''}
                                 </div>
-                            </div>
-                        `;
-                        container.appendChild(post);
-
-                        const commentSubmit = post.querySelector('.forum-comment-submit');
-                        commentSubmit.addEventListener('click', async function() {
-                            const postId = this.dataset.post;
-                            const input = post.querySelector('.forum-comment-input');
-                            const text = input.value.trim();
-                            if (!text) return;
-                            if (!auth.currentUser) {
-                                alert('🔐 يرجى تسجيل الدخول أولاً');
-                                window.location.href = 'login.html';
-                                return;
-                            }
-                            try {
-                                await addForumComment(postId, { text: text }, auth.currentUser
-                                    .uid,
-                                    auth.currentUser.displayName || auth.currentUser.email);
-                                input.value = '';
-                                showPopup('✅', 'تم إرسال تعليقك!', 'تم إرسال تعليقك للإدارة للمراجعة');
-                                loadForumPosts();
-                            } catch (err) {
-                                alert('❌ خطأ: ' + err.message);
-                            }
+                                <div class="comment-text">
+                                    <div class="name">
+                                        ${comment.userPhoto ? `<img src="${comment.userPhoto}" class="user-avatar-small">` : ''}
+                                        ${safeText(comment.user || 'مجهول')}
+                                    </div>
+                                    <div>${safeText(comment.text || '')}</div>
+                                    <div style="margin-top:4px;display:flex;gap:8px;align-items:center;">
+                                        <button onclick="likeForumComment('${data.id}', ${commentIdx}, this)" style="background:none;border:none;cursor:pointer;font-size:12px;color:${userCommentLiked ? '#e74c3c' : '#555'};font-family:'Tajawal',sans-serif;display:flex;align-items:center;gap:4px;">
+                                            ${userCommentLiked ? '❤️' : '🤍'} <span>${comment.likes || 0}</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            `;
+                            commentsHtml += commentDiv.outerHTML;
+                            commentCounter++;
                         });
                     }
-                } catch (err) {
-                    container.innerHTML =
-                        `<div class="empty-state"><div class="icon">❌</div><h3>حدث خطأ</h3></div>`;
+
+                    const likeCount = data.likesCount || 0;
+
+                    post.innerHTML = `
+                        <div class="post-header">
+                            <span class="user">
+                                ${data.authorPhoto ? `<img src="${data.authorPhoto}" class="user-avatar">` : `👤`}
+                                ${safeText(data.author || 'طالب')}
+                            </span>
+                            <span class="date">${data.createdAt ? new Date(data.createdAt).toLocaleString('ar') : ''}</span>
+                        </div>
+                        <h4 style="color:#2ecc71;">${safeText(data.title || 'سؤال')}</h4>
+                        <div class="post-content">${safeText(data.content || '')}</div>
+                        ${data.image ? `<img src="${safeText(data.image)}" class="post-image" loading="lazy">` : ''}
+                        <div class="post-actions">
+                            <button onclick="likeForumPost('${data.id}', this)" ${userLiked ? 'style="color:#e74c3c;"' : ''}>
+                                ${userLiked ? '❤️' : '🤍'} <span>${likeCount}</span>
+                            </button>
+                            <button>💬 <span>${data.comments ? data.comments.filter(c => c.status === 'approved').length : 0}</span></button>
+                        </div>
+                        <div class="comments-section">
+                            ${commentsHtml}
+                            <div class="comment-input">
+                                <input type="text" placeholder="اكتب تعليقك..." class="forum-comment-input" data-post="${data.id}">
+                                <button class="forum-comment-submit" data-post="${data.id}">نشر</button>
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(post);
+
+                    const commentSubmit = post.querySelector('.forum-comment-submit');
+                    commentSubmit.addEventListener('click', async function() {
+                        const postId = this.dataset.post;
+                        const input = post.querySelector('.forum-comment-input');
+                        const text = input.value.trim();
+                        if (!text) return;
+                        if (!auth.currentUser) {
+                            alert('🔐 يرجى تسجيل الدخول أولاً');
+                            window.location.href = 'login.html';
+                            return;
+                        }
+                        try {
+                            const userData = await getUser(auth.currentUser.uid);
+                            const photo = userData?.photoURL || auth.currentUser.photoURL || '';
+                            await addForumComment(postId, { text: text }, auth.currentUser.uid,
+                                auth.currentUser.displayName || auth.currentUser.email, photo);
+                            input.value = '';
+                            showPopup('✅', 'تم إرسال تعليقك!', 'تم إرسال تعليقك للإدارة للمراجعة');
+                            loadForumPosts();
+                        } catch (err) {
+                            alert('❌ خطأ: ' + err.message);
+                        }
+                    });
                 }
-            });
+            } catch (err) {
+                container.innerHTML =
+                    `<div class="empty-state"><div class="icon">❌</div><h3>حدث خطأ</h3></div>`;
+            }
         }
 
-        // ============================================================
-        // 25. الإعجابات
-        // ============================================================
         window.likeForumPost = async function(postId, btn) {
             if (!auth.currentUser) {
                 alert('🔐 يرجى تسجيل الدخول أولاً');
@@ -4195,124 +4307,123 @@
             }
         };
 
-        // ============================================================
-        // 26. منشورات الفريق (آمن)
-        // ============================================================
         async function loadTeamPosts() {
-            safeLoadData('loadTeamPosts', async function() {
-                const container = document.getElementById('teamPostsContainer');
-                container.innerHTML = '<div class="loading-container"><div class="spinner"></div></div>';
+            const container = document.getElementById('teamPostsContainer');
+            container.innerHTML = '<div class="loading-container"><div class="spinner"></div></div>';
 
-                try {
-                    const posts = await getAllTeamPosts();
-                    posts.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+            try {
+                const posts = await getAllTeamPosts();
+                posts.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
 
-                    if (posts.length === 0) {
-                        container.innerHTML =
-                            `<div class="empty-state"><div class="icon">📢</div><h3>لا توجد منشورات</h3></div>`;
-                        return;
+                if (posts.length === 0) {
+                    container.innerHTML =
+                        `<div class="empty-state"><div class="icon">📢</div><h3>لا توجد منشورات</h3></div>`;
+                    return;
+                }
+
+                container.innerHTML = '';
+                posts.forEach(data => {
+                    const post = document.createElement('div');
+                    post.className = 'post-card';
+
+                    let userLiked = false;
+                    if (auth.currentUser && data.likesData) {
+                        userLiked = data.likesData[auth.currentUser.uid] || false;
                     }
 
-                    container.innerHTML = '';
-                    posts.forEach(data => {
-                        const post = document.createElement('div');
-                        post.className = 'post-card';
+                    let commentsHtml = '';
+                    let commentCounter = 0;
+                    if (data.comments) {
+                        const approvedComments = data.comments.filter(c => c.status === 'approved');
+                        approvedComments.forEach(comment => {
+                            const initial = comment.user ? comment.user.charAt(0).toUpperCase() : '?';
+                            const commentIdx = commentCounter;
+                            let userCommentLiked = false;
+                            if (auth.currentUser && comment.likesData) {
+                                userCommentLiked = comment.likesData[auth.currentUser.uid] || false;
+                            }
 
-                        let userLiked = false;
-                        if (auth.currentUser && data.likesData) {
-                            userLiked = data.likesData[auth.currentUser.uid] || false;
-                        }
-
-                        let commentsHtml = '';
-                        let commentCounter = 0;
-                        if (data.comments) {
-                            const approvedComments = data.comments.filter(c => c.status === 'approved');
-                            approvedComments.forEach(comment => {
-                                const initial = comment.user ? comment.user.charAt(0).toUpperCase() :
-                                '?';
-                                const commentIdx = commentCounter;
-                                let userCommentLiked = false;
-                                if (auth.currentUser && comment.likesData) {
-                                    userCommentLiked = comment.likesData[auth.currentUser.uid] ||
-                                    false;
-                                }
-
-                                const commentDiv = document.createElement('div');
-                                commentDiv.className = 'comment';
-                                commentDiv.innerHTML = `
-                                    <div class="avatar">${safeText(initial)}</div>
-                                    <div class="comment-text">
-                                        <div class="name">${safeText(comment.user || 'مجهول')}</div>
-                                        <div>${safeText(comment.text || '')}</div>
-                                        <div style="margin-top:4px;display:flex;gap:8px;align-items:center;">
-                                            <button onclick="likeTeamComment('${data.id}', ${commentIdx}, this)" style="background:none;border:none;cursor:pointer;font-size:12px;color:${userCommentLiked ? '#e74c3c' : '#555'};font-family:'Tajawal',sans-serif;display:flex;align-items:center;gap:4px;">
-                                                ${userCommentLiked ? '❤️' : '🤍'} <span>${comment.likes || 0}</span>
-                                            </button>
-                                        </div>
+                            const commentDiv = document.createElement('div');
+                            commentDiv.className = 'comment';
+                            commentDiv.innerHTML = `
+                                <div class="avatar" style="background-image:url('${comment.userPhoto || ''}');background-size:cover;background-position:center;${comment.userPhoto ? '' : 'background:#2ecc71;'}">
+                                    ${!comment.userPhoto ? initial : ''}
+                                </div>
+                                <div class="comment-text">
+                                    <div class="name">
+                                        ${comment.userPhoto ? `<img src="${comment.userPhoto}" class="user-avatar-small">` : ''}
+                                        ${safeText(comment.user || 'مجهول')}
                                     </div>
-                                `;
-                                commentsHtml += commentDiv.outerHTML;
-                                commentCounter++;
-                            });
-                        }
-
-                        const likeCount = data.likesCount || 0;
-
-                        post.innerHTML = `
-                            <div class="admin-header">
-                                <img src="https://cdn.phototourl.com/free/2026-07-21-1dd4b984-ed08-4a40-aead-9ef086ebbd45.jpg" class="admin-logo">
-                                <div class="admin-info">
-                                    <div class="admin-name">فريق الثانوية الرسمية بلس ${VERIFIED_BADGE_SVG}</div>
-                                    <div><span class="admin-badge">📢 حساب رسمي</span></div>
+                                    <div>${safeText(comment.text || '')}</div>
+                                    <div style="margin-top:4px;display:flex;gap:8px;align-items:center;">
+                                        <button onclick="likeTeamComment('${data.id}', ${commentIdx}, this)" style="background:none;border:none;cursor:pointer;font-size:12px;color:${userCommentLiked ? '#e74c3c' : '#555'};font-family:'Tajawal',sans-serif;display:flex;align-items:center;gap:4px;">
+                                            ${userCommentLiked ? '❤️' : '🤍'} <span>${comment.likes || 0}</span>
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
-                            <h4 style="color:#2ecc71;font-size:18px;">${safeText(data.title || 'منشور')}</h4>
-                            <div class="post-content-text">${safeText(data.content || '')}</div>
-                            <div class="post-meta">${data.createdAt ? new Date(data.createdAt).toLocaleString('ar') : ''}</div>
-                            <div class="post-actions">
-                                <button onclick="likeTeamPost('${data.id}', this)" ${userLiked ? 'style="color:#e74c3c;"' : ''}>
-                                    ${userLiked ? '❤️' : '🤍'} <span>${likeCount}</span>
-                                </button>
-                                <button>💬 <span>${data.comments ? data.comments.filter(c => c.status === 'approved').length : 0}</span></button>
-                            </div>
-                            <div class="comments-section">
-                                ${commentsHtml}
-                                <div class="comment-input">
-                                    <input type="text" placeholder="اكتب تعليقك..." class="team-comment-input" data-post="${data.id}">
-                                    <button class="team-comment-submit" data-post="${data.id}">نشر</button>
-                                </div>
-                            </div>
-                        `;
-                        container.appendChild(post);
-
-                        const commentSubmit = post.querySelector('.team-comment-submit');
-                        commentSubmit.addEventListener('click', async function() {
-                            const postId = this.dataset.post;
-                            const input = post.querySelector('.team-comment-input');
-                            const text = input.value.trim();
-                            if (!text) return;
-                            if (!auth.currentUser) {
-                                alert('🔐 يرجى تسجيل الدخول أولاً');
-                                window.location.href = 'login.html';
-                                return;
-                            }
-                            try {
-                                await addTeamComment(postId, { text: text }, auth.currentUser
-                                    .uid,
-                                    auth.currentUser.displayName || auth.currentUser.email);
-                                input.value = '';
-                                showPopup('✅', 'تم إرسال تعليقك!', 'تم إرسال تعليقك للإدارة للمراجعة');
-                                loadTeamPosts();
-                            } catch (err) {
-                                alert('❌ خطأ: ' + err.message);
-                            }
+                            `;
+                            commentsHtml += commentDiv.outerHTML;
+                            commentCounter++;
                         });
+                    }
+
+                    const likeCount = data.likesCount || 0;
+
+                    post.innerHTML = `
+                        <div class="admin-header">
+                            <img src="https://cdn.phototourl.com/free/2026-07-21-1dd4b984-ed08-4a40-aead-9ef086ebbd45.jpg" class="admin-logo">
+                            <div class="admin-info">
+                                <div class="admin-name">فريق الثانوية الرسمية بلس ${VERIFIED_BADGE_SVG}</div>
+                                <div><span class="admin-badge">📢 حساب رسمي</span></div>
+                            </div>
+                        </div>
+                        <h4 style="color:#2ecc71;font-size:18px;">${safeText(data.title || 'منشور')}</h4>
+                        <div class="post-content-text">${safeText(data.content || '')}</div>
+                        <div class="post-meta">${data.createdAt ? new Date(data.createdAt).toLocaleString('ar') : ''}</div>
+                        <div class="post-actions">
+                            <button onclick="likeTeamPost('${data.id}', this)" ${userLiked ? 'style="color:#e74c3c;"' : ''}>
+                                ${userLiked ? '❤️' : '🤍'} <span>${likeCount}</span>
+                            </button>
+                            <button>💬 <span>${data.comments ? data.comments.filter(c => c.status === 'approved').length : 0}</span></button>
+                        </div>
+                        <div class="comments-section">
+                            ${commentsHtml}
+                            <div class="comment-input">
+                                <input type="text" placeholder="اكتب تعليقك..." class="team-comment-input" data-post="${data.id}">
+                                <button class="team-comment-submit" data-post="${data.id}">نشر</button>
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(post);
+
+                    const commentSubmit = post.querySelector('.team-comment-submit');
+                    commentSubmit.addEventListener('click', async function() {
+                        const postId = this.dataset.post;
+                        const input = post.querySelector('.team-comment-input');
+                        const text = input.value.trim();
+                        if (!text) return;
+                        if (!auth.currentUser) {
+                            alert('🔐 يرجى تسجيل الدخول أولاً');
+                            window.location.href = 'login.html';
+                            return;
+                        }
+                        try {
+                            const userData = await getUser(auth.currentUser.uid);
+                            const photo = userData?.photoURL || auth.currentUser.photoURL || '';
+                            await addTeamComment(postId, { text: text }, auth.currentUser.uid,
+                                auth.currentUser.displayName || auth.currentUser.email, photo);
+                            input.value = '';
+                            showPopup('✅', 'تم إرسال تعليقك!', 'تم إرسال تعليقك للإدارة للمراجعة');
+                            loadTeamPosts();
+                        } catch (err) {
+                            alert('❌ خطأ: ' + err.message);
+                        }
                     });
-                } catch (err) {
-                    container.innerHTML =
-                        `<div class="empty-state"><div class="icon">❌</div><h3>حدث خطأ</h3></div>`;
-                }
-            });
+                });
+            } catch (err) {
+                container.innerHTML =
+                    `<div class="empty-state"><div class="icon">❌</div><h3>حدث خطأ</h3></div>`;
+            }
         }
 
         window.likeTeamPost = async function(postId, btn) {
@@ -4359,12 +4470,11 @@
             }
         };
 
-        // ============================================================
-        // 27. إدارة الصفحات (آمنة)
-        // ============================================================
+        let isNavigating = false;
+
         function navigateTo(pageId) {
-            if (_isNavigating) return;
-            _isNavigating = true;
+            if (isNavigating) return;
+            isNavigating = true;
 
             try {
                 document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -4398,14 +4508,11 @@
                 console.error('خطأ في التنقل:', err);
             } finally {
                 setTimeout(function() {
-                    _isNavigating = false;
+                    isNavigating = false;
                 }, 300);
             }
         }
 
-        // ============================================================
-        // 28. الملف الشخصي
-        // ============================================================
         async function loadProfile() {
             const container = document.getElementById('profileContainer');
             container.innerHTML = '<div class="loading-container"><div class="spinner"></div></div>';
@@ -4445,9 +4552,6 @@
             `;
         }
 
-        // ============================================================
-        // 29. تغيير الصورة (آمن - بدون حلقة لا نهائية)
-        // ============================================================
         function uploadProfileImage() {
             if (!auth.currentUser) {
                 alert('🔐 يرجى تسجيل الدخول أولاً');
@@ -4458,8 +4562,7 @@
             input.type = 'file';
             input.accept = 'image/*';
 
-            // ✅ استخدام once لمنع التكرار
-            input.addEventListener('change', function(e) {
+            input.onchange = function() {
                 const file = this.files[0];
                 if (!file) return;
 
@@ -4470,7 +4573,7 @@
                 }
 
                 const reader = new FileReader();
-                reader.addEventListener('load', async function(e) {
+                reader.onload = async function(e) {
                     const base64Image = e.target.result;
 
                     try {
@@ -4493,27 +4596,41 @@
                             }
                         }
 
-                        const avatar = document.querySelector('.user-profile .avatar');
-                        if (avatar) {
-                            avatar.src = base64Image;
+                        const navbarAvatar = document.getElementById('navbarAvatar');
+                        if (navbarAvatar) {
+                            if (navbarAvatar.tagName === 'IMG') {
+                                navbarAvatar.src = base64Image;
+                            } else {
+                                const parent = navbarAvatar.parentNode;
+                                const img = document.createElement('img');
+                                img.className = 'avatar';
+                                img.id = 'navbarAvatar';
+                                img.src = base64Image;
+                                img.alt = 'صورة الملف الشخصي';
+                                parent.replaceChild(img, navbarAvatar);
+                            }
                         }
 
+                        document.querySelectorAll('.user-avatar, .avatar').forEach(el => {
+                            if (el.tagName === 'IMG' && el.id !== 'navbarAvatar') {
+                                el.src = base64Image;
+                            }
+                        });
+
                         showToast('✅ تم تحديث الصورة بنجاح!');
+                        loadAllData();
+
                     } catch (err) {
                         alert('❌ خطأ: ' + err.message);
                     }
-                }, { once: true });
-
+                };
                 reader.readAsDataURL(file);
                 this.value = '';
-            }, { once: true });
+            };
 
             input.click();
         }
 
-        // ============================================================
-        // 30. المفضلة
-        // ============================================================
         async function loadFavorites() {
             const container = document.getElementById('favoritesContainer');
             container.innerHTML = '<div class="loading-container"><div class="spinner"></div></div>';
@@ -4555,9 +4672,6 @@
             }
         }
 
-        // ============================================================
-        // 31. قنوات يوتيوب
-        // ============================================================
         async function loadYoutubeChannels() {
             const container = document.getElementById('youtubeContainer');
             container.innerHTML = '<div class="loading-container"><div class="spinner"></div></div>';
@@ -4592,9 +4706,6 @@
             }
         }
 
-        // ============================================================
-        // 32. تفاصيل قناة يوتيوب
-        // ============================================================
         async function showYoutubeDetail(channelId) {
             navigateTo('youtubeDetail');
             const container = document.getElementById('youtubeDetailContainer');
@@ -4631,9 +4742,6 @@
             }
         }
 
-        // ============================================================
-        // 33. البحث
-        // ============================================================
         document.addEventListener('DOMContentLoaded', function() {
             const searchInput = document.getElementById('globalSearch');
             if (searchInput) {
@@ -4678,9 +4786,6 @@
             }
         });
 
-        // ============================================================
-        // 34. الإشعارات
-        // ============================================================
         async function loadNotifications() {
             if (!auth.currentUser) return;
             try {
@@ -4718,9 +4823,6 @@
             document.getElementById('notifModal').classList.remove('active');
         });
 
-        // ============================================================
-        // 35. منشور جديد
-        // ============================================================
         document.getElementById('newForumPostBtn').addEventListener('click', () => {
             if (!auth.currentUser) {
                 alert('🔐 يرجى تسجيل الدخول أولاً');
@@ -4749,8 +4851,10 @@
             if (!title || !content) { alert('❌ يرجى ملء جميع الحقول'); return; }
 
             try {
+                const userData = await getUser(auth.currentUser.uid);
+                const photo = userData?.photoURL || auth.currentUser.photoURL || '';
                 await addForumPost({ title, content, image }, auth.currentUser.uid,
-                    auth.currentUser.displayName || auth.currentUser.email);
+                    auth.currentUser.displayName || auth.currentUser.email, photo);
                 showPopup('✅', 'تم إرسال منشورك!', 'تم إرسال المنشور للإدارة للمراجعة');
                 document.getElementById('forumPostForm').reset();
                 document.getElementById('newForumPostModal').classList.remove('active');
@@ -4758,9 +4862,6 @@
             } catch (err) { alert('❌ خطأ: ' + err.message); }
         });
 
-        // ============================================================
-        // 36. رفع الملخصات
-        // ============================================================
         document.getElementById('uploadBtn').addEventListener('click', () => {
             if (!auth.currentUser) {
                 alert('🔐 يرجى تسجيل الدخول أولاً');
@@ -4811,9 +4912,6 @@
             }
         });
 
-        // ============================================================
-        // 37. الإعلانات
-        // ============================================================
         async function checkAdPopup() {
             try {
                 const ads = await getActiveAds();
@@ -4842,9 +4940,6 @@
             document.getElementById('adPopup').classList.remove('active');
         }
 
-        // ============================================================
-        // 38. Popup و Toast
-        // ============================================================
         function showPopup(icon, title, desc) {
             const popup = document.getElementById('popupMessage');
             document.getElementById('popupIcon').textContent = icon || '✅';
@@ -4866,9 +4961,6 @@
             toast._timer = setTimeout(() => toast.classList.remove('show'), 3000);
         }
 
-        // ============================================================
-        // 39. Lightbox
-        // ============================================================
         let lightboxImages = [];
         let currentLightboxIndex = 0;
 
@@ -4933,9 +5025,6 @@
             if (e.key === 'ArrowLeft') changeLightboxImage(-1);
         });
 
-        // ============================================================
-        // 40. تثبيت التطبيق
-        // ============================================================
         let deferredPrompt;
         document.getElementById('installAppBtn').addEventListener('click', async () => {
             if (!deferredPrompt) {
@@ -4957,9 +5046,6 @@
             showToast('✅ تم تثبيت التطبيق بنجاح!');
         });
 
-        // ============================================================
-        // 41. مشاركة المنصة
-        // ============================================================
         document.getElementById('shareFooter').addEventListener('click', (e) => {
             e.preventDefault();
             if (navigator.share) {
@@ -4975,9 +5061,6 @@
             }
         });
 
-        // ============================================================
-        // 42. الوضع الليلي
-        // ============================================================
         const darkToggle = document.getElementById('darkModeToggle');
         if (localStorage.getItem('darkMode') === 'enabled') {
             document.body.classList.add('dark-mode');
@@ -4994,9 +5077,6 @@
             }
         });
 
-        // ============================================================
-        // 43. المؤقت
-        // ============================================================
         const timerDisplay = document.getElementById('timerDisplay');
         const timerStatus = document.getElementById('timerStatus');
         let timerSeconds = 0,
@@ -5078,18 +5158,13 @@
             timerStatus.style.color = '#3498db';
         });
 
-        // ============================================================
-        // 44. بدء التشغيل
-        // ============================================================
         if (window.history && window.history.pushState) {
             window.history.pushState(null, null, window.location.href);
         }
 
-        // تحميل البيانات الأولية
         loadAllData();
         loadNotifications();
 
-        // تحديث حالة المتصلين كل 30 ثانية
         setInterval(() => {
             if (auth.currentUser) {
                 updateOnlineStatus(auth.currentUser);
