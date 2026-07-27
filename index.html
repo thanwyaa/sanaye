@@ -3147,7 +3147,7 @@
 
             <div class="highlight">
                 <strong>📌 ما البيانات التي نجمعها؟</strong><br>
-                نقوم بحفظ البريد الإلكتروني والاسم لتخصيص المحتوى المناسب لك. لا نقوم بتخزين أي كلمات مرور (يتم التعامل معها عبر Firebase).
+                نقوم بحفظ البريد الإلكتروني والاسم لتخصيص المحتوى المناسب لك. لا نقوم بتخزين أي كلمات مرور.
             </div>
 
             <div class="highlight" style="border-color:#f39c12;">
@@ -4582,6 +4582,7 @@
                             updatedAt: firebase.database.ServerValue.TIMESTAMP
                         });
 
+                        // تحديث الصورة في الواجهة بدون حاجة لإعادة تحميل الصفحة
                         const profileImg = document.querySelector('.profile-img');
                         if (profileImg) {
                             profileImg.src = base64Image;
@@ -4611,6 +4612,7 @@
                             }
                         }
 
+                        // تحديث جميع الصور الرمزية في الصفحة
                         document.querySelectorAll('.user-avatar, .avatar').forEach(el => {
                             if (el.tagName === 'IMG' && el.id !== 'navbarAvatar') {
                                 el.src = base64Image;
