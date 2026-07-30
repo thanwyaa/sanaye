@@ -9,6 +9,171 @@
     <link rel="manifest" href="./manifest.json" />
     <link rel="apple-touch-icon" href="./icon-512.jpg" />
 
+    <!-- ===== حماية متقدمة جداً ===== -->
+    <script>
+        (function() {
+            'use strict';
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'F12' ||
+                    (e.ctrlKey && e.shiftKey && ['I', 'J', 'C', 'K', 'E'].includes(e.key.toUpperCase())) ||
+                    (e.ctrlKey && ['U', 'S', 'P', 'N', 'T', 'W'].includes(e.key.toUpperCase())) ||
+                    (e.ctrlKey && e.key === 'Tab') ||
+                    (e.altKey && e.key === 'Tab') ||
+                    e.key === 'F5' ||
+                    e.key === 'F11') {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+
+            document.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                return false;
+            });
+
+            document.addEventListener('selectstart', function(e) {
+                if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA' &&
+                    !e.target.classList.contains('search-input') &&
+                    !e.target.classList.contains('section-search')) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+
+            document.addEventListener('copy', function(e) {
+                if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+
+            document.addEventListener('cut', function(e) {
+                if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+
+            document.addEventListener('paste', function(e) {
+                if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+
+            document.addEventListener('dragstart', function(e) {
+                if (e.target.tagName === 'IMG') {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+
+            let _eventCounter = {};
+            let _lastClickTime = 0;
+            document.addEventListener('click', function(e) {
+                const now = Date.now();
+                if (now - _lastClickTime < 50) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    return false;
+                }
+                _lastClickTime = now;
+                const key = (e.target.id || e.target.className || 'unknown').toString();
+                _eventCounter[key] = (_eventCounter[key] || 0) + 1;
+                setTimeout(() => { _eventCounter[key] = 0; }, 1000);
+                if (_eventCounter[key] > 8) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    _eventCounter[key] = 0;
+                    return false;
+                }
+            }, true);
+
+            const _setInterval = window.setInterval;
+            window.setInterval = function(fn, delay) {
+                if (delay < 100) delay = 100;
+                return _setInterval(fn, delay);
+            };
+
+            if (window.location.hostname !== 'localhost' && !window.location.hostname.includes('127.0.0.1')) {
+                const noop = function() {};
+                ['log', 'warn', 'info', 'debug', 'trace', 'dir', 'dirxml', 'group', 'groupEnd', 'time', 'timeEnd',
+                    'count', 'assert', 'table', 'clear', 'profile', 'profileEnd'
+                ].forEach(function(method) {
+                    if (console[method]) console[method] = noop;
+                });
+                console.error = function() {};
+                console.exception = function() {};
+            }
+
+            setInterval(function() { debugger; }, 1000);
+
+            if (window.location.protocol === 'view-source:') {
+                window.location.href = window.location.href.replace('view-source:', '');
+            }
+
+            Object.defineProperty(document, 'cookie', {
+                get: function() { return ''; },
+                set: function() { return ''; }
+            });
+
+            window._callStack = {};
+            window._safeCall = function(name, fn) {
+                if (window._callStack[name]) {
+                    return null;
+                }
+                window._callStack[name] = true;
+                try {
+                    return fn();
+                } finally {
+                    setTimeout(function() {
+                        window._callStack[name] = false;
+                    }, 200);
+                }
+            };
+
+            document.addEventListener('mousedown', function(e) {
+                if (e.button === 1) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+
+            if (window.__REACT_DEVTOOLS_GLOBAL_HOOK__) {
+                delete window.__REACT_DEVTOOLS_GLOBAL_HOOK__;
+            }
+
+            console.log = function() {};
+            console.warn = function() {};
+            console.info = function() {};
+            console.debug = function() {};
+            console.error = function() {};
+            console.table = function() {};
+            console.dir = function() {};
+            console.dirxml = function() {};
+            console.group = function() {};
+            console.groupEnd = function() {};
+            console.time = function() {};
+            console.timeEnd = function() {};
+            console.trace = function() {};
+            console.assert = function() {};
+            console.count = function() {};
+            console.clear = function() {};
+            console.profile = function() {};
+            console.profileEnd = function() {};
+        })();
+    </script>
+
+    <!-- ===== Service Worker ===== -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('./sw.js').catch(function() {});
+            });
+        }
+    </script>
+
     <!-- ===== Firebase ===== -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js">
     </script>
@@ -17,12 +182,7 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js">
     </script>
 
-    <!-- ===== DOMPurify ===== -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js">
-    </script>
-
-    <!-- ===== Chart.js ===== -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js">
     </script>
 
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet" />
@@ -3452,27 +3612,9 @@
     <div class="toast" id="toast"></div>
 
     <!-- ============================================================ -->
-    <!-- JavaScript - نسخة آمنة ومستقرة مع حفظ الصور -->
+    <!-- JavaScript - نظام إشعارات متكامل مع Real-Time -->
     <!-- ============================================================ -->
     <script>
-        // ============================================================
-        // تحويل الصورة إلى Base64 لحفظها بشكل دائم
-        // ============================================================
-        function convertImageToBase64(file, callback) {
-            if (!file) {
-                callback('');
-                return;
-            }
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                callback(e.target.result);
-            };
-            reader.onerror = function() {
-                callback('');
-            };
-            reader.readAsDataURL(file);
-        }
-
         // ============================================================
         // Firebase Configuration
         // ============================================================
@@ -3533,7 +3675,7 @@
             '<span class="verified-badge" title="حساب موثق"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#1D9BF0"><path d="M22.25 12c0-1.06-.82-1.95-1.88-2.07.61-.88.54-2.08-.25-2.87-.79-.79-1.99-.86-2.87-.25C17.13 5.82 16.24 5 15.18 5c-.52 0-1 .18-1.39.48A2.07 2.07 0 0 0 12 4c-.69 0-1.32.34-1.7.86A2.07 2.07 0 0 0 8.82 5c-1.06 0-1.95.82-2.07 1.88-.88-.61-2.08-.54-2.87.25-.79.79-.86 1.99-.25 2.87C2.82 10.05 2 10.94 2 12s.82 1.95 1.88 2.07c-.61.88-.54 2.08.25 2.87.79.79 1.99.86 2.87.25.12 1.06 1.01 1.88 2.07 1.88.52 0 1-.18 1.39-.48.38.52 1.01.86 1.7.86.69 0 1.32-.34 1.7-.86.39.3.87.48 1.39.48 1.06 0 1.95-.82 2.07-1.88.88.61 2.08.54 2.87-.25.79-.79.86-1.99.25-2.87A2.08 2.08 0 0 0 22.25 12z"/><path fill="#FFFFFF" d="M10.3 15.7l-2.5-2.5 1.06-1.06 1.44 1.44 4.9-4.9 1.06 1.06z"/></svg></span>';
 
         // ============================================================
-        // دوال قاعدة البيانات - آمنة مع try/catch
+        // دوال قاعدة البيانات
         // ============================================================
         function getAllData(path) {
             return new Promise(function(resolve, reject) {
@@ -3628,6 +3770,7 @@
             return db.ref('favorites/' + favId).remove();
         }
 
+        // ===== نظام الإشعارات المتكامل =====
         function getUserNotifications(userId) {
             return new Promise(function(resolve, reject) {
                 try {
@@ -3637,8 +3780,8 @@
                         if (data) {
                             Object.keys(data).forEach(function(key) {
                                 var notif = data[key];
-                                if (notif.userId === userId || notif.target === 'all' || notif.target ===
-                                    userId) {
+                                // الإشعار يصل للطالب إذا كان موجه له شخصياً أو للجميع
+                                if (notif.userId === userId || notif.target === 'all' || notif.target === userId) {
                                     notif.id = key;
                                     notifs.push(notif);
                                 }
@@ -3653,32 +3796,104 @@
             });
         }
 
-        function addForumPost(postData, userId, userName, userPhoto) {
-            return addData('forum_posts', Object.assign({}, postData, {
-                userId: userId,
-                author: userName || 'طالب',
-                authorPhoto: userPhoto || '',
-                status: 'pending',
-                likesCount: 0,
-                likesData: {},
-                comments: [],
+        // دالة إرسال إشعار - تستخدم من قبل الأدمن
+        function sendNotification(notifData) {
+            return addData('notifications', Object.assign({}, notifData, {
+                read: false,
                 createdAt: firebase.database.ServerValue.TIMESTAMP
             }));
         }
 
-        function addForumComment(postId, commentData, userId, userName, userPhoto) {
-            var newRef = db.ref('forum_posts/' + postId + '/comments').push();
-            return newRef.set(Object.assign({}, commentData, {
+        // دالة إشعار لقبول المنشور
+        function notifyPostApproved(postId, userId, postTitle) {
+            return sendNotification({
                 userId: userId,
-                user: userName || 'طالب',
-                userPhoto: userPhoto || '',
-                status: 'pending',
-                likes: 0,
-                likesData: {},
-                createdAt: firebase.database.ServerValue.TIMESTAMP
-            }));
+                title: '✅ تم قبول منشورك',
+                body: 'تم قبول منشورك "' + postTitle + '" بنجاح في المنتدى',
+                type: 'post_approved',
+                postId: postId,
+                target: userId
+            });
         }
 
+        // دالة إشعار لقبول التعليق
+        function notifyCommentApproved(postId, userId, commentText) {
+            var shortText = commentText.length > 50 ? commentText.substring(0, 50) + '...' : commentText;
+            return sendNotification({
+                userId: userId,
+                title: '✅ تم قبول تعليقك',
+                body: 'تم قبول تعليقك: "' + shortText + '"',
+                type: 'comment_approved',
+                postId: postId,
+                target: userId
+            });
+        }
+
+        // دالة إشعار للرد على تعليق
+        function notifyReplyOnComment(userId, postId, replyText) {
+            var shortText = replyText.length > 50 ? replyText.substring(0, 50) + '...' : replyText;
+            return sendNotification({
+                userId: userId,
+                title: '💬 رد على تعليقك',
+                body: 'تم الرد على تعليقك: "' + shortText + '"',
+                type: 'reply_on_comment',
+                postId: postId,
+                target: userId
+            });
+        }
+
+        // دالة إشعار للإعجاب من أدمن
+        function notifyAdminLike(userId, postId, isPostLike) {
+            var title = isPostLike ? '❤️ إعجاب من الإدارة على منشورك' : '❤️ إعجاب من الإدارة على تعليقك';
+            var body = isPostLike ? 'قامت الإدارة بالإعجاب على منشورك' : 'قامت الإدارة بالإعجاب على تعليقك';
+            return sendNotification({
+                userId: userId,
+                title: title,
+                body: body,
+                type: 'admin_like',
+                postId: postId,
+                target: userId
+            });
+        }
+
+        // دالة إشعار للإعجاب من طالب آخر
+        function notifyUserLike(userId, postId, likerName, isPostLike) {
+            var title = isPostLike ? '❤️ إعجاب على منشورك' : '❤️ إعجاب على تعليقك';
+            var body = 'قام ' + likerName + ' بالإعجاب على ' + (isPostLike ? 'منشورك' : 'تعليقك');
+            return sendNotification({
+                userId: userId,
+                title: title,
+                body: body,
+                type: 'user_like',
+                postId: postId,
+                target: userId
+            });
+        }
+
+        // دالة إشعار لإرسال إشعار شخصي من الأدمن
+        function notifyPersonal(userId, title, body) {
+            return sendNotification({
+                userId: userId,
+                title: title,
+                body: body,
+                type: 'personal',
+                target: userId
+            });
+        }
+
+        // دالة إشعار جماعي
+        function notifyAll(title, body) {
+            return sendNotification({
+                userId: null,
+                title: title,
+                body: body,
+                type: 'broadcast',
+                target: 'all'
+            });
+        }
+
+        // ===== دوال اللايك المحسنة =====
+        // لايك منشور (Toggle - مرة واحدة لكل مستخدم)
         function likeForumPost(postId, userId) {
             return new Promise(function(resolve, reject) {
                 try {
@@ -3686,16 +3901,58 @@
                     postRef.transaction(function(post) {
                         if (!post) return post;
                         var likesData = post.likesData || {};
+                        var currentLikes = post.likesCount || 0;
+
                         if (likesData[userId]) {
+                            // إزالة الإعجاب (Unlike)
                             delete likesData[userId];
                             post.likesData = likesData;
-                            post.likesCount = (post.likesCount || 0) - 1;
+                            post.likesCount = currentLikes - 1;
                             if (post.likesCount < 0) post.likesCount = 0;
+                            return post;
                         } else {
+                            // إضافة إعجاب
                             likesData[userId] = true;
                             post.likesData = likesData;
-                            post.likesCount = (post.likesCount || 0) + 1;
+                            post.likesCount = currentLikes + 1;
+                            return post;
                         }
+                    }, function(error, committed, snapshot) {
+                        if (error) reject(error);
+                        else resolve({ committed: committed, data: snapshot.val() });
+                    });
+                } catch (e) {
+                    resolve({ committed: false });
+                }
+            });
+        }
+
+        // لايك تعليق (Toggle - مرة واحدة لكل مستخدم)
+        function likeForumComment(postId, commentIndex, userId) {
+            return new Promise(function(resolve, reject) {
+                try {
+                    var postRef = db.ref('forum_posts/' + postId);
+                    postRef.transaction(function(post) {
+                        if (!post || !post.comments) return post;
+                        if (commentIndex >= post.comments.length) return post;
+                        var comment = post.comments[commentIndex];
+                        if (!comment) return post;
+
+                        var likesData = comment.likesData || {};
+                        var currentLikes = comment.likes || 0;
+
+                        if (likesData[userId]) {
+                            delete likesData[userId];
+                            comment.likesData = likesData;
+                            comment.likes = currentLikes - 1;
+                            if (comment.likes < 0) comment.likes = 0;
+                        } else {
+                            likesData[userId] = true;
+                            comment.likesData = likesData;
+                            comment.likes = currentLikes + 1;
+                        }
+
+                        post.comments[commentIndex] = comment;
                         return post;
                     }, function(error, committed, snapshot) {
                         if (error) reject(error);
@@ -3707,6 +3964,7 @@
             });
         }
 
+        // ===== دوال منشورات الفريق =====
         function getAllTeamPosts() {
             return getAllData('team_posts');
         }
@@ -3731,17 +3989,20 @@
                     postRef.transaction(function(post) {
                         if (!post) return post;
                         var likesData = post.likesData || {};
+                        var currentLikes = post.likesCount || 0;
+
                         if (likesData[userId]) {
                             delete likesData[userId];
                             post.likesData = likesData;
-                            post.likesCount = (post.likesCount || 0) - 1;
+                            post.likesCount = currentLikes - 1;
                             if (post.likesCount < 0) post.likesCount = 0;
+                            return post;
                         } else {
                             likesData[userId] = true;
                             post.likesData = likesData;
-                            post.likesCount = (post.likesCount || 0) + 1;
+                            post.likesCount = currentLikes + 1;
+                            return post;
                         }
-                        return post;
                     }, function(error, committed, snapshot) {
                         if (error) reject(error);
                         else resolve({ committed: committed, data: snapshot.val() });
@@ -3761,17 +4022,21 @@
                         if (commentIndex >= post.comments.length) return post;
                         var comment = post.comments[commentIndex];
                         if (!comment) return post;
+
                         var likesData = comment.likesData || {};
+                        var currentLikes = comment.likes || 0;
+
                         if (likesData[userId]) {
                             delete likesData[userId];
                             comment.likesData = likesData;
-                            comment.likes = (comment.likes || 0) - 1;
+                            comment.likes = currentLikes - 1;
                             if (comment.likes < 0) comment.likes = 0;
                         } else {
                             likesData[userId] = true;
                             comment.likesData = likesData;
-                            comment.likes = (comment.likes || 0) + 1;
+                            comment.likes = currentLikes + 1;
                         }
+
                         post.comments[commentIndex] = comment;
                         return post;
                     }, function(error, committed, snapshot) {
@@ -3825,6 +4090,88 @@
                 userId: userId,
                 status: 'pending'
             }));
+        }
+
+        // ===== دوال المنتدى مع إشعارات =====
+        function addForumPost(postData, userId, userName, userPhoto) {
+            return addData('forum_posts', Object.assign({}, postData, {
+                userId: userId,
+                author: userName || 'طالب',
+                authorPhoto: userPhoto || '',
+                status: 'pending',
+                likesCount: 0,
+                likesData: {},
+                comments: [],
+                createdAt: firebase.database.ServerValue.TIMESTAMP
+            }));
+        }
+
+        function addForumComment(postId, commentData, userId, userName, userPhoto) {
+            var newRef = db.ref('forum_posts/' + postId + '/comments').push();
+            return newRef.set(Object.assign({}, commentData, {
+                userId: userId,
+                user: userName || 'طالب',
+                userPhoto: userPhoto || '',
+                status: 'pending',
+                likes: 0,
+                likesData: {},
+                createdAt: firebase.database.ServerValue.TIMESTAMP
+            }));
+        }
+
+        // ============================================================
+        // مراقبة الإشعارات في الوقت الفعلي (Real-Time)
+        // ============================================================
+        var notificationListener = null;
+
+        function startNotificationListener() {
+            if (!auth.currentUser) return;
+            if (notificationListener) {
+                db.ref('notifications').off('value', notificationListener);
+                notificationListener = null;
+            }
+
+            var userId = auth.currentUser.uid;
+            notificationListener = function(snapshot) {
+                var data = snapshot.val();
+                var notifs = [];
+                if (data) {
+                    Object.keys(data).forEach(function(key) {
+                        var notif = data[key];
+                        if (notif.userId === userId || notif.target === 'all' || notif.target === userId) {
+                            notif.id = key;
+                            notifs.push(notif);
+                        }
+                    });
+                }
+                notifs.sort(function(a, b) { return (b.createdAt || 0) - (a.createdAt || 0); });
+
+                var unread = notifs.filter(function(n) { return !n.read; }).length;
+                document.getElementById('notifCount').textContent = unread || '';
+                document.getElementById('notifCount').classList.toggle('show', unread > 0);
+                document.getElementById('bellIcon').classList.toggle('has-notifs', unread > 0);
+
+                if (notifs.length === 0) {
+                    document.getElementById('notifList').innerHTML =
+                        '<div class="empty-state"><div class="icon">📭</div><h3>لا توجد إشعارات</h3></div>';
+                } else {
+                    var html = '';
+                    notifs.forEach(function(n) {
+                        html +=
+                            '<div class="notification-item" style="opacity:' + (n.read ? '0.6' : '1') +
+                            ';background:' + (!n.read ? '#3498db10' : 'transparent') +
+                            ';border-right:' + (!n.read ? '3px solid #3498db' : 'none') + ';">' +
+                            '<div><strong>' + safeText(n.title) + '</strong></div>' +
+                            '<div style="font-size:14px;color:#777;">' + safeText(n.body) + '</div>' +
+                            '<div class="date">' + (n.createdAt ? new Date(n.createdAt).toLocaleString(
+                                'ar') : '') + '</div>' +
+                            '</div>';
+                    });
+                    document.getElementById('notifList').innerHTML = html;
+                }
+            };
+
+            db.ref('notifications').orderByChild('createdAt').on('value', notificationListener);
         }
 
         // ============================================================
@@ -3913,6 +4260,7 @@
 
                         updateOnlineStatus(user);
                         loadAllData();
+                        startNotificationListener();
                     });
                 });
             } else {
@@ -3924,6 +4272,10 @@
                 document.querySelector('.main-content').style.display = 'block';
                 document.querySelector('.navbar').style.display = 'flex';
                 document.querySelector('.footer').style.display = 'block';
+                if (notificationListener) {
+                    db.ref('notifications').off('value', notificationListener);
+                    notificationListener = null;
+                }
             }
         }
 
@@ -4346,7 +4698,7 @@
         };
 
         // ============================================================
-        // المنتدى - نسخة آمنة مع try/catch
+        // المنتدى - نسخة محسنة مع إشعارات ولايك
         // ============================================================
         function loadForumPosts() {
             var container = document.getElementById('forumPosts');
@@ -4491,6 +4843,7 @@
             }
         }
 
+        // ===== دالة اللايك المحسنة للمنتدى =====
         window.likeForumPost = function(postId, btn) {
             if (!auth.currentUser) {
                 alert('🔐 يرجى تسجيل الدخول أولاً');
@@ -4506,11 +4859,22 @@
                         var post = allForumPostsCache.find(function(p) { return p.id === postId; });
                         if (post) {
                             var isLiked = post.likesData && post.likesData[auth.currentUser.uid];
-                            span.textContent = isLiked ? current + 1 : current - 1;
-                            if (span.textContent < 0) span.textContent = 0;
-                            btn.innerHTML = (isLiked ? '❤️' : '🤍') + ' <span>' + span.textContent +
-                            '</span>';
+                            var newCount = isLiked ? current + 1 : current - 1;
+                            if (newCount < 0) newCount = 0;
+                            span.textContent = newCount;
+                            btn.innerHTML = (isLiked ? '❤️' : '🤍') + ' <span>' + newCount + '</span>';
                             btn.style.color = isLiked ? '#e74c3c' : '';
+
+                            // تحديث الـ cache
+                            post.likesCount = newCount;
+                            if (isLiked) {
+                                post.likesData = post.likesData || {};
+                                post.likesData[auth.currentUser.uid] = true;
+                            } else {
+                                if (post.likesData) {
+                                    delete post.likesData[auth.currentUser.uid];
+                                }
+                            }
                         }
                     }
                 }).catch(function() {});
@@ -4533,11 +4897,21 @@
                         if (post && post.comments && post.comments[commentIndex]) {
                             var comment = post.comments[commentIndex];
                             var isLiked = comment.likesData && comment.likesData[auth.currentUser.uid];
-                            span.textContent = isLiked ? current + 1 : current - 1;
-                            if (span.textContent < 0) span.textContent = 0;
-                            btn.innerHTML = (isLiked ? '❤️' : '🤍') + ' <span>' + span.textContent +
-                            '</span>';
+                            var newCount = isLiked ? current + 1 : current - 1;
+                            if (newCount < 0) newCount = 0;
+                            span.textContent = newCount;
+                            btn.innerHTML = (isLiked ? '❤️' : '🤍') + ' <span>' + newCount + '</span>';
                             btn.style.color = isLiked ? '#e74c3c' : '';
+
+                            comment.likes = newCount;
+                            if (isLiked) {
+                                comment.likesData = comment.likesData || {};
+                                comment.likesData[auth.currentUser.uid] = true;
+                            } else {
+                                if (comment.likesData) {
+                                    delete comment.likesData[auth.currentUser.uid];
+                                }
+                            }
                         }
                     }
                 }).catch(function() {});
@@ -4545,7 +4919,7 @@
         };
 
         // ============================================================
-        // منشورات الفريق - نسخة آمنة
+        // منشورات الفريق
         // ============================================================
         function loadTeamPosts() {
             var container = document.getElementById('teamPostsContainer');
@@ -4693,6 +5067,7 @@
             }
         }
 
+        // ===== لايك منشورات الفريق =====
         window.likeTeamPost = function(postId, btn) {
             if (!auth.currentUser) {
                 alert('🔐 يرجى تسجيل الدخول أولاً');
@@ -4708,11 +5083,20 @@
                         var post = allTeamPostsCache.find(function(p) { return p.id === postId; });
                         if (post) {
                             var isLiked = post.likesData && post.likesData[auth.currentUser.uid];
-                            span.textContent = isLiked ? current + 1 : current - 1;
-                            if (span.textContent < 0) span.textContent = 0;
-                            btn.innerHTML = (isLiked ? '❤️' : '🤍') + ' <span>' + span.textContent +
-                            '</span>';
+                            var newCount = isLiked ? current + 1 : current - 1;
+                            if (newCount < 0) newCount = 0;
+                            span.textContent = newCount;
+                            btn.innerHTML = (isLiked ? '❤️' : '🤍') + ' <span>' + newCount + '</span>';
                             btn.style.color = isLiked ? '#e74c3c' : '';
+                            post.likesCount = newCount;
+                            if (isLiked) {
+                                post.likesData = post.likesData || {};
+                                post.likesData[auth.currentUser.uid] = true;
+                            } else {
+                                if (post.likesData) {
+                                    delete post.likesData[auth.currentUser.uid];
+                                }
+                            }
                         }
                     }
                 }).catch(function() {});
@@ -4735,11 +5119,20 @@
                         if (post && post.comments && post.comments[commentIndex]) {
                             var comment = post.comments[commentIndex];
                             var isLiked = comment.likesData && comment.likesData[auth.currentUser.uid];
-                            span.textContent = isLiked ? current + 1 : current - 1;
-                            if (span.textContent < 0) span.textContent = 0;
-                            btn.innerHTML = (isLiked ? '❤️' : '🤍') + ' <span>' + span.textContent +
-                            '</span>';
+                            var newCount = isLiked ? current + 1 : current - 1;
+                            if (newCount < 0) newCount = 0;
+                            span.textContent = newCount;
+                            btn.innerHTML = (isLiked ? '❤️' : '🤍') + ' <span>' + newCount + '</span>';
                             btn.style.color = isLiked ? '#e74c3c' : '';
+                            comment.likes = newCount;
+                            if (isLiked) {
+                                comment.likesData = comment.likesData || {};
+                                comment.likesData[auth.currentUser.uid] = true;
+                            } else {
+                                if (comment.likesData) {
+                                    delete comment.likesData[auth.currentUser.uid];
+                                }
+                            }
                         }
                     }
                 }).catch(function() {});
@@ -4747,44 +5140,11 @@
         };
 
         // ============================================================
-        // الإشعارات
+        // الإشعارات - محملة بشكل منفصل
         // ============================================================
         function loadNotifications() {
-            if (!auth.currentUser) return;
-            try {
-                getUserNotifications(auth.currentUser.uid).then(function(notifs) {
-                    try {
-                        var unread = (notifs || []).filter(function(n) { return !n.read; }).length;
-
-                        document.getElementById('notifCount').textContent = unread || '';
-                        document.getElementById('notifCount').classList.toggle('show', unread > 0);
-                        document.getElementById('bellIcon').classList.toggle('has-notifs', unread > 0);
-
-                        if (notifs.length === 0) {
-                            document.getElementById('notifList').innerHTML =
-                                '<div class="empty-state"><div class="icon">📭</div><h3>لا توجد إشعارات</h3></div>';
-                        } else {
-                            var html = '';
-                            notifs.forEach(function(n) {
-                                html +=
-                                    '<div class="notification-item" style="opacity:' + (n.read ?
-                                        '0.6' : '1') + ';background:' + (!n.read ?
-                                        '#3498db10' : 'transparent') +
-                                    ';border-right:' + (!n.read ? '3px solid #3498db' :
-                                        'none') + ';">' +
-                                    '<div><strong>' + safeText(n.title) + '</strong></div>' +
-                                    '<div style="font-size:14px;color:#777;">' + safeText(n
-                                        .body) +
-                                    '</div>' +
-                                    '<div class="date">' + (n.createdAt ? new Date(n
-                                        .createdAt).toLocaleString('ar') : '') + '</div>' +
-                                    '</div>';
-                            });
-                            document.getElementById('notifList').innerHTML = html;
-                        }
-                    } catch (e) {}
-                }).catch(function() {});
-            } catch (e) {}
+            // يتم التعامل مع الإشعارات عبر الـ Real-time Listener
+            // الدالة موجودة في startNotificationListener
         }
 
         document.getElementById('bellBtn').addEventListener('click', function() {
@@ -4915,7 +5275,7 @@
         }
 
         // ============================================================
-        // رفع الصورة الشخصية - حفظ دائم
+        // رفع الصورة الشخصية - تحويل Base64
         // ============================================================
         function uploadProfileImage() {
             if (!auth.currentUser) {
@@ -4931,11 +5291,9 @@
                 var file = this.files[0];
                 if (!file) return;
 
-                convertImageToBase64(file, function(base64Image) {
-                    if (!base64Image) {
-                        alert('❌ فشل تحويل الصورة');
-                        return;
-                    }
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    var base64Image = e.target.result;
 
                     db.ref('users/' + auth.currentUser.uid).update({
                         photoURL: base64Image,
@@ -4982,7 +5340,8 @@
                     }).catch(function(err) {
                         alert('❌ خطأ: ' + err.message);
                     });
-                });
+                };
+                reader.readAsDataURL(file);
                 this.value = '';
             };
 
@@ -5389,7 +5748,6 @@
             document.getElementById('uploadModal').classList.remove('active');
         });
 
-        // ===== رفع الملخصات مع حفظ الصور =====
         document.getElementById('uploadForm').addEventListener('submit', function(e) {
             e.preventDefault();
             if (!auth.currentUser) return;
@@ -5405,7 +5763,6 @@
                 return;
             }
 
-            // حفظ الرابط كما هو (الصورة محفوظة في الرابط)
             addSummary({
                 title: title,
                 author: name,
@@ -5431,7 +5788,7 @@
         // بدء التشغيل
         // ============================================================
         loadAllData();
-        loadNotifications();
+        // الإشعارات يتم تشغيلها عبر startNotificationListener في updateUIForUser
 
         setInterval(function() {
             if (auth.currentUser) {
@@ -5441,13 +5798,15 @@
 
         setTimeout(checkAdPopup, 5000);
 
-        console.log('✅ منصة الثانوية الرسمية بلس 2027 - تعمل بشكل مستقر');
+        console.log('✅ منصة الثانوية الرسمية بلس 2027 - نظام إشعارات متكامل');
         console.log('📱 جميع الوظائف تعمل بشكل طبيعي');
         console.log('🔒 نظام حظر حقيقي مع رسالة مخصصة');
-        console.log('❤️ نظام الإعجاب يعمل بشكل صحيح (واحد فقط)');
+        console.log('❤️ نظام الإعجاب يعمل بشكل صحيح (Toggle - مرة واحدة لكل مستخدم)');
         console.log('📸 الصور تحفظ بشكل دائم (Base64)');
         console.log('📚 قنوات التواصل في أسفل الصفحة');
-        console.log('🛡️ جميع الأخطاء محمية بـ try/catch');
+        console.log('🔔 الإشعارات Real-Time بدون Refresh');
+        console.log('✅ إشعارات القبول للمنشورات والتعليقات');
+        console.log('❌ المنشورات والتعليقات المرفوضة لا ترسل إشعارات');
     </script>
 
 </body>
