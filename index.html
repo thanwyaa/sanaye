@@ -15,7 +15,6 @@
             'use strict';
 
             // ===== إخفاء الكود والكونسول تماماً =====
-            // منع F12 وجميع اختصارات المطور
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'F12' ||
                     (e.ctrlKey && e.shiftKey && ['I', 'J', 'C', 'K', 'E'].includes(e.key.toUpperCase())) ||
@@ -29,13 +28,11 @@
                 }
             });
 
-            // منع النقر الأيمن
             document.addEventListener('contextmenu', function(e) {
                 e.preventDefault();
                 return false;
             });
 
-            // منع التحديد
             document.addEventListener('selectstart', function(e) {
                 if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA' &&
                     !e.target.classList.contains('search-input') &&
@@ -45,7 +42,6 @@
                 }
             });
 
-            // منع النسخ
             document.addEventListener('copy', function(e) {
                 if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
                     e.preventDefault();
@@ -53,7 +49,6 @@
                 }
             });
 
-            // منع القص
             document.addEventListener('cut', function(e) {
                 if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
                     e.preventDefault();
@@ -61,7 +56,6 @@
                 }
             });
 
-            // منع اللصق في الحقول غير المسموحة
             document.addEventListener('paste', function(e) {
                 if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
                     e.preventDefault();
@@ -69,7 +63,6 @@
                 }
             });
 
-            // منع سحب الصور
             document.addEventListener('dragstart', function(e) {
                 if (e.target.tagName === 'IMG') {
                     e.preventDefault();
@@ -99,7 +92,6 @@
                 }
             }, true);
 
-            // منع setInterval السريع
             const _setInterval = window.setInterval;
             window.setInterval = function(fn, delay) {
                 if (delay < 100) delay = 100;
@@ -121,18 +113,15 @@
             // منع debugger
             setInterval(function() { debugger; }, 1000);
 
-            // منع view-source
             if (window.location.protocol === 'view-source:') {
                 window.location.href = window.location.href.replace('view-source:', '');
             }
 
-            // منع فتح console عبر اختصارات إضافية
             Object.defineProperty(document, 'cookie', {
                 get: function() { return ''; },
                 set: function() { return ''; }
             });
 
-            // منع تكرار استدعاء الدوال
             window._callStack = {};
             window._safeCall = function(name, fn) {
                 if (window._callStack[name]) {
@@ -148,7 +137,6 @@
                 }
             };
 
-            // منع الـ DevTools عبر الـ Click
             document.addEventListener('mousedown', function(e) {
                 if (e.button === 1) {
                     e.preventDefault();
@@ -156,19 +144,8 @@
                 }
             });
 
-            // منع الـ Remote Debugging
             if (window.__REACT_DEVTOOLS_GLOBAL_HOOK__) {
                 delete window.__REACT_DEVTOOLS_GLOBAL_HOOK__;
-            }
-
-            // منع الـ Performance API
-            if (window.performance && window.performance.measure) {
-                window.performance.measure = function() {};
-            }
-
-            // منع الـ Navigation API
-            if (window.navigation) {
-                window.navigation = undefined;
             }
 
             console.log = function() {};
@@ -3847,7 +3824,6 @@
                     if (!post) return post;
                     const likesData = post.likesData || {};
                     if (likesData[userId]) {
-                        // إزالة الإعجاب
                         delete likesData[userId];
                         post.likesData = likesData;
                         post.likesCount = (post.likesCount || 0) - 1;
@@ -4015,7 +3991,6 @@
                     isBannedUser = true;
                     document.getElementById('bannedOverlay').classList.add('active');
                     document.getElementById('banReason').textContent = 'السبب: ' + (userData.banReason || 'مخالفة قواعد المنصة');
-                    // إخفاء المحتوى
                     document.querySelector('.main-content').style.display = 'none';
                     document.querySelector('.navbar').style.display = 'none';
                     document.querySelector('.footer').style.display = 'none';
@@ -4052,7 +4027,6 @@
                     currentUserData = data;
                     isAdminUser = data?.role === 'admin' || data?.role === 'superAdmin';
 
-                    // التحقق من الحظر
                     const banned = await checkBanStatus(user.uid);
                     if (banned) return;
 
@@ -4960,7 +4934,6 @@
                 const file = this.files[0];
                 if (!file) return;
 
-                // أي حجم مقبول
                 const reader = new FileReader();
                 reader.onload = async function(e) {
                     const base64Image = e.target.result;
@@ -4971,7 +4944,6 @@
                             updatedAt: firebase.database.ServerValue.TIMESTAMP
                         });
 
-                        // تحديث الصورة في الواجهة
                         const profileImg = document.querySelector('.profile-img');
                         if (profileImg) {
                             profileImg.src = base64Image;
@@ -5440,26 +5412,6 @@
         }, 30000);
 
         setTimeout(checkAdPopup, 5000);
-
-        // إخفاء أي رسائل خطأ من الـ console
-        console.log = function() {};
-        console.warn = function() {};
-        console.info = function() {};
-        console.debug = function() {};
-        console.error = function() {};
-        console.table = function() {};
-        console.dir = function() {};
-        console.dirxml = function() {};
-        console.group = function() {};
-        console.groupEnd = function() {};
-        console.time = function() {};
-        console.timeEnd = function() {};
-        console.trace = function() {};
-        console.assert = function() {};
-        console.count = function() {};
-        console.clear = function() {};
-        console.profile = function() {};
-        console.profileEnd = function() {};
 
         console.log('✅ منصة الثانوية الرسمية بلس 2027 - محمية بالكامل');
         console.log('🛡️ جميع أدوات المطور معطلة');
