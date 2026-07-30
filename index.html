@@ -172,7 +172,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet" />
 
     <style>
-        /* ===== جميع الستايلات (محذوفة للاختصار، نفس الستايلات السابقة) ===== */
+        /* ===== جميع الستايلات (نفس الستايلات السابقة) ===== */
         * {
             margin: 0;
             padding: 0;
@@ -3594,7 +3594,7 @@
     <div class="toast" id="toast"></div>
 
     <!-- ============================================================ -->
-    <!-- JavaScript - النظام المتكامل على Firestore فقط -->
+    <!-- JavaScript - النظام المتكامل على Firestore فقط مع إصلاح الصلاحيات -->
     <!-- ============================================================ -->
     <script>
         // ============================================================
@@ -3612,9 +3612,30 @@
 
         firebase.initializeApp(firebaseConfig);
         var auth = firebase.auth();
-        var db = firebase.database(); // للتوافق مع منشورات الفريق والإشعارات
+        var db = firebase.database();
         var dbFirestore = firebase.firestore();
         var storage = firebase.storage();
+
+        // ===== إعدادات Firestore للسماح بالكتابة =====
+        // ملاحظة: يجب نشر هذه القواعد في Firebase Console
+        // rules_version = '2';
+        // service cloud.firestore {
+        //   match /databases/{database}/documents {
+        //     match /{document=**} {
+        //       allow read, write: if request.auth != null;
+        //     }
+        //   }
+        // }
+
+        // ===== إعدادات Storage للسماح برفع الصور =====
+        // rules_version = '2';
+        // service firebase.storage {
+        //   match /b/{bucket}/o {
+        //     match /{allPaths=**} {
+        //       allow read, write: if request.auth != null;
+        //     }
+        //   }
+        // }
 
         // ============================================================
         // دوال مساعدة
@@ -3785,7 +3806,7 @@
         }
 
         // ============================================================
-        // دوال المنتدى - Firestore فقط (تم إصلاح جميع الأخطاء)
+        // دوال المنتدى - Firestore فقط
         // ============================================================
 
         /**
@@ -3811,7 +3832,6 @@
                     const postData = docSnapshot.data();
 
                     if (isComment && commentIndex !== null) {
-                        // Like على تعليق
                         const comments = postData.comments || [];
                         if (commentIndex >= comments.length) {
                             throw new Error('التعليق غير موجود');
@@ -3839,7 +3859,6 @@
                             updatedAt: firebase.firestore.FieldValue.serverTimestamp()
                         });
                     } else {
-                        // Like على منشور
                         const likesData = postData.likesData || {};
                         const isLiked = !!likesData[userId];
 
@@ -3860,7 +3879,6 @@
                             updatedAt: firebase.firestore.FieldValue.serverTimestamp()
                         });
 
-                        // إرسال إشعار عند الإعجاب (ليس عند إلغاء الإعجاب)
                         const postOwnerId = postData.userId;
                         if (!isLiked && postOwnerId && postOwnerId !== userId) {
                             const userData = await getUser(userId);
@@ -3875,18 +3893,18 @@
                     }
                 });
 
-                // تحديث واجهة المستخدم
                 await updateLikeUI(postId, btn, isComment, commentIndex);
                 showToast('✅ تم تحديث الإعجاب بنجاح!');
             } catch (error) {
                 console.error('خطأ في الإعجاب:', error);
-                showToast('❌ حدث خطأ: ' + error.message, 'error');
+                if (error.code === 'permission-denied') {
+                    showToast('❌ خطأ في الصلاحيات: يرجى التأكد من قواعد Firebase', 'error');
+                } else {
+                    showToast('❌ حدث خطأ: ' + error.message, 'error');
+                }
             }
         }
 
-        /**
-         * تحديث واجهة المستخدم بعد اللايك
-         */
         async function updateLikeUI(postId, btn, isComment, commentIndex) {
             try {
                 const doc = await dbFirestore.collection('forum_posts').doc(postId).get();
@@ -3919,7 +3937,7 @@
         }
 
         /**
-         * دالة رفع الصور - Firebase Storage (نسخة واحدة موحدة)
+         * دالة رفع الصور - Firebase Storage
          */
         async function uploadForumImage(postId, imageFile, onProgress) {
             if (!auth.currentUser) {
@@ -3953,6 +3971,9 @@
                 return downloadURL;
             } catch (error) {
                 console.error('خطأ في رفع الصورة:', error);
+                if (error.code === 'permission-denied') {
+                    throw new Error('خطأ في صلاحيات رفع الصورة: يرجى التأكد من قواعد Storage');
+                }
                 throw new Error('فشل رفع الصورة: ' + error.message);
             }
         }
@@ -4114,18 +4135,26 @@
                             loadForumPostsFirestore();
                         } catch (error) {
                             console.error('خطأ في إرسال التعليق:', error);
-                            alert('❌ خطأ: ' + error.message);
+                            if (error.code === 'permission-denied') {
+                                alert('❌ خطأ في الصلاحيات: يرجى التأكد من قواعد Firebase');
+                            } else {
+                                alert('❌ خطأ: ' + error.message);
+                            }
                         }
                     });
                 });
             } catch (error) {
                 console.error('خطأ في تحميل المنشورات:', error);
-                container.innerHTML = `<div class="empty-state"><div class="icon">❌</div><h3>حدث خطأ: ${error.message}</h3></div>`;
+                if (error.code === 'permission-denied') {
+                    container.innerHTML = `<div class="empty-state"><div class="icon">🔒</div><h3>خطأ في الصلاحيات</h3><p>يرجى التأكد من قواعد Firebase Firestore</p></div>`;
+                } else {
+                    container.innerHTML = `<div class="empty-state"><div class="icon">❌</div><h3>حدث خطأ: ${error.message}</h3></div>`;
+                }
             }
         }
 
         // ============================================================
-        // دوال منشورات الفريق (Realtime Database - للحفاظ على التوافق)
+        // دوال منشورات الفريق (Realtime Database)
         // ============================================================
         function getAllTeamPosts() {
             return getAllData('team_posts');
@@ -4467,7 +4496,6 @@
                 }).catch(function() {});
             } catch (e) {}
 
-            // الاستماع للتحديثات اللحظية لمنشورات الفريق (Realtime Database)
             if (teamPostsListener) {
                 db.ref('team_posts').off('value', teamPostsListener);
                 teamPostsListener = null;
@@ -5697,7 +5725,11 @@
                 }
             } catch (error) {
                 console.error('خطأ في إضافة المنشور:', error);
-                alert('❌ خطأ: ' + error.message);
+                if (error.code === 'permission-denied') {
+                    alert('❌ خطأ في الصلاحيات: يرجى التأكد من قواعد Firebase Firestore');
+                } else {
+                    alert('❌ خطأ: ' + error.message);
+                }
             }
         });
 
@@ -5764,15 +5796,19 @@
 
         setTimeout(checkAdPopup, 5000);
 
-        console.log('✅ منصة الثانوية الرسمية بلس 2027 - نظام متكامل (جميع الإصلاحات)');
+        console.log('✅ منصة الثانوية الرسمية بلس 2027 - نظام متكامل');
         console.log('📱 جميع الوظائف تعمل بشكل طبيعي');
         console.log('🔒 نظام حظر حقيقي مع رسالة مخصصة');
-        console.log('❤️ نظام الإعجاب باستخدام Firestore Transaction (تم إصلاح الخطأ)');
-        console.log('📸 رفع الصور باستخدام Firebase Storage (تم الإصلاح)');
+        console.log('❤️ نظام الإعجاب باستخدام Firestore Transaction');
+        console.log('📸 رفع الصور باستخدام Firebase Storage');
         console.log('📚 قنوات التواصل في أسفل الصفحة');
         console.log('🔔 الإشعارات Real-Time بدون Refresh');
-        console.log('✅ حساب likesCount من Object.keys(likesData)');
-        console.log('✅ تم إصلاح خطأ .comment إلى ...comment');
+
+        // ===== تنبيه للمطور حول الصلاحيات =====
+        console.warn('⚠️ تأكد من نشر قواعد Firestore و Storage التالية في Firebase Console:');
+        console.warn('Firestore Rules: allow read, write: if request.auth != null;');
+        console.warn('Storage Rules: allow read, write: if request.auth != null;');
+        console.warn('إذا كنت تواجه خطأ "Missing or insufficient permissions"، فهذا يعني أن القواعد لم تُنشر بعد.');
     </script>
 
 </body>
