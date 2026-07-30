@@ -161,6 +161,9 @@
     </script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js">
     </script>
+    <!-- ===== إضافة Firestore ===== -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js">
+    </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js">
     </script>
@@ -3543,7 +3546,7 @@
                     <label for="forumPostContent">📝 المحتوى</label>
                     <textarea id="forumPostContent" rows="4" placeholder="اكتب سؤالك أو مشكلتك بالتفصيل..." required></textarea>
                     <label for="forumPostImage">🖼️ رابط صورة السؤال (اختياري)</label>
-                    <input type="text" id="forumPostImage" placeholder="https://...jpg">
+                    <input type="file" id="forumPostImage" accept="image/*">
                     <button type="submit" class="submit-post">📢 نشر المنشور (سيتم اعتماده من الإدارة)</button>
                 </form>
             </div>
@@ -3592,7 +3595,7 @@
     <div class="toast" id="toast"></div>
 
     <!-- ============================================================ -->
-    <!-- JavaScript - نظام المجتمع الكامل (Like + الصور) -->
+    <!-- JavaScript - النظام الكامل مع Firestore -->
     <!-- ============================================================ -->
     <script>
         // ============================================================
@@ -3611,6 +3614,7 @@
         firebase.initializeApp(firebaseConfig);
         var auth = firebase.auth();
         var db = firebase.database();
+        var dbFirestore = firebase.firestore();
 
         // ============================================================
         // دوال مساعدة
@@ -3655,7 +3659,7 @@
             '<span class="verified-badge" title="حساب موثق"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#1D9BF0"><path d="M22.25 12c0-1.06-.82-1.95-1.88-2.07.61-.88.54-2.08-.25-2.87-.79-.79-1.99-.86-2.87-.25C17.13 5.82 16.24 5 15.18 5c-.52 0-1 .18-1.39.48A2.07 2.07 0 0 0 12 4c-.69 0-1.32.34-1.7.86A2.07 2.07 0 0 0 8.82 5c-1.06 0-1.95.82-2.07 1.88-.88-.61-2.08-.54-2.87.25-.79.79-.86 1.99-.25 2.87C2.82 10.05 2 10.94 2 12s.82 1.95 1.88 2.07c-.61.88-.54 2.08.25 2.87.79.79 1.99.86 2.87.25.12 1.06 1.01 1.88 2.07 1.88.52 0 1-.18 1.39-.48.38.52 1.01.86 1.7.86.69 0 1.32-.34 1.7-.86.39.3.87.48 1.39.48 1.06 0 1.95-.82 2.07-1.88.88.61 2.08.54 2.87-.25.79-.79.86-1.99.25-2.87A2.08 2.08 0 0 0 22.25 12z"/><path fill="#FFFFFF" d="M10.3 15.7l-2.5-2.5 1.06-1.06 1.44 1.44 4.9-4.9 1.06 1.06z"/></svg></span>';
 
         // ============================================================
-        // دوال قاعدة البيانات
+        // دوال قاعدة البيانات - Realtime Database (للحفاظ على التوافق)
         // ============================================================
         function getAllData(path) {
             return new Promise(function(resolve, reject) {
@@ -3784,7 +3788,7 @@
 
         function notifyAdminLike(userId, postId, isPostLike) {
             var title = isPostLike ? '❤️ إعجاب من الإدارة على منشورك' : '❤️ إعجاب من الإدارة على تعليقك';
-            var body = isPostLike ? 'قامت الإدارة بالإعجاب على منشورك' : 'قامت الإدارة بالإعجاب على تعлиقك';
+            var body = isPostLike ? 'قامت الإدارة بالإعجاب على منشورك' : 'قامت الإدارة بالإعجاب على تعليقك';
             return sendNotification({
                 userId: userId,
                 title: title,
@@ -3809,124 +3813,372 @@
         }
 
         // ============================================================
-        // نظام اللايك المتكامل باستخدام Transaction
+        // دوال Like جديدة (Firestore)
         // ============================================================
-        function likeForumPost(postId, userId, userName) {
-            return new Promise(function(resolve, reject) {
-                try {
-                    var postRef = db.ref('forum_posts/' + postId);
-                    var isAdmin = false;
+        async function likeForumPostFirestore(postId, btn) {
+            if (!auth.currentUser) {
+                alert('🔐 يرجى تسجيل الدخول أولاً');
+                window.location.href = 'login.html';
+                return;
+            }
 
-                    getUser(userId).then(function(userData) {
-                        isAdmin = userData && (userData.role === 'admin' || userData.role === 'superAdmin');
-                        return postRef.transaction(function(post) {
-                            if (!post) return post;
-                            var likesData = post.likesData || {};
-                            var currentLikes = post.likesCount || 0;
+            const userId = auth.currentUser.uid;
+            const userName = currentUserData?.name || auth.currentUser.displayName || auth.currentUser.email || 'مستخدم';
+            const postRef = dbFirestore.collection('forum_posts').doc(postId);
 
-                            if (likesData[userId]) {
-                                // إزالة الإعجاب (Unlike)
-                                delete likesData[userId];
-                                post.likesData = likesData;
-                                post.likesCount = currentLikes - 1;
-                                if (post.likesCount < 0) post.likesCount = 0;
-                                return post;
-                            } else {
-                                // إضافة إعجاب
-                                likesData[userId] = true;
-                                post.likesData = likesData;
-                                post.likesCount = currentLikes + 1;
-                                return post;
-                            }
-                        }, function(error, committed, snapshot) {
-                            if (error) reject(error);
-                            else {
-                                var result = { committed: committed, data: snapshot.val() };
-                                if (committed) {
-                                    var data = snapshot.val();
-                                    if (data && data.likesData && data.likesData[userId]) {
-                                        var postOwnerId = data.userId;
-                                        if (postOwnerId && postOwnerId !== userId) {
-                                            if (isAdmin) {
-                                                notifyAdminLike(postOwnerId, postId, true).catch(function() {});
-                                            } else {
-                                                notifyUserLike(postOwnerId, postId, userName || 'مستخدم', true)
-                                                    .catch(function() {});
-                                            }
-                                        }
-                                    }
-                                }
-                                resolve(result);
-                            }
-                        });
-                    }).catch(reject);
-                } catch (e) {
-                    resolve({ committed: false });
+            try {
+                await dbFirestore.runTransaction(async (transaction) => {
+                    const docSnapshot = await transaction.get(postRef);
+                    if (!docSnapshot.exists) {
+                        throw new Error('المنشور غير موجود');
+                    }
+
+                    const postData = docSnapshot.data();
+                    const likesData = postData.likesData || {};
+                    const currentLikes = postData.likesCount || 0;
+
+                    const isLiked = !!likesData[userId];
+                    let newLikesCount;
+
+                    if (isLiked) {
+                        delete likesData[userId];
+                        newLikesCount = currentLikes - 1;
+                        if (newLikesCount < 0) newLikesCount = 0;
+                    } else {
+                        likesData[userId] = {
+                            name: userName,
+                            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                        };
+                        newLikesCount = currentLikes + 1;
+                    }
+
+                    transaction.update(postRef, {
+                        likesData: likesData,
+                        likesCount: newLikesCount,
+                        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                    });
+
+                    const postOwnerId = postData.userId;
+                    if (!isLiked && postOwnerId && postOwnerId !== userId) {
+                        const userData = await getUser(userId);
+                        const isAdmin = userData && (userData.role === 'admin' || userData.role === 'superAdmin');
+
+                        if (isAdmin) {
+                            await notifyAdminLike(postOwnerId, postId, true);
+                        } else {
+                            await notifyUserLike(postOwnerId, postId, userName, true);
+                        }
+                    }
+                });
+
+                const updatedDoc = await postRef.get();
+                const updatedData = updatedDoc.data();
+                const newCount = updatedData.likesCount || 0;
+                const isNowLiked = updatedData.likesData && !!updatedData.likesData[userId];
+
+                const span = btn.querySelector('span');
+                if (span) {
+                    span.textContent = newCount;
+                    btn.innerHTML = (isNowLiked ? '❤️' : '🤍') + ' <span>' + newCount + '</span>';
+                    btn.style.color = isNowLiked ? '#e74c3c' : '';
                 }
-            });
+
+                showToast('✅ تم تحديث الإعجاب بنجاح!');
+            } catch (error) {
+                console.error('خطأ في الإعجاب:', error);
+                showToast('❌ حدث خطأ: ' + error.message, 'error');
+            }
         }
 
-        function likeForumComment(postId, commentIndex, userId, userName) {
-            return new Promise(function(resolve, reject) {
-                try {
-                    var postRef = db.ref('forum_posts/' + postId);
-                    var isAdmin = false;
+        async function likeForumCommentFirestore(postId, commentIndex, btn) {
+            if (!auth.currentUser) {
+                alert('🔐 يرجى تسجيل الدخول أولاً');
+                window.location.href = 'login.html';
+                return;
+            }
 
-                    getUser(userId).then(function(userData) {
-                        isAdmin = userData && (userData.role === 'admin' || userData.role === 'superAdmin');
-                        return postRef.transaction(function(post) {
-                            if (!post || !post.comments) return post;
-                            if (commentIndex >= post.comments.length) return post;
-                            var comment = post.comments[commentIndex];
-                            if (!comment) return post;
+            const userId = auth.currentUser.uid;
+            const userName = currentUserData?.name || auth.currentUser.displayName || auth.currentUser.email || 'مستخدم';
+            const postRef = dbFirestore.collection('forum_posts').doc(postId);
 
-                            var likesData = comment.likesData || {};
-                            var currentLikes = comment.likes || 0;
+            try {
+                await dbFirestore.runTransaction(async (transaction) => {
+                    const docSnapshot = await transaction.get(postRef);
+                    if (!docSnapshot.exists) {
+                        throw new Error('المنشور غير موجود');
+                    }
 
-                            if (likesData[userId]) {
-                                delete likesData[userId];
-                                comment.likesData = likesData;
-                                comment.likes = currentLikes - 1;
-                                if (comment.likes < 0) comment.likes = 0;
-                            } else {
-                                likesData[userId] = true;
-                                comment.likesData = likesData;
-                                comment.likes = currentLikes + 1;
-                            }
+                    const postData = docSnapshot.data();
+                    const comments = postData.comments || [];
 
-                            post.comments[commentIndex] = comment;
-                            return post;
-                        }, function(error, committed, snapshot) {
-                            if (error) reject(error);
-                            else {
-                                var result = { committed: committed, data: snapshot.val() };
-                                if (committed) {
-                                    var data = snapshot.val();
-                                    if (data && data.comments && data.comments[commentIndex]) {
-                                        var comment = data.comments[commentIndex];
-                                        var commentOwnerId = comment.userId;
-                                        var isLiked = comment.likesData && comment.likesData[userId];
-                                        if (isLiked && commentOwnerId && commentOwnerId !== userId) {
-                                            if (isAdmin) {
-                                                notifyAdminLike(commentOwnerId, postId, false).catch(function() {});
-                                            } else {
-                                                notifyUserLike(commentOwnerId, postId, userName || 'مستخدم', false)
-                                                    .catch(function() {});
-                                            }
-                                        }
-                                    }
-                                }
-                                resolve(result);
-                            }
-                        });
-                    }).catch(reject);
-                } catch (e) {
-                    resolve({ committed: false });
+                    if (commentIndex >= comments.length) {
+                        throw new Error('التعليق غير موجود');
+                    }
+
+                    const comment = comments[commentIndex];
+                    const likesData = comment.likesData || {};
+                    const currentLikes = comment.likes || 0;
+
+                    const isLiked = !!likesData[userId];
+                    let newLikesCount;
+
+                    if (isLiked) {
+                        delete likesData[userId];
+                        newLikesCount = currentLikes - 1;
+                        if (newLikesCount < 0) newLikesCount = 0;
+                    } else {
+                        likesData[userId] = {
+                            name: userName,
+                            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                        };
+                        newLikesCount = currentLikes + 1;
+                    }
+
+                    comments[commentIndex] = {
+                        ...comment,
+                        likesData: likesData,
+                        likes: newLikesCount
+                    };
+
+                    transaction.update(postRef, {
+                        comments: comments,
+                        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                    });
+                });
+
+                const updatedDoc = await postRef.get();
+                const updatedData = updatedDoc.data();
+                const updatedComment = updatedData.comments?.[commentIndex];
+                if (updatedComment) {
+                    const newCount = updatedComment.likes || 0;
+                    const isNowLiked = updatedComment.likesData && !!updatedComment.likesData[userId];
+                    const span = btn.querySelector('span');
+                    if (span) {
+                        span.textContent = newCount;
+                        btn.innerHTML = (isNowLiked ? '❤️' : '🤍') + ' <span>' + newCount + '</span>';
+                        btn.style.color = isNowLiked ? '#e74c3c' : '';
+                    }
                 }
-            });
+
+                showToast('✅ تم تحديث الإعجاب بنجاح!');
+            } catch (error) {
+                console.error('خطأ في الإعجاب:', error);
+                showToast('❌ حدث خطأ: ' + error.message, 'error');
+            }
         }
 
-        // ===== دوال منشورات الفريق =====
+        // ============================================================
+        // دوال رفع الصور وحفظها في Firestore
+        // ============================================================
+        async function uploadForumImage(postId, imageFile) {
+            if (!auth.currentUser) {
+                throw new Error('يرجى تسجيل الدخول أولاً');
+            }
+
+            try {
+                const base64Image = await new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onload = (e) => resolve(e.target.result);
+                    reader.onerror = reject;
+                    reader.readAsDataURL(imageFile);
+                });
+
+                const postRef = dbFirestore.collection('forum_posts').doc(postId);
+                await postRef.update({
+                    image: base64Image,
+                    imageName: imageFile.name,
+                    imageSize: imageFile.size,
+                    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+
+                return base64Image;
+            } catch (error) {
+                console.error('خطأ في رفع الصورة:', error);
+                throw new Error('فشل رفع الصورة: ' + error.message);
+            }
+        }
+
+        async function uploadProfileImageFirestore(imageFile) {
+            if (!auth.currentUser) {
+                throw new Error('يرجى تسجيل الدخول أولاً');
+            }
+
+            try {
+                const base64Image = await new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onload = (e) => resolve(e.target.result);
+                    reader.onerror = reject;
+                    reader.readAsDataURL(imageFile);
+                });
+
+                await dbFirestore.collection('users').doc(auth.currentUser.uid).update({
+                    photoURL: base64Image,
+                    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+
+                return base64Image;
+            } catch (error) {
+                console.error('خطأ في رفع الصورة الشخصية:', error);
+                throw new Error('فشل رفع الصورة: ' + error.message);
+            }
+        }
+
+        // ============================================================
+        // دوال عرض المنشورات (Firestore)
+        // ============================================================
+        async function loadForumPostsFirestore() {
+            const container = document.getElementById('forumPosts');
+            if (!container) return;
+            container.innerHTML = '<div class="loading-container"><div class="spinner"></div></div>';
+
+            try {
+                const snapshot = await dbFirestore.collection('forum_posts')
+                    .where('status', '==', 'approved')
+                    .orderBy('createdAt', 'desc')
+                    .get();
+
+                if (snapshot.empty) {
+                    container.innerHTML = '<div class="empty-state"><div class="icon">💬</div><h3>لا توجد منشورات</h3><p>كن أول من يسأل!</p></div>';
+                    return;
+                }
+
+                container.innerHTML = '';
+                snapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const postId = doc.id;
+
+                    const postDiv = document.createElement('div');
+                    postDiv.className = 'forum-post';
+
+                    const userLiked = auth.currentUser && data.likesData && !!data.likesData[auth.currentUser.uid];
+                    const likeCount = data.likesCount || 0;
+                    const imageHtml = data.image ? `<img src="${data.image}" class="post-image" loading="lazy">` : '';
+
+                    let commentsHtml = '';
+                    const comments = (data.comments || []).filter(c => c.status === 'approved');
+                    comments.forEach((comment, index) => {
+                        const userCommentLiked = auth.currentUser && comment.likesData && !!comment.likesData[auth.currentUser.uid];
+                        const initial = comment.user ? comment.user.charAt(0).toUpperCase() : '?';
+                        
+                        commentsHtml += `
+                            <div class="comment">
+                                <div class="avatar" style="background-image:url('${comment.userPhoto || ''}');background-size:cover;background-position:center;${comment.userPhoto ? '' : 'background:#3498db;'}">
+                                    ${!comment.userPhoto ? initial : ''}
+                                </div>
+                                <div class="comment-text">
+                                    <div class="name">
+                                        ${comment.userPhoto ? `<img src="${comment.userPhoto}" class="user-avatar-small">` : ''}
+                                        ${safeText(comment.user || 'مجهول')}
+                                    </div>
+                                    <div>${safeText(comment.text || '')}</div>
+                                    <div style="margin-top:4px;display:flex;gap:8px;align-items:center;">
+                                        <button onclick="likeForumCommentFirestore('${postId}', ${index}, this)" 
+                                            style="background:none;border:none;cursor:pointer;font-size:12px;color:${userCommentLiked ? '#e74c3c' : '#555'};
+                                            font-family:'Tajawal',sans-serif;display:flex;align-items:center;gap:4px;">
+                                            ${userCommentLiked ? '❤️' : '🤍'} <span>${comment.likes || 0}</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    });
+
+                    const commentInputHtml = `
+                        <div class="comment-input">
+                            <input type="text" placeholder="اكتب تعليقك..." class="forum-comment-input" data-post="${postId}">
+                            <button class="forum-comment-submit" data-post="${postId}">نشر</button>
+                        </div>
+                    `;
+
+                    postDiv.innerHTML = `
+                        <div class="post-header">
+                            <span class="user">
+                                ${data.authorPhoto ? `<img src="${data.authorPhoto}" class="user-avatar">` : '👤'}
+                                ${safeText(data.author || 'طالب')}
+                            </span>
+                            <span class="date">${data.createdAt ? new Date(data.createdAt).toLocaleString('ar') : ''}</span>
+                        </div>
+                        <h4 style="color:#2ecc71;">${safeText(data.title || 'سؤال')}</h4>
+                        <div class="post-content">${safeText(data.content || '')}</div>
+                        ${imageHtml}
+                        <div class="post-actions">
+                            <button onclick="likeForumPostFirestore('${postId}', this)" ${userLiked ? 'style="color:#e74c3c;"' : ''}>
+                                ${userLiked ? '❤️' : '🤍'} <span>${likeCount}</span>
+                            </button>
+                            <button>💬 <span>${comments.length}</span></button>
+                        </div>
+                        <div class="comments-section">
+                            ${commentsHtml}
+                            ${commentInputHtml}
+                        </div>
+                    `;
+
+                    container.appendChild(postDiv);
+
+                    const submitBtn = postDiv.querySelector('.forum-comment-submit');
+                    const inputField = postDiv.querySelector('.forum-comment-input');
+                    
+                    submitBtn.addEventListener('click', async function() {
+                        const postId = this.dataset.post;
+                        const text = inputField.value.trim();
+                        if (!text) return;
+                        if (!auth.currentUser) {
+                            alert('🔐 يرجى تسجيل الدخول أولاً');
+                            window.location.href = 'login.html';
+                            return;
+                        }
+
+                        try {
+                            const userData = await getUser(auth.currentUser.uid);
+                            const commentData = {
+                                text: text,
+                                user: auth.currentUser.displayName || auth.currentUser.email || 'طالب',
+                                userPhoto: userData?.photoURL || auth.currentUser.photoURL || '',
+                                userId: auth.currentUser.uid,
+                                status: 'pending',
+                                likes: 0,
+                                likesData: {},
+                                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                            };
+
+                            const postRef = dbFirestore.collection('forum_posts').doc(postId);
+                            await postRef.update({
+                                comments: firebase.firestore.FieldValue.arrayUnion(commentData),
+                                updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                            });
+
+                            inputField.value = '';
+                            showPopup('✅', 'تم إرسال تعليقك!', 'تم إرسال تعليقك للإدارة للمراجعة');
+                            loadForumPostsFirestore();
+                        } catch (error) {
+                            console.error('خطأ في إرسال التعليق:', error);
+                            alert('❌ خطأ: ' + error.message);
+                        }
+                    });
+                });
+            } catch (error) {
+                console.error('خطأ في تحميل المنشورات:', error);
+                container.innerHTML = `<div class="empty-state"><div class="icon">❌</div><h3>حدث خطأ: ${error.message}</h3></div>`;
+            }
+        }
+
+        // ============================================================
+        // تحديث دوال التنقل
+        // ============================================================
+        const originalNavigateTo = window.navigateTo;
+        window.navigateTo = function(pageId) {
+            if (originalNavigateTo) {
+                originalNavigateTo(pageId);
+            }
+
+            if (pageId === 'forum') {
+                loadForumPostsFirestore();
+            }
+        };
+
+        // ============================================================
+        // دوال منشورات الفريق (Realtime Database - للحفاظ على التوافق)
+        // ============================================================
         function getAllTeamPosts() {
             return getAllData('team_posts');
         }
@@ -4269,7 +4521,7 @@
         });
 
         // ============================================================
-        // تحميل البيانات - مع تحديث لحظي
+        // تحميل البيانات
         // ============================================================
         var forumPostsListener = null;
         var teamPostsListener = null;
@@ -4292,33 +4544,7 @@
                 }).catch(function() {});
             } catch (e) {}
 
-            // الاستماع للتحديثات اللحظية لمنشورات المنتدى
-            if (forumPostsListener) {
-                db.ref('forum_posts').off('value', forumPostsListener);
-                forumPostsListener = null;
-            }
-            if (auth.currentUser) {
-                forumPostsListener = function(snapshot) {
-                    var data = snapshot.val();
-                    allForumPostsCache = [];
-                    if (data) {
-                        Object.keys(data).forEach(function(key) {
-                            var item = data[key];
-                            item.id = key;
-                            allForumPostsCache.push(item);
-                        });
-                    }
-                    // إعادة عرض المنتدى إذا كانت الصفحة مفتوحة
-                    var forumPage = document.getElementById('page-forum');
-                    if (forumPage && forumPage.classList.contains('active')) {
-                        loadForumPosts();
-                    }
-                    // تحديث عدد اللايكات في أي مكان
-                };
-                db.ref('forum_posts').on('value', forumPostsListener);
-            }
-
-            // الاستماع للتحديثات اللحظية لمنشورات الفريق
+            // الاستماع للتحديثات اللحظية لمنشورات الفريق (Realtime Database)
             if (teamPostsListener) {
                 db.ref('team_posts').off('value', teamPostsListener);
                 teamPostsListener = null;
@@ -4427,7 +4653,7 @@
 
                 switch (pageId) {
                     case 'forum':
-                        loadForumPosts();
+                        loadForumPostsFirestore();
                         break;
                     case 'teamPosts':
                         loadTeamPosts();
@@ -4720,230 +4946,7 @@
         };
 
         // ============================================================
-        // المنتدى - مع لايكات لحظية وصور
-        // ============================================================
-        function loadForumPosts() {
-            var container = document.getElementById('forumPosts');
-            if (!container) return;
-            container.innerHTML = '<div class="loading-container"><div class="spinner"></div></div>';
-
-            try {
-                var approvedPosts = (allForumPostsCache || []).filter(function(p) { return p.status === 'approved'; })
-                    .sort(function(a, b) { return (b.createdAt || 0) - (a.createdAt || 0); });
-
-                if (approvedPosts.length === 0) {
-                    container.innerHTML =
-                        '<div class="empty-state"><div class="icon">💬</div><h3>لا توجد منشورات</h3><p>كن أول من يسأل!</p></div>';
-                    return;
-                }
-
-                container.innerHTML = '';
-                approvedPosts.forEach(function(data) {
-                    try {
-                        var post = document.createElement('div');
-                        post.className = 'forum-post';
-
-                        var userLiked = false;
-                        if (auth.currentUser && data.likesData) {
-                            userLiked = data.likesData[auth.currentUser.uid] || false;
-                        }
-
-                        var commentsHtml = '';
-                        var commentCounter = 0;
-                        if (data.comments) {
-                            var approvedComments = (data.comments || []).filter(function(c) { return c
-                                    .status === 'approved'; });
-                            approvedComments.forEach(function(comment) {
-                                var initial = comment.user ? comment.user.charAt(0).toUpperCase() : '?';
-                                var commentIdx = commentCounter;
-                                var userCommentLiked = false;
-                                if (auth.currentUser && comment.likesData) {
-                                    userCommentLiked = comment.likesData[auth.currentUser.uid] || false;
-                                }
-
-                                var commentDiv = document.createElement('div');
-                                commentDiv.className = 'comment';
-                                commentDiv.innerHTML =
-                                    '<div class="avatar" style="background-image:url(\'' + (comment
-                                        .userPhoto || '') +
-                                    '\');background-size:cover;background-position:center;' + (comment
-                                        .userPhoto ? '' : 'background:#3498db;') + '">' +
-                                    (!comment.userPhoto ? initial : '') +
-                                    '</div>' +
-                                    '<div class="comment-text">' +
-                                    '<div class="name">' +
-                                    (comment.userPhoto ? '<img src="' + comment.userPhoto +
-                                        '" class="user-avatar-small">' : '') +
-                                    safeText(comment.user || 'مجهول') +
-                                    '</div>' +
-                                    '<div>' + safeText(comment.text || '') + '</div>' +
-                                    '<div style="margin-top:4px;display:flex;gap:8px;align-items:center;">' +
-                                    '<button onclick="likeForumComment(\'' + data.id + '\', ' +
-                                    commentIdx +
-                                    ', this)" style="background:none;border:none;cursor:pointer;font-size:12px;color:' +
-                                    (userCommentLiked ? '#e74c3c' : '#555') +
-                                    ';font-family:\'Tajawal\',sans-serif;display:flex;align-items:center;gap:4px;">' +
-                                    (userCommentLiked ? '❤️' : '🤍') + ' <span>' + (comment.likes || 0) +
-                                    '</span>' +
-                                    '</button>' +
-                                    '</div>' +
-                                    '</div>';
-                                commentsHtml += commentDiv.outerHTML;
-                                commentCounter++;
-                            });
-                        }
-
-                        var likeCount = data.likesCount || 0;
-                        // عرض الصورة من Firestore
-                        var imageUrl = data.image || data.imageUrl || '';
-
-                        post.innerHTML =
-                            '<div class="post-header">' +
-                            '<span class="user">' +
-                            (data.authorPhoto ? '<img src="' + data.authorPhoto +
-                                '" class="user-avatar">' : '👤') +
-                            safeText(data.author || 'طالب') +
-                            '</span>' +
-                            '<span class="date">' + (data.createdAt ? new Date(data.createdAt)
-                                .toLocaleString('ar') : '') + '</span>' +
-                            '</div>' +
-                            '<h4 style="color:#2ecc71;">' + safeText(data.title || 'سؤال') + '</h4>' +
-                            '<div class="post-content">' + safeText(data.content || '') + '</div>' +
-                            (imageUrl ? '<img src="' + safeText(imageUrl) +
-                                '" class="post-image" loading="lazy">' : '') +
-                            '<div class="post-actions">' +
-                            '<button onclick="likeForumPost(\'' + data.id + '\', this)" ' + (userLiked ?
-                                'style="color:#e74c3c;"' : '') + '>' +
-                            (userLiked ? '❤️' : '🤍') + ' <span>' + likeCount + '</span>' +
-                            '</button>' +
-                            '<button>💬 <span>' + (data.comments ? data.comments.filter(function(c) {
-                                return c.status === 'approved';
-                            }).length : 0) + '</span></button>' +
-                            '</div>' +
-                            '<div class="comments-section">' +
-                            commentsHtml +
-                            '<div class="comment-input">' +
-                            '<input type="text" placeholder="اكتب تعليقك..." class="forum-comment-input" data-post="' +
-                            data.id + '">' +
-                            '<button class="forum-comment-submit" data-post="' + data.id + '">نشر</button>' +
-                            '</div>' +
-                            '</div>';
-                        container.appendChild(post);
-
-                        var commentSubmit = post.querySelector('.forum-comment-submit');
-                        commentSubmit.addEventListener('click', function() {
-                            try {
-                                var postId = this.dataset.post;
-                                var input = post.querySelector('.forum-comment-input');
-                                var text = input.value.trim();
-                                if (!text) return;
-                                if (!auth.currentUser) {
-                                    alert('🔐 يرجى تسجيل الدخول أولاً');
-                                    window.location.href = 'login.html';
-                                    return;
-                                }
-                                getUser(auth.currentUser.uid).then(function(userData) {
-                                    var photo = (userData && userData.photoURL) || auth
-                                        .currentUser.photoURL || '';
-                                    return addForumComment(postId, { text: text }, auth
-                                        .currentUser.uid,
-                                        auth.currentUser.displayName || auth.currentUser
-                                        .email, photo);
-                                }).then(function() {
-                                    input.value = '';
-                                    showPopup('✅', 'تم إرسال تعليقك!',
-                                        'تم إرسال تعليقك للإدارة للمراجعة');
-                                    loadForumPosts();
-                                }).catch(function(err) {
-                                    alert('❌ خطأ: ' + err.message);
-                                });
-                            } catch (e) { alert('❌ حدث خطأ'); }
-                        });
-                    } catch (e) {}
-                });
-            } catch (err) {
-                container.innerHTML =
-                    '<div class="empty-state"><div class="icon">❌</div><h3>حدث خطأ</h3></div>';
-            }
-        }
-
-        // ===== لايك المنشور باستخدام Transaction =====
-        window.likeForumPost = function(postId, btn) {
-            if (!auth.currentUser) {
-                alert('🔐 يرجى تسجيل الدخول أولاً');
-                window.location.href = 'login.html';
-                return;
-            }
-
-            var userName = currentUserData && currentUserData.name ? currentUserData.name :
-                auth.currentUser.displayName || auth.currentUser.email || 'مستخدم';
-
-            likeForumPost(postId, auth.currentUser.uid, userName).then(function(result) {
-                if (result && result.committed) {
-                    var span = btn.querySelector('span');
-                    var current = parseInt(span.textContent) || 0;
-                    var post = allForumPostsCache.find(function(p) { return p.id === postId; });
-                    if (post) {
-                        var isLiked = post.likesData && post.likesData[auth.currentUser.uid];
-                        var newCount = isLiked ? current + 1 : current - 1;
-                        if (newCount < 0) newCount = 0;
-                        span.textContent = newCount;
-                        btn.innerHTML = (isLiked ? '❤️' : '🤍') + ' <span>' + newCount + '</span>';
-                        btn.style.color = isLiked ? '#e74c3c' : '';
-                        post.likesCount = newCount;
-                        if (isLiked) {
-                            post.likesData = post.likesData || {};
-                            post.likesData[auth.currentUser.uid] = true;
-                        } else {
-                            if (post.likesData) {
-                                delete post.likesData[auth.currentUser.uid];
-                            }
-                        }
-                    }
-                }
-            }).catch(function() {});
-        };
-
-        // ===== لايك التعليق باستخدام Transaction =====
-        window.likeForumComment = function(postId, commentIndex, btn) {
-            if (!auth.currentUser) {
-                alert('🔐 يرجى تسجيل الدخول أولاً');
-                window.location.href = 'login.html';
-                return;
-            }
-
-            var userName = currentUserData && currentUserData.name ? currentUserData.name :
-                auth.currentUser.displayName || auth.currentUser.email || 'مستخدم';
-
-            likeForumComment(postId, commentIndex, auth.currentUser.uid, userName).then(function(result) {
-                if (result && result.committed) {
-                    var span = btn.querySelector('span');
-                    var current = parseInt(span.textContent) || 0;
-                    var post = allForumPostsCache.find(function(p) { return p.id === postId; });
-                    if (post && post.comments && post.comments[commentIndex]) {
-                        var comment = post.comments[commentIndex];
-                        var isLiked = comment.likesData && comment.likesData[auth.currentUser.uid];
-                        var newCount = isLiked ? current + 1 : current - 1;
-                        if (newCount < 0) newCount = 0;
-                        span.textContent = newCount;
-                        btn.innerHTML = (isLiked ? '❤️' : '🤍') + ' <span>' + newCount + '</span>';
-                        btn.style.color = isLiked ? '#e74c3c' : '';
-                        comment.likes = newCount;
-                        if (isLiked) {
-                            comment.likesData = comment.likesData || {};
-                            comment.likesData[auth.currentUser.uid] = true;
-                        } else {
-                            if (comment.likesData) {
-                                delete comment.likesData[auth.currentUser.uid];
-                            }
-                        }
-                    }
-                }
-            }).catch(function() {});
-        };
-
-        // ============================================================
-        // منشورات الفريق
+        // منشورات الفريق (Realtime Database)
         // ============================================================
         function loadTeamPosts() {
             var container = document.getElementById('teamPostsContainer');
@@ -5167,10 +5170,6 @@
         // ============================================================
         // الإشعارات
         // ============================================================
-        function loadNotifications() {
-            // يتم التعامل مع الإشعارات عبر الـ Real-time Listener
-        }
-
         document.getElementById('bellBtn').addEventListener('click', function() {
             try { document.getElementById('notifModal').classList.add('active'); } catch (e) {}
         });
@@ -5299,7 +5298,7 @@
         }
 
         // ============================================================
-        // رفع الصورة الشخصية - تحويل Base64
+        // رفع الصورة الشخصية (Firestore)
         // ============================================================
         function uploadProfileImage() {
             if (!auth.currentUser) {
@@ -5311,62 +5310,53 @@
             input.type = 'file';
             input.accept = 'image/*';
 
-            input.onchange = function() {
+            input.onchange = async function() {
                 var file = this.files[0];
                 if (!file) return;
 
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    var base64Image = e.target.result;
+                try {
+                    var base64Image = await uploadProfileImageFirestore(file);
 
-                    db.ref('users/' + auth.currentUser.uid).update({
-                        photoURL: base64Image,
-                        updatedAt: firebase.database.ServerValue.TIMESTAMP
-                    }).then(function() {
-                        var profileImg = document.querySelector('.profile-img');
-                        if (profileImg) {
-                            profileImg.src = base64Image;
+                    var profileImg = document.querySelector('.profile-img');
+                    if (profileImg) {
+                        profileImg.src = base64Image;
+                    } else {
+                        var placeholder = document.querySelector('.profile-img-placeholder');
+                        if (placeholder) {
+                            var img = document.createElement('img');
+                            img.className = 'profile-img';
+                            img.src = base64Image;
+                            img.alt = 'صورة الملف الشخصي';
+                            placeholder.parentNode.replaceChild(img, placeholder);
+                        }
+                    }
+
+                    var navbarAvatar = document.getElementById('navbarAvatar');
+                    if (navbarAvatar) {
+                        if (navbarAvatar.tagName === 'IMG') {
+                            navbarAvatar.src = base64Image;
                         } else {
-                            var placeholder = document.querySelector(
-                            '.profile-img-placeholder');
-                            if (placeholder) {
-                                var img = document.createElement('img');
-                                img.className = 'profile-img';
-                                img.src = base64Image;
-                                img.alt = 'صورة الملف الشخصي';
-                                placeholder.parentNode.replaceChild(img, placeholder);
-                            }
+                            var parent = navbarAvatar.parentNode;
+                            var img = document.createElement('img');
+                            img.className = 'avatar';
+                            img.id = 'navbarAvatar';
+                            img.src = base64Image;
+                            img.alt = 'صورة الملف الشخصي';
+                            parent.replaceChild(img, navbarAvatar);
                         }
+                    }
 
-                        var navbarAvatar = document.getElementById('navbarAvatar');
-                        if (navbarAvatar) {
-                            if (navbarAvatar.tagName === 'IMG') {
-                                navbarAvatar.src = base64Image;
-                            } else {
-                                var parent = navbarAvatar.parentNode;
-                                var img = document.createElement('img');
-                                img.className = 'avatar';
-                                img.id = 'navbarAvatar';
-                                img.src = base64Image;
-                                img.alt = 'صورة الملف الشخصي';
-                                parent.replaceChild(img, navbarAvatar);
-                            }
+                    document.querySelectorAll('.user-avatar, .avatar').forEach(function(el) {
+                        if (el.tagName === 'IMG' && el.id !== 'navbarAvatar') {
+                            el.src = base64Image;
                         }
-
-                        document.querySelectorAll('.user-avatar, .avatar').forEach(function(el) {
-                            if (el.tagName === 'IMG' && el.id !== 'navbarAvatar') {
-                                el.src = base64Image;
-                            }
-                        });
-
-                        showToast('✅ تم تحديث الصورة بنجاح!');
-                        loadAllData();
-                    }).catch(function(err) {
-                        alert('❌ خطأ: ' + err.message);
                     });
-                };
-                reader.readAsDataURL(file);
-                this.value = '';
+
+                    showToast('✅ تم تحديث الصورة بنجاح!');
+                    loadAllData();
+                } catch (error) {
+                    alert('❌ خطأ: ' + error.message);
+                }
             };
 
             input.click();
@@ -5731,7 +5721,8 @@
             document.getElementById('newForumPostModal').classList.remove('active');
         });
 
-        document.getElementById('forumPostForm').addEventListener('submit', function(e) {
+        // نموذج منشور جديد باستخدام Firestore
+        document.getElementById('forumPostForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             if (!auth.currentUser) {
                 alert('🔐 يرجى تسجيل الدخول أولاً');
@@ -5739,24 +5730,52 @@
                 return;
             }
 
-            var title = document.getElementById('forumPostTitle').value.trim();
-            var content = document.getElementById('forumPostContent').value.trim();
-            var image = document.getElementById('forumPostImage').value.trim();
+            const title = document.getElementById('forumPostTitle').value.trim();
+            const content = document.getElementById('forumPostContent').value.trim();
+            const imageInput = document.getElementById('forumPostImage');
+            const imageFile = imageInput.files?.[0];
 
-            if (!title || !content) { alert('❌ يرجى ملء جميع الحقول'); return; }
+            if (!title || !content) {
+                alert('❌ يرجى ملء جميع الحقول');
+                return;
+            }
 
-            getUser(auth.currentUser.uid).then(function(userData) {
-                var photo = (userData && userData.photoURL) || auth.currentUser.photoURL || '';
-                return addForumPost({ title: title, content: content, image: image }, auth.currentUser
-                    .uid,
-                    auth.currentUser.displayName || auth.currentUser.email, photo);
-            }).then(function() {
-                showPopup('✅', 'تم إرسال منشورك!',
-                    'تم إرسال المنشور للإدارة للمراجعة، سيتم مراجعته خلال 24 ساعة');
+            try {
+                const userData = await getUser(auth.currentUser.uid);
+                const userPhoto = userData?.photoURL || auth.currentUser.photoURL || '';
+                const userName = userData?.name || auth.currentUser.displayName || auth.currentUser.email || 'طالب';
+
+                const postData = {
+                    title: title,
+                    content: content,
+                    userId: auth.currentUser.uid,
+                    author: userName,
+                    authorPhoto: userPhoto,
+                    status: 'pending',
+                    likesCount: 0,
+                    likesData: {},
+                    comments: [],
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                };
+
+                const docRef = await dbFirestore.collection('forum_posts').add(postData);
+
+                if (imageFile) {
+                    await uploadForumImage(docRef.id, imageFile);
+                }
+
+                showPopup('✅', 'تم إرسال منشورك!', 'تم إرسال المنشور للإدارة للمراجعة، سيتم مراجعته خلال 24 ساعة');
                 document.getElementById('forumPostForm').reset();
                 document.getElementById('newForumPostModal').classList.remove('active');
-                loadForumPosts();
-            }).catch(function(err) { alert('❌ خطأ: ' + err.message); });
+
+                if (document.getElementById('page-forum').classList.contains('active')) {
+                    loadForumPostsFirestore();
+                }
+            } catch (error) {
+                console.error('خطأ في إضافة المنشور:', error);
+                alert('❌ خطأ: ' + error.message);
+            }
         });
 
         document.getElementById('uploadBtn').addEventListener('click', function() {
@@ -5822,14 +5841,13 @@
 
         setTimeout(checkAdPopup, 5000);
 
-        console.log('✅ منصة الثانوية الرسمية بلس 2027 - نظام مجتمع متكامل');
+        console.log('✅ منصة الثانوية الرسمية بلس 2027 - نظام متكامل');
         console.log('📱 جميع الوظائف تعمل بشكل طبيعي');
         console.log('🔒 نظام حظر حقيقي مع رسالة مخصصة');
-        console.log('❤️ نظام الإعجاب باستخدام Transaction - آمن ضد التكرار');
-        console.log('📸 الصور تحفظ في Firestore وتظهر بعد Refresh');
+        console.log('❤️ نظام الإعجاب باستخدام Firestore Transaction');
+        console.log('📸 رفع الصور وحفظها في Firestore');
         console.log('📚 قنوات التواصل في أسفل الصفحة');
         console.log('🔔 الإشعارات Real-Time بدون Refresh');
-        console.log('✅ اللايك يحسب من Object.keys(likes).length');
         console.log('✅ تحديث لحظي لجميع المستخدمين');
     </script>
 
