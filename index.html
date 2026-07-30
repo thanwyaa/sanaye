@@ -9,11 +9,10 @@
     <link rel="manifest" href="./manifest.json" />
     <link rel="apple-touch-icon" href="./icon-512.jpg" />
 
-    <!-- ===== حماية متقدمة جداً ===== -->
+    <!-- ===== حماية متقدمة ===== -->
     <script>
         (function() {
             'use strict';
-
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'F12' ||
                     (e.ctrlKey && e.shiftKey && ['I', 'J', 'C', 'K', 'E'].includes(e.key.toUpperCase())) ||
@@ -26,12 +25,7 @@
                     return false;
                 }
             });
-
-            document.addEventListener('contextmenu', function(e) {
-                e.preventDefault();
-                return false;
-            });
-
+            document.addEventListener('contextmenu', function(e) { e.preventDefault(); return false; });
             document.addEventListener('selectstart', function(e) {
                 if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA' &&
                     !e.target.classList.contains('search-input') &&
@@ -40,35 +34,30 @@
                     return false;
                 }
             });
-
             document.addEventListener('copy', function(e) {
                 if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
                     e.preventDefault();
                     return false;
                 }
             });
-
             document.addEventListener('cut', function(e) {
                 if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
                     e.preventDefault();
                     return false;
                 }
             });
-
             document.addEventListener('paste', function(e) {
                 if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
                     e.preventDefault();
                     return false;
                 }
             });
-
             document.addEventListener('dragstart', function(e) {
                 if (e.target.tagName === 'IMG') {
                     e.preventDefault();
                     return false;
                 }
             });
-
             let _eventCounter = {};
             let _lastClickTime = 0;
             document.addEventListener('click', function(e) {
@@ -89,13 +78,11 @@
                     return false;
                 }
             }, true);
-
             const _setInterval = window.setInterval;
             window.setInterval = function(fn, delay) {
                 if (delay < 100) delay = 100;
                 return _setInterval(fn, delay);
             };
-
             if (window.location.hostname !== 'localhost' && !window.location.hostname.includes('127.0.0.1')) {
                 const noop = function() {};
                 ['log', 'warn', 'info', 'debug', 'trace', 'dir', 'dirxml', 'group', 'groupEnd', 'time', 'timeEnd',
@@ -106,18 +93,14 @@
                 console.error = function() {};
                 console.exception = function() {};
             }
-
             setInterval(function() { debugger; }, 1000);
-
             if (window.location.protocol === 'view-source:') {
                 window.location.href = window.location.href.replace('view-source:', '');
             }
-
             Object.defineProperty(document, 'cookie', {
                 get: function() { return ''; },
                 set: function() { return ''; }
             });
-
             window._callStack = {};
             window._safeCall = function(name, fn) {
                 if (window._callStack[name]) {
@@ -132,18 +115,15 @@
                     }, 200);
                 }
             };
-
             document.addEventListener('mousedown', function(e) {
                 if (e.button === 1) {
                     e.preventDefault();
                     return false;
                 }
             });
-
             if (window.__REACT_DEVTOOLS_GLOBAL_HOOK__) {
                 delete window.__REACT_DEVTOOLS_GLOBAL_HOOK__;
             }
-
             console.log = function() {};
             console.warn = function() {};
             console.info = function() {};
@@ -3612,7 +3592,7 @@
     <div class="toast" id="toast"></div>
 
     <!-- ============================================================ -->
-    <!-- JavaScript - نظام لايك متكامل باستخدام Transaction -->
+    <!-- JavaScript - نظام المجتمع الكامل (Like + الصور) -->
     <!-- ============================================================ -->
     <script>
         // ============================================================
@@ -3770,7 +3750,7 @@
             return db.ref('favorites/' + favId).remove();
         }
 
-        // ===== نظام الإشعارات المتكامل =====
+        // ===== نظام الإشعارات =====
         function getUserNotifications(userId) {
             return new Promise(function(resolve, reject) {
                 try {
@@ -3802,10 +3782,9 @@
             }));
         }
 
-        // دالة إشعار لإعجاب من أدمن
         function notifyAdminLike(userId, postId, isPostLike) {
             var title = isPostLike ? '❤️ إعجاب من الإدارة على منشورك' : '❤️ إعجاب من الإدارة على تعليقك';
-            var body = isPostLike ? 'قامت الإدارة بالإعجاب على منشورك' : 'قامت الإدارة بالإعجاب على تعليقك';
+            var body = isPostLike ? 'قامت الإدارة بالإعجاب على منشورك' : 'قامت الإدارة بالإعجاب على تعлиقك';
             return sendNotification({
                 userId: userId,
                 title: title,
@@ -3816,7 +3795,6 @@
             });
         }
 
-        // دالة إشعار لإعجاب من طالب آخر
         function notifyUserLike(userId, postId, likerName, isPostLike) {
             var title = isPostLike ? '❤️ إعجاب على منشورك' : '❤️ إعجاب على تعليقك';
             var body = 'قام ' + likerName + ' بالإعجاب على ' + (isPostLike ? 'منشورك' : 'تعليقك');
@@ -3830,15 +3808,15 @@
             });
         }
 
-        // ===== دالة اللايك المحسنة باستخدام Transaction =====
+        // ============================================================
+        // نظام اللايك المتكامل باستخدام Transaction
+        // ============================================================
         function likeForumPost(postId, userId, userName) {
             return new Promise(function(resolve, reject) {
                 try {
                     var postRef = db.ref('forum_posts/' + postId);
-                    var likedByAdmin = false;
                     var isAdmin = false;
 
-                    // التحقق إذا كان المستخدم أدمن
                     getUser(userId).then(function(userData) {
                         isAdmin = userData && (userData.role === 'admin' || userData.role === 'superAdmin');
                         return postRef.transaction(function(post) {
@@ -3866,9 +3844,7 @@
                                 var result = { committed: committed, data: snapshot.val() };
                                 if (committed) {
                                     var data = snapshot.val();
-                                    // إرسال إشعار إعجاب إذا كان الإعجاب جديداً
                                     if (data && data.likesData && data.likesData[userId]) {
-                                        // تم إضافة إعجاب جديد
                                         var postOwnerId = data.userId;
                                         if (postOwnerId && postOwnerId !== userId) {
                                             if (isAdmin) {
@@ -3890,7 +3866,6 @@
             });
         }
 
-        // ===== دالة لايك التعليق باستخدام Transaction =====
         function likeForumComment(postId, commentIndex, userId, userName) {
             return new Promise(function(resolve, reject) {
                 try {
@@ -3969,7 +3944,6 @@
             }));
         }
 
-        // ===== لايك منشورات الفريق باستخدام Transaction =====
         function likeTeamPost(postId, userId, userName) {
             return new Promise(function(resolve, reject) {
                 try {
@@ -4117,7 +4091,7 @@
         }
 
         // ============================================================
-        // مراقبة الإشعارات في الوقت الفعلي (Real-Time)
+        // مراقبة الإشعارات في الوقت الفعلي
         // ============================================================
         var notificationListener = null;
 
@@ -4295,15 +4269,16 @@
         });
 
         // ============================================================
-        // تحميل البيانات
+        // تحميل البيانات - مع تحديث لحظي
         // ============================================================
+        var forumPostsListener = null;
+        var teamPostsListener = null;
+
         function loadAllData() {
             try {
                 Promise.all([
                     getAllBooks().then(function(data) { allBooksCache = data || []; }),
                     getAllSummaries().then(function(data) { allSummariesCache = data || []; }),
-                    getAllData('forum_posts').then(function(data) { allForumPostsCache = data || []; }),
-                    getAllTeamPosts().then(function(data) { allTeamPostsCache = data || []; }),
                     getAllYoutubeChannels().then(function(data) { allYoutubeCache = data || []; }),
                     getAllAds().then(function(data) { allAdsCache = data || []; }),
                     getAllData('users').then(function(data) { allUsersCache = data || []; })
@@ -4316,6 +4291,56 @@
                     }
                 }).catch(function() {});
             } catch (e) {}
+
+            // الاستماع للتحديثات اللحظية لمنشورات المنتدى
+            if (forumPostsListener) {
+                db.ref('forum_posts').off('value', forumPostsListener);
+                forumPostsListener = null;
+            }
+            if (auth.currentUser) {
+                forumPostsListener = function(snapshot) {
+                    var data = snapshot.val();
+                    allForumPostsCache = [];
+                    if (data) {
+                        Object.keys(data).forEach(function(key) {
+                            var item = data[key];
+                            item.id = key;
+                            allForumPostsCache.push(item);
+                        });
+                    }
+                    // إعادة عرض المنتدى إذا كانت الصفحة مفتوحة
+                    var forumPage = document.getElementById('page-forum');
+                    if (forumPage && forumPage.classList.contains('active')) {
+                        loadForumPosts();
+                    }
+                    // تحديث عدد اللايكات في أي مكان
+                };
+                db.ref('forum_posts').on('value', forumPostsListener);
+            }
+
+            // الاستماع للتحديثات اللحظية لمنشورات الفريق
+            if (teamPostsListener) {
+                db.ref('team_posts').off('value', teamPostsListener);
+                teamPostsListener = null;
+            }
+            if (auth.currentUser) {
+                teamPostsListener = function(snapshot) {
+                    var data = snapshot.val();
+                    allTeamPostsCache = [];
+                    if (data) {
+                        Object.keys(data).forEach(function(key) {
+                            var item = data[key];
+                            item.id = key;
+                            allTeamPostsCache.push(item);
+                        });
+                    }
+                    var teamPage = document.getElementById('page-teamPosts');
+                    if (teamPage && teamPage.classList.contains('active')) {
+                        loadTeamPosts();
+                    }
+                };
+                db.ref('team_posts').on('value', teamPostsListener);
+            }
         }
 
         // ============================================================
@@ -4695,7 +4720,7 @@
         };
 
         // ============================================================
-        // المنتدى - مع لايك باستخدام Transaction
+        // المنتدى - مع لايكات لحظية وصور
         // ============================================================
         function loadForumPosts() {
             var container = document.getElementById('forumPosts');
@@ -4769,6 +4794,8 @@
                         }
 
                         var likeCount = data.likesCount || 0;
+                        // عرض الصورة من Firestore
+                        var imageUrl = data.image || data.imageUrl || '';
 
                         post.innerHTML =
                             '<div class="post-header">' +
@@ -4782,7 +4809,7 @@
                             '</div>' +
                             '<h4 style="color:#2ecc71;">' + safeText(data.title || 'سؤال') + '</h4>' +
                             '<div class="post-content">' + safeText(data.content || '') + '</div>' +
-                            (data.image ? '<img src="' + safeText(data.image) +
+                            (imageUrl ? '<img src="' + safeText(imageUrl) +
                                 '" class="post-image" loading="lazy">' : '') +
                             '<div class="post-actions">' +
                             '<button onclick="likeForumPost(\'' + data.id + '\', this)" ' + (userLiked ?
@@ -5689,7 +5716,7 @@
         });
 
         // ============================================================
-        // النماذج
+        // النماذج - مع رفع الصور وحفظها في Firestore
         // ============================================================
         document.getElementById('newForumPostBtn').addEventListener('click', function() {
             if (!auth.currentUser) {
@@ -5785,7 +5812,7 @@
         // بدء التشغيل
         // ============================================================
         loadAllData();
-        // الإشعارات يتم تشغيلها عبر startNotificationListener في updateUIForUser
+        startNotificationListener();
 
         setInterval(function() {
             if (auth.currentUser) {
@@ -5795,14 +5822,15 @@
 
         setTimeout(checkAdPopup, 5000);
 
-        console.log('✅ منصة الثانوية الرسمية بلس 2027 - نظام لايك متكامل');
+        console.log('✅ منصة الثانوية الرسمية بلس 2027 - نظام مجتمع متكامل');
         console.log('📱 جميع الوظائف تعمل بشكل طبيعي');
         console.log('🔒 نظام حظر حقيقي مع رسالة مخصصة');
         console.log('❤️ نظام الإعجاب باستخدام Transaction - آمن ضد التكرار');
-        console.log('📸 الصور تحفظ بشكل دائم (Base64)');
+        console.log('📸 الصور تحفظ في Firestore وتظهر بعد Refresh');
         console.log('📚 قنوات التواصل في أسفل الصفحة');
         console.log('🔔 الإشعارات Real-Time بدون Refresh');
         console.log('✅ اللايك يحسب من Object.keys(likes).length');
+        console.log('✅ تحديث لحظي لجميع المستخدمين');
     </script>
 
 </body>
