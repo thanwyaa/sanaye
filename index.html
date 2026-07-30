@@ -9,28 +9,33 @@
     <link rel="manifest" href="./manifest.json" />
     <link rel="apple-touch-icon" href="./icon-512.jpg" />
 
-    <!-- ===== حماية متقدمة جداً ===== -->
+    <!-- ===== حماية متقدمة جداً جداً ===== -->
     <script>
         (function() {
             'use strict';
 
             // ===== إخفاء الكود والكونسول تماماً =====
+            // منع F12 وجميع اختصارات المطور
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'F12' ||
-                    (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(e.key)) ||
-                    (e.ctrlKey && ['U', 'S'].includes(e.key)) ||
-                    (e.ctrlKey && e.shiftKey && ['K', 'E'].includes(e.key)) ||
-                    e.key === 'F5' || e.key === 'F11') {
+                    (e.ctrlKey && e.shiftKey && ['I', 'J', 'C', 'K', 'E'].includes(e.key.toUpperCase())) ||
+                    (e.ctrlKey && ['U', 'S', 'P', 'N', 'T', 'W'].includes(e.key.toUpperCase())) ||
+                    (e.ctrlKey && e.key === 'Tab') ||
+                    (e.altKey && e.key === 'Tab') ||
+                    e.key === 'F5' ||
+                    e.key === 'F11') {
                     e.preventDefault();
                     return false;
                 }
             });
 
+            // منع النقر الأيمن
             document.addEventListener('contextmenu', function(e) {
                 e.preventDefault();
                 return false;
             });
 
+            // منع التحديد
             document.addEventListener('selectstart', function(e) {
                 if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA' &&
                     !e.target.classList.contains('search-input') &&
@@ -40,6 +45,7 @@
                 }
             });
 
+            // منع النسخ
             document.addEventListener('copy', function(e) {
                 if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
                     e.preventDefault();
@@ -47,6 +53,7 @@
                 }
             });
 
+            // منع القص
             document.addEventListener('cut', function(e) {
                 if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
                     e.preventDefault();
@@ -54,6 +61,7 @@
                 }
             });
 
+            // منع اللصق في الحقول غير المسموحة
             document.addEventListener('paste', function(e) {
                 if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
                     e.preventDefault();
@@ -61,53 +69,13 @@
                 }
             });
 
+            // منع سحب الصور
             document.addEventListener('dragstart', function(e) {
                 if (e.target.tagName === 'IMG') {
                     e.preventDefault();
                     return false;
                 }
             });
-
-            // إخفاء الكونسول بالكامل
-            if (window.location.hostname !== 'localhost' && !window.location.hostname.includes('127.0.0.1')) {
-                const noop = function() {};
-                ['log', 'warn', 'info', 'debug', 'trace', 'dir', 'dirxml', 'group', 'groupEnd', 'time', 'timeEnd',
-                    'count', 'assert', 'table', 'clear', 'profile', 'profileEnd'
-                ].forEach(function(method) {
-                    if (console[method]) console[method] = noop;
-                });
-                console.error = function() {};
-            }
-
-            // منع debugger
-            setInterval(function() { debugger; }, 1000);
-
-            // منع view-source
-            if (window.location.protocol === 'view-source:') {
-                window.location.href = window.location.href.replace('view-source:', '');
-            }
-
-            // منع فتح console عبر اختصارات
-            Object.defineProperty(document, 'cookie', {
-                get: function() { return ''; },
-                set: function() { return ''; }
-            });
-
-            // منع تكرار استدعاء الدوال
-            window._safeCall = function(name, fn) {
-                if (window._callStack && window._callStack[name]) {
-                    return null;
-                }
-                if (!window._callStack) window._callStack = {};
-                window._callStack[name] = true;
-                try {
-                    return fn();
-                } finally {
-                    setTimeout(function() {
-                        window._callStack[name] = false;
-                    }, 200);
-                }
-            };
 
             // منع النقر المتكرر
             let _eventCounter = {};
@@ -137,6 +105,90 @@
                 if (delay < 100) delay = 100;
                 return _setInterval(fn, delay);
             };
+
+            // إخفاء الكونسول بالكامل
+            if (window.location.hostname !== 'localhost' && !window.location.hostname.includes('127.0.0.1')) {
+                const noop = function() {};
+                ['log', 'warn', 'info', 'debug', 'trace', 'dir', 'dirxml', 'group', 'groupEnd', 'time', 'timeEnd',
+                    'count', 'assert', 'table', 'clear', 'profile', 'profileEnd'
+                ].forEach(function(method) {
+                    if (console[method]) console[method] = noop;
+                });
+                console.error = function() {};
+                console.exception = function() {};
+            }
+
+            // منع debugger
+            setInterval(function() { debugger; }, 1000);
+
+            // منع view-source
+            if (window.location.protocol === 'view-source:') {
+                window.location.href = window.location.href.replace('view-source:', '');
+            }
+
+            // منع فتح console عبر اختصارات إضافية
+            Object.defineProperty(document, 'cookie', {
+                get: function() { return ''; },
+                set: function() { return ''; }
+            });
+
+            // منع تكرار استدعاء الدوال
+            window._callStack = {};
+            window._safeCall = function(name, fn) {
+                if (window._callStack[name]) {
+                    return null;
+                }
+                window._callStack[name] = true;
+                try {
+                    return fn();
+                } finally {
+                    setTimeout(function() {
+                        window._callStack[name] = false;
+                    }, 200);
+                }
+            };
+
+            // منع الـ DevTools عبر الـ Click
+            document.addEventListener('mousedown', function(e) {
+                if (e.button === 1) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+
+            // منع الـ Remote Debugging
+            if (window.__REACT_DEVTOOLS_GLOBAL_HOOK__) {
+                delete window.__REACT_DEVTOOLS_GLOBAL_HOOK__;
+            }
+
+            // منع الـ Performance API
+            if (window.performance && window.performance.measure) {
+                window.performance.measure = function() {};
+            }
+
+            // منع الـ Navigation API
+            if (window.navigation) {
+                window.navigation = undefined;
+            }
+
+            console.log = function() {};
+            console.warn = function() {};
+            console.info = function() {};
+            console.debug = function() {};
+            console.error = function() {};
+            console.table = function() {};
+            console.dir = function() {};
+            console.dirxml = function() {};
+            console.group = function() {};
+            console.groupEnd = function() {};
+            console.time = function() {};
+            console.timeEnd = function() {};
+            console.trace = function() {};
+            console.assert = function() {};
+            console.count = function() {};
+            console.clear = function() {};
+            console.profile = function() {};
+            console.profileEnd = function() {};
         })();
     </script>
 
@@ -684,7 +736,7 @@
         .user-profile {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             cursor: pointer;
             padding: 3px 8px;
             border-radius: 30px;
@@ -702,15 +754,15 @@
             background: #3d3d55;
         }
         .user-profile .avatar {
-            width: 30px;
-            height: 30px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             object-fit: cover;
             border: 2px solid #3498db;
         }
         .user-profile .avatar-placeholder {
-            width: 30px;
-            height: 30px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             background: #3498db;
             color: white;
@@ -718,13 +770,13 @@
             align-items: center;
             justify-content: center;
             font-weight: 800;
-            font-size: 13px;
+            font-size: 14px;
             border: 2px solid #3498db;
         }
         .user-profile .user-name {
             font-weight: 700;
             font-size: 13px;
-            max-width: 90px;
+            max-width: 100px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -3740,7 +3792,6 @@
                     if (data) {
                         Object.keys(data).forEach(key => {
                             const notif = data[key];
-                            // الإشعار يصل للطالب إذا كان موجه له شخصياً أو للجميع
                             if (notif.userId === userId || notif.target === 'all' || notif.target === userId) {
                                 notif.id = key;
                                 notifs.push(notif);
@@ -3964,10 +4015,17 @@
                     isBannedUser = true;
                     document.getElementById('bannedOverlay').classList.add('active');
                     document.getElementById('banReason').textContent = 'السبب: ' + (userData.banReason || 'مخالفة قواعد المنصة');
+                    // إخفاء المحتوى
+                    document.querySelector('.main-content').style.display = 'none';
+                    document.querySelector('.navbar').style.display = 'none';
+                    document.querySelector('.footer').style.display = 'none';
                     return true;
                 }
                 isBannedUser = false;
                 document.getElementById('bannedOverlay').classList.remove('active');
+                document.querySelector('.main-content').style.display = 'block';
+                document.querySelector('.navbar').style.display = 'flex';
+                document.querySelector('.footer').style.display = 'block';
                 return false;
             } catch (err) {
                 return false;
@@ -3996,17 +4054,7 @@
 
                     // التحقق من الحظر
                     const banned = await checkBanStatus(user.uid);
-                    if (banned) {
-                        // إذا كان محظوراً، نخفي الواجهة ونعرض رسالة الحظر
-                        document.querySelector('.main-content').style.display = 'none';
-                        document.querySelector('.navbar').style.display = 'none';
-                        document.querySelector('.footer').style.display = 'none';
-                        return;
-                    } else {
-                        document.querySelector('.main-content').style.display = 'block';
-                        document.querySelector('.navbar').style.display = 'flex';
-                        document.querySelector('.footer').style.display = 'block';
-                    }
+                    if (banned) return;
 
                     if (isAdminUser) {
                         document.body.classList.add('is-admin');
@@ -4072,7 +4120,6 @@
                 allUsersCache = await getAllData('users');
                 if (auth.currentUser) {
                     allFavoritesCache = await getUserFavorites(auth.currentUser.uid);
-                    // التحقق من الحظر مرة أخرى
                     await checkBanStatus(auth.currentUser.uid);
                 }
             } catch (err) {
@@ -4568,7 +4615,7 @@
                     }
                 }
             } catch (err) {
-                alert('❌ خطأ: ' + err.message);
+                // إخفاء الخطأ تماماً
             }
         };
 
@@ -4595,7 +4642,7 @@
                     }
                 }
             } catch (err) {
-                alert('❌ خطأ: ' + err.message);
+                // إخفاء الخطأ تماماً
             }
         };
 
@@ -4742,7 +4789,7 @@
                     }
                 }
             } catch (err) {
-                alert('❌ خطأ: ' + err.message);
+                // إخفاء الخطأ تماماً
             }
         };
 
@@ -4769,12 +4816,12 @@
                     }
                 }
             } catch (err) {
-                alert('❌ خطأ: ' + err.message);
+                // إخفاء الخطأ تماماً
             }
         };
 
         // ============================================================
-        // الإشعارات - تصل للطالب بناءً على المستهدف
+        // الإشعارات
         // ============================================================
         async function loadNotifications() {
             if (!auth.currentUser) return;
@@ -4913,7 +4960,7 @@
                 const file = this.files[0];
                 if (!file) return;
 
-                // إزالة حد الحجم 2 ميجا - أي حجم مقبول
+                // أي حجم مقبول
                 const reader = new FileReader();
                 reader.onload = async function(e) {
                     const base64Image = e.target.result;
@@ -4954,7 +5001,6 @@
                             }
                         }
 
-                        // تحديث جميع الصور الرمزية في الصفحة
                         document.querySelectorAll('.user-avatar, .avatar').forEach(el => {
                             if (el.tagName === 'IMG' && el.id !== 'navbarAvatar') {
                                 el.src = base64Image;
@@ -5393,8 +5439,27 @@
             }
         }, 30000);
 
-        // عرض إعلان عند التحميل
         setTimeout(checkAdPopup, 5000);
+
+        // إخفاء أي رسائل خطأ من الـ console
+        console.log = function() {};
+        console.warn = function() {};
+        console.info = function() {};
+        console.debug = function() {};
+        console.error = function() {};
+        console.table = function() {};
+        console.dir = function() {};
+        console.dirxml = function() {};
+        console.group = function() {};
+        console.groupEnd = function() {};
+        console.time = function() {};
+        console.timeEnd = function() {};
+        console.trace = function() {};
+        console.assert = function() {};
+        console.count = function() {};
+        console.clear = function() {};
+        console.profile = function() {};
+        console.profileEnd = function() {};
 
         console.log('✅ منصة الثانوية الرسمية بلس 2027 - محمية بالكامل');
         console.log('🛡️ جميع أدوات المطور معطلة');
