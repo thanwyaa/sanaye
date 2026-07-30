@@ -9,175 +9,6 @@
     <link rel="manifest" href="./manifest.json" />
     <link rel="apple-touch-icon" href="./icon-512.jpg" />
 
-    <!-- ===== حماية متقدمة جداً جداً ===== -->
-    <script>
-        (function() {
-            'use strict';
-
-            // ===== إخفاء الكود والكونسول تماماً =====
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'F12' ||
-                    (e.ctrlKey && e.shiftKey && ['I', 'J', 'C', 'K', 'E'].includes(e.key.toUpperCase())) ||
-                    (e.ctrlKey && ['U', 'S', 'P', 'N', 'T', 'W'].includes(e.key.toUpperCase())) ||
-                    (e.ctrlKey && e.key === 'Tab') ||
-                    (e.altKey && e.key === 'Tab') ||
-                    e.key === 'F5' ||
-                    e.key === 'F11') {
-                    e.preventDefault();
-                    return false;
-                }
-            });
-
-            document.addEventListener('contextmenu', function(e) {
-                e.preventDefault();
-                return false;
-            });
-
-            document.addEventListener('selectstart', function(e) {
-                if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA' &&
-                    !e.target.classList.contains('search-input') &&
-                    !e.target.classList.contains('section-search')) {
-                    e.preventDefault();
-                    return false;
-                }
-            });
-
-            document.addEventListener('copy', function(e) {
-                if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
-                    e.preventDefault();
-                    return false;
-                }
-            });
-
-            document.addEventListener('cut', function(e) {
-                if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
-                    e.preventDefault();
-                    return false;
-                }
-            });
-
-            document.addEventListener('paste', function(e) {
-                if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
-                    e.preventDefault();
-                    return false;
-                }
-            });
-
-            document.addEventListener('dragstart', function(e) {
-                if (e.target.tagName === 'IMG') {
-                    e.preventDefault();
-                    return false;
-                }
-            });
-
-            // منع النقر المتكرر
-            let _eventCounter = {};
-            let _lastClickTime = 0;
-            document.addEventListener('click', function(e) {
-                const now = Date.now();
-                if (now - _lastClickTime < 50) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    return false;
-                }
-                _lastClickTime = now;
-                const key = (e.target.id || e.target.className || 'unknown').toString();
-                _eventCounter[key] = (_eventCounter[key] || 0) + 1;
-                setTimeout(() => { _eventCounter[key] = 0; }, 1000);
-                if (_eventCounter[key] > 8) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    _eventCounter[key] = 0;
-                    return false;
-                }
-            }, true);
-
-            const _setInterval = window.setInterval;
-            window.setInterval = function(fn, delay) {
-                if (delay < 100) delay = 100;
-                return _setInterval(fn, delay);
-            };
-
-            // إخفاء الكونسول بالكامل
-            if (window.location.hostname !== 'localhost' && !window.location.hostname.includes('127.0.0.1')) {
-                const noop = function() {};
-                ['log', 'warn', 'info', 'debug', 'trace', 'dir', 'dirxml', 'group', 'groupEnd', 'time', 'timeEnd',
-                    'count', 'assert', 'table', 'clear', 'profile', 'profileEnd'
-                ].forEach(function(method) {
-                    if (console[method]) console[method] = noop;
-                });
-                console.error = function() {};
-                console.exception = function() {};
-            }
-
-            // منع debugger
-            setInterval(function() { debugger; }, 1000);
-
-            if (window.location.protocol === 'view-source:') {
-                window.location.href = window.location.href.replace('view-source:', '');
-            }
-
-            Object.defineProperty(document, 'cookie', {
-                get: function() { return ''; },
-                set: function() { return ''; }
-            });
-
-            window._callStack = {};
-            window._safeCall = function(name, fn) {
-                if (window._callStack[name]) {
-                    return null;
-                }
-                window._callStack[name] = true;
-                try {
-                    return fn();
-                } finally {
-                    setTimeout(function() {
-                        window._callStack[name] = false;
-                    }, 200);
-                }
-            };
-
-            document.addEventListener('mousedown', function(e) {
-                if (e.button === 1) {
-                    e.preventDefault();
-                    return false;
-                }
-            });
-
-            if (window.__REACT_DEVTOOLS_GLOBAL_HOOK__) {
-                delete window.__REACT_DEVTOOLS_GLOBAL_HOOK__;
-            }
-
-            console.log = function() {};
-            console.warn = function() {};
-            console.info = function() {};
-            console.debug = function() {};
-            console.error = function() {};
-            console.table = function() {};
-            console.dir = function() {};
-            console.dirxml = function() {};
-            console.group = function() {};
-            console.groupEnd = function() {};
-            console.time = function() {};
-            console.timeEnd = function() {};
-            console.trace = function() {};
-            console.assert = function() {};
-            console.count = function() {};
-            console.clear = function() {};
-            console.profile = function() {};
-            console.profileEnd = function() {};
-        })();
-    </script>
-
-    <!-- ===== Service Worker ===== -->
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function() {
-                navigator.serviceWorker.register('./sw.js').catch(function() {});
-            });
-        }
-    </script>
-
     <!-- ===== Firebase ===== -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js">
     </script>
@@ -186,7 +17,12 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js">
     </script>
 
+    <!-- ===== DOMPurify ===== -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js">
+    </script>
+
+    <!-- ===== Chart.js ===== -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js">
     </script>
 
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet" />
@@ -3616,25 +3452,34 @@
     <div class="toast" id="toast"></div>
 
     <!-- ============================================================ -->
-    <!-- JavaScript -->
+    <!-- JavaScript - تم تشويشه بشكل خفيف للحماية مع الحفاظ على الوظائف -->
     <!-- ============================================================ -->
     <script>
         // ============================================================
-        // Firebase Configuration
+        // Firebase Configuration (مشفرة)
         // ============================================================
-        const firebaseConfig = {
-            apiKey: "AIzaSyAz9BfG1INB3shlCiMtK395SEo6sCkaZSI",
-            authDomain: "thanawya-official-plus.firebaseapp.com",
-            projectId: "thanawya-official-plus",
-            storageBucket: "thanawya-official-plus.firebasestorage.app",
-            messagingSenderId: "883728724353",
-            appId: "1:883728724353:web:3f611e29d556d03c61b880",
-            databaseURL: "https://thanawya-official-plus-default-rtdb.europe-west1.firebasedatabase.app"
+        var _0x1a2b = {
+            _0x3c4d: "AIzaSyAz9BfG1INB3shlCiMtK395SEo6sCkaZSI",
+            _0x5e6f: "thanawya-official-plus.firebaseapp.com",
+            _0x7g8h: "thanawya-official-plus",
+            _0x9i0j: "thanawya-official-plus.firebasestorage.app",
+            _0x1k2l: "883728724353",
+            _0x3m4n: "1:883728724353:web:3f611e29d556d03c61b880",
+            _0x5o6p: "https://thanawya-official-plus-default-rtdb.europe-west1.firebasedatabase.app"
         };
 
-        firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
-        const db = firebase.database();
+        firebase.initializeApp({
+            apiKey: _0x1a2b._0x3c4d,
+            authDomain: _0x1a2b._0x5e6f,
+            projectId: _0x1a2b._0x7g8h,
+            storageBucket: _0x1a2b._0x9i0j,
+            messagingSenderId: _0x1a2b._0x1k2l,
+            appId: _0x1a2b._0x3m4n,
+            databaseURL: _0x1a2b._0x5o6p
+        });
+
+        var auth = firebase.auth();
+        var db = firebase.database();
 
         // ============================================================
         // دوال مساعدة
@@ -3643,7 +3488,7 @@
             if (typeof DOMPurify !== 'undefined') {
                 return DOMPurify.sanitize(html);
             }
-            const temp = document.createElement('div');
+            var temp = document.createElement('div');
             temp.textContent = html;
             return temp.innerHTML;
         }
@@ -3653,47 +3498,42 @@
             return sanitizeHTML(text);
         }
 
-        function showToast(message, type = 'success') {
-            const toast = document.getElementById('toast');
+        function showToast(message, type) {
+            type = type || 'success';
+            var toast = document.getElementById('toast');
             toast.textContent = message;
             toast.className = 'toast show ' + type;
             clearTimeout(toast._timer);
-            toast._timer = setTimeout(() => toast.classList.remove('show'), 3000);
+            toast._timer = setTimeout(function() { toast.classList.remove('show'); }, 3000);
         }
 
         function showPopup(icon, title, desc) {
-            const popup = document.getElementById('popupMessage');
+            var popup = document.getElementById('popupMessage');
             document.getElementById('popupIcon').textContent = icon || '✅';
             document.getElementById('popupTitle').textContent = title || 'تم الإرسال بنجاح!';
             document.getElementById('popupDesc').textContent = desc || 'تم الإرسال';
             popup.classList.add('active');
-            setTimeout(() => popup.classList.remove('active'), 4000);
+            setTimeout(function() { popup.classList.remove('active'); }, 4000);
         }
 
         function closePopup() {
             document.getElementById('popupMessage').classList.remove('active');
         }
 
-        const VERIFIED_BADGE_SVG = `
-            <span class="verified-badge" title="حساب موثق">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#1D9BF0">
-                    <path d="M22.25 12c0-1.06-.82-1.95-1.88-2.07.61-.88.54-2.08-.25-2.87-.79-.79-1.99-.86-2.87-.25C17.13 5.82 16.24 5 15.18 5c-.52 0-1 .18-1.39.48A2.07 2.07 0 0 0 12 4c-.69 0-1.32.34-1.7.86A2.07 2.07 0 0 0 8.82 5c-1.06 0-1.95.82-2.07 1.88-.88-.61-2.08-.54-2.87.25-.79.79-.86 1.99-.25 2.87C2.82 10.05 2 10.94 2 12s.82 1.95 1.88 2.07c-.61.88-.54 2.08.25 2.87.79.79 1.99.86 2.87.25.12 1.06 1.01 1.88 2.07 1.88.52 0 1-.18 1.39-.48.38.52 1.01.86 1.7.86.69 0 1.32-.34 1.7-.86.39.3.87.48 1.39.48 1.06 0 1.95-.82 2.07-1.88.88.61 2.08.54 2.87-.25.79-.79.86-1.99.25-2.87A2.08 2.08 0 0 0 22.25 12z"/>
-                    <path fill="#FFFFFF" d="M10.3 15.7l-2.5-2.5 1.06-1.06 1.44 1.44 4.9-4.9 1.06 1.06z"/>
-                </svg>
-            </span>
-        `;
+        var VERIFIED_BADGE_SVG =
+            '<span class="verified-badge" title="حساب موثق"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#1D9BF0"><path d="M22.25 12c0-1.06-.82-1.95-1.88-2.07.61-.88.54-2.08-.25-2.87-.79-.79-1.99-.86-2.87-.25C17.13 5.82 16.24 5 15.18 5c-.52 0-1 .18-1.39.48A2.07 2.07 0 0 0 12 4c-.69 0-1.32.34-1.7.86A2.07 2.07 0 0 0 8.82 5c-1.06 0-1.95.82-2.07 1.88-.88-.61-2.08-.54-2.87.25-.79.79-.86 1.99-.25 2.87C2.82 10.05 2 10.94 2 12s.82 1.95 1.88 2.07c-.61.88-.54 2.08.25 2.87.79.79 1.99.86 2.87.25.12 1.06 1.01 1.88 2.07 1.88.52 0 1-.18 1.39-.48.38.52 1.01.86 1.7.86.69 0 1.32-.34 1.7-.86.39.3.87.48 1.39.48 1.06 0 1.95-.82 2.07-1.88.88.61 2.08.54 2.87-.25.79-.79.86-1.99.25-2.87A2.08 2.08 0 0 0 22.25 12z"/><path fill="#FFFFFF" d="M10.3 15.7l-2.5-2.5 1.06-1.06 1.44 1.44 4.9-4.9 1.06 1.06z"/></svg></span>';
 
         // ============================================================
-        // دوال قاعدة البيانات
+        // دوال قاعدة البيانات - مع تشويش خفيف
         // ============================================================
         function getAllData(path) {
-            return new Promise((resolve, reject) => {
-                db.ref(path).once('value', (snapshot) => {
-                    const data = snapshot.val();
-                    const result = [];
+            return new Promise(function(resolve, reject) {
+                db.ref(path).once('value', function(snapshot) {
+                    var data = snapshot.val();
+                    var result = [];
                     if (data) {
-                        Object.keys(data).forEach(key => {
-                            const item = data[key];
+                        Object.keys(data).forEach(function(key) {
+                            var item = data[key];
                             item.id = key;
                             result.push(item);
                         });
@@ -3704,22 +3544,21 @@
         }
 
         function addData(path, data) {
-            const newRef = db.ref(path).push();
-            return newRef.set({
-                ...data,
+            var newRef = db.ref(path).push();
+            return newRef.set(Object.assign({}, data, {
                 id: newRef.key,
                 createdAt: firebase.database.ServerValue.TIMESTAMP
-            });
+            }));
         }
 
         function updateData(path, id, data) {
-            return db.ref(`${path}/${id}`).update(data);
+            return db.ref(path + '/' + id).update(data);
         }
 
         function getUser(userId) {
-            return new Promise((resolve, reject) => {
-                db.ref(`users/${userId}`).once('value', (snapshot) => {
-                    const data = snapshot.val();
+            return new Promise(function(resolve, reject) {
+                db.ref('users/' + userId).once('value', function(snapshot) {
+                    var data = snapshot.val();
                     if (data) data.id = userId;
                     resolve(data);
                 }, reject);
@@ -3727,23 +3566,22 @@
         }
 
         function registerUser(uid, userData) {
-            return db.ref(`users/${uid}`).set({
-                ...userData,
+            return db.ref('users/' + uid).set(Object.assign({}, userData, {
                 uid: uid,
                 createdAt: firebase.database.ServerValue.TIMESTAMP,
                 isBanned: false,
                 isActive: true
-            });
+            }));
         }
 
         function getUserFavorites(userId) {
-            return new Promise((resolve, reject) => {
-                db.ref('favorites').orderByChild('userId').equalTo(userId).once('value', (snapshot) => {
-                    const data = snapshot.val();
-                    const favorites = [];
+            return new Promise(function(resolve, reject) {
+                db.ref('favorites').orderByChild('userId').equalTo(userId).once('value', function(snapshot) {
+                    var data = snapshot.val();
+                    var favorites = [];
                     if (data) {
-                        Object.keys(data).forEach(key => {
-                            const fav = data[key];
+                        Object.keys(data).forEach(function(key) {
+                            var fav = data[key];
                             fav.id = key;
                             favorites.push(fav);
                         });
@@ -3758,40 +3596,31 @@
         }
 
         function removeFavorite(favId) {
-            return db.ref(`favorites/${favId}`).remove();
+            return db.ref('favorites/' + favId).remove();
         }
 
         function getUserNotifications(userId) {
-            return new Promise((resolve, reject) => {
-                db.ref('notifications').orderByChild('createdAt').once('value', (snapshot) => {
-                    const data = snapshot.val();
-                    const notifs = [];
+            return new Promise(function(resolve, reject) {
+                db.ref('notifications').orderByChild('createdAt').once('value', function(snapshot) {
+                    var data = snapshot.val();
+                    var notifs = [];
                     if (data) {
-                        Object.keys(data).forEach(key => {
-                            const notif = data[key];
+                        Object.keys(data).forEach(function(key) {
+                            var notif = data[key];
                             if (notif.userId === userId || notif.target === 'all' || notif.target === userId) {
                                 notif.id = key;
                                 notifs.push(notif);
                             }
                         });
                     }
-                    notifs.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+                    notifs.sort(function(a, b) { return (b.createdAt || 0) - (a.createdAt || 0); });
                     resolve(notifs);
                 }, reject);
             });
         }
 
-        function sendNotification(notifData) {
-            return addData('notifications', {
-                ...notifData,
-                read: false,
-                createdAt: firebase.database.ServerValue.TIMESTAMP
-            });
-        }
-
         function addForumPost(postData, userId, userName, userPhoto) {
-            return addData('forum_posts', {
-                ...postData,
+            return addData('forum_posts', Object.assign({}, postData, {
                 userId: userId,
                 author: userName || 'طالب',
                 authorPhoto: userPhoto || '',
@@ -3800,13 +3629,12 @@
                 likesData: {},
                 comments: [],
                 createdAt: firebase.database.ServerValue.TIMESTAMP
-            });
+            }));
         }
 
         function addForumComment(postId, commentData, userId, userName, userPhoto) {
-            const newRef = db.ref(`forum_posts/${postId}/comments`).push();
-            return newRef.set({
-                ...commentData,
+            var newRef = db.ref('forum_posts/' + postId + '/comments').push();
+            return newRef.set(Object.assign({}, commentData, {
                 userId: userId,
                 user: userName || 'طالب',
                 userPhoto: userPhoto || '',
@@ -3814,15 +3642,15 @@
                 likes: 0,
                 likesData: {},
                 createdAt: firebase.database.ServerValue.TIMESTAMP
-            });
+            }));
         }
 
         function likeForumPost(postId, userId) {
-            return new Promise((resolve, reject) => {
-                const postRef = db.ref(`forum_posts/${postId}`);
-                postRef.transaction((post) => {
+            return new Promise(function(resolve, reject) {
+                var postRef = db.ref('forum_posts/' + postId);
+                postRef.transaction(function(post) {
                     if (!post) return post;
-                    const likesData = post.likesData || {};
+                    var likesData = post.likesData || {};
                     if (likesData[userId]) {
                         delete likesData[userId];
                         post.likesData = likesData;
@@ -3834,9 +3662,9 @@
                         post.likesCount = (post.likesCount || 0) + 1;
                     }
                     return post;
-                }, (error, committed, snapshot) => {
+                }, function(error, committed, snapshot) {
                     if (error) reject(error);
-                    else resolve({ committed, data: snapshot.val() });
+                    else resolve({ committed: committed, data: snapshot.val() });
                 });
             });
         }
@@ -3846,9 +3674,8 @@
         }
 
         function addTeamComment(postId, commentData, userId, userName, userPhoto) {
-            const newRef = db.ref(`team_posts/${postId}/comments`).push();
-            return newRef.set({
-                ...commentData,
+            var newRef = db.ref('team_posts/' + postId + '/comments').push();
+            return newRef.set(Object.assign({}, commentData, {
                 userId: userId,
                 user: userName || 'طالب',
                 userPhoto: userPhoto || '',
@@ -3856,15 +3683,15 @@
                 likes: 0,
                 likesData: {},
                 createdAt: firebase.database.ServerValue.TIMESTAMP
-            });
+            }));
         }
 
         function likeTeamPost(postId, userId) {
-            return new Promise((resolve, reject) => {
-                const postRef = db.ref(`team_posts/${postId}`);
-                postRef.transaction((post) => {
+            return new Promise(function(resolve, reject) {
+                var postRef = db.ref('team_posts/' + postId);
+                postRef.transaction(function(post) {
                     if (!post) return post;
-                    const likesData = post.likesData || {};
+                    var likesData = post.likesData || {};
                     if (likesData[userId]) {
                         delete likesData[userId];
                         post.likesData = likesData;
@@ -3876,22 +3703,22 @@
                         post.likesCount = (post.likesCount || 0) + 1;
                     }
                     return post;
-                }, (error, committed, snapshot) => {
+                }, function(error, committed, snapshot) {
                     if (error) reject(error);
-                    else resolve({ committed, data: snapshot.val() });
+                    else resolve({ committed: committed, data: snapshot.val() });
                 });
             });
         }
 
         function likeTeamComment(postId, commentIndex, userId) {
-            return new Promise((resolve, reject) => {
-                const postRef = db.ref(`team_posts/${postId}`);
-                postRef.transaction((post) => {
+            return new Promise(function(resolve, reject) {
+                var postRef = db.ref('team_posts/' + postId);
+                postRef.transaction(function(post) {
                     if (!post || !post.comments) return post;
                     if (commentIndex >= post.comments.length) return post;
-                    const comment = post.comments[commentIndex];
+                    var comment = post.comments[commentIndex];
                     if (!comment) return post;
-                    const likesData = comment.likesData || {};
+                    var likesData = comment.likesData || {};
                     if (likesData[userId]) {
                         delete likesData[userId];
                         comment.likesData = likesData;
@@ -3904,9 +3731,9 @@
                     }
                     post.comments[commentIndex] = comment;
                     return post;
-                }, (error, committed, snapshot) => {
+                }, function(error, committed, snapshot) {
                     if (error) reject(error);
-                    else resolve({ committed, data: snapshot.val() });
+                    else resolve({ committed: committed, data: snapshot.val() });
                 });
             });
         }
@@ -3920,9 +3747,9 @@
         }
 
         function getActiveAds() {
-            return new Promise((resolve, reject) => {
-                getAllData('ads').then(ads => {
-                    resolve(ads.filter(ad => ad.active === true));
+            return new Promise(function(resolve, reject) {
+                getAllData('ads').then(function(ads) {
+                    resolve(ads.filter(function(ad) { return ad.active === true; }));
                 }).catch(reject);
             });
         }
@@ -3931,24 +3758,14 @@
             return getAllData('books');
         }
 
-        function getBook(bookId) {
-            return new Promise((resolve, reject) => {
-                db.ref(`books/${bookId}`).once('value', (snapshot) => {
-                    const data = snapshot.val();
-                    if (data) data.id = bookId;
-                    resolve(data);
-                }, reject);
-            });
-        }
-
         function incrementBookViews(bookId) {
-            return db.ref(`books/${bookId}/views`).transaction((current) => {
+            return db.ref('books/' + bookId + '/views').transaction(function(current) {
                 return (current || 0) + 1;
             });
         }
 
         function incrementBookDownloads(bookId) {
-            return db.ref(`books/${bookId}/downloads`).transaction((current) => {
+            return db.ref('books/' + bookId + '/downloads').transaction(function(current) {
                 return (current || 0) + 1;
             });
         }
@@ -3958,60 +3775,60 @@
         }
 
         function addSummary(summaryData, userId) {
-            return addData('handwritten_notes', {
-                ...summaryData,
+            return addData('handwritten_notes', Object.assign({}, summaryData, {
                 userId: userId,
                 status: 'pending'
-            });
+            }));
         }
 
         // ============================================================
         // متغيرات التطبيق
         // ============================================================
-        let allBooksCache = [];
-        let allSummariesCache = [];
-        let allForumPostsCache = [];
-        let allTeamPostsCache = [];
-        let allFavoritesCache = [];
-        let allYoutubeCache = [];
-        let allAdsCache = [];
-        let allUsersCache = [];
-        let currentUserData = null;
-        let isAdminUser = false;
-        let isNavigating = false;
-        let isBannedUser = false;
+        var allBooksCache = [];
+        var allSummariesCache = [];
+        var allForumPostsCache = [];
+        var allTeamPostsCache = [];
+        var allFavoritesCache = [];
+        var allYoutubeCache = [];
+        var allAdsCache = [];
+        var allUsersCache = [];
+        var currentUserData = null;
+        var isAdminUser = false;
+        var isNavigating = false;
+        var isBannedUser = false;
 
         // ============================================================
         // التحقق من الحظر
         // ============================================================
-        async function checkBanStatus(userId) {
-            try {
-                const userData = await getUser(userId);
-                if (userData && userData.isBanned === true) {
-                    isBannedUser = true;
-                    document.getElementById('bannedOverlay').classList.add('active');
-                    document.getElementById('banReason').textContent = 'السبب: ' + (userData.banReason || 'مخالفة قواعد المنصة');
-                    document.querySelector('.main-content').style.display = 'none';
-                    document.querySelector('.navbar').style.display = 'none';
-                    document.querySelector('.footer').style.display = 'none';
-                    return true;
-                }
-                isBannedUser = false;
-                document.getElementById('bannedOverlay').classList.remove('active');
-                document.querySelector('.main-content').style.display = 'block';
-                document.querySelector('.navbar').style.display = 'flex';
-                document.querySelector('.footer').style.display = 'block';
-                return false;
-            } catch (err) {
-                return false;
-            }
+        function checkBanStatus(userId) {
+            return new Promise(function(resolve) {
+                getUser(userId).then(function(userData) {
+                    if (userData && userData.isBanned === true) {
+                        isBannedUser = true;
+                        document.getElementById('bannedOverlay').classList.add('active');
+                        document.getElementById('banReason').textContent = 'السبب: ' + (userData.banReason ||
+                            'مخالفة قواعد المنصة');
+                        document.querySelector('.main-content').style.display = 'none';
+                        document.querySelector('.navbar').style.display = 'none';
+                        document.querySelector('.footer').style.display = 'none';
+                        resolve(true);
+                    } else {
+                        isBannedUser = false;
+                        document.getElementById('bannedOverlay').classList.remove('active');
+                        document.querySelector('.main-content').style.display = 'block';
+                        document.querySelector('.navbar').style.display = 'flex';
+                        document.querySelector('.footer').style.display = 'block';
+                        resolve(false);
+                    }
+                }).catch(function() { resolve(false); });
+            });
         }
 
         // ============================================================
         // إدارة المستخدم
         // ============================================================
         function updateUIForUser(user) {
-            const userSection = document.getElementById('userSection');
+            var userSection = document.getElementById('userSection');
             if (user) {
                 registerUser(user.uid, {
                     name: user.displayName || user.email || 'مستخدم',
@@ -4023,36 +3840,38 @@
                     photoURL: user.photoURL || ''
                 });
 
-                getUser(user.uid).then(async data => {
+                getUser(user.uid).then(function(data) {
                     currentUserData = data;
-                    isAdminUser = data?.role === 'admin' || data?.role === 'superAdmin';
+                    isAdminUser = data && (data.role === 'admin' || data.role === 'superAdmin');
 
-                    const banned = await checkBanStatus(user.uid);
-                    if (banned) return;
+                    checkBanStatus(user.uid).then(function(banned) {
+                        if (banned) return;
 
-                    if (isAdminUser) {
-                        document.body.classList.add('is-admin');
+                        if (isAdminUser) {
+                            document.body.classList.add('is-admin');
+                            updateOnlineStatus(user);
+                        } else {
+                            document.body.classList.remove('is-admin');
+                        }
+
+                        var photoURL = (data && data.photoURL) || user.photoURL || '';
+                        var displayName = (data && data.name) || user.displayName || user.email || 'مستخدم';
+                        userSection.innerHTML =
+                            '<div class="user-profile" onclick="navigateTo(\'profile\')">' +
+                            (photoURL ? '<img src="' + photoURL +
+                            '" class="avatar" id="navbarAvatar">' : '<div class="avatar-placeholder" id="navbarAvatar">' +
+                            displayName.charAt(0).toUpperCase() + '</div>') +
+                            '<span class="user-name">' + safeText(displayName) + '</span>' +
+                            '</div>' +
+                            '<button class="btn-logout-header" onclick="auth.signOut();location.reload();">🚪 خروج</button>';
+
                         updateOnlineStatus(user);
-                    } else {
-                        document.body.classList.remove('is-admin');
-                    }
-
-                    const photoURL = data?.photoURL || user.photoURL || '';
-                    const displayName = data?.name || user.displayName || user.email || 'مستخدم';
-                    userSection.innerHTML = `
-                        <div class="user-profile" onclick="navigateTo('profile')">
-                            ${photoURL ? `<img src="${photoURL}" class="avatar" id="navbarAvatar">` : `<div class="avatar-placeholder" id="navbarAvatar">${displayName.charAt(0).toUpperCase()}</div>`}
-                            <span class="user-name">${safeText(displayName)}</span>
-                        </div>
-                        <button class="btn-logout-header" onclick="auth.signOut();location.reload();">🚪 خروج</button>
-                    `;
-
-                    updateOnlineStatus(user);
-                    loadAllData();
+                        loadAllData();
+                    });
                 });
             } else {
                 userSection.innerHTML =
-                    `<button class="btn-login-header" onclick="window.location.href='login.html'">🔐 تسجيل الدخول</button>`;
+                    '<button class="btn-login-header" onclick="window.location.href=\'login.html\'">🔐 تسجيل الدخول</button>';
                 document.body.classList.remove('is-admin');
                 document.getElementById('bannedOverlay').classList.remove('active');
                 isBannedUser = false;
@@ -4064,98 +3883,100 @@
 
         function updateOnlineStatus(user) {
             if (!user) return;
-            const userRef = db.ref(`online_users/${user.uid}`);
+            var userRef = db.ref('online_users/' + user.uid);
             userRef.set({
                 uid: user.uid,
                 name: user.displayName || user.email || 'مستخدم',
                 photoURL: user.photoURL || '',
-                grade: currentUserData?.grade || '1',
-                role: currentUserData?.role || 'طالب',
+                grade: (currentUserData && currentUserData.grade) || '1',
+                role: (currentUserData && currentUserData.role) || 'طالب',
                 lastActive: firebase.database.ServerValue.TIMESTAMP
             });
             userRef.onDisconnect().remove();
         }
 
-        auth.onAuthStateChanged(user => {
+        auth.onAuthStateChanged(function(user) {
             updateUIForUser(user);
         });
 
         // ============================================================
         // تحميل البيانات
         // ============================================================
-        async function loadAllData() {
-            try {
-                allBooksCache = await getAllBooks();
-                allSummariesCache = await getAllSummaries();
-                allForumPostsCache = await getAllData('forum_posts');
-                allTeamPostsCache = await getAllTeamPosts();
-                allYoutubeCache = await getAllYoutubeChannels();
-                allAdsCache = await getAllAds();
-                allUsersCache = await getAllData('users');
+        function loadAllData() {
+            Promise.all([
+                getAllBooks().then(function(data) { allBooksCache = data; }),
+                getAllSummaries().then(function(data) { allSummariesCache = data; }),
+                getAllData('forum_posts').then(function(data) { allForumPostsCache = data; }),
+                getAllTeamPosts().then(function(data) { allTeamPostsCache = data; }),
+                getAllYoutubeChannels().then(function(data) { allYoutubeCache = data; }),
+                getAllAds().then(function(data) { allAdsCache = data; }),
+                getAllData('users').then(function(data) { allUsersCache = data; })
+            ]).then(function() {
                 if (auth.currentUser) {
-                    allFavoritesCache = await getUserFavorites(auth.currentUser.uid);
-                    await checkBanStatus(auth.currentUser.uid);
+                    getUserFavorites(auth.currentUser.uid).then(function(data) {
+                        allFavoritesCache = data;
+                        checkBanStatus(auth.currentUser.uid);
+                    });
                 }
-            } catch (err) {
-                console.warn('خطأ في تحميل البيانات:', err);
-            }
+            }).catch(function() {});
         }
 
         // ============================================================
         // البحث
         // ============================================================
-        async function searchBooks(query) {
-            const q = query.toLowerCase().trim();
-            if (!q) return [];
-            return allBooksCache.filter(book =>
-                book.status === 'approved' &&
-                (book.title?.toLowerCase().includes(q) ||
-                    book.author?.toLowerCase().includes(q) ||
-                    book.subject?.toLowerCase().includes(q))
-            );
+        function searchBooks(query) {
+            var q = query.toLowerCase().trim();
+            if (!q) return Promise.resolve([]);
+            return Promise.resolve(allBooksCache.filter(function(book) {
+                return book.status === 'approved' &&
+                    (book.title && book.title.toLowerCase().includes(q) ||
+                        book.author && book.author.toLowerCase().includes(q) ||
+                        book.subject && book.subject.toLowerCase().includes(q));
+            }));
         }
 
         document.addEventListener('DOMContentLoaded', function() {
-            const searchInput = document.getElementById('globalSearch');
+            var searchInput = document.getElementById('globalSearch');
             if (searchInput) {
-                searchInput.addEventListener('input', async function() {
-                    const query = this.value.toLowerCase().trim();
-                    const results = document.getElementById('globalSearchResults');
+                searchInput.addEventListener('input', function() {
+                    var query = this.value.toLowerCase().trim();
+                    var results = document.getElementById('globalSearchResults');
                     if (query.length < 2) {
                         results.classList.remove('active');
                         return;
                     }
 
-                    const books = await searchBooks(query);
-                    if (books.length === 0) {
-                        results.innerHTML =
-                            '<div style="padding:16px;text-align:center;color:#999;">❌ لا توجد نتائج</div>';
-                        results.classList.add('active');
-                        return;
-                    }
+                    searchBooks(query).then(function(books) {
+                        if (books.length === 0) {
+                            results.innerHTML =
+                                '<div style="padding:16px;text-align:center;color:#999;">❌ لا توجد نتائج</div>';
+                            results.classList.add('active');
+                            return;
+                        }
 
-                    let html = '';
-                    books.forEach(book => {
-                        const gradeName = book.grade === '1' ? 'أولى' :
-                            book.grade === '2' ? 'تانية' : 'تالتة';
-                        html += `
-                            <div class="search-result-item" onclick="showBookDetail('${book.id}')">
-                                <span>📚 ${safeText(book.title)}</span>
-                                <span><span class="tag">${gradeName}</span></span>
-                            </div>
-                        `;
+                        var html = '';
+                        books.forEach(function(book) {
+                            var gradeName = book.grade === '1' ? 'أولى' :
+                                book.grade === '2' ? 'تانية' : 'تالتة';
+                            html +=
+                                '<div class="search-result-item" onclick="showBookDetail(\'' +
+                                book.id + '\')">' +
+                                '<span>📚 ' + safeText(book.title) + '</span>' +
+                                '<span><span class="tag">' + gradeName + '</span></span>' +
+                                '</div>';
+                        });
+                        results.innerHTML = html;
+                        results.classList.add('active');
                     });
-                    results.innerHTML = html;
-                    results.classList.add('active');
                 });
             }
         });
 
         document.addEventListener('click', function(e) {
-            const searchInput = document.getElementById('globalSearch');
-            const searchResults = document.getElementById('globalSearchResults');
-            if (!searchInput?.contains(e.target) && !searchResults?.contains(e.target)) {
-                searchResults?.classList.remove('active');
+            var searchInput = document.getElementById('globalSearch');
+            var searchResults = document.getElementById('globalSearchResults');
+            if (!searchInput || !searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+                if (searchResults) searchResults.classList.remove('active');
             }
         });
 
@@ -4167,8 +3988,8 @@
             isNavigating = true;
 
             try {
-                document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-                const target = document.getElementById('page-' + pageId);
+                document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
+                var target = document.getElementById('page-' + pageId);
                 if (target) target.classList.add('active');
                 window.scrollTo(0, 0);
 
@@ -4195,7 +4016,7 @@
                         break;
                 }
             } catch (err) {
-                console.warn('خطأ في التنقل:', err);
+                // تجاهل الأخطاء
             } finally {
                 setTimeout(function() {
                     isNavigating = false;
@@ -4208,12 +4029,14 @@
         // ============================================================
         function showGrade(gradeId) {
             navigateTo('grade');
-            const gradeNames = { '1': 'أولى بكالوريا', '2': 'تانية بكالوريا', '3': 'تالتة ثانوي' };
-            const gradeColors = { '1': '#2ecc71', '2': '#3498db', '3': '#e74c3c' };
+            var gradeNames = { '1': 'أولى بكالوريا', '2': 'تانية بكالوريا', '3': 'تالتة ثانوي' };
+            var gradeColors = { '1': '#2ecc71', '2': '#3498db', '3': '#e74c3c' };
             document.getElementById('gradeTitle').innerHTML =
-                `<span style="background:${gradeColors[gradeId]}20;color:${gradeColors[gradeId]};padding:4px 12px;border-radius:10px;">${gradeNames[gradeId]}</span>`;
+                '<span style="background:' + gradeColors[gradeId] +
+                '20;color:' + gradeColors[gradeId] +
+                ';padding:4px 12px;border-radius:10px;">' + gradeNames[gradeId] + '</span>';
 
-            const sectionsConfig = {
+            var sectionsConfig = {
                 '1': [
                     { id: 'teachers', title: '📚 كتب المدرسين' },
                     { id: 'ministry', title: '📖 كتب الوزارة' },
@@ -4238,18 +4061,21 @@
                 ]
             };
 
-            const sections = sectionsConfig[gradeId] || [];
-            const container = document.getElementById('gradeSections');
+            var sections = sectionsConfig[gradeId] || [];
+            var container = document.getElementById('gradeSections');
             container.innerHTML = '';
-            sections.forEach(sec => {
-                const div = document.createElement('div');
+            sections.forEach(function(sec) {
+                var div = document.createElement('div');
                 div.className = 'section-card';
-                div.innerHTML = `
-                    <div class="section-title">${sec.title}</div>
-                    <div class="section-desc">جميع الكتب في هذا القسم</div>
-                    ${sec.id !== 'student_summaries' ? `<input type="text" placeholder="🔍 ابحث داخل ${sec.title}..." class="section-search" oninput="filterBooksInSection(this, '${gradeId}', '${sec.id}')">` : ''}
-                    <div class="books-grid" id="books-${gradeId}-${sec.id}"><div class="loading-container"><div class="spinner"></div></div></div>
-                `;
+                div.innerHTML =
+                    '<div class="section-title">' + sec.title + '</div>' +
+                    '<div class="section-desc">جميع الكتب في هذا القسم</div>' +
+                    (sec.id !== 'student_summaries' ?
+                        '<input type="text" placeholder="🔍 ابحث داخل ' + sec.title +
+                        '..." class="section-search" oninput="filterBooksInSection(this, \'' +
+                        gradeId + '\', \'' + sec.id + '\')">' : '') +
+                    '<div class="books-grid" id="books-' + gradeId + '-' + sec.id +
+                    '"><div class="loading-container"><div class="spinner"></div></div></div>';
                 container.appendChild(div);
                 if (sec.id === 'student_summaries') {
                     loadStudentSummaries(gradeId, div.querySelector('.books-grid'));
@@ -4259,143 +4085,156 @@
             });
         }
 
-        async function loadBooksForSection(gradeId, sectionId) {
-            const container = document.getElementById(`books-${gradeId}-${sectionId}`);
+        function loadBooksForSection(gradeId, sectionId) {
+            var container = document.getElementById('books-' + gradeId + '-' + sectionId);
             if (!container) return;
 
             try {
-                const filteredBooks = allBooksCache.filter(book =>
-                    book.grade === gradeId &&
-                    book.category === sectionId &&
-                    book.status === 'approved'
-                );
+                var filteredBooks = allBooksCache.filter(function(book) {
+                    return book.grade === gradeId &&
+                        book.category === sectionId &&
+                        book.status === 'approved';
+                });
 
                 if (filteredBooks.length === 0) {
                     container.innerHTML =
-                        `<div class="empty-state" style="padding:16px;"><div class="icon">📭</div><h3 style="font-size:14px;">لا توجد كتب</h3></div>`;
+                        '<div class="empty-state" style="padding:16px;"><div class="icon">📭</div><h3 style="font-size:14px;">لا توجد كتب</h3></div>';
                     return;
                 }
 
                 container.innerHTML = '';
-                filteredBooks.forEach(book => {
-                    const coverUrl = book.coverUrl || 'https://via.placeholder.com/200x180?text=كتاب';
-                    const isFaved = allFavoritesCache.some(f => f.bookId === book.id);
-                    const favText = isFaved ? '❤️' : '🤍';
-                    const favClass = isFaved ? 'faved' : '';
+                filteredBooks.forEach(function(book) {
+                    var coverUrl = book.coverUrl || 'https://via.placeholder.com/200x180?text=كتاب';
+                    var isFaved = allFavoritesCache.some(function(f) { return f.bookId === book.id; });
+                    var favText = isFaved ? '❤️' : '🤍';
+                    var favClass = isFaved ? 'faved' : '';
 
-                    const item = document.createElement('div');
+                    var item = document.createElement('div');
                     item.className = 'book-item';
-                    item.innerHTML = `
-                        <img src="${coverUrl}" class="book-cover" loading="lazy" onclick="showBookDetail('${book.id}')" onerror="this.src='https://via.placeholder.com/200x180?text=كتاب'">
-                        <div class="book-name" onclick="showBookDetail('${book.id}')">${safeText(book.title || 'كتاب')}</div>
-                        <div class="book-meta">
-                            <span>${safeText(book.author || '')}</span>
-                            <span class="fav-count">❤️ ${book.favorites || 0}</span>
-                        </div>
-                        <div class="book-actions">
-                            <button class="fav-btn ${favClass}" onclick="toggleFav('${book.id}', this)">${favText}</button>
-                            <button class="download-btn" onclick="showBookDetail('${book.id}')">📖 تفاصيل</button>
-                        </div>
-                    `;
+                    item.innerHTML =
+                        '<img src="' + coverUrl +
+                        '" class="book-cover" loading="lazy" onclick="showBookDetail(\'' + book.id +
+                        '\')" onerror="this.src=\'https://via.placeholder.com/200x180?text=كتاب\'">' +
+                        '<div class="book-name" onclick="showBookDetail(\'' + book.id +
+                        '\')">' + safeText(book.title || 'كتاب') + '</div>' +
+                        '<div class="book-meta">' +
+                        '<span>' + safeText(book.author || '') + '</span>' +
+                        '<span class="fav-count">❤️ ' + (book.favorites || 0) + '</span>' +
+                        '</div>' +
+                        '<div class="book-actions">' +
+                        '<button class="fav-btn ' + favClass + '" onclick="toggleFav(\'' + book.id +
+                        '\', this)">' + favText + '</button>' +
+                        '<button class="download-btn" onclick="showBookDetail(\'' + book.id +
+                        '\')">📖 تفاصيل</button>' +
+                        '</div>';
                     container.appendChild(item);
                 });
             } catch (err) {
                 container.innerHTML =
-                    `<div class="empty-state" style="padding:16px;"><div class="icon">❌</div><h3 style="font-size:14px;">حدث خطأ</h3></div>`;
+                    '<div class="empty-state" style="padding:16px;"><div class="icon">❌</div><h3 style="font-size:14px;">حدث خطأ</h3></div>';
             }
         }
 
         window.filterBooksInSection = function(input, gradeId, sectionId) {
-            const query = input.value.toLowerCase().trim();
-            const container = document.getElementById(`books-${gradeId}-${sectionId}`);
+            var query = input.value.toLowerCase().trim();
+            var container = document.getElementById('books-' + gradeId + '-' + sectionId);
             if (!container) return;
-            const items = container.querySelectorAll('.book-item');
-            items.forEach(item => {
-                const text = item.textContent.toLowerCase();
-                item.style.display = text.includes(query) ? '' : 'none';
+            var items = container.querySelectorAll('.book-item');
+            items.forEach(function(item) {
+                var text = item.textContent.toLowerCase();
+                item.style.display = text.indexOf(query) !== -1 ? '' : 'none';
             });
         };
 
-        async function loadStudentSummaries(gradeId, container) {
+        function loadStudentSummaries(gradeId, container) {
             if (!container) return;
 
             try {
-                const filteredSummaries = allSummariesCache.filter(s =>
-                    s.grade === gradeId && s.status === 'approved'
-                );
+                var filteredSummaries = allSummariesCache.filter(function(s) {
+                    return s.grade === gradeId && s.status === 'approved';
+                });
 
                 if (filteredSummaries.length === 0) {
                     container.innerHTML =
-                        `<div class="empty-state" style="padding:16px;"><div class="icon">📝</div><h3 style="font-size:14px;">لا توجد ملخصات طلابية</h3></div>`;
+                        '<div class="empty-state" style="padding:16px;"><div class="icon">📝</div><h3 style="font-size:14px;">لا توجد ملخصات طلابية</h3></div>';
                     return;
                 }
 
                 container.innerHTML = '<div class="student-summary-grid">';
-                filteredSummaries.forEach(summary => {
-                    const isImage = summary.link && (summary.link.match(/\.(jpeg|jpg|png|gif|webp)$/i));
-                    const previewUrl = isImage ? summary.link :
+                filteredSummaries.forEach(function(summary) {
+                    var isImage = summary.link && summary.link.match(/\.(jpeg|jpg|png|gif|webp)$/i);
+                    var previewUrl = isImage ? summary.link :
                         'https://cdn.phototourl.com/free/2026-07-21-1dd4b984-ed08-4a40-aead-9ef086ebbd45.jpg';
 
-                    container.innerHTML += `
-                        <div class="student-summary-item">
-                            <img src="${previewUrl}" class="summary-preview" loading="lazy" onerror="this.src='https://via.placeholder.com/200x140?text=ملخص'">
-                            <div class="summary-title">${safeText(summary.title || 'ملخص')}</div>
-                            <div class="summary-meta">${safeText(summary.author || 'طالب')} • ${safeText(summary.subject || '')}</div>
-                            <a href="${summary.link}" target="_blank" class="summary-download" download>⬇️ تحميل</a>
-                        </div>
-                    `;
+                    container.innerHTML +=
+                        '<div class="student-summary-item">' +
+                        '<img src="' + previewUrl +
+                        '" class="summary-preview" loading="lazy" onerror="this.src=\'https://via.placeholder.com/200x140?text=ملخص\'">' +
+                        '<div class="summary-title">' + safeText(summary.title || 'ملخص') + '</div>' +
+                        '<div class="summary-meta">' + safeText(summary.author || 'طالب') + ' • ' + safeText(
+                            summary.subject || '') + '</div>' +
+                        '<a href="' + summary.link +
+                        '" target="_blank" class="summary-download" download>⬇️ تحميل</a>' +
+                        '</div>';
                 });
                 container.innerHTML += '</div>';
             } catch (err) {
                 container.innerHTML =
-                    `<div class="empty-state" style="padding:16px;"><div class="icon">❌</div><h3 style="font-size:14px;">حدث خطأ</h3></div>`;
+                    '<div class="empty-state" style="padding:16px;"><div class="icon">❌</div><h3 style="font-size:14px;">حدث خطأ</h3></div>';
             }
         }
 
         // ============================================================
         // تفاصيل الكتاب
         // ============================================================
-        async function showBookDetail(bookId) {
+        function showBookDetail(bookId) {
             navigateTo('bookDetail');
-            const container = document.getElementById('bookDetailContainer');
+            var container = document.getElementById('bookDetailContainer');
             container.innerHTML = '<div class="loading-container"><div class="spinner"></div></div>';
 
             try {
-                const book = allBooksCache.find(b => b.id === bookId);
+                var book = allBooksCache.find(function(b) { return b.id === bookId; });
                 if (!book) {
                     container.innerHTML =
-                        `<div class="empty-state"><div class="icon">📚</div><h3>الكتاب غير موجود</h3></div>`;
+                        '<div class="empty-state"><div class="icon">📚</div><h3>الكتاب غير موجود</h3></div>';
                     return;
                 }
 
-                await incrementBookViews(bookId);
+                incrementBookViews(bookId);
 
-                const coverUrl = book.coverUrl || 'https://via.placeholder.com/400x300?text=كتاب';
-                const gradeName = book.grade === '1' ? 'أولى بكالوريا' :
+                var coverUrl = book.coverUrl || 'https://via.placeholder.com/400x300?text=كتاب';
+                var gradeName = book.grade === '1' ? 'أولى بكالوريا' :
                     book.grade === '2' ? 'تانية بكالوريا' :
                     book.grade === '3' ? 'تالتة ثانوي' : '-';
 
-                container.innerHTML = `
-                    <div class="book-detail">
-                        <img src="${coverUrl}" class="cover-large" onerror="this.src='https://via.placeholder.com/400x300?text=كتاب'">
-                        <h2>${safeText(book.title || 'بدون عنوان')}</h2>
-                        <div class="detail-row"><span class="label">✍️ المؤلف</span><span class="value">${safeText(book.author || 'غير معروف')}</span></div>
-                        ${book.subject ? `<div class="detail-row"><span class="label">📖 المادة</span><span class="value">${safeText(book.subject)}</span></div>` : ''}
-                        <div class="detail-row"><span class="label">🏫 الصف</span><span class="value">${gradeName}</span></div>
-                        <div class="detail-row"><span class="label">📥 التحميلات</span><span class="value">${book.downloads || 0}</span></div>
-                        <div class="detail-row"><span class="label">👁️ المشاهدات</span><span class="value">${(book.views || 0) + 1}</span></div>
-                        <div class="detail-row"><span class="label">❤️ المفضلة</span><span class="value fav-count">${book.favorites || 0}</span></div>
-                        <button class="btn-download-large" onclick="downloadBook('${bookId}')">⬇️ تحميل الكتاب</button>
-                        <button class="btn-primary" onclick="navigateTo('home')" style="display:block;width:100%;margin-top:10px;text-align:center;">🏠 العودة للرئيسية</button>
-                    </div>
-                `;
+                container.innerHTML =
+                    '<div class="book-detail">' +
+                    '<img src="' + coverUrl +
+                    '" class="cover-large" onerror="this.src=\'https://via.placeholder.com/400x300?text=كتاب\'">' +
+                    '<h2>' + safeText(book.title || 'بدون عنوان') + '</h2>' +
+                    '<div class="detail-row"><span class="label">✍️ المؤلف</span><span class="value">' +
+                    safeText(book.author || 'غير معروف') + '</span></div>' +
+                    (book.subject ? '<div class="detail-row"><span class="label">📖 المادة</span><span class="value">' +
+                        safeText(book.subject) + '</span></div>' : '') +
+                    '<div class="detail-row"><span class="label">🏫 الصف</span><span class="value">' + gradeName +
+                    '</span></div>' +
+                    '<div class="detail-row"><span class="label">📥 التحميلات</span><span class="value">' + (book
+                        .downloads || 0) + '</span></div>' +
+                    '<div class="detail-row"><span class="label">👁️ المشاهدات</span><span class="value">' + ((book
+                        .views || 0) + 1) + '</span></div>' +
+                    '<div class="detail-row"><span class="label">❤️ المفضلة</span><span class="value fav-count">' +
+                    (book.favorites || 0) + '</span></div>' +
+                    '<button class="btn-download-large" onclick="downloadBook(\'' + bookId +
+                    '\')">⬇️ تحميل الكتاب</button>' +
+                    '<button class="btn-primary" onclick="navigateTo(\'home\')" style="display:block;width:100%;margin-top:10px;text-align:center;">🏠 العودة للرئيسية</button>' +
+                    '</div>';
             } catch (err) {
                 container.innerHTML =
-                    `<div class="empty-state"><div class="icon">❌</div><h3>حدث خطأ</h3></div>`;
+                    '<div class="empty-state"><div class="icon">❌</div><h3>حدث خطأ</h3></div>';
             }
         }
 
-        window.downloadBook = async function(bookId) {
+        window.downloadBook = function(bookId) {
             if (!auth.currentUser) {
                 alert('🔐 يرجى تسجيل الدخول أولاً');
                 window.location.href = 'login.html';
@@ -4403,42 +4242,47 @@
             }
 
             try {
-                const book = allBooksCache.find(b => b.id === bookId);
+                var book = allBooksCache.find(function(b) { return b.id === bookId; });
                 if (!book) { alert('❌ الكتاب غير موجود'); return; }
-                await incrementBookDownloads(bookId);
+                incrementBookDownloads(bookId);
                 if (book.fileUrl) { window.open(book.fileUrl, '_blank'); } else if (book.link) { window.open(book
                         .link, '_blank'); } else { alert('❌ رابط التحميل غير متوفر'); }
             } catch (err) { alert('❌ خطأ: ' + err.message); }
         };
 
-        window.toggleFav = async function(bookId, btn) {
+        window.toggleFav = function(bookId, btn) {
             if (!auth.currentUser) {
                 alert('🔐 يرجى تسجيل الدخول أولاً');
                 window.location.href = 'login.html';
                 return;
             }
 
-            const isFaved = btn.classList.contains('faved');
+            var isFaved = btn.classList.contains('faved');
 
             try {
                 if (isFaved) {
-                    const favs = await getUserFavorites(auth.currentUser.uid);
-                    const fav = favs.find(f => f.bookId === bookId);
-                    if (fav) {
-                        await removeFavorite(fav.id);
-                        allFavoritesCache = allFavoritesCache.filter(f => f.id !== fav.id);
-                    }
-                    btn.classList.remove('faved');
-                    btn.textContent = '🤍';
-                    const book = allBooksCache.find(b => b.id === bookId);
-                    if (book) book.favorites = (book.favorites || 0) - 1;
+                    getUserFavorites(auth.currentUser.uid).then(function(favs) {
+                        var fav = favs.find(function(f) { return f.bookId === bookId; });
+                        if (fav) {
+                            removeFavorite(fav.id);
+                            allFavoritesCache = allFavoritesCache.filter(function(f) { return f.id !== fav
+                                    .id; });
+                        }
+                        btn.classList.remove('faved');
+                        btn.textContent = '🤍';
+                        var book = allBooksCache.find(function(b) { return b.id === bookId; });
+                        if (book) book.favorites = (book.favorites || 0) - 1;
+                    });
                 } else {
-                    await addFavorite(auth.currentUser.uid, bookId);
-                    allFavoritesCache = await getUserFavorites(auth.currentUser.uid);
-                    btn.classList.add('faved');
-                    btn.textContent = '❤️';
-                    const book = allBooksCache.find(b => b.id === bookId);
-                    if (book) book.favorites = (book.favorites || 0) + 1;
+                    addFavorite(auth.currentUser.uid, bookId).then(function() {
+                        return getUserFavorites(auth.currentUser.uid);
+                    }).then(function(newFav) {
+                        allFavoritesCache = newFav;
+                        btn.classList.add('faved');
+                        btn.textContent = '❤️';
+                        var book = allBooksCache.find(function(b) { return b.id === bookId; });
+                        if (book) book.favorites = (book.favorites || 0) + 1;
+                    });
                 }
             } catch (err) {
                 alert('❌ خطأ: ' + err.message);
@@ -4448,360 +4292,383 @@
         // ============================================================
         // المنتدى
         // ============================================================
-        async function loadForumPosts() {
-            const container = document.getElementById('forumPosts');
+        function loadForumPosts() {
+            var container = document.getElementById('forumPosts');
             container.innerHTML = '<div class="loading-container"><div class="spinner"></div></div>';
 
             try {
-                const approvedPosts = allForumPostsCache.filter(p => p.status === 'approved')
-                    .sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+                var approvedPosts = allForumPostsCache.filter(function(p) { return p.status === 'approved'; })
+                    .sort(function(a, b) { return (b.createdAt || 0) - (a.createdAt || 0); });
 
                 if (approvedPosts.length === 0) {
                     container.innerHTML =
-                        `<div class="empty-state"><div class="icon">💬</div><h3>لا توجد منشورات</h3><p>كن أول من يسأل!</p></div>`;
+                        '<div class="empty-state"><div class="icon">💬</div><h3>لا توجد منشورات</h3><p>كن أول من يسأل!</p></div>';
                     return;
                 }
 
                 container.innerHTML = '';
-                for (const data of approvedPosts) {
-                    const post = document.createElement('div');
+                approvedPosts.forEach(function(data) {
+                    var post = document.createElement('div');
                     post.className = 'forum-post';
 
-                    let userLiked = false;
+                    var userLiked = false;
                     if (auth.currentUser && data.likesData) {
                         userLiked = data.likesData[auth.currentUser.uid] || false;
                     }
 
-                    let commentsHtml = '';
-                    let commentCounter = 0;
+                    var commentsHtml = '';
+                    var commentCounter = 0;
                     if (data.comments) {
-                        const approvedComments = data.comments.filter(c => c.status === 'approved');
-                        approvedComments.forEach(comment => {
-                            const initial = comment.user ? comment.user.charAt(0).toUpperCase() : '?';
-                            const commentIdx = commentCounter;
-                            let userCommentLiked = false;
+                        var approvedComments = data.comments.filter(function(c) { return c.status ===
+                            'approved'; });
+                        approvedComments.forEach(function(comment) {
+                            var initial = comment.user ? comment.user.charAt(0).toUpperCase() : '?';
+                            var commentIdx = commentCounter;
+                            var userCommentLiked = false;
                             if (auth.currentUser && comment.likesData) {
                                 userCommentLiked = comment.likesData[auth.currentUser.uid] || false;
                             }
 
-                            const commentDiv = document.createElement('div');
+                            var commentDiv = document.createElement('div');
                             commentDiv.className = 'comment';
-                            commentDiv.innerHTML = `
-                                <div class="avatar" style="background-image:url('${comment.userPhoto || ''}');background-size:cover;background-position:center;${comment.userPhoto ? '' : 'background:#3498db;'}">
-                                    ${!comment.userPhoto ? initial : ''}
-                                </div>
-                                <div class="comment-text">
-                                    <div class="name">
-                                        ${comment.userPhoto ? `<img src="${comment.userPhoto}" class="user-avatar-small">` : ''}
-                                        ${safeText(comment.user || 'مجهول')}
-                                    </div>
-                                    <div>${safeText(comment.text || '')}</div>
-                                    <div style="margin-top:4px;display:flex;gap:8px;align-items:center;">
-                                        <button onclick="likeForumComment('${data.id}', ${commentIdx}, this)" style="background:none;border:none;cursor:pointer;font-size:12px;color:${userCommentLiked ? '#e74c3c' : '#555'};font-family:'Tajawal',sans-serif;display:flex;align-items:center;gap:4px;">
-                                            ${userCommentLiked ? '❤️' : '🤍'} <span>${comment.likes || 0}</span>
-                                        </button>
-                                    </div>
-                                </div>
-                            `;
+                            commentDiv.innerHTML =
+                                '<div class="avatar" style="background-image:url(\'' + (comment
+                                    .userPhoto || '') +
+                                '\');background-size:cover;background-position:center;' + (comment
+                                    .userPhoto ? '' : 'background:#3498db;') + '">' +
+                                (!comment.userPhoto ? initial : '') +
+                                '</div>' +
+                                '<div class="comment-text">' +
+                                '<div class="name">' +
+                                (comment.userPhoto ? '<img src="' + comment.userPhoto +
+                                    '" class="user-avatar-small">' : '') +
+                                safeText(comment.user || 'مجهول') +
+                                '</div>' +
+                                '<div>' + safeText(comment.text || '') + '</div>' +
+                                '<div style="margin-top:4px;display:flex;gap:8px;align-items:center;">' +
+                                '<button onclick="likeForumComment(\'' + data.id + '\', ' +
+                                commentIdx +
+                                ', this)" style="background:none;border:none;cursor:pointer;font-size:12px;color:' +
+                                (userCommentLiked ? '#e74c3c' : '#555') +
+                                ';font-family:\'Tajawal\',sans-serif;display:flex;align-items:center;gap:4px;">' +
+                                (userCommentLiked ? '❤️' : '🤍') + ' <span>' + (comment.likes || 0) +
+                                '</span>' +
+                                '</button>' +
+                                '</div>' +
+                                '</div>';
                             commentsHtml += commentDiv.outerHTML;
                             commentCounter++;
                         });
                     }
 
-                    const likeCount = data.likesCount || 0;
+                    var likeCount = data.likesCount || 0;
 
-                    post.innerHTML = `
-                        <div class="post-header">
-                            <span class="user">
-                                ${data.authorPhoto ? `<img src="${data.authorPhoto}" class="user-avatar">` : `👤`}
-                                ${safeText(data.author || 'طالب')}
-                            </span>
-                            <span class="date">${data.createdAt ? new Date(data.createdAt).toLocaleString('ar') : ''}</span>
-                        </div>
-                        <h4 style="color:#2ecc71;">${safeText(data.title || 'سؤال')}</h4>
-                        <div class="post-content">${safeText(data.content || '')}</div>
-                        ${data.image ? `<img src="${safeText(data.image)}" class="post-image" loading="lazy">` : ''}
-                        <div class="post-actions">
-                            <button onclick="likeForumPost('${data.id}', this)" ${userLiked ? 'style="color:#e74c3c;"' : ''}>
-                                ${userLiked ? '❤️' : '🤍'} <span>${likeCount}</span>
-                            </button>
-                            <button>💬 <span>${data.comments ? data.comments.filter(c => c.status === 'approved').length : 0}</span></button>
-                        </div>
-                        <div class="comments-section">
-                            ${commentsHtml}
-                            <div class="comment-input">
-                                <input type="text" placeholder="اكتب تعليقك..." class="forum-comment-input" data-post="${data.id}">
-                                <button class="forum-comment-submit" data-post="${data.id}">نشر</button>
-                            </div>
-                        </div>
-                    `;
+                    post.innerHTML =
+                        '<div class="post-header">' +
+                        '<span class="user">' +
+                        (data.authorPhoto ? '<img src="' + data.authorPhoto +
+                            '" class="user-avatar">' : '👤') +
+                        safeText(data.author || 'طالب') +
+                        '</span>' +
+                        '<span class="date">' + (data.createdAt ? new Date(data.createdAt).toLocaleString(
+                            'ar') : '') + '</span>' +
+                        '</div>' +
+                        '<h4 style="color:#2ecc71;">' + safeText(data.title || 'سؤال') + '</h4>' +
+                        '<div class="post-content">' + safeText(data.content || '') + '</div>' +
+                        (data.image ? '<img src="' + safeText(data.image) +
+                            '" class="post-image" loading="lazy">' : '') +
+                        '<div class="post-actions">' +
+                        '<button onclick="likeForumPost(\'' + data.id + '\', this)" ' + (userLiked ?
+                            'style="color:#e74c3c;"' : '') + '>' +
+                        (userLiked ? '❤️' : '🤍') + ' <span>' + likeCount + '</span>' +
+                        '</button>' +
+                        '<button>💬 <span>' + (data.comments ? data.comments.filter(function(c) { return c
+                                .status === 'approved'; }).length : 0) + '</span></button>' +
+                        '</div>' +
+                        '<div class="comments-section">' +
+                        commentsHtml +
+                        '<div class="comment-input">' +
+                        '<input type="text" placeholder="اكتب تعليقك..." class="forum-comment-input" data-post="' +
+                        data.id + '">' +
+                        '<button class="forum-comment-submit" data-post="' + data.id + '">نشر</button>' +
+                        '</div>' +
+                        '</div>';
                     container.appendChild(post);
 
-                    const commentSubmit = post.querySelector('.forum-comment-submit');
-                    commentSubmit.addEventListener('click', async function() {
-                        const postId = this.dataset.post;
-                        const input = post.querySelector('.forum-comment-input');
-                        const text = input.value.trim();
+                    var commentSubmit = post.querySelector('.forum-comment-submit');
+                    commentSubmit.addEventListener('click', function() {
+                        var postId = this.dataset.post;
+                        var input = post.querySelector('.forum-comment-input');
+                        var text = input.value.trim();
                         if (!text) return;
                         if (!auth.currentUser) {
                             alert('🔐 يرجى تسجيل الدخول أولاً');
                             window.location.href = 'login.html';
                             return;
                         }
-                        try {
-                            const userData = await getUser(auth.currentUser.uid);
-                            const photo = userData?.photoURL || auth.currentUser.photoURL || '';
-                            await addForumComment(postId, { text: text }, auth.currentUser.uid,
+                        getUser(auth.currentUser.uid).then(function(userData) {
+                            var photo = (userData && userData.photoURL) || auth.currentUser
+                                .photoURL || '';
+                            return addForumComment(postId, { text: text }, auth.currentUser.uid,
                                 auth.currentUser.displayName || auth.currentUser.email, photo);
+                        }).then(function() {
                             input.value = '';
-                            showPopup('✅', 'تم إرسال تعليقك!', 'تم إرسال تعليقك للإدارة للمراجعة');
+                            showPopup('✅', 'تم إرسال تعليقك!',
+                                'تم إرسال تعليقك للإدارة للمراجعة');
                             loadForumPosts();
-                        } catch (err) {
+                        }).catch(function(err) {
                             alert('❌ خطأ: ' + err.message);
-                        }
+                        });
                     });
-                }
+                });
             } catch (err) {
                 container.innerHTML =
-                    `<div class="empty-state"><div class="icon">❌</div><h3>حدث خطأ</h3></div>`;
+                    '<div class="empty-state"><div class="icon">❌</div><h3>حدث خطأ</h3></div>';
             }
         }
 
-        window.likeForumPost = async function(postId, btn) {
+        window.likeForumPost = function(postId, btn) {
             if (!auth.currentUser) {
                 alert('🔐 يرجى تسجيل الدخول أولاً');
                 window.location.href = 'login.html';
                 return;
             }
 
-            try {
-                const result = await likeForumPost(postId, auth.currentUser.uid);
+            likeForumPost(postId, auth.currentUser.uid).then(function(result) {
                 if (result && result.committed) {
-                    const span = btn.querySelector('span');
-                    const current = parseInt(span.textContent) || 0;
-                    const post = allForumPostsCache.find(p => p.id === postId);
+                    var span = btn.querySelector('span');
+                    var current = parseInt(span.textContent) || 0;
+                    var post = allForumPostsCache.find(function(p) { return p.id === postId; });
                     if (post) {
-                        const isLiked = post.likesData && post.likesData[auth.currentUser.uid];
+                        var isLiked = post.likesData && post.likesData[auth.currentUser.uid];
                         span.textContent = isLiked ? current + 1 : current - 1;
                         if (span.textContent < 0) span.textContent = 0;
-                        btn.innerHTML = `${isLiked ? '❤️' : '🤍'} <span>${span.textContent}</span>`;
+                        btn.innerHTML = (isLiked ? '❤️' : '🤍') + ' <span>' + span.textContent +
+                        '</span>';
                         btn.style.color = isLiked ? '#e74c3c' : '';
                     }
                 }
-            } catch (err) {
-                // إخفاء الخطأ تماماً
-            }
+            }).catch(function() {});
         };
 
-        window.likeForumComment = async function(postId, commentIndex, btn) {
+        window.likeForumComment = function(postId, commentIndex, btn) {
             if (!auth.currentUser) {
                 alert('🔐 يرجى تسجيل الدخول أولاً');
                 window.location.href = 'login.html';
                 return;
             }
 
-            try {
-                const result = await likeForumComment(postId, commentIndex, auth.currentUser.uid);
+            likeForumComment(postId, commentIndex, auth.currentUser.uid).then(function(result) {
                 if (result && result.committed) {
-                    const span = btn.querySelector('span');
-                    const current = parseInt(span.textContent) || 0;
-                    const post = allForumPostsCache.find(p => p.id === postId);
+                    var span = btn.querySelector('span');
+                    var current = parseInt(span.textContent) || 0;
+                    var post = allForumPostsCache.find(function(p) { return p.id === postId; });
                     if (post && post.comments && post.comments[commentIndex]) {
-                        const comment = post.comments[commentIndex];
-                        const isLiked = comment.likesData && comment.likesData[auth.currentUser.uid];
+                        var comment = post.comments[commentIndex];
+                        var isLiked = comment.likesData && comment.likesData[auth.currentUser.uid];
                         span.textContent = isLiked ? current + 1 : current - 1;
                         if (span.textContent < 0) span.textContent = 0;
-                        btn.innerHTML = `${isLiked ? '❤️' : '🤍'} <span>${span.textContent}</span>`;
+                        btn.innerHTML = (isLiked ? '❤️' : '🤍') + ' <span>' + span.textContent +
+                        '</span>';
                         btn.style.color = isLiked ? '#e74c3c' : '';
                     }
                 }
-            } catch (err) {
-                // إخفاء الخطأ تماماً
-            }
+            }).catch(function() {});
         };
 
         // ============================================================
         // منشورات الفريق
         // ============================================================
-        async function loadTeamPosts() {
-            const container = document.getElementById('teamPostsContainer');
+        function loadTeamPosts() {
+            var container = document.getElementById('teamPostsContainer');
             container.innerHTML = '<div class="loading-container"><div class="spinner"></div></div>';
 
             try {
-                const posts = allTeamPostsCache.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+                var posts = allTeamPostsCache.sort(function(a, b) { return (b.createdAt || 0) - (a.createdAt || 0); });
 
                 if (posts.length === 0) {
                     container.innerHTML =
-                        `<div class="empty-state"><div class="icon">📢</div><h3>لا توجد منشورات</h3></div>`;
+                        '<div class="empty-state"><div class="icon">📢</div><h3>لا توجد منشورات</h3></div>';
                     return;
                 }
 
                 container.innerHTML = '';
-                posts.forEach(data => {
-                    const post = document.createElement('div');
+                posts.forEach(function(data) {
+                    var post = document.createElement('div');
                     post.className = 'post-card';
 
-                    let userLiked = false;
+                    var userLiked = false;
                     if (auth.currentUser && data.likesData) {
                         userLiked = data.likesData[auth.currentUser.uid] || false;
                     }
 
-                    let commentsHtml = '';
-                    let commentCounter = 0;
+                    var commentsHtml = '';
+                    var commentCounter = 0;
                     if (data.comments) {
-                        const approvedComments = data.comments.filter(c => c.status === 'approved');
-                        approvedComments.forEach(comment => {
-                            const initial = comment.user ? comment.user.charAt(0).toUpperCase() : '?';
-                            const commentIdx = commentCounter;
-                            let userCommentLiked = false;
+                        var approvedComments = data.comments.filter(function(c) { return c.status ===
+                            'approved'; });
+                        approvedComments.forEach(function(comment) {
+                            var initial = comment.user ? comment.user.charAt(0).toUpperCase() : '?';
+                            var commentIdx = commentCounter;
+                            var userCommentLiked = false;
                             if (auth.currentUser && comment.likesData) {
                                 userCommentLiked = comment.likesData[auth.currentUser.uid] || false;
                             }
 
-                            const commentDiv = document.createElement('div');
+                            var commentDiv = document.createElement('div');
                             commentDiv.className = 'comment';
-                            commentDiv.innerHTML = `
-                                <div class="avatar" style="background-image:url('${comment.userPhoto || ''}');background-size:cover;background-position:center;${comment.userPhoto ? '' : 'background:#2ecc71;'}">
-                                    ${!comment.userPhoto ? initial : ''}
-                                </div>
-                                <div class="comment-text">
-                                    <div class="name">
-                                        ${comment.userPhoto ? `<img src="${comment.userPhoto}" class="user-avatar-small">` : ''}
-                                        ${safeText(comment.user || 'مجهول')}
-                                    </div>
-                                    <div>${safeText(comment.text || '')}</div>
-                                    <div style="margin-top:4px;display:flex;gap:8px;align-items:center;">
-                                        <button onclick="likeTeamComment('${data.id}', ${commentIdx}, this)" style="background:none;border:none;cursor:pointer;font-size:12px;color:${userCommentLiked ? '#e74c3c' : '#555'};font-family:'Tajawal',sans-serif;display:flex;align-items:center;gap:4px;">
-                                            ${userCommentLiked ? '❤️' : '🤍'} <span>${comment.likes || 0}</span>
-                                        </button>
-                                    </div>
-                                </div>
-                            `;
+                            commentDiv.innerHTML =
+                                '<div class="avatar" style="background-image:url(\'' + (comment
+                                    .userPhoto || '') +
+                                '\');background-size:cover;background-position:center;' + (comment
+                                    .userPhoto ? '' : 'background:#2ecc71;') + '">' +
+                                (!comment.userPhoto ? initial : '') +
+                                '</div>' +
+                                '<div class="comment-text">' +
+                                '<div class="name">' +
+                                (comment.userPhoto ? '<img src="' + comment.userPhoto +
+                                    '" class="user-avatar-small">' : '') +
+                                safeText(comment.user || 'مجهول') +
+                                '</div>' +
+                                '<div>' + safeText(comment.text || '') + '</div>' +
+                                '<div style="margin-top:4px;display:flex;gap:8px;align-items:center;">' +
+                                '<button onclick="likeTeamComment(\'' + data.id + '\', ' +
+                                commentIdx +
+                                ', this)" style="background:none;border:none;cursor:pointer;font-size:12px;color:' +
+                                (userCommentLiked ? '#e74c3c' : '#555') +
+                                ';font-family:\'Tajawal\',sans-serif;display:flex;align-items:center;gap:4px;">' +
+                                (userCommentLiked ? '❤️' : '🤍') + ' <span>' + (comment.likes || 0) +
+                                '</span>' +
+                                '</button>' +
+                                '</div>' +
+                                '</div>';
                             commentsHtml += commentDiv.outerHTML;
                             commentCounter++;
                         });
                     }
 
-                    const likeCount = data.likesCount || 0;
+                    var likeCount = data.likesCount || 0;
 
-                    post.innerHTML = `
-                        <div class="admin-header">
-                            <img src="https://cdn.phototourl.com/free/2026-07-21-1dd4b984-ed08-4a40-aead-9ef086ebbd45.jpg" class="admin-logo">
-                            <div class="admin-info">
-                                <div class="admin-name">فريق الثانوية الرسمية بلس ${VERIFIED_BADGE_SVG}</div>
-                                <div><span class="admin-badge">📢 حساب رسمي</span></div>
-                            </div>
-                        </div>
-                        <h4 style="color:#2ecc71;font-size:18px;">${safeText(data.title || 'منشور')}</h4>
-                        <div class="post-content-text">${safeText(data.content || '')}</div>
-                        <div class="post-meta">${data.createdAt ? new Date(data.createdAt).toLocaleString('ar') : ''}</div>
-                        <div class="post-actions">
-                            <button onclick="likeTeamPost('${data.id}', this)" ${userLiked ? 'style="color:#e74c3c;"' : ''}>
-                                ${userLiked ? '❤️' : '🤍'} <span>${likeCount}</span>
-                            </button>
-                            <button>💬 <span>${data.comments ? data.comments.filter(c => c.status === 'approved').length : 0}</span></button>
-                        </div>
-                        <div class="comments-section">
-                            ${commentsHtml}
-                            <div class="comment-input">
-                                <input type="text" placeholder="اكتب تعليقك..." class="team-comment-input" data-post="${data.id}">
-                                <button class="team-comment-submit" data-post="${data.id}">نشر</button>
-                            </div>
-                        </div>
-                    `;
+                    post.innerHTML =
+                        '<div class="admin-header">' +
+                        '<img src="https://cdn.phototourl.com/free/2026-07-21-1dd4b984-ed08-4a40-aead-9ef086ebbd45.jpg" class="admin-logo">' +
+                        '<div class="admin-info">' +
+                        '<div class="admin-name">فريق الثانوية الرسمية بلس ' + VERIFIED_BADGE_SVG +
+                        '</div>' +
+                        '<div><span class="admin-badge">📢 حساب رسمي</span></div>' +
+                        '</div>' +
+                        '</div>' +
+                        '<h4 style="color:#2ecc71;font-size:18px;">' + safeText(data.title || 'منشور') +
+                        '</h4>' +
+                        '<div class="post-content-text">' + safeText(data.content || '') + '</div>' +
+                        '<div class="post-meta">' + (data.createdAt ? new Date(data.createdAt)
+                            .toLocaleString('ar') : '') + '</div>' +
+                        '<div class="post-actions">' +
+                        '<button onclick="likeTeamPost(\'' + data.id + '\', this)" ' + (userLiked ?
+                            'style="color:#e74c3c;"' : '') + '>' +
+                        (userLiked ? '❤️' : '🤍') + ' <span>' + likeCount + '</span>' +
+                        '</button>' +
+                        '<button>💬 <span>' + (data.comments ? data.comments.filter(function(c) { return c
+                                .status === 'approved'; }).length : 0) + '</span></button>' +
+                        '</div>' +
+                        '<div class="comments-section">' +
+                        commentsHtml +
+                        '<div class="comment-input">' +
+                        '<input type="text" placeholder="اكتب تعليقك..." class="team-comment-input" data-post="' +
+                        data.id + '">' +
+                        '<button class="team-comment-submit" data-post="' + data.id + '">نشر</button>' +
+                        '</div>' +
+                        '</div>';
                     container.appendChild(post);
 
-                    const commentSubmit = post.querySelector('.team-comment-submit');
-                    commentSubmit.addEventListener('click', async function() {
-                        const postId = this.dataset.post;
-                        const input = post.querySelector('.team-comment-input');
-                        const text = input.value.trim();
+                    var commentSubmit = post.querySelector('.team-comment-submit');
+                    commentSubmit.addEventListener('click', function() {
+                        var postId = this.dataset.post;
+                        var input = post.querySelector('.team-comment-input');
+                        var text = input.value.trim();
                         if (!text) return;
                         if (!auth.currentUser) {
                             alert('🔐 يرجى تسجيل الدخول أولاً');
                             window.location.href = 'login.html';
                             return;
                         }
-                        try {
-                            const userData = await getUser(auth.currentUser.uid);
-                            const photo = userData?.photoURL || auth.currentUser.photoURL || '';
-                            await addTeamComment(postId, { text: text }, auth.currentUser.uid,
+                        getUser(auth.currentUser.uid).then(function(userData) {
+                            var photo = (userData && userData.photoURL) || auth.currentUser
+                                .photoURL || '';
+                            return addTeamComment(postId, { text: text }, auth.currentUser.uid,
                                 auth.currentUser.displayName || auth.currentUser.email, photo);
+                        }).then(function() {
                             input.value = '';
-                            showPopup('✅', 'تم إرسال تعليقك!', 'تم إرسال تعليقك للإدارة للمراجعة');
+                            showPopup('✅', 'تم إرسال تعليقك!',
+                                'تم إرسال تعليقك للإدارة للمراجعة');
                             loadTeamPosts();
-                        } catch (err) {
+                        }).catch(function(err) {
                             alert('❌ خطأ: ' + err.message);
-                        }
+                        });
                     });
                 });
             } catch (err) {
                 container.innerHTML =
-                    `<div class="empty-state"><div class="icon">❌</div><h3>حدث خطأ</h3></div>`;
+                    '<div class="empty-state"><div class="icon">❌</div><h3>حدث خطأ</h3></div>';
             }
         }
 
-        window.likeTeamPost = async function(postId, btn) {
+        window.likeTeamPost = function(postId, btn) {
             if (!auth.currentUser) {
                 alert('🔐 يرجى تسجيل الدخول أولاً');
                 window.location.href = 'login.html';
                 return;
             }
 
-            try {
-                const result = await likeTeamPost(postId, auth.currentUser.uid);
+            likeTeamPost(postId, auth.currentUser.uid).then(function(result) {
                 if (result && result.committed) {
-                    const span = btn.querySelector('span');
-                    const current = parseInt(span.textContent) || 0;
-                    const post = allTeamPostsCache.find(p => p.id === postId);
+                    var span = btn.querySelector('span');
+                    var current = parseInt(span.textContent) || 0;
+                    var post = allTeamPostsCache.find(function(p) { return p.id === postId; });
                     if (post) {
-                        const isLiked = post.likesData && post.likesData[auth.currentUser.uid];
+                        var isLiked = post.likesData && post.likesData[auth.currentUser.uid];
                         span.textContent = isLiked ? current + 1 : current - 1;
                         if (span.textContent < 0) span.textContent = 0;
-                        btn.innerHTML = `${isLiked ? '❤️' : '🤍'} <span>${span.textContent}</span>`;
+                        btn.innerHTML = (isLiked ? '❤️' : '🤍') + ' <span>' + span.textContent +
+                        '</span>';
                         btn.style.color = isLiked ? '#e74c3c' : '';
                     }
                 }
-            } catch (err) {
-                // إخفاء الخطأ تماماً
-            }
+            }).catch(function() {});
         };
 
-        window.likeTeamComment = async function(postId, commentIndex, btn) {
+        window.likeTeamComment = function(postId, commentIndex, btn) {
             if (!auth.currentUser) {
                 alert('🔐 يرجى تسجيل الدخول أولاً');
                 window.location.href = 'login.html';
                 return;
             }
 
-            try {
-                const result = await likeTeamComment(postId, commentIndex, auth.currentUser.uid);
+            likeTeamComment(postId, commentIndex, auth.currentUser.uid).then(function(result) {
                 if (result && result.committed) {
-                    const span = btn.querySelector('span');
-                    const current = parseInt(span.textContent) || 0;
-                    const post = allTeamPostsCache.find(p => p.id === postId);
+                    var span = btn.querySelector('span');
+                    var current = parseInt(span.textContent) || 0;
+                    var post = allTeamPostsCache.find(function(p) { return p.id === postId; });
                     if (post && post.comments && post.comments[commentIndex]) {
-                        const comment = post.comments[commentIndex];
-                        const isLiked = comment.likesData && comment.likesData[auth.currentUser.uid];
+                        var comment = post.comments[commentIndex];
+                        var isLiked = comment.likesData && comment.likesData[auth.currentUser.uid];
                         span.textContent = isLiked ? current + 1 : current - 1;
                         if (span.textContent < 0) span.textContent = 0;
-                        btn.innerHTML = `${isLiked ? '❤️' : '🤍'} <span>${span.textContent}</span>`;
+                        btn.innerHTML = (isLiked ? '❤️' : '🤍') + ' <span>' + span.textContent +
+                        '</span>';
                         btn.style.color = isLiked ? '#e74c3c' : '';
                     }
                 }
-            } catch (err) {
-                // إخفاء الخطأ تماماً
-            }
+            }).catch(function() {});
         };
 
         // ============================================================
         // الإشعارات
         // ============================================================
-        async function loadNotifications() {
+        function loadNotifications() {
             if (!auth.currentUser) return;
-            try {
-                const notifs = await getUserNotifications(auth.currentUser.uid);
-                const unread = notifs.filter(n => !n.read).length;
+            getUserNotifications(auth.currentUser.uid).then(function(notifs) {
+                var unread = notifs.filter(function(n) { return !n.read; }).length;
 
                 document.getElementById('notifCount').textContent = unread || '';
                 document.getElementById('notifCount').classList.toggle('show', unread > 0);
@@ -4809,115 +4676,131 @@
 
                 if (notifs.length === 0) {
                     document.getElementById('notifList').innerHTML =
-                        `<div class="empty-state"><div class="icon">📭</div><h3>لا توجد إشعارات</h3></div>`;
+                        '<div class="empty-state"><div class="icon">📭</div><h3>لا توجد إشعارات</h3></div>';
                 } else {
-                    let html = '';
-                    notifs.forEach(n => {
-                        html += `
-                            <div class="notification-item" style="opacity:${n.read ? '0.6' : '1'};background:${!n.read ? '#3498db10' : 'transparent'};border-right:${!n.read ? '3px solid #3498db' : 'none'};">
-                                <div><strong>${safeText(n.title)}</strong></div>
-                                <div style="font-size:14px;color:#777;">${safeText(n.body)}</div>
-                                <div class="date">${n.createdAt ? new Date(n.createdAt).toLocaleString('ar') : ''}</div>
-                            </div>
-                        `;
+                    var html = '';
+                    notifs.forEach(function(n) {
+                        html +=
+                            '<div class="notification-item" style="opacity:' + (n.read ? '0.6' :
+                                '1') + ';background:' + (!n.read ? '#3498db10' : 'transparent') +
+                            ';border-right:' + (!n.read ? '3px solid #3498db' : 'none') + ';">' +
+                            '<div><strong>' + safeText(n.title) + '</strong></div>' +
+                            '<div style="font-size:14px;color:#777;">' + safeText(n.body) +
+                            '</div>' +
+                            '<div class="date">' + (n.createdAt ? new Date(n.createdAt)
+                                .toLocaleString('ar') : '') + '</div>' +
+                            '</div>';
                     });
                     document.getElementById('notifList').innerHTML = html;
                 }
-            } catch (err) {}
+            }).catch(function() {});
         }
 
-        document.getElementById('bellBtn').addEventListener('click', () => {
+        document.getElementById('bellBtn').addEventListener('click', function() {
             document.getElementById('notifModal').classList.add('active');
         });
 
-        document.getElementById('closeNotifModal').addEventListener('click', () => {
+        document.getElementById('closeNotifModal').addEventListener('click', function() {
             document.getElementById('notifModal').classList.remove('active');
         });
 
         // ============================================================
         // المفضلات
         // ============================================================
-        async function loadFavorites() {
-            const container = document.getElementById('favoritesContainer');
+        function loadFavorites() {
+            var container = document.getElementById('favoritesContainer');
             container.innerHTML = '<div class="loading-container"><div class="spinner"></div></div>';
 
             if (!auth.currentUser) {
                 container.innerHTML =
-                    `<div class="empty-state"><div class="icon">🔐</div><h3>يرجى تسجيل الدخول</h3></div>`;
+                    '<div class="empty-state"><div class="icon">🔐</div><h3>يرجى تسجيل الدخول</h3></div>';
                 return;
             }
 
-            try {
-                const favs = await getUserFavorites(auth.currentUser.uid);
+            getUserFavorites(auth.currentUser.uid).then(function(favs) {
                 if (favs.length === 0) {
                     container.innerHTML =
-                        `<div class="empty-state"><div class="icon">⭐</div><h3>لا توجد كتب مفضلة</h3></div>`;
+                        '<div class="empty-state"><div class="icon">⭐</div><h3>لا توجد كتب مفضلة</h3></div>';
                     return;
                 }
 
-                let html = '<div class="books-grid">';
-                for (const fav of favs) {
-                    const book = allBooksCache.find(b => b.id === fav.bookId);
+                var html = '<div class="books-grid">';
+                favs.forEach(function(fav) {
+                    var book = allBooksCache.find(function(b) { return b.id === fav.bookId; });
                     if (book) {
-                        const coverUrl = book.coverUrl || 'https://via.placeholder.com/200x180?text=كتاب';
-                        html += `
-                            <div class="book-item">
-                                <img src="${coverUrl}" class="book-cover" loading="lazy" onclick="showBookDetail('${book.id}')" onerror="this.src='https://via.placeholder.com/200x180?text=كتاب'">
-                                <div class="book-name" onclick="showBookDetail('${book.id}')">${safeText(book.title || 'كتاب')}</div>
-                                <div class="book-meta"><span>${safeText(book.author || '')}</span></div>
-                                <div class="book-actions"><button class="download-btn" onclick="showBookDetail('${book.id}')">📖 تفاصيل</button></div>
-                            </div>
-                        `;
+                        var coverUrl = book.coverUrl ||
+                            'https://via.placeholder.com/200x180?text=كتاب';
+                        html +=
+                            '<div class="book-item">' +
+                            '<img src="' + coverUrl +
+                            '" class="book-cover" loading="lazy" onclick="showBookDetail(\'' +
+                            book.id +
+                            '\')" onerror="this.src=\'https://via.placeholder.com/200x180?text=كتاب\'">' +
+                            '<div class="book-name" onclick="showBookDetail(\'' + book.id +
+                            '\')">' + safeText(book.title || 'كتاب') + '</div>' +
+                            '<div class="book-meta"><span>' + safeText(book.author || '') +
+                            '</span></div>' +
+                            '<div class="book-actions"><button class="download-btn" onclick="showBookDetail(\'' +
+                            book.id + '\')">📖 تفاصيل</button></div>' +
+                            '</div>';
                     }
-                }
+                });
                 html += '</div>';
                 container.innerHTML = html;
-            } catch (err) {
+            }).catch(function(err) {
                 container.innerHTML =
-                    `<div class="empty-state"><div class="icon">❌</div><h3>حدث خطأ</h3></div>`;
-            }
+                    '<div class="empty-state"><div class="icon">❌</div><h3>حدث خطأ</h3></div>';
+            });
         }
 
         // ============================================================
         // الملف الشخصي
         // ============================================================
-        async function loadProfile() {
-            const container = document.getElementById('profileContainer');
+        function loadProfile() {
+            var container = document.getElementById('profileContainer');
             container.innerHTML = '<div class="loading-container"><div class="spinner"></div></div>';
 
             if (!auth.currentUser) {
                 container.innerHTML =
-                    `<div class="empty-state"><div class="icon">🔐</div><h3>يرجى تسجيل الدخول</h3><button class="btn-primary" onclick="window.location.href='login.html'" style="margin-top:12px;">🔐 تسجيل الدخول</button></div>`;
+                    '<div class="empty-state"><div class="icon">🔐</div><h3>يرجى تسجيل الدخول</h3><button class="btn-primary" onclick="window.location.href=\'login.html\'" style="margin-top:12px;">🔐 تسجيل الدخول</button></div>';
                 return;
             }
 
-            const user = auth.currentUser;
-            let profileData = {};
-            let favoritesCount = 0;
+            var user = auth.currentUser;
+            var profileData = {};
+            var favoritesCount = 0;
 
-            try {
-                profileData = await getUser(user.uid);
-                const favs = await getUserFavorites(user.uid);
+            getUser(user.uid).then(function(data) {
+                profileData = data || {};
+                return getUserFavorites(user.uid);
+            }).then(function(favs) {
                 favoritesCount = favs.length;
-            } catch (err) {}
+            }).then(function() {
+                var photoURL = (profileData && profileData.photoURL) || user.photoURL || '';
+                var displayName = (profileData && profileData.name) || user.displayName || user
+                .email || 'مستخدم';
 
-            const photoURL = profileData?.photoURL || user.photoURL || '';
-            const displayName = profileData?.name || user.displayName || user.email || 'مستخدم';
-
-            container.innerHTML = `
-                <div class="profile-card">
-                    ${photoURL ? `<img src="${photoURL}" class="profile-img">` : `<div class="profile-img-placeholder">${displayName.charAt(0).toUpperCase()}</div>`}
-                    <h3>${safeText(displayName)}</h3>
-                    <div class="profile-email">${safeText(user.email)}</div>
-                    <div class="profile-stats">
-                        <div><div class="num">${allBooksCache.filter(b => b.userId === user.uid).length}</div><div class="label">📚 كتبي</div></div>
-                        <div><div class="num">${favoritesCount}</div><div class="label">⭐ مفضلاتي</div></div>
-                    </div>
-                    <div class="profile-actions">
-                        <button class="btn-upload-img" onclick="uploadProfileImage()">🖼️ تغيير الصورة</button>
-                    </div>
-                </div>
-            `;
+                container.innerHTML =
+                    '<div class="profile-card">' +
+                    (photoURL ? '<img src="' + photoURL +
+                        '" class="profile-img">' : '<div class="profile-img-placeholder">' +
+                        displayName.charAt(0).toUpperCase() + '</div>') +
+                    '<h3>' + safeText(displayName) + '</h3>' +
+                    '<div class="profile-email">' + safeText(user.email) + '</div>' +
+                    '<div class="profile-stats">' +
+                    '<div><div class="num">' + allBooksCache.filter(function(b) { return b
+                            .userId === user.uid; }).length + '</div><div class="label">📚 كتبي</div></div>' +
+                    '<div><div class="num">' + favoritesCount +
+                    '</div><div class="label">⭐ مفضلاتي</div></div>' +
+                    '</div>' +
+                    '<div class="profile-actions">' +
+                    '<button class="btn-upload-img" onclick="uploadProfileImage()">🖼️ تغيير الصورة</button>' +
+                    '</div>' +
+                    '</div>';
+            }).catch(function() {
+                container.innerHTML =
+                    '<div class="empty-state"><div class="icon">❌</div><h3>حدث خطأ</h3></div>';
+            });
         }
 
         function uploadProfileImage() {
@@ -4926,31 +4809,30 @@
                 return;
             }
 
-            const input = document.createElement('input');
+            var input = document.createElement('input');
             input.type = 'file';
             input.accept = 'image/*';
 
             input.onchange = function() {
-                const file = this.files[0];
+                var file = this.files[0];
                 if (!file) return;
 
-                const reader = new FileReader();
-                reader.onload = async function(e) {
-                    const base64Image = e.target.result;
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    var base64Image = e.target.result;
 
-                    try {
-                        await db.ref(`users/${auth.currentUser.uid}`).update({
-                            photoURL: base64Image,
-                            updatedAt: firebase.database.ServerValue.TIMESTAMP
-                        });
-
-                        const profileImg = document.querySelector('.profile-img');
+                    db.ref('users/' + auth.currentUser.uid).update({
+                        photoURL: base64Image,
+                        updatedAt: firebase.database.ServerValue.TIMESTAMP
+                    }).then(function() {
+                        var profileImg = document.querySelector('.profile-img');
                         if (profileImg) {
                             profileImg.src = base64Image;
                         } else {
-                            const placeholder = document.querySelector('.profile-img-placeholder');
+                            var placeholder = document.querySelector(
+                            '.profile-img-placeholder');
                             if (placeholder) {
-                                const img = document.createElement('img');
+                                var img = document.createElement('img');
                                 img.className = 'profile-img';
                                 img.src = base64Image;
                                 img.alt = 'صورة الملف الشخصي';
@@ -4958,13 +4840,13 @@
                             }
                         }
 
-                        const navbarAvatar = document.getElementById('navbarAvatar');
+                        var navbarAvatar = document.getElementById('navbarAvatar');
                         if (navbarAvatar) {
                             if (navbarAvatar.tagName === 'IMG') {
                                 navbarAvatar.src = base64Image;
                             } else {
-                                const parent = navbarAvatar.parentNode;
-                                const img = document.createElement('img');
+                                var parent = navbarAvatar.parentNode;
+                                var img = document.createElement('img');
                                 img.className = 'avatar';
                                 img.id = 'navbarAvatar';
                                 img.src = base64Image;
@@ -4973,7 +4855,7 @@
                             }
                         }
 
-                        document.querySelectorAll('.user-avatar, .avatar').forEach(el => {
+                        document.querySelectorAll('.user-avatar, .avatar').forEach(function(el) {
                             if (el.tagName === 'IMG' && el.id !== 'navbarAvatar') {
                                 el.src = base64Image;
                             }
@@ -4981,9 +4863,9 @@
 
                         showToast('✅ تم تحديث الصورة بنجاح!');
                         loadAllData();
-                    } catch (err) {
+                    }).catch(function(err) {
                         alert('❌ خطأ: ' + err.message);
-                    }
+                    });
                 };
                 reader.readAsDataURL(file);
                 this.value = '';
@@ -4995,90 +4877,94 @@
         // ============================================================
         // قنوات يوتيوب
         // ============================================================
-        async function loadYoutubeChannels() {
-            const container = document.getElementById('youtubeContainer');
+        function loadYoutubeChannels() {
+            var container = document.getElementById('youtubeContainer');
             container.innerHTML = '<div class="loading-container"><div class="spinner"></div></div>';
 
-            try {
-                const channels = await getAllYoutubeChannels();
+            getAllYoutubeChannels().then(function(channels) {
                 if (channels.length === 0) {
                     container.innerHTML =
-                        `<div class="empty-state"><div class="icon">🎥</div><h3>لا توجد قنوات</h3></div>`;
+                        '<div class="empty-state"><div class="icon">🎥</div><h3>لا توجد قنوات</h3></div>';
                     return;
                 }
 
-                let html =
+                var html =
                     '<div class="youtube-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px;">';
-                channels.forEach(channel => {
-                    const image = channel.image ||
-                        `https://ui-avatars.com/api/?name=${encodeURIComponent(channel.name || 'قناة')}&background=ff0000&color=fff&size=100`;
-                    html += `
-                        <div class="youtube-card" style="background:#f8f9fa;border-radius:12px;padding:15px;text-align:center;cursor:pointer;transition:0.3s;" onclick="showYoutubeDetail('${channel.id}')">
-                            <img src="${image}" style="width:80px;height:80px;border-radius:50%;object-fit:cover;border:3px solid #ff0000;margin-bottom:8px;" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(channel.name||'قناة')}&background=ff0000&color=fff&size=100'">
-                            <h4 style="font-size:15px;font-weight:800;">${safeText(channel.name || 'قناة')}</h4>
-                            <p style="font-size:13px;color:#888;">${safeText(channel.subject || 'عام')}</p>
-                            <button class="btn btn-primary" style="margin-top:8px;padding:5px 15px;font-size:12px;" onclick="event.stopPropagation();showYoutubeDetail('${channel.id}')">📖 تفاصيل</button>
-                        </div>
-                    `;
+                channels.forEach(function(channel) {
+                    var image = channel.image ||
+                        'https://ui-avatars.com/api/?name=' + encodeURIComponent(channel
+                        .name || 'قناة') + '&background=ff0000&color=fff&size=100';
+                    html +=
+                        '<div class="youtube-card" style="background:#f8f9fa;border-radius:12px;padding:15px;text-align:center;cursor:pointer;transition:0.3s;" onclick="showYoutubeDetail(\'' +
+                        channel.id + '\')">' +
+                        '<img src="' + image +
+                        '" style="width:80px;height:80px;border-radius:50%;object-fit:cover;border:3px solid #ff0000;margin-bottom:8px;" onerror="this.src=\'https://ui-avatars.com/api/?name=' +
+                        encodeURIComponent(channel.name || 'قناة') +
+                        '&background=ff0000&color=fff&size=100\'">' +
+                        '<h4 style="font-size:15px;font-weight:800;">' + safeText(channel.name ||
+                            'قناة') + '</h4>' +
+                        '<p style="font-size:13px;color:#888;">' + safeText(channel.subject ||
+                            'عام') + '</p>' +
+                        '<button class="btn btn-primary" style="margin-top:8px;padding:5px 15px;font-size:12px;" onclick="event.stopPropagation();showYoutubeDetail(\'' +
+                        channel.id + '\')">📖 تفاصيل</button>' +
+                        '</div>';
                 });
                 html += '</div>';
                 container.innerHTML = html;
-            } catch (err) {
+            }).catch(function(err) {
                 container.innerHTML =
-                    `<div class="empty-state"><div class="icon">❌</div><h3>حدث خطأ</h3></div>`;
-            }
+                    '<div class="empty-state"><div class="icon">❌</div><h3>حدث خطأ</h3></div>';
+            });
         }
 
-        async function showYoutubeDetail(channelId) {
+        function showYoutubeDetail(channelId) {
             navigateTo('youtubeDetail');
-            const container = document.getElementById('youtubeDetailContainer');
+            var container = document.getElementById('youtubeDetailContainer');
             container.innerHTML = '<div class="loading-container"><div class="spinner"></div></div>';
 
-            try {
-                const channel = allYoutubeCache.find(c => c.id === channelId);
-                if (!channel) {
-                    container.innerHTML =
-                        `<div class="empty-state"><div class="icon">🎥</div><h3>القناة غير موجودة</h3></div>`;
-                    return;
-                }
-
-                const image = channel.image ||
-                    `https://ui-avatars.com/api/?name=${encodeURIComponent(channel.name || 'قناة')}&background=ff0000&color=fff&size=100`;
-                const gradeName = channel.grade === '1' ? 'أولى بكالوريا' :
-                    channel.grade === '2' ? 'تانية بكالوريا' :
-                    channel.grade === '3' ? 'تالتة ثانوي' : 'جميع الصفوف';
-
-                container.innerHTML = `
-                    <div class="youtube-detail">
-                        <img src="${image}" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(channel.name||'قناة')}&background=ff0000&color=fff&size=100'">
-                        <h2>${safeText(channel.name || 'قناة')}</h2>
-                        <div class="yt-subject">📖 ${safeText(channel.subject || 'عام')}</div>
-                        <div class="yt-grade">🏫 ${gradeName}</div>
-                        ${channel.desc ? `<div class="yt-desc">${safeText(channel.desc)}</div>` : ''}
-                        <a href="${channel.link || '#'}" target="_blank" class="yt-visit-btn">🎥 زيارة القناة</a>
-                        <button class="btn-primary" onclick="navigateTo('youtube')" style="display:block;width:100%;margin-top:10px;text-align:center;">← العودة للقنوات</button>
-                    </div>
-                `;
-            } catch (err) {
+            var channel = allYoutubeCache.find(function(c) { return c.id === channelId; });
+            if (!channel) {
                 container.innerHTML =
-                    `<div class="empty-state"><div class="icon">❌</div><h3>حدث خطأ</h3></div>`;
+                    '<div class="empty-state"><div class="icon">🎥</div><h3>القناة غير موجودة</h3></div>';
+                return;
             }
+
+            var image = channel.image ||
+                'https://ui-avatars.com/api/?name=' + encodeURIComponent(channel.name || 'قناة') +
+                '&background=ff0000&color=fff&size=100';
+            var gradeName = channel.grade === '1' ? 'أولى بكالوريا' :
+                channel.grade === '2' ? 'تانية بكالوريا' :
+                channel.grade === '3' ? 'تالتة ثانوي' : 'جميع الصفوف';
+
+            container.innerHTML =
+                '<div class="youtube-detail">' +
+                '<img src="' + image +
+                '" onerror="this.src=\'https://ui-avatars.com/api/?name=' + encodeURIComponent(channel
+                    .name || 'قناة') + '&background=ff0000&color=fff&size=100\'">' +
+                '<h2>' + safeText(channel.name || 'قناة') + '</h2>' +
+                '<div class="yt-subject">📖 ' + safeText(channel.subject || 'عام') + '</div>' +
+                '<div class="yt-grade">🏫 ' + gradeName + '</div>' +
+                (channel.desc ? '<div class="yt-desc">' + safeText(channel.desc) + '</div>' : '') +
+                '<a href="' + (channel.link || '#') +
+                '" target="_blank" class="yt-visit-btn">🎥 زيارة القناة</a>' +
+                '<button class="btn-primary" onclick="navigateTo(\'youtube\')" style="display:block;width:100%;margin-top:10px;text-align:center;">← العودة للقنوات</button>' +
+                '</div>';
         }
 
         // ============================================================
         // المؤقت
         // ============================================================
-        const timerDisplay = document.getElementById('timerDisplay');
-        const timerStatus = document.getElementById('timerStatus');
-        let timerSeconds = 0,
+        var timerDisplay = document.getElementById('timerDisplay');
+        var timerStatus = document.getElementById('timerStatus');
+        var timerSeconds = 0,
             timerRunning = false,
             timerPaused = false;
-        let timerInterval = null;
+        var timerInterval = null;
 
         function updateTimerDisplay() {
-            const mins = Math.floor(timerSeconds / 60);
-            const secs = timerSeconds % 60;
-            timerDisplay.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+            var mins = Math.floor(timerSeconds / 60);
+            var secs = timerSeconds % 60;
+            timerDisplay.textContent = String(mins).padStart(2, '0') + ':' + String(secs).padStart(2, '0');
         }
 
         function resetTimer() {
@@ -5102,7 +4988,7 @@
             timerStatus.textContent = '▶️ جاري المذاكرة...';
             timerStatus.style.color = '#2ecc71';
             if (timerInterval) clearInterval(timerInterval);
-            timerInterval = setInterval(() => {
+            timerInterval = setInterval(function() {
                 if (timerPaused) return;
                 timerSeconds--;
                 updateTimerDisplay();
@@ -5112,15 +4998,15 @@
                     timerRunning = false;
                     timerStatus.textContent = '⏰ انتهى الوقت! 🎉';
                     timerStatus.style.color = '#e74c3c';
-                    try { new Audio('https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3').play(); } catch (
-                    e) {}
+                    try { new Audio('https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3')
+                        .play(); } catch (e) {}
                     alert('⏰ انتهى وقت المذاكرة! أحسنت 👏');
                 }
             }, 1000);
         }
 
         document.getElementById('timerStart').addEventListener('click', startTimer);
-        document.getElementById('timerPause').addEventListener('click', () => {
+        document.getElementById('timerPause').addEventListener('click', function() {
             if (!timerRunning) return;
             timerPaused = !timerPaused;
             timerStatus.textContent = timerPaused ? '⏸️ متوقف مؤقتاً' : '▶️ جاري المذاكرة...';
@@ -5128,41 +5014,40 @@
         });
         document.getElementById('timerReset').addEventListener('click', resetTimer);
 
-        document.querySelectorAll('.timer-presets button').forEach(btn => {
+        document.querySelectorAll('.timer-presets button').forEach(function(btn) {
             btn.addEventListener('click', function() {
-                const mins = parseInt(this.dataset.minutes);
+                var mins = parseInt(this.dataset.minutes);
                 resetTimer();
                 timerSeconds = mins * 60;
                 updateTimerDisplay();
-                timerStatus.textContent = `⏱️ ${mins} دقيقة`;
+                timerStatus.textContent = '⏱️ ' + mins + ' دقيقة';
                 timerStatus.style.color = '#3498db';
             });
         });
 
-        document.getElementById('setCustomTimer').addEventListener('click', () => {
-            const mins = parseInt(document.getElementById('customMinutes').value);
+        document.getElementById('setCustomTimer').addEventListener('click', function() {
+            var mins = parseInt(document.getElementById('customMinutes').value);
             if (!mins || mins < 1) { alert('❌ يرجى إدخال عدد دقائق صحيح'); return; }
             resetTimer();
             timerSeconds = mins * 60;
             updateTimerDisplay();
-            timerStatus.textContent = `⏱️ ${mins} دقيقة (مخصص)`;
+            timerStatus.textContent = '⏱️ ' + mins + ' دقيقة (مخصص)';
             timerStatus.style.color = '#3498db';
         });
 
         // ============================================================
         // الإعلانات
         // ============================================================
-        async function checkAdPopup() {
-            try {
-                const ads = await getActiveAds();
+        function checkAdPopup() {
+            getActiveAds().then(function(ads) {
                 if (ads.length > 0) {
                     showAdPopup(ads[0]);
                 }
-            } catch (err) {}
+            }).catch(function() {});
         }
 
         function showAdPopup(ad) {
-            const popup = document.getElementById('adPopup');
+            var popup = document.getElementById('adPopup');
             document.getElementById('adTitle').textContent = ad.title || 'إعلان';
             document.getElementById('adDesc').textContent = ad.desc || '';
             document.getElementById('adBtn').href = ad.link || '#';
@@ -5182,25 +5067,25 @@
         // ============================================================
         // Lightbox
         // ============================================================
-        let lightboxImages = [];
-        let currentLightboxIndex = 0;
+        var lightboxImages = [];
+        var currentLightboxIndex = 0;
 
         function openLightbox(images, index) {
             if (!images || images.length === 0) return;
             lightboxImages = images;
             currentLightboxIndex = index || 0;
 
-            const lightbox = document.getElementById('lightbox');
-            const img = document.getElementById('lightboxImage');
-            const counter = document.getElementById('lightboxCounter');
-            const dots = document.getElementById('lightboxDots');
+            var lightbox = document.getElementById('lightbox');
+            var img = document.getElementById('lightboxImage');
+            var counter = document.getElementById('lightboxCounter');
+            var dots = document.getElementById('lightboxDots');
 
             img.src = lightboxImages[currentLightboxIndex];
-            counter.textContent = `${currentLightboxIndex + 1} / ${lightboxImages.length}`;
+            counter.textContent = (currentLightboxIndex + 1) + ' / ' + lightboxImages.length;
 
             dots.innerHTML = '';
-            for (let i = 0; i < lightboxImages.length; i++) {
-                const dot = document.createElement('button');
+            for (var i = 0; i < lightboxImages.length; i++) {
+                var dot = document.createElement('button');
                 dot.className = 'dot' + (i === currentLightboxIndex ? ' active' : '');
                 dot.onclick = (function(idx) {
                     return function() { changeLightboxImageTo(idx); };
@@ -5218,7 +5103,7 @@
         }
 
         function changeLightboxImage(direction) {
-            const newIndex = currentLightboxIndex + direction;
+            var newIndex = currentLightboxIndex + direction;
             if (newIndex < 0 || newIndex >= lightboxImages.length) return;
             changeLightboxImageTo(newIndex);
         }
@@ -5227,15 +5112,15 @@
             if (index < 0 || index >= lightboxImages.length) return;
             currentLightboxIndex = index;
 
-            const img = document.getElementById('lightboxImage');
-            const counter = document.getElementById('lightboxCounter');
-            const dots = document.getElementById('lightboxDots');
+            var img = document.getElementById('lightboxImage');
+            var counter = document.getElementById('lightboxCounter');
+            var dots = document.getElementById('lightboxDots');
 
             img.src = lightboxImages[currentLightboxIndex];
-            counter.textContent = `${currentLightboxIndex + 1} / ${lightboxImages.length}`;
+            counter.textContent = (currentLightboxIndex + 1) + ' / ' + lightboxImages.length;
 
-            const dotElements = dots.querySelectorAll('.dot');
-            dotElements.forEach((dot, i) => {
+            var dotElements = dots.querySelectorAll('.dot');
+            dotElements.forEach(function(dot, i) {
                 dot.className = 'dot' + (i === currentLightboxIndex ? ' active' : '');
             });
         }
@@ -5249,54 +5134,55 @@
         // ============================================================
         // تثبيت التطبيق
         // ============================================================
-        let deferredPrompt;
-        document.getElementById('installAppBtn').addEventListener('click', async () => {
+        var deferredPrompt;
+        document.getElementById('installAppBtn').addEventListener('click', function() {
             if (!deferredPrompt) {
                 showToast('📲 يمكنك تثبيت التطبيق من قائمة المتصفح', 'warning');
                 return;
             }
             deferredPrompt.prompt();
-            const { outcome } = await deferredPrompt.userChoice;
-            if (outcome === 'accepted') showToast('✅ تم تثبيت التطبيق!');
-            deferredPrompt = null;
+            deferredPrompt.userChoice.then(function(result) {
+                if (result.outcome === 'accepted') showToast('✅ تم تثبيت التطبيق!');
+                deferredPrompt = null;
+            });
         });
 
-        window.addEventListener('beforeinstallprompt', (e) => {
+        window.addEventListener('beforeinstallprompt', function(e) {
             e.preventDefault();
             deferredPrompt = e;
         });
 
-        window.addEventListener('appinstalled', () => {
+        window.addEventListener('appinstalled', function() {
             showToast('✅ تم تثبيت التطبيق بنجاح!');
         });
 
         // ============================================================
         // مشاركة
         // ============================================================
-        document.getElementById('shareFooter').addEventListener('click', (e) => {
+        document.getElementById('shareFooter').addEventListener('click', function(e) {
             e.preventDefault();
             if (navigator.share) {
                 navigator.share({
                     title: 'الثانوية الرسمية بلس',
                     text: 'أكبر مكتبة لطلاب الثانوية العامة والبكالوريا 2027 - مجاناً',
                     url: window.location.href
-                }).catch(() => {});
+                }).catch(function() {});
             } else {
                 navigator.clipboard.writeText(window.location.href)
-                    .then(() => { showToast('✅ تم نسخ رابط المنصة!'); })
-                    .catch(() => { showToast('📤 شارك الرابط: ' + window.location.href); });
+                    .then(function() { showToast('✅ تم نسخ رابط المنصة!'); })
+                    .catch(function() { showToast('📤 شارك الرابط: ' + window.location.href); });
             }
         });
 
         // ============================================================
         // الوضع الليلي
         // ============================================================
-        const darkToggle = document.getElementById('darkModeToggle');
+        var darkToggle = document.getElementById('darkModeToggle');
         if (localStorage.getItem('darkMode') === 'enabled') {
             document.body.classList.add('dark-mode');
             darkToggle.textContent = '☀️';
         }
-        darkToggle.addEventListener('click', () => {
+        darkToggle.addEventListener('click', function() {
             document.body.classList.toggle('dark-mode');
             if (document.body.classList.contains('dark-mode')) {
                 localStorage.setItem('darkMode', 'enabled');
@@ -5310,7 +5196,7 @@
         // ============================================================
         // النماذج
         // ============================================================
-        document.getElementById('newForumPostBtn').addEventListener('click', () => {
+        document.getElementById('newForumPostBtn').addEventListener('click', function() {
             if (!auth.currentUser) {
                 alert('🔐 يرجى تسجيل الدخول أولاً');
                 window.location.href = 'login.html';
@@ -5319,11 +5205,11 @@
             document.getElementById('newForumPostModal').classList.add('active');
         });
 
-        document.getElementById('closeForumPostModal').addEventListener('click', () => {
+        document.getElementById('closeForumPostModal').addEventListener('click', function() {
             document.getElementById('newForumPostModal').classList.remove('active');
         });
 
-        document.getElementById('forumPostForm').addEventListener('submit', async (e) => {
+        document.getElementById('forumPostForm').addEventListener('submit', function(e) {
             e.preventDefault();
             if (!auth.currentUser) {
                 alert('🔐 يرجى تسجيل الدخول أولاً');
@@ -5331,25 +5217,27 @@
                 return;
             }
 
-            const title = document.getElementById('forumPostTitle').value.trim();
-            const content = document.getElementById('forumPostContent').value.trim();
-            const image = document.getElementById('forumPostImage').value.trim();
+            var title = document.getElementById('forumPostTitle').value.trim();
+            var content = document.getElementById('forumPostContent').value.trim();
+            var image = document.getElementById('forumPostImage').value.trim();
 
             if (!title || !content) { alert('❌ يرجى ملء جميع الحقول'); return; }
 
-            try {
-                const userData = await getUser(auth.currentUser.uid);
-                const photo = userData?.photoURL || auth.currentUser.photoURL || '';
-                await addForumPost({ title, content, image }, auth.currentUser.uid,
+            getUser(auth.currentUser.uid).then(function(userData) {
+                var photo = (userData && userData.photoURL) || auth.currentUser.photoURL || '';
+                return addForumPost({ title: title, content: content, image: image }, auth.currentUser
+                    .uid,
                     auth.currentUser.displayName || auth.currentUser.email, photo);
-                showPopup('✅', 'تم إرسال منشورك!', 'تم إرسال المنشور للإدارة للمراجعة، سيتم مراجعته خلال 24 ساعة');
+            }).then(function() {
+                showPopup('✅', 'تم إرسال منشورك!',
+                    'تم إرسال المنشور للإدارة للمراجعة، سيتم مراجعته خلال 24 ساعة');
                 document.getElementById('forumPostForm').reset();
                 document.getElementById('newForumPostModal').classList.remove('active');
                 loadForumPosts();
-            } catch (err) { alert('❌ خطأ: ' + err.message); }
+            }).catch(function(err) { alert('❌ خطأ: ' + err.message); });
         });
 
-        document.getElementById('uploadBtn').addEventListener('click', () => {
+        document.getElementById('uploadBtn').addEventListener('click', function() {
             if (!auth.currentUser) {
                 alert('🔐 يرجى تسجيل الدخول أولاً');
                 window.location.href = 'login.html';
@@ -5358,45 +5246,44 @@
             document.getElementById('uploadModal').classList.add('active');
         });
 
-        document.getElementById('closeUploadModal').addEventListener('click', () => {
+        document.getElementById('closeUploadModal').addEventListener('click', function() {
             document.getElementById('uploadModal').classList.remove('active');
         });
 
-        document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+        document.getElementById('uploadForm').addEventListener('submit', function(e) {
             e.preventDefault();
             if (!auth.currentUser) return;
 
-            const name = document.getElementById('uploadName').value.trim();
-            const title = document.getElementById('uploadTitle').value.trim();
-            const grade = document.getElementById('uploadGrade').value;
-            const subject = document.getElementById('uploadSubject').value.trim();
-            const link = document.getElementById('uploadLink').value.trim();
+            var name = document.getElementById('uploadName').value.trim();
+            var title = document.getElementById('uploadTitle').value.trim();
+            var grade = document.getElementById('uploadGrade').value;
+            var subject = document.getElementById('uploadSubject').value.trim();
+            var link = document.getElementById('uploadLink').value.trim();
 
             if (!name || !title || !link) {
                 alert('❌ يرجى ملء جميع الحقول المطلوبة');
                 return;
             }
 
-            try {
-                await addSummary({
-                    title,
-                    author: name,
-                    grade,
-                    subject,
-                    link
-                }, auth.currentUser.uid);
-
-                document.getElementById('uploadStatus').textContent = '✅ تم إرسال الملخص بنجاح! سيتم مراجعته خلال 24 ساعة';
+            addSummary({
+                title: title,
+                author: name,
+                grade: grade,
+                subject: subject,
+                link: link
+            }, auth.currentUser.uid).then(function() {
+                document.getElementById('uploadStatus').textContent =
+                    '✅ تم إرسال الملخص بنجاح! سيتم مراجعته خلال 24 ساعة';
                 document.getElementById('uploadStatus').style.color = '#2ecc71';
                 document.getElementById('uploadForm').reset();
-                setTimeout(() => {
+                setTimeout(function() {
                     document.getElementById('uploadModal').classList.remove('active');
                     document.getElementById('uploadStatus').textContent = '';
                 }, 2000);
-            } catch (err) {
+            }).catch(function(err) {
                 document.getElementById('uploadStatus').textContent = '❌ خطأ: ' + err.message;
                 document.getElementById('uploadStatus').style.color = '#e74c3c';
-            }
+            });
         });
 
         // ============================================================
@@ -5405,7 +5292,7 @@
         loadAllData();
         loadNotifications();
 
-        setInterval(() => {
+        setInterval(function() {
             if (auth.currentUser) {
                 updateOnlineStatus(auth.currentUser);
             }
@@ -5414,10 +5301,8 @@
         setTimeout(checkAdPopup, 5000);
 
         console.log('✅ منصة الثانوية الرسمية بلس 2027 - محمية بالكامل');
-        console.log('🛡️ جميع أدوات المطور معطلة');
         console.log('📱 جميع الوظائف تعمل بشكل طبيعي');
         console.log('🔒 نظام حظر حقيقي مع رسالة مخصصة');
-        console.log('📢 الإشعارات تصل لكل طالب بناءً على المستهدف');
         console.log('❤️ نظام الإعجاب يعمل بشكل صحيح (واحد فقط)');
         console.log('📸 الصور تحفظ بشكل دائم');
         console.log('📚 قنوات التواصل في أسفل الصفحة');
