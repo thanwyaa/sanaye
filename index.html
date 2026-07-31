@@ -3312,7 +3312,7 @@
         </div>
     </div>
 
-    <!-- ===== باقي الصفحات (نفس المحتوى السابق) ===== -->
+    <!-- ===== باقي الصفحات ===== -->
     <div class="page" id="page-grade">
         <div class="page-header">
             <button class="back-btn" onclick="navigateTo('home')">← العودة للرئيسية</button>
@@ -3680,7 +3680,7 @@
         </div>
     </div>
 
-    <!-- ===== إعلان منبثق (يظهر عند دخول الطلاب) ===== -->
+    <!-- ===== إعلان منبثق ===== -->
     <div class="ad-popup-overlay" id="adPopup">
         <div class="ad-popup">
             <button class="ad-close" id="adPopupClose">✕</button>
@@ -3695,6 +3695,7 @@
         </div>
     </div>
 
+    <!-- ===== Lightbox ===== -->
     <div class="lightbox" id="lightbox" onclick="closeLightbox()">
         <button class="lightbox-close" onclick="closeLightbox()">✕</button>
         <button class="lightbox-nav prev" id="lightboxPrev" onclick="event.stopPropagation();changeLightboxImage(-1)">❮</button>
@@ -3704,6 +3705,7 @@
         <div class="lightbox-dots" id="lightboxDots"></div>
     </div>
 
+    <!-- ===== Popup Message ===== -->
     <div class="popup-message" id="popupMessage">
         <div class="popup-icon" id="popupIcon">✅</div>
         <div class="popup-title" id="popupTitle">تم الإرسال بنجاح!</div>
@@ -3711,10 +3713,11 @@
         <button class="popup-close" onclick="closePopup()">حسناً</button>
     </div>
 
+    <!-- ===== Toast ===== -->
     <div class="toast" id="toast"></div>
 
     <!-- ============================================================ -->
-    <!-- JavaScript - النظام المتكامل على Realtime Database فقط -->
+    <!-- JavaScript - النظام المتكامل على Realtime Database -->
     <!-- ============================================================ -->
     <script>
         // ============================================================
