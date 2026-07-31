@@ -4045,6 +4045,41 @@
         }
 
         // ============================================================
+        // دالة تنظيف بيانات المنشورات
+        // ============================================================
+        function sanitizeForumPost(post) {
+            return {
+                id: post.id || '',
+                title: post.title || 'بدون عنوان',
+                content: post.content || '',
+                author: post.author || 'طالب',
+                authorPhoto: post.authorPhoto || '',
+                userId: post.userId || '',
+                status: post.status || 'pending',
+                isAdminPost: post.isAdminPost || false,
+                likesCount: post.likesCount || 0,
+                likesData: post.likesData || {},
+                createdAt: post.createdAt || Date.now(),
+                updatedAt: post.updatedAt || Date.now(),
+                imageUrl: post.imageUrl || '',
+                comments: Array.isArray(post.comments) ? post.comments : []
+            };
+        }
+
+        function sanitizeTeamPost(post) {
+            return {
+                id: post.id || '',
+                title: post.title || 'منشور',
+                content: post.content || '',
+                imageUrl: post.imageUrl || '',
+                likesCount: post.likesCount || 0,
+                likesData: post.likesData || {},
+                createdAt: post.createdAt || Date.now(),
+                comments: Array.isArray(post.comments) ? post.comments : []
+            };
+        }
+
+        // ============================================================
         // دوال اللايك باستخدام Transaction (تعتمد على likesData)
         // ============================================================
         
@@ -4946,7 +4981,8 @@
                             Object.keys(data).forEach(function(key) {
                                 var post = data[key];
                                 post.id = key;
-                                posts.push(post);
+                                // تنظيف البيانات
+                                posts.push(sanitizeForumPost(post));
                             });
                         }
                         posts.sort(function(a, b) { return (b.createdAt || 0) - (a.createdAt || 0); });
@@ -4967,8 +5003,8 @@
                         var displayCount = 5;
                         var displayPosts = approvedPosts.slice(0, displayCount);
 
-                        displayPosts.forEach(function(data) {
-                            var postHTML = createForumPostHTML(data);
+                        displayPosts.forEach(function(postData) {
+                            var postHTML = createForumPostHTML(postData);
                             container.innerHTML += postHTML;
                         });
 
@@ -5196,8 +5232,10 @@
                 if (!container) return;
                 container.innerHTML = '<div class="loading-container"><div class="spinner"></div></div>';
 
-                var posts = (allTeamPostsCache || []).sort(function(a, b) { return (b.createdAt || 0) - (a
-                    .createdAt || 0); });
+                // تنظيف بيانات المنشورات قبل العرض
+                var posts = (allTeamPostsCache || []).map(function(post) {
+                    return sanitizeTeamPost(post);
+                }).sort(function(a, b) { return (b.createdAt || 0) - (a.createdAt || 0); });
 
                 if (posts.length === 0) {
                     container.innerHTML =
@@ -5209,8 +5247,8 @@
                 var displayCount = 5;
                 var displayPosts = posts.slice(0, displayCount);
 
-                displayPosts.forEach(function(data) {
-                    var postHTML = createTeamPostHTML(data);
+                displayPosts.forEach(function(postData) {
+                    var postHTML = createTeamPostHTML(postData);
                     container.innerHTML += postHTML;
                 });
 
@@ -5266,42 +5304,41 @@
 
                 var commentsHtml = '';
                 var commentCounter = 0;
-                if (data.comments) {
-                    var approvedComments = (data.comments || []).filter(function(c) { return c.status ===
-                        'approved'; });
-                    approvedComments.forEach(function(comment) {
-                        var initial = comment.user ? comment.user.charAt(0).toUpperCase() : '?';
-                        var commentIdx = commentCounter;
-                        var userCommentLiked = false;
-                        if (auth.currentUser && comment.likesData) {
-                            userCommentLiked = comment.likesData[auth.currentUser.uid] || false;
-                        }
+                // التأكد من أن comments عبارة عن مصفوفة
+                var comments = (data.comments || []).filter(function(c) { return c.status === 'approved'; });
+                
+                comments.forEach(function(comment) {
+                    var initial = comment.user ? comment.user.charAt(0).toUpperCase() : '?';
+                    var commentIdx = commentCounter;
+                    var userCommentLiked = false;
+                    if (auth.currentUser && comment.likesData) {
+                        userCommentLiked = comment.likesData[auth.currentUser.uid] || false;
+                    }
 
-                        commentsHtml += `
-                            <div class="comment">
-                                <div class="avatar" style="background-image:url('${comment.userPhoto || ''}');background-size:cover;background-position:center;${comment.userPhoto ? '' : 'background:#2ecc71;'}">
-                                    ${!comment.userPhoto ? initial : ''}
+                    commentsHtml += `
+                        <div class="comment">
+                            <div class="avatar" style="background-image:url('${comment.userPhoto || ''}');background-size:cover;background-position:center;${comment.userPhoto ? '' : 'background:#2ecc71;'}">
+                                ${!comment.userPhoto ? initial : ''}
+                            </div>
+                            <div class="comment-text">
+                                <div class="name">
+                                    ${comment.userPhoto ? `<img src="${comment.userPhoto}" class="user-avatar-small">` : ''}
+                                    ${safeText(comment.user || 'مجهول')}
+                                    ${comment.isAdminReply ? '<span style="background:#1a237e20;color:#1a237e;padding:0 8px;border-radius:50px;font-size:10px;font-weight:700;">✅ رد رسمي</span>' : ''}
                                 </div>
-                                <div class="comment-text">
-                                    <div class="name">
-                                        ${comment.userPhoto ? `<img src="${comment.userPhoto}" class="user-avatar-small">` : ''}
-                                        ${safeText(comment.user || 'مجهول')}
-                                        ${comment.isAdminReply ? '<span style="background:#1a237e20;color:#1a237e;padding:0 8px;border-radius:50px;font-size:10px;font-weight:700;">✅ رد رسمي</span>' : ''}
-                                    </div>
-                                    <div>${safeText(comment.text || '')}</div>
-                                    <div style="margin-top:4px;display:flex;gap:8px;align-items:center;">
-                                        <button onclick="likeTeamComment('${data.id}', ${commentIdx}, this)" 
-                                            style="background:none;border:none;cursor:pointer;font-size:12px;color:${userCommentLiked ? '#e74c3c' : '#555'};
-                                            font-family:'Tajawal',sans-serif;display:flex;align-items:center;gap:4px;">
-                                            ${userCommentLiked ? '❤️' : '🤍'} <span>${comment.likes || 0}</span>
-                                        </button>
-                                    </div>
+                                <div>${safeText(comment.text || '')}</div>
+                                <div style="margin-top:4px;display:flex;gap:8px;align-items:center;">
+                                    <button onclick="likeTeamComment('${data.id}', ${commentIdx}, this)" 
+                                        style="background:none;border:none;cursor:pointer;font-size:12px;color:${userCommentLiked ? '#e74c3c' : '#555'};
+                                        font-family:'Tajawal',sans-serif;display:flex;align-items:center;gap:4px;">
+                                        ${userCommentLiked ? '❤️' : '🤍'} <span>${comment.likes || 0}</span>
+                                    </button>
                                 </div>
                             </div>
-                        `;
-                        commentCounter++;
-                    });
-                }
+                        </div>
+                    `;
+                    commentCounter++;
+                });
 
                 return `
                     <div class="post-card">
@@ -5320,7 +5357,7 @@
                             <button onclick="likeTeamPost('${data.id}', this)" ${userLiked ? 'style="color:#e74c3c;"' : ''}>
                                 ${userLiked ? '❤️' : '🤍'} <span>${likeCount}</span>
                             </button>
-                            <button>💬 <span>${data.comments ? data.comments.filter(function(c) { return c.status === 'approved'; }).length : 0}</span></button>
+                            <button>💬 <span>${comments.length}</span></button>
                         </div>
                         <div class="comments-section">
                             ${commentsHtml}
@@ -6552,7 +6589,7 @@
             updateUIForUser(user);
         });
 
-        console.log('✅ منصة الثانوية الرسمية بلس 2027 - نسخة Production النهائية');
+        console.log('✅ منصة الثانوية الرسمية بلس 2027 - نسخة Production النهائية (معدلة)');
         console.log('🔒 نظام حماية متكامل (حظر + تفعيل + أدمن)');
         console.log('❤️ نظام Like يعتمد على UID مع Transaction');
         console.log('📚 نظام الكتب مع viewsData, downloadsData, favoritesData');
@@ -6562,6 +6599,7 @@
         console.log('📱 متوافق مع جميع الأجهزة (320px - 1440px)');
         console.log('⚡ معالجة الأخطاء بشكل كامل مع try/catch');
         console.log('✅ PWA جاهز للتثبيت (Standalone Mode)');
+        console.log('🛠️ تم إصلاح مشكلة عرض المنشورات في المنتدى ومنشورات الفريق');
     </script>
 
 </body>
