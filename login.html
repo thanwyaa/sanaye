@@ -302,6 +302,62 @@
             gap: 12px;
         }
 
+        .verification-box {
+            background: #e8f0fe;
+            border-radius: 12px;
+            padding: 14px;
+            margin: 12px 0;
+            border-right: 4px solid #1a237e;
+            display: none;
+        }
+
+        body.dark-mode .verification-box {
+            background: #1a237e30;
+            border-color: #64b5f6;
+        }
+
+        .verification-box.show {
+            display: block;
+        }
+
+        .verification-box .title {
+            font-weight: 800;
+            font-size: 14px;
+            color: #1a237e;
+            margin-bottom: 4px;
+        }
+
+        body.dark-mode .verification-box .title {
+            color: #90caf9;
+        }
+
+        .verification-box .desc {
+            font-size: 12px;
+            color: #555;
+        }
+
+        body.dark-mode .verification-box .desc {
+            color: #ccc;
+        }
+
+        .verification-box .resend-btn {
+            margin-top: 8px;
+            padding: 6px 16px;
+            background: #1a237e;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 12px;
+            font-family: 'Tajawal', sans-serif;
+            transition: 0.3s;
+        }
+
+        .verification-box .resend-btn:hover {
+            background: #2d4373;
+        }
+
         @media (max-width: 480px) {
             .login-container {
                 padding: 20px 16px;
@@ -347,6 +403,13 @@
                 <label>🔑 كلمة المرور <span class="required">*</span></label>
                 <input type="password" id="loginPassword" class="login-input" placeholder="أدخل كلمة المرور" autocomplete="current-password">
                 <div class="input-error" id="loginPasswordError">❌ كلمة المرور يجب أن تكون 6 أحرف على الأقل</div>
+            </div>
+
+            <!-- صندوق التحقق من البريد -->
+            <div class="verification-box" id="verificationBox">
+                <div class="title">📧 تحقق من بريدك الإلكتروني</div>
+                <div class="desc" id="verificationDesc">لم يتم التحقق من بريدك الإلكتروني. يرجى التحقق من صندوق الوارد والضغط على رابط التفعيل.</div>
+                <button class="resend-btn" id="resendVerificationBtn">📨 إعادة إرسال رابط التحقق</button>
             </div>
 
             <button class="login-btn" id="loginBtn">🚀 تسجيل الدخول</button>
@@ -477,7 +540,12 @@
         const switchText = document.getElementById('switchText');
         const switchLink = document.getElementById('switchLink');
 
+        const verificationBox = document.getElementById('verificationBox');
+        const verificationDesc = document.getElementById('verificationDesc');
+        const resendVerificationBtn = document.getElementById('resendVerificationBtn');
+
         let isSignup = false;
+        let pendingUser = null;
 
         // ============================================================
         // Error message elements
@@ -521,40 +589,29 @@
         // دوال التحقق (Validation)
         // ============================================================
 
-        // التحقق من الاسم (حد أدنى حرفين)
         function isValidName(name) {
             const trimmed = name.trim();
             return trimmed.length >= 2 && /^[\u0621-\u064A\s]+$/.test(trimmed);
         }
 
-        // التحقق من رقم الهاتف (مصري 11 رقم، سعودي 10 رقم)
         function isValidPhone(phone) {
             const cleaned = phone.replace(/\s/g, '');
-            // مصري: 010, 011, 012, 015 + 8 أرقام = 11 رقم
             const egyptPattern = /^(010|011|012|015)\d{8}$/;
-            // سعودي: 05 + 8 أرقام = 10 رقم
             const saudiPattern = /^05\d{8}$/;
-
             if (egyptPattern.test(cleaned)) return true;
             if (saudiPattern.test(cleaned)) return true;
-
-            // أي رقم مكون من 10-15 رقم (مرونة)
             if (/^\d{10,15}$/.test(cleaned)) return true;
-
             return false;
         }
 
-        // التحقق من البريد الإلكتروني
         function isValidEmail(email) {
             return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
         }
 
-        // التحقق من كلمة المرور (6 أحرف على الأقل)
         function isValidPassword(password) {
             return password.length >= 6;
         }
 
-        // التحقق من تطابق كلمة المرور
         function isPasswordMatch(password, confirm) {
             return password === confirm;
         }
@@ -585,8 +642,6 @@
         // ============================================================
         function validateLogin() {
             let valid = true;
-
-            // البريد الإلكتروني
             const email = loginEmail.value.trim();
             if (!isValidEmail(email)) {
                 showError('loginEmailError', true);
@@ -596,8 +651,6 @@
                 showError('loginEmailError', false);
                 setInputStatus('loginEmail', 'success');
             }
-
-            // كلمة المرور
             const password = loginPassword.value;
             if (!isValidPassword(password)) {
                 showError('loginPasswordError', true);
@@ -607,7 +660,6 @@
                 showError('loginPasswordError', false);
                 setInputStatus('loginPassword', 'success');
             }
-
             return valid;
         }
 
@@ -617,7 +669,6 @@
         function validateSignup() {
             let valid = true;
 
-            // الاسم
             const name = signupName.value.trim();
             if (!isValidName(name)) {
                 showError('signupNameError', true);
@@ -628,7 +679,6 @@
                 setInputStatus('signupName', 'success');
             }
 
-            // رقم الهاتف
             const phone = signupPhone.value.trim();
             if (!isValidPhone(phone)) {
                 showError('signupPhoneError', true);
@@ -639,7 +689,6 @@
                 setInputStatus('signupPhone', 'success');
             }
 
-            // الصف الدراسي
             if (!signupGrade.value) {
                 showError('signupGradeError', true);
                 setInputStatus('signupGrade', 'error');
@@ -649,7 +698,6 @@
                 setInputStatus('signupGrade', 'success');
             }
 
-            // نوع التعليم
             if (!signupEducation.value) {
                 showError('signupEducationError', true);
                 setInputStatus('signupEducation', 'error');
@@ -659,7 +707,6 @@
                 setInputStatus('signupEducation', 'success');
             }
 
-            // الدور
             if (!signupRole.value) {
                 showError('signupRoleError', true);
                 setInputStatus('signupRole', 'error');
@@ -669,7 +716,6 @@
                 setInputStatus('signupRole', 'success');
             }
 
-            // البريد الإلكتروني
             const email = signupEmail.value.trim();
             if (!isValidEmail(email)) {
                 showError('signupEmailError', true);
@@ -680,7 +726,6 @@
                 setInputStatus('signupEmail', 'success');
             }
 
-            // كلمة المرور
             const password = signupPassword.value;
             if (!isValidPassword(password)) {
                 showError('signupPasswordError', true);
@@ -691,7 +736,6 @@
                 setInputStatus('signupPassword', 'success');
             }
 
-            // تأكيد كلمة المرور
             if (!isPasswordMatch(signupPassword.value, signupPasswordConfirm.value)) {
                 showError('signupPasswordConfirmError', true);
                 setInputStatus('signupPasswordConfirm', 'error');
@@ -721,11 +765,42 @@
         }
 
         // ============================================================
-        // معالجة تسجيل الدخول
+        // إرسال رابط التحقق
+        // ============================================================
+        async function sendVerificationEmail(user) {
+            try {
+                await user.sendEmailVerification({
+                    url: 'https://thanawya-official-plus.web.app',
+                    handleCodeInApp: true
+                });
+                return true;
+            } catch (err) {
+                console.error('❌ خطأ في إرسال التحقق:', err);
+                return false;
+            }
+        }
+
+        // ============================================================
+        // عرض صندوق التحقق
+        // ============================================================
+        function showVerificationBox(message) {
+            verificationBox.classList.add('show');
+            if (message) {
+                verificationDesc.textContent = message;
+            }
+        }
+
+        function hideVerificationBox() {
+            verificationBox.classList.remove('show');
+        }
+
+        // ============================================================
+        // معالجة تسجيل الدخول - مع التحقق من البريد
         // ============================================================
         loginBtn.addEventListener('click', async () => {
             loginError.style.display = 'none';
             loginSuccess.style.display = 'none';
+            hideVerificationBox();
 
             if (!validateLogin()) return;
 
@@ -736,12 +811,26 @@
             loginBtn.innerHTML = '⏳ جاري ... <span class="spinner"></span>';
 
             try {
-                await auth.signInWithEmailAndPassword(email, password);
+                const userCredential = await auth.signInWithEmailAndPassword(email, password);
+                const user = userCredential.user;
+
+                // ✅ التحقق من البريد الإلكتروني
+                if (!user.emailVerified) {
+                    // إرسال رابط تحقق جديد
+                    await sendVerificationEmail(user);
+                    showVerificationBox('📧 لم يتم التحقق من بريدك الإلكتروني. تم إرسال رابط تحقق جديد إلى بريدك. يرجى التحقق من صندوق الوارد (أو البريد المزعج).');
+                    loginBtn.disabled = false;
+                    loginBtn.innerHTML = '🚀 تسجيل الدخول';
+                    await auth.signOut();
+                    return;
+                }
+
                 loginSuccess.textContent = '✅ تم تسجيل الدخول بنجاح! جاري التحويل...';
                 loginSuccess.style.display = 'block';
                 setTimeout(() => {
                     window.location.href = 'index.html';
                 }, 1500);
+
             } catch (err) {
                 loginError.textContent = '❌ ' + err.message;
                 loginError.style.display = 'block';
@@ -751,7 +840,45 @@
         });
 
         // ============================================================
-        // معالجة إنشاء حساب
+        // إعادة إرسال رابط التحقق
+        // ============================================================
+        resendVerificationBtn.addEventListener('click', async () => {
+            const email = loginEmail.value.trim();
+            if (!isValidEmail(email)) {
+                showError('loginEmailError', true);
+                return;
+            }
+
+            resendVerificationBtn.disabled = true;
+            resendVerificationBtn.textContent = '⏳ جاري ...';
+
+            try {
+                // محاولة تسجيل الدخول مؤقتاً لإرسال التحقق
+                const password = loginPassword.value;
+                if (!isValidPassword(password)) {
+                    showError('loginPasswordError', true);
+                    resendVerificationBtn.disabled = false;
+                    resendVerificationBtn.textContent = '📨 إعادة إرسال رابط التحقق';
+                    return;
+                }
+
+                const userCredential = await auth.signInWithEmailAndPassword(email, password);
+                const user = userCredential.user;
+
+                await sendVerificationEmail(user);
+                verificationDesc.textContent = '✅ تم إرسال رابط التحقق مجدداً إلى بريدك الإلكتروني. يرجى التحقق من صندوق الوارد (أو البريد المزعج).';
+                await auth.signOut();
+
+            } catch (err) {
+                verificationDesc.textContent = '❌ حدث خطأ: ' + err.message;
+            }
+
+            resendVerificationBtn.disabled = false;
+            resendVerificationBtn.textContent = '📨 إعادة إرسال رابط التحقق';
+        });
+
+        // ============================================================
+        // معالجة إنشاء حساب - مع التحقق من البريد
         // ============================================================
         signupBtn.addEventListener('click', async () => {
             loginError.style.display = 'none';
@@ -784,29 +911,53 @@
             try {
                 // إنشاء المستخدم في Authentication
                 const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+                const user = userCredential.user;
 
-                // تحديث الاسم في Authentication
-                await userCredential.user.updateProfile({
+                // تحديث الاسم
+                await user.updateProfile({
                     displayName: name
                 });
 
+                // ✅ إرسال رابط التحقق
+                await sendVerificationEmail(user);
+
                 // حفظ بيانات المستخدم في Firestore
-                await db.collection('users').doc(userCredential.user.uid).set({
+                await db.collection('users').doc(user.uid).set({
                     name: name,
                     phone: phone,
                     grade: grade,
                     education: education,
                     role: role,
                     email: email,
+                    emailVerified: false,
                     createdAt: firebase.firestore.FieldValue.serverTimestamp()
                 });
 
-                loginSuccess.textContent = '✅ تم إنشاء الحساب بنجاح! جاري التحويل...';
+                // تسجيل الخروج لحين التحقق
+                await auth.signOut();
+
+                loginSuccess.textContent = '✅ تم إنشاء الحساب! تم إرسال رابط التحقق إلى بريدك الإلكتروني. يرجى التحقق من صندوق الوارد (أو البريد المزعج) وتفعيل حسابك.';
                 loginSuccess.style.display = 'block';
 
+                // عرض صندوق التحقق
+                showVerificationBox('📧 تم إرسال رابط التحقق إلى بريدك الإلكتروني. يرجى التحقق من صندوق الوارد (أو البريد المزعج) وتفعيل حسابك ثم تسجيل الدخول.');
+
+                signupBtn.disabled = false;
+                signupBtn.innerHTML = '📝 إنشاء حساب';
+
+                // تبديل إلى وضع تسجيل الدخول
                 setTimeout(() => {
-                    window.location.href = 'index.html';
-                }, 1500);
+                    if (!isSignup) return;
+                    isSignup = false;
+                    loginForm.style.display = 'block';
+                    signupForm.style.display = 'none';
+                    formTitle.textContent = '🔐 تسجيل الدخول';
+                    formSubText.textContent = 'سجل الدخول للوصول إلى جميع مميزات المنصة';
+                    switchText.textContent = 'ليس لديك حساب؟';
+                    switchLink.textContent = 'أنشئ حساباً جديداً';
+                    // تعبئة البريد في نموذج تسجيل الدخول
+                    loginEmail.value = email;
+                }, 3000);
 
             } catch (err) {
                 loginError.textContent = '❌ ' + err.message;
@@ -821,6 +972,7 @@
         // ============================================================
         function switchMode() {
             isSignup = !isSignup;
+            hideVerificationBox();
 
             if (isSignup) {
                 loginForm.style.display = 'none';
@@ -829,7 +981,6 @@
                 formSubText.textContent = 'أنشئ حساباً جديداً للاستفادة من جميع المميزات';
                 switchText.textContent = 'لديك حساب بالفعل؟';
                 switchLink.textContent = 'تسجيل الدخول';
-                // إخفاء الأخطاء السابقة
                 loginError.style.display = 'none';
                 loginSuccess.style.display = 'none';
             } else {
@@ -843,7 +994,6 @@
                 loginSuccess.style.display = 'none';
             }
 
-            // إعادة تعيين حالة الأزرار
             loginBtn.disabled = false;
             loginBtn.innerHTML = '🚀 تسجيل الدخول';
             signupBtn.disabled = false;
@@ -856,7 +1006,6 @@
         // التحقق الفوري (Live Validation)
         // ============================================================
 
-        // التحقق من الاسم أثناء الكتابة
         signupName.addEventListener('input', function() {
             const name = this.value.trim();
             if (name.length >= 2) {
@@ -868,11 +1017,9 @@
             }
         });
 
-        // التحقق من رقم الهاتف أثناء الكتابة
         signupPhone.addEventListener('input', function() {
-            const phone = this.value.trim();
-            // السماح بالأرقام فقط
             this.value = this.value.replace(/\D/g, '');
+            const phone = this.value.trim();
             if (isValidPhone(phone)) {
                 showError('signupPhoneError', false);
                 setInputStatus('signupPhone', 'success');
@@ -882,7 +1029,6 @@
             }
         });
 
-        // التحقق من البريد الإلكتروني أثناء الكتابة
         signupEmail.addEventListener('input', function() {
             const email = this.value.trim();
             if (isValidEmail(email)) {
@@ -894,7 +1040,6 @@
             }
         });
 
-        // التحقق من كلمة المرور أثناء الكتابة
         signupPassword.addEventListener('input', function() {
             const password = this.value;
             if (isValidPassword(password)) {
@@ -904,7 +1049,6 @@
                 showError('signupPasswordError', true);
                 setInputStatus('signupPassword', 'error');
             }
-            // التحقق من تطابق كلمة المرور
             const confirm = signupPasswordConfirm.value;
             if (confirm.length > 0) {
                 if (isPasswordMatch(password, confirm)) {
@@ -917,7 +1061,6 @@
             }
         });
 
-        // التحقق من تأكيد كلمة المرور
         signupPasswordConfirm.addEventListener('input', function() {
             const confirm = this.value;
             const password = signupPassword.value;
@@ -932,7 +1075,6 @@
             }
         });
 
-        // التحقق من الصف عند التغيير
         signupGrade.addEventListener('change', function() {
             if (this.value) {
                 showError('signupGradeError', false);
@@ -943,7 +1085,6 @@
             }
         });
 
-        // التحقق من نوع التعليم عند التغيير
         signupEducation.addEventListener('change', function() {
             if (this.value) {
                 showError('signupEducationError', false);
@@ -954,7 +1095,6 @@
             }
         });
 
-        // التحقق من الدور عند التغيير
         signupRole.addEventListener('change', function() {
             if (this.value) {
                 showError('signupRoleError', false);
@@ -962,6 +1102,31 @@
             } else {
                 showError('signupRoleError', true);
                 setInputStatus('signupRole', 'error');
+            }
+        });
+
+        // ============================================================
+        // التحقق من البريد في نموذج تسجيل الدخول (Live)
+        // ============================================================
+        loginEmail.addEventListener('input', function() {
+            const email = this.value.trim();
+            if (isValidEmail(email)) {
+                showError('loginEmailError', false);
+                setInputStatus('loginEmail', 'success');
+            } else if (email.length > 0) {
+                showError('loginEmailError', true);
+                setInputStatus('loginEmail', 'error');
+            }
+        });
+
+        loginPassword.addEventListener('input', function() {
+            const password = this.value;
+            if (isValidPassword(password)) {
+                showError('loginPasswordError', false);
+                setInputStatus('loginPassword', 'success');
+            } else if (password.length > 0) {
+                showError('loginPasswordError', true);
+                setInputStatus('loginPassword', 'error');
             }
         });
 
@@ -988,16 +1153,26 @@
         }
 
         // ============================================================
-        // التحقق من حالة المصادقة
+        // التحقق من حالة المصادقة - مع التحقق من البريد
         // ============================================================
-        auth.onAuthStateChanged((user) => {
+        auth.onAuthStateChanged(async (user) => {
             if (user) {
+                // ✅ التحقق من البريد الإلكتروني
+                if (!user.emailVerified) {
+                    // إرسال رابط تحقق جديد
+                    await sendVerificationEmail(user);
+                    showVerificationBox('📧 لم يتم التحقق من بريدك الإلكتروني. تم إرسال رابط تحقق جديد. يرجى التحقق من صندوق الوارد (أو البريد المزعج).');
+                    await auth.signOut();
+                    return;
+                }
                 window.location.href = 'index.html';
             }
         });
 
         console.log('✅ صفحة تسجيل الدخول - جاهزة مع التحقق الكامل');
         console.log('📌 التحقق من: الاسم، رقم الهاتف، الصف، نوع التعليم، الدور، البريد، كلمة المرور');
+        console.log('📧 التحقق من البريد الإلكتروني عبر رابط التفعيل');
+        console.log('🚫 منع تكرار رقم الهاتف');
     </script>
 </body>
 </html>
