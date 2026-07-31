@@ -281,7 +281,7 @@
             display: flex !important;
         }
 
-        /* ===== Overlay الحظر القديم (تم إزالته واستبداله بالصفحة الكاملة) ===== */
+        /* ===== Overlay الحظر القديم ===== */
         .banned-overlay {
             display: none !important;
         }
@@ -3179,7 +3179,7 @@
 </head>
 <body>
 
-    <!-- ===== صفحة الحظر الكاملة (تظهر بدلاً من كل شيء) ===== -->
+    <!-- ===== صفحة الحظر الكاملة ===== -->
     <div class="banned-full-page" id="bannedFullPage">
         <img src="https://cdn.phototourl.com/free/2026-07-21-1dd4b984-ed08-4a40-aead-9ef086ebbd45.jpg" alt="شعار المنصة" class="ban-logo">
         <div class="ban-icon">🚫</div>
@@ -5023,7 +5023,7 @@
         }
 
         // ============================================================
-        // دوال عرض المنتدى - مع الردود الرسمية
+        // دوال عرض المنتدى - مع الردود الرسمية والتعليقات في الانتظار
         // ============================================================
         var forumListener = null;
 
@@ -5055,6 +5055,7 @@
                         }
                         posts.sort(function(a, b) { return (b.createdAt || 0) - (a.createdAt || 0); });
 
+                        // عرض فقط المنشورات المقبولة
                         var approvedPosts = posts.filter(function(post) { 
                             return post.status === 'approved'; 
                         });
@@ -5139,67 +5140,68 @@
 
                 var commentsHtml = '';
                 var commentCounter = 0;
-                var comments = (data.comments || []).filter(function(c) { return c.status === 'approved'; });
-
-                comments.forEach(function(comment) {
-                    var userCommentLiked = false;
-                    if (auth.currentUser && comment.likesData) {
-                        userCommentLiked = comment.likesData[auth.currentUser.uid] || false;
-                    }
-                    var initial = comment.user ? comment.user.charAt(0).toUpperCase() : '?';
-                    var index = commentCounter;
-
-                    // التحقق من أن التعليق رد رسمي من فريق الثانوية
-                    var isOfficialReply = comment.isAdminReply || comment.isOfficialReply || 
-                                          (comment.user === TEAM_NAME) || 
-                                          (comment.user && comment.user.includes('فريق الثانوية'));
-
-                    // بناء عرض المستخدم
-                    var userDisplay = '';
-                    if (isOfficialReply) {
-                        // رد رسمي - يظهر بالشعار والاسم وعلامة التوثيق
-                        userDisplay = `
-                            <div class="official-reply" style="background:#e8f0fe;border-right:4px solid #1a237e;padding:10px 14px;border-radius:10px;margin:6px 0;width:100%;">
-                                <div class="reply-header" style="display:flex;align-items:center;gap:10px;margin-bottom:4px;">
-                                    <img src="${TEAM_LOGO}" style="width:28px;height:28px;border-radius:50%;object-fit:cover;border:2px solid #1a237e;">
-                                    <span style="font-weight:800;font-size:13px;color:#1a237e;display:flex;align-items:center;gap:4px;">
-                                        ${TEAM_NAME}
-                                        ${VERIFIED_BADGE_SVG}
-                                    </span>
-                                </div>
-                                <div style="font-size:13px;color:#1a237e;line-height:1.6;padding-right:10px;">
-                                    ${safeText(comment.text || '')}
-                                </div>
-                            </div>
-                        `;
-                    } else {
-                        // رد عادي
-                        userDisplay = `
-                            <div class="comment">
-                                <div class="avatar" style="background-image:url('${comment.userPhoto || ''}');background-size:cover;background-position:center;${comment.userPhoto ? '' : 'background:#3498db;'}">
-                                    ${!comment.userPhoto ? initial : ''}
-                                </div>
-                                <div class="comment-text">
-                                    <div class="name">
-                                        ${comment.userPhoto ? `<img src="${comment.userPhoto}" class="user-avatar-small">` : ''}
-                                        ${safeText(comment.user || 'مجهول')}
-                                    </div>
-                                    <div>${safeText(comment.text || '')}</div>
-                                    <div style="margin-top:4px;display:flex;gap:8px;align-items:center;">
-                                        <button onclick="likeForumComment('${data.id}', ${index}, this)" 
-                                            style="background:none;border:none;cursor:pointer;font-size:12px;color:${userCommentLiked ? '#e74c3c' : '#555'};
-                                            font-family:'Tajawal',sans-serif;display:flex;align-items:center;gap:4px;">
-                                            ${userCommentLiked ? '❤️' : '🤍'} <span>${comment.likes || 0}</span>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        `;
-                    }
-
-                    commentsHtml += userDisplay;
-                    commentCounter++;
+                // عرض التعليقات المقبولة فقط (status === 'approved')
+                var comments = (data.comments || []).filter(function(c) { 
+                    return c.status === 'approved'; 
                 });
+
+                if (comments.length === 0) {
+                    commentsHtml = `<div style="color:#888;font-size:12px;padding:8px 0;text-align:center;">💬 لا توجد تعليقات حتى الآن</div>`;
+                } else {
+                    comments.forEach(function(comment) {
+                        var userCommentLiked = false;
+                        if (auth.currentUser && comment.likesData) {
+                            userCommentLiked = comment.likesData[auth.currentUser.uid] || false;
+                        }
+                        var initial = comment.user ? comment.user.charAt(0).toUpperCase() : '?';
+                        var index = commentCounter;
+
+                        // التحقق من أن التعليق رد رسمي من فريق الثانوية
+                        var isOfficialReply = comment.isAdminReply || comment.isOfficialReply || 
+                                              (comment.user === TEAM_NAME) || 
+                                              (comment.user && comment.user.includes('فريق الثانوية'));
+
+                        if (isOfficialReply) {
+                            commentsHtml += `
+                                <div style="background:#e8f0fe;border-right:4px solid #1a237e;padding:10px 14px;border-radius:10px;margin:6px 0;width:100%;">
+                                    <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;">
+                                        <img src="${TEAM_LOGO}" style="width:28px;height:28px;border-radius:50%;object-fit:cover;border:2px solid #1a237e;">
+                                        <span style="font-weight:800;font-size:13px;color:#1a237e;display:flex;align-items:center;gap:4px;">
+                                            ${TEAM_NAME}
+                                            ${VERIFIED_BADGE_SVG}
+                                        </span>
+                                    </div>
+                                    <div style="font-size:13px;color:#1a237e;line-height:1.6;padding-right:10px;">
+                                        ${safeText(comment.text || '')}
+                                    </div>
+                                </div>
+                            `;
+                        } else {
+                            commentsHtml += `
+                                <div class="comment">
+                                    <div class="avatar" style="background-image:url('${comment.userPhoto || ''}');background-size:cover;background-position:center;${comment.userPhoto ? '' : 'background:#3498db;'}">
+                                        ${!comment.userPhoto ? initial : ''}
+                                    </div>
+                                    <div class="comment-text">
+                                        <div class="name">
+                                            ${comment.userPhoto ? `<img src="${comment.userPhoto}" class="user-avatar-small">` : ''}
+                                            ${safeText(comment.user || 'مجهول')}
+                                        </div>
+                                        <div>${safeText(comment.text || '')}</div>
+                                        <div style="margin-top:4px;display:flex;gap:8px;align-items:center;">
+                                            <button onclick="likeForumComment('${data.id}', ${index}, this)" 
+                                                style="background:none;border:none;cursor:pointer;font-size:12px;color:${userCommentLiked ? '#e74c3c' : '#555'};
+                                                font-family:'Tajawal',sans-serif;display:flex;align-items:center;gap:4px;">
+                                                ${userCommentLiked ? '❤️' : '🤍'} <span>${comment.likes || 0}</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                        }
+                        commentCounter++;
+                    });
+                }
 
                 var commentInputHtml = `
                     <div class="comment-input">
@@ -5286,7 +5288,7 @@
                             user: auth.currentUser.displayName || auth.currentUser.email || 'طالب',
                             userPhoto: photo || '',
                             userId: userId,
-                            status: isAdmin ? 'approved' : 'pending',
+                            status: isAdmin ? 'approved' : 'pending', // ✅ غير الأدمن يرسل pending
                             isAdminReply: isAdmin || false,
                             isOfficialReply: isAdmin || false,
                             likes: 0,
@@ -5295,7 +5297,7 @@
                         });
                     }).then(function() {
                         input.value = '';
-                        showPopup('✅', 'تم إرسال تعليقك!', 'تم إرسال تعليقك للإدارة للمراجعة');
+                        showPopup('✅', 'تم إرسال تعليقك!', 'سيتم مراجعة تعليقك من قبل الإدارة');
                         loadForumPosts();
                     }).catch(function(err) {
                         showToast('❌ خطأ: ' + err.message, 'error');
@@ -5396,64 +5398,67 @@
 
                 var commentsHtml = '';
                 var commentCounter = 0;
-                var comments = (data.comments || []).filter(function(c) { return c.status === 'approved'; });
-                
-                comments.forEach(function(comment) {
-                    var initial = comment.user ? comment.user.charAt(0).toUpperCase() : '?';
-                    var commentIdx = commentCounter;
-                    var userCommentLiked = false;
-                    if (auth.currentUser && comment.likesData) {
-                        userCommentLiked = comment.likesData[auth.currentUser.uid] || false;
-                    }
-
-                    // التحقق من أن التعليق رد رسمي من فريق الثانوية
-                    var isOfficialReply = comment.isAdminReply || comment.isOfficialReply || 
-                                          (comment.user === TEAM_NAME) || 
-                                          (comment.user && comment.user.includes('فريق الثانوية'));
-
-                    var commentDisplay = '';
-                    if (isOfficialReply) {
-                        commentDisplay = `
-                            <div style="background:#e8f0fe;border-right:4px solid #1a237e;padding:10px 14px;border-radius:10px;margin:6px 0;width:100%;">
-                                <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;">
-                                    <img src="${TEAM_LOGO}" style="width:28px;height:28px;border-radius:50%;object-fit:cover;border:2px solid #1a237e;">
-                                    <span style="font-weight:800;font-size:13px;color:#1a237e;display:flex;align-items:center;gap:4px;">
-                                        ${TEAM_NAME}
-                                        ${VERIFIED_BADGE_SVG}
-                                    </span>
-                                </div>
-                                <div style="font-size:13px;color:#1a237e;line-height:1.6;padding-right:10px;">
-                                    ${safeText(comment.text || '')}
-                                </div>
-                            </div>
-                        `;
-                    } else {
-                        commentDisplay = `
-                            <div class="comment">
-                                <div class="avatar" style="background-image:url('${comment.userPhoto || ''}');background-size:cover;background-position:center;${comment.userPhoto ? '' : 'background:#2ecc71;'}">
-                                    ${!comment.userPhoto ? initial : ''}
-                                </div>
-                                <div class="comment-text">
-                                    <div class="name">
-                                        ${comment.userPhoto ? `<img src="${comment.userPhoto}" class="user-avatar-small">` : ''}
-                                        ${safeText(comment.user || 'مجهول')}
-                                    </div>
-                                    <div>${safeText(comment.text || '')}</div>
-                                    <div style="margin-top:4px;display:flex;gap:8px;align-items:center;">
-                                        <button onclick="likeTeamComment('${data.id}', ${commentIdx}, this)" 
-                                            style="background:none;border:none;cursor:pointer;font-size:12px;color:${userCommentLiked ? '#e74c3c' : '#555'};
-                                            font-family:'Tajawal',sans-serif;display:flex;align-items:center;gap:4px;">
-                                            ${userCommentLiked ? '❤️' : '🤍'} <span>${comment.likes || 0}</span>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        `;
-                    }
-
-                    commentsHtml += commentDisplay;
-                    commentCounter++;
+                // عرض التعليقات المقبولة فقط
+                var comments = (data.comments || []).filter(function(c) { 
+                    return c.status === 'approved'; 
                 });
+
+                if (comments.length === 0) {
+                    commentsHtml = `<div style="color:#888;font-size:12px;padding:8px 0;text-align:center;">💬 لا توجد تعليقات حتى الآن</div>`;
+                } else {
+                    comments.forEach(function(comment) {
+                        var initial = comment.user ? comment.user.charAt(0).toUpperCase() : '?';
+                        var commentIdx = commentCounter;
+                        var userCommentLiked = false;
+                        if (auth.currentUser && comment.likesData) {
+                            userCommentLiked = comment.likesData[auth.currentUser.uid] || false;
+                        }
+
+                        var isOfficialReply = comment.isAdminReply || comment.isOfficialReply || 
+                                              (comment.user === TEAM_NAME) || 
+                                              (comment.user && comment.user.includes('فريق الثانوية'));
+
+                        if (isOfficialReply) {
+                            commentsHtml += `
+                                <div style="background:#e8f0fe;border-right:4px solid #1a237e;padding:10px 14px;border-radius:10px;margin:6px 0;width:100%;">
+                                    <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;">
+                                        <img src="${TEAM_LOGO}" style="width:28px;height:28px;border-radius:50%;object-fit:cover;border:2px solid #1a237e;">
+                                        <span style="font-weight:800;font-size:13px;color:#1a237e;display:flex;align-items:center;gap:4px;">
+                                            ${TEAM_NAME}
+                                            ${VERIFIED_BADGE_SVG}
+                                        </span>
+                                    </div>
+                                    <div style="font-size:13px;color:#1a237e;line-height:1.6;padding-right:10px;">
+                                        ${safeText(comment.text || '')}
+                                    </div>
+                                </div>
+                            `;
+                        } else {
+                            commentsHtml += `
+                                <div class="comment">
+                                    <div class="avatar" style="background-image:url('${comment.userPhoto || ''}');background-size:cover;background-position:center;${comment.userPhoto ? '' : 'background:#2ecc71;'}">
+                                        ${!comment.userPhoto ? initial : ''}
+                                    </div>
+                                    <div class="comment-text">
+                                        <div class="name">
+                                            ${comment.userPhoto ? `<img src="${comment.userPhoto}" class="user-avatar-small">` : ''}
+                                            ${safeText(comment.user || 'مجهول')}
+                                        </div>
+                                        <div>${safeText(comment.text || '')}</div>
+                                        <div style="margin-top:4px;display:flex;gap:8px;align-items:center;">
+                                            <button onclick="likeTeamComment('${data.id}', ${commentIdx}, this)" 
+                                                style="background:none;border:none;cursor:pointer;font-size:12px;color:${userCommentLiked ? '#e74c3c' : '#555'};
+                                                font-family:'Tajawal',sans-serif;display:flex;align-items:center;gap:4px;">
+                                                ${userCommentLiked ? '❤️' : '🤍'} <span>${comment.likes || 0}</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                        }
+                        commentCounter++;
+                    });
+                }
 
                 return `
                     <div class="post-card">
@@ -5537,7 +5542,7 @@
                         auth.currentUser.displayName || auth.currentUser.email, photo);
                 }).then(function() {
                     input.value = '';
-                    showPopup('✅', 'تم إرسال تعليقك!', 'تم إرسال تعليقك للإدارة للمراجعة');
+                    showPopup('✅', 'تم إرسال تعليقك!', 'سيتم مراجعة تعليقك من قبل الإدارة');
                     loadTeamPosts();
                 }).catch(function(err) {
                     showToast('❌ خطأ: ' + err.message, 'error');
@@ -6718,6 +6723,7 @@
         console.log('🛠️ تم إصلاح مشكلة عرض المنشورات في المنتدى ومنشورات الفريق');
         console.log('✅ صفحة حظر كاملة تمنع الدخول نهائياً');
         console.log('✅ الردود الرسمية تظهر بالشعار والاسم وعلامة التوثيق الزرقاء');
+        console.log('✅ التعليقات تذهب إلى Firebase وتستنتظر القبول من الإدارة');
     </script>
 
 </body>
