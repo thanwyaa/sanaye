@@ -16,60 +16,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
 
     <style>
-        /* ===== منع التحديد والنسخ ===== */
-        * {
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-        }
-        
-        /* ===== إخفاء الكود ومنع أدوات المطور ===== */
-        .hidden-code {
-            display: none !important;
-        }
-        
-        /* ===== منع فتح أدوات المطور ===== */
-        .dev-tools-blocker {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.9);
-            color: white;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 99999;
-            font-size: 24px;
-            text-align: center;
-            padding: 20px;
-            flex-direction: column;
-            gap: 20px;
-        }
-        .dev-tools-blocker.show {
-            display: flex;
-        }
-        .dev-tools-blocker .icon {
-            font-size: 80px;
-        }
-        .dev-tools-blocker .btn-close-blocker {
-            padding: 12px 30px;
-            background: #e74c3c;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 18px;
-            cursor: pointer;
-            font-family: 'Tajawal', sans-serif;
-        }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Tajawal', 'Segoe UI', sans-serif;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
 
         body {
@@ -412,7 +367,6 @@
             cursor: not-allowed;
         }
 
-        /* ===== زر جوجل ===== */
         .google-btn {
             width: 100%;
             padding: 12px;
@@ -474,11 +428,6 @@
             background: #3d3d55;
         }
 
-        /* ===== إخفاء الكود ===== */
-        .code-hidden {
-            display: none !important;
-        }
-
         @media (max-width: 480px) {
             .login-container {
                 padding: 20px 16px;
@@ -500,14 +449,6 @@
     </style>
 </head>
 <body>
-
-    <!-- ===== حاجب أدوات المطور ===== -->
-    <div class="dev-tools-blocker" id="devToolsBlocker">
-        <div class="icon">🚫</div>
-        <div>تم اكتشاف محاولة فتح أدوات المطور!</div>
-        <div style="font-size:16px;color:#aaa;">هذه الصفحة محمية ضد العبث</div>
-        <button class="btn-close-blocker" onclick="closeDevToolsBlocker()">إغلاق</button>
-    </div>
 
     <button class="dark-mode-toggle" id="darkModeToggle" title="وضع النهار/الليل">🌙</button>
 
@@ -534,7 +475,6 @@
                 <div class="input-error" id="loginPasswordError">❌ كلمة المرور يجب أن تكون 6 أحرف على الأقل</div>
             </div>
 
-            <!-- صندوق التحقق من البريد -->
             <div class="verification-box" id="verificationBox">
                 <div class="title">📧 تحقق من بريدك الإلكتروني</div>
                 <div class="desc" id="verificationDesc">لم يتم التحقق من بريدك الإلكتروني. يرجى التحقق من صندوق الوارد والضغط على رابط التفعيل.</div>
@@ -543,7 +483,6 @@
 
             <button class="login-btn" id="loginBtn">🚀 تسجيل الدخول</button>
 
-            <!-- ===== زر تسجيل الدخول بجوجل ===== -->
             <div class="divider">أو</div>
             <button class="google-btn" id="googleLoginBtn">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="24" height="24">
@@ -626,7 +565,7 @@
             <button class="login-btn" id="signupBtn">📝 إنشاء حساب</button>
         </div>
 
-        <div id="loginError" class="login-error">❌ حدث خطأ، يرجى المحاولة لاحقاً</div>
+        <div id="loginError" class="login-error"></div>
         <div id="loginSuccess" class="login-success">✅ تم بنجاح! جاري التحويل...</div>
 
         <div class="switch-link">
@@ -637,130 +576,17 @@
         <a class="back-home" onclick="goHome()">🏠 العودة للرئيسية</a>
     </div>
 
-    <!-- ============================================================ -->
-    <!-- كود JavaScript - مشفر ومخفي جزئياً -->
-    <!-- ============================================================ -->
     <script>
-        // ===== حماية أدوات المطور =====
-        (function() {
-            // منع زر F12
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'F12' || 
-                    (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) ||
-                    (e.ctrlKey && e.key === 'U')) {
-                    e.preventDefault();
-                    document.getElementById('devToolsBlocker').classList.add('show');
-                    return false;
-                }
-            });
-
-            // منع النقر بزر الماوس الأيمن
-            document.addEventListener('contextmenu', function(e) {
-                e.preventDefault();
-                document.getElementById('devToolsBlocker').classList.add('show');
-                return false;
-            });
-
-            // كشف أدوات المطور عبر تغيير الحجم
-            let devtoolsOpen = false;
-            const element = new Image();
-            Object.defineProperty(element, 'id', {
-                get: function() {
-                    devtoolsOpen = true;
-                    document.getElementById('devToolsBlocker').classList.add('show');
-                }
-            });
-            setInterval(function() {
-                devtoolsOpen = false;
-                console.log('%c', element);
-                console.clear();
-                if (devtoolsOpen) {
-                    document.getElementById('devToolsBlocker').classList.add('show');
-                }
-            }, 1000);
-
-            // منع console.log و console.warn و console.error
-            const noop = function() {};
-            console.log = noop;
-            console.warn = noop;
-            console.error = noop;
-            console.info = noop;
-            console.debug = noop;
-            console.table = noop;
-            console.group = noop;
-            console.groupEnd = noop;
-            console.groupCollapsed = noop;
-            console.trace = noop;
-            console.dir = noop;
-            console.dirxml = noop;
-
-            // منع الوصول إلى window و document
-            Object.defineProperty(window, 'console', {
-                value: console,
-                writable: false,
-                configurable: false
-            });
-
-            // منع فتح الـ DevTools عبر اختصارات أخرى
-            document.addEventListener('keydown', function(e) {
-                if (e.ctrlKey && e.key === 'Shift' && e.key === 'I') {
-                    e.preventDefault();
-                    return false;
-                }
-                if (e.ctrlKey && e.key === 'Shift' && e.key === 'J') {
-                    e.preventDefault();
-                    return false;
-                }
-                if (e.ctrlKey && e.key === 'U') {
-                    e.preventDefault();
-                    return false;
-                }
-                if (e.key === 'F12') {
-                    e.preventDefault();
-                    return false;
-                }
-            });
-
-            // حماية الـ DOM
-            Object.defineProperty(document, 'cookie', {
-                get: function() { return ''; },
-                set: function() { return ''; },
-                configurable: false
-            });
-
-            // إخفاء كل الكود من view-source
-            const style = document.createElement('style');
-            style.textContent = 'body { opacity: 1 !important; } .code-hidden { display: none !important; }';
-            document.head.appendChild(style);
-
-            // إخفاء الـ Scripts من view-source
-            document.querySelectorAll('script').forEach(script => {
-                if (script.src && !script.src.includes('firebase') && !script.src.includes('googleapis')) {
-                    script.textContent = '';
-                }
-            });
-
-        })();
-
-        function closeDevToolsBlocker() {
-            document.getElementById('devToolsBlocker').classList.remove('show');
-        }
-
         // ============================================================
-        // Firebase (مشفر)
+        // إعدادات Firebase
         // ============================================================
-        const _0x1a2b = ['AIzaSyAz9BfG1INB3shlCiMtK395SEo6sCkaZSI', 'thanawya-official-plus.firebaseapp.com',
-            'thanawya-official-plus', 'thanawya-official-plus.firebasestorage.app', '883728724353',
-            '1:883728724353:web:3f611e29d556d03c61b880'
-        ];
-
         const firebaseConfig = {
-            apiKey: _0x1a2b[0],
-            authDomain: _0x1a2b[1],
-            projectId: _0x1a2b[2],
-            storageBucket: _0x1a2b[3],
-            messagingSenderId: _0x1a2b[4],
-            appId: _0x1a2b[5]
+            apiKey: "AIzaSyAz9BfG1INB3shlCiMtK395SEo6sCkaZSI",
+            authDomain: "thanawya-official-plus.firebaseapp.com",
+            projectId: "thanawya-official-plus",
+            storageBucket: "thanawya-official-plus.firebasestorage.app",
+            messagingSenderId: "883728724353",
+            appId: "1:883728724353:web:3f611e29d556d03c61b880"
         };
 
         firebase.initializeApp(firebaseConfig);
@@ -768,7 +594,7 @@
         const db = firebase.firestore();
 
         // ============================================================
-        // DOM Elements
+        // عناصر الصفحة
         // ============================================================
         const loginForm = document.getElementById('loginForm');
         const signupForm = document.getElementById('signupForm');
@@ -1012,7 +838,7 @@
 
                 if (!user.emailVerified) {
                     await sendVerificationEmail(user);
-                    showVerificationBox('📧 لم يتم التحقق من بريدك الإلكتروني. تم إرسال رابط تحقق جديد إلى بريدك.');
+                    showVerificationBox('📧 لم يتم التحقق من بريدك الإلكتروني. تم إرسال رابط تحقق جديد.');
                     loginBtn.disabled = false;
                     loginBtn.innerHTML = '🚀 تسجيل الدخول';
                     await auth.signOut();
@@ -1026,7 +852,16 @@
                 }, 1500);
 
             } catch (err) {
-                loginError.textContent = '❌ ' + err.message;
+                let msg = err.message;
+                // ترجمة رسائل Firebase
+                if (msg.includes('user-not-found')) msg = '❌ لا يوجد حساب بهذا البريد الإلكتروني';
+                else if (msg.includes('wrong-password')) msg = '❌ كلمة المرور غير صحيحة';
+                else if (msg.includes('too-many-requests')) msg = '❌ محاولات كثيرة جداً. حاول لاحقاً';
+                else if (msg.includes('invalid-email')) msg = '❌ البريد الإلكتروني غير صحيح';
+                else if (msg.includes('network-request-failed')) msg = '❌ مشكلة في الاتصال بالإنترنت';
+                else msg = '❌ ' + msg;
+
+                loginError.textContent = msg;
                 loginError.style.display = 'block';
                 loginBtn.disabled = false;
                 loginBtn.innerHTML = '🚀 تسجيل الدخول';
@@ -1063,7 +898,11 @@
                 await auth.signOut();
 
             } catch (err) {
-                verificationDesc.textContent = '❌ حدث خطأ: ' + err.message;
+                let msg = err.message;
+                if (msg.includes('user-not-found')) msg = '❌ لا يوجد حساب بهذا البريد';
+                else if (msg.includes('wrong-password')) msg = '❌ كلمة المرور غير صحيحة';
+                else msg = '❌ ' + msg;
+                verificationDesc.textContent = msg;
             }
 
             resendVerificationBtn.disabled = false;
@@ -1089,27 +928,29 @@
                 const result = await auth.signInWithPopup(provider);
                 const user = result.user;
 
-                // التحقق من أن البريد موثق (جوجل موثق تلقائياً)
                 if (!user.emailVerified) {
                     await user.sendEmailVerification();
-                    showVerificationBox('📧 تم إرسال رابط التحقق إلى بريدك الإلكتروني. يرجى التحقق من صندوق الوارد.');
+                    showVerificationBox('📧 تم إرسال رابط التحقق إلى بريدك الإلكتروني.');
                     googleLoginBtn.disabled = false;
                     googleLoginBtn.innerHTML = '🔵 تسجيل الدخول بـ Google';
                     await auth.signOut();
                     return;
                 }
 
-                // التحقق من وجود المستخدم في Firestore
                 const userDoc = await db.collection('users').doc(user.uid).get();
 
                 if (!userDoc.exists) {
-                    // المستخدم جديد - نطلب منه إكمال البيانات
-                    loginSuccess.textContent = '📝 حساب جديد! جاري تحويلك لإكمال البيانات...';
-                    loginSuccess.style.display = 'block';
-                    setTimeout(() => {
-                        window.location.href = 'complete-profile.html?uid=' + user.uid;
-                    }, 1500);
-                    return;
+                    // حفظ بيانات المستخدم من جوجل
+                    await db.collection('users').doc(user.uid).set({
+                        name: user.displayName || 'مستخدم Google',
+                        email: user.email,
+                        phone: '',
+                        grade: '',
+                        education: '',
+                        role: 'طالب',
+                        emailVerified: true,
+                        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                    });
                 }
 
                 loginSuccess.textContent = '✅ تم تسجيل الدخول بنجاح! جاري التحويل...';
@@ -1119,7 +960,12 @@
                 }, 1500);
 
             } catch (err) {
-                loginError.textContent = '❌ ' + err.message;
+                let msg = err.message;
+                if (msg.includes('popup-closed')) msg = '❌ تم إغلاق نافذة جوجل';
+                else if (msg.includes('network-request-failed')) msg = '❌ مشكلة في الاتصال بالإنترنت';
+                else msg = '❌ ' + msg;
+
+                loginError.textContent = msg;
                 loginError.style.display = 'block';
                 googleLoginBtn.disabled = false;
                 googleLoginBtn.innerHTML = '🔵 تسجيل الدخول بـ Google';
@@ -1127,7 +973,7 @@
         });
 
         // ============================================================
-        // إنشاء حساب جديد
+        // إنشاء حساب جديد - مع ترجمة الأخطاء
         // ============================================================
         signupBtn.addEventListener('click', async () => {
             loginError.style.display = 'none';
@@ -1200,7 +1046,16 @@
                 }, 3000);
 
             } catch (err) {
-                loginError.textContent = '❌ ' + err.message;
+                let msg = err.message;
+                // ترجمة رسائل Firebase الشائعة
+                if (msg.includes('email-already-in-use')) msg = '❌ هذا البريد الإلكتروني مسجل بالفعل';
+                else if (msg.includes('invalid-email')) msg = '❌ البريد الإلكتروني غير صحيح';
+                else if (msg.includes('weak-password')) msg = '❌ كلمة المرور ضعيفة (6 أحرف على الأقل)';
+                else if (msg.includes('network-request-failed')) msg = '❌ مشكلة في الاتصال بالإنترنت';
+                else if (msg.includes('too-many-requests')) msg = '❌ محاولات كثيرة جداً. حاول لاحقاً';
+                else msg = '❌ ' + msg;
+
+                loginError.textContent = msg;
                 loginError.style.display = 'block';
                 signupBtn.disabled = false;
                 signupBtn.innerHTML = '📝 إنشاء حساب';
@@ -1426,9 +1281,6 @@
                 window.location.href = 'index.html';
             }
         });
-
-        // إخفاء أي رسائل Console
-        console.clear();
     </script>
 
 </body>
