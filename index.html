@@ -3659,8 +3659,8 @@
                     <input type="text" id="forumPostTitle" placeholder="مثال: مشكلة في فهم الفيزياء" required>
                     <label for="forumPostContent">📝 المحتوى</label>
                     <textarea id="forumPostContent" rows="4" placeholder="اكتب سؤالك أو مشكلتك بالتفصيل..." required></textarea>
-                    <label for="forumPostImage">🖼️ اختيار صورة (اختياري)</label>
-                    <input type="file" id="forumPostImage" accept="image/*">
+                    <label for="forumPostImage">🖼️ رابط الصورة (اختياري)</label>
+                    <input type="url" id="forumPostImage" placeholder="https://example.com/image.jpg">
                     <button type="submit" class="submit-post">📢 نشر المنشور (سيتم اعتماده من الإدارة)</button>
                 </form>
             </div>
@@ -4923,7 +4923,7 @@
         }
 
         // ============================================================
-        // دوال عرض المنتدى
+        // دوال عرض المنتدى - النسخة المعدلة
         // ============================================================
         var forumListener = null;
 
@@ -4951,7 +4951,9 @@
                         }
                         posts.sort(function(a, b) { return (b.createdAt || 0) - (a.createdAt || 0); });
 
-                        var approvedPosts = posts.filter(function(post) { return post.status === 'approved'; });
+                        var approvedPosts = posts.filter(function(post) { 
+                            return post.status === 'approved'; 
+                        });
 
                         if (approvedPosts.length === 0) {
                             container.innerHTML =
@@ -4960,7 +4962,9 @@
                         }
 
                         container.innerHTML = '';
-                        var displayCount = Math.min(approvedPosts.length, 10);
+                        
+                        // عرض جميع المنشورات دفعة واحدة مع زر عرض المزيد
+                        var displayCount = 5;
                         var displayPosts = approvedPosts.slice(0, displayCount);
 
                         displayPosts.forEach(function(data) {
@@ -4968,28 +4972,36 @@
                             container.innerHTML += postHTML;
                         });
 
-                        if (approvedPosts.length > 10) {
+                        // زر عرض المزيد
+                        if (approvedPosts.length > 5) {
                             var loadMoreBtn = document.createElement('button');
                             loadMoreBtn.className = 'btn-primary';
                             loadMoreBtn.style.width = '100%';
-                            loadMoreBtn.style.padding = '12px';
-                            loadMoreBtn.style.marginTop = '12px';
-                            loadMoreBtn.textContent = '📥 تحميل المزيد (' + (approvedPosts.length - 10) +
-                                ' منشورات)';
+                            loadMoreBtn.style.padding = '16px';
+                            loadMoreBtn.style.marginTop = '16px';
+                            loadMoreBtn.style.fontSize = '18px';
+                            loadMoreBtn.style.fontWeight = '800';
+                            loadMoreBtn.style.borderRadius = '14px';
+                            loadMoreBtn.style.boxShadow = '0 4px 15px rgba(46, 204, 113, 0.3)';
+                            loadMoreBtn.textContent = '📥 عرض المزيد (' + (approvedPosts.length - 5) + ' منشورات)';
                             loadMoreBtn.onclick = function() {
                                 try {
                                     var currentCount = container.querySelectorAll('.forum-post').length;
-                                    var nextBatch = approvedPosts.slice(currentCount, currentCount + 10);
+                                    var nextBatch = approvedPosts.slice(currentCount, currentCount + 5);
                                     nextBatch.forEach(function(postData) {
                                         var postHTML = createForumPostHTML(postData);
                                         container.innerHTML += postHTML;
                                     });
                                     if (container.querySelectorAll('.forum-post').length >= approvedPosts
                                         .length) {
-                                        this.style.display = 'none';
+                                        this.textContent = '✅ تم عرض جميع المنشورات';
+                                        this.style.background = '#2ecc71';
+                                        this.disabled = true;
                                     }
                                     bindForumEvents();
-                                } catch (e) {}
+                                } catch (e) {
+                                    console.error('خطأ في تحميل المزيد:', e);
+                                }
                             };
                             container.appendChild(loadMoreBtn);
                         }
@@ -4999,7 +5011,7 @@
                     } catch (e) {
                         console.error('خطأ في تحميل المنتدى:', e);
                         container.innerHTML =
-                            '<div class="empty-state"><div class="icon">❌</div><h3>حدث خطأ</h3></div>';
+                            '<div class="empty-state"><div class="icon">❌</div><h3>حدث خطأ في تحميل المنشورات</h3></div>';
                     }
                 };
 
@@ -5009,6 +5021,7 @@
             }
         }
 
+        // ===== دالة إنشاء HTML للمنشور (نسخة معدلة) =====
         function createForumPostHTML(data) {
             try {
                 var userLiked = false;
@@ -5016,8 +5029,12 @@
                     userLiked = data.likesData[auth.currentUser.uid] || false;
                 }
                 var likeCount = data.likesCount || 0;
-                var imageHtml = data.image ? `<img src="${data.image}" class="post-image" loading="lazy" onerror="this.style.display='none'">` :
-                    '';
+                
+                // عرض الصورة من الرابط إذا وجد
+                var imageHtml = '';
+                if (data.imageUrl) {
+                    imageHtml = `<img src="${data.imageUrl}" class="post-image" loading="lazy" onerror="this.style.display='none'">`;
+                }
 
                 var commentsHtml = '';
                 var commentCounter = 0;
@@ -5048,6 +5065,7 @@
                                         font-family:'Tajawal',sans-serif;display:flex;align-items:center;gap:4px;">
                                         ${userCommentLiked ? '❤️' : '🤍'} <span>${comment.likes || 0}</span>
                                     </button>
+                                    ${comment.isAdminReply ? '<span style="background:#1a237e20;color:#1a237e;padding:0 8px;border-radius:50px;font-size:10px;font-weight:700;">✅ رد رسمي</span>' : ''}
                                 </div>
                             </div>
                         </div>
@@ -5068,6 +5086,7 @@
                             <span class="user">
                                 ${data.authorPhoto ? `<img src="${data.authorPhoto}" class="user-avatar">` : '👤'}
                                 ${safeText(data.author || 'طالب')}
+                                ${data.isAdminPost ? VERIFIED_BADGE_SVG : ''}
                             </span>
                             <span class="date">${data.createdAt ? new Date(data.createdAt).toLocaleString('ar') : ''}</span>
                         </div>
@@ -5087,7 +5106,8 @@
                     </div>
                 `;
             } catch (e) {
-                return '<div class="forum-post">حدث خطأ في عرض المنشور</div>';
+                console.error('خطأ في عرض المنشور:', e);
+                return '<div class="forum-post">⚠️ حدث خطأ في عرض هذا المنشور</div>';
             }
         }
 
@@ -5127,7 +5147,10 @@
                     }
 
                     var userId = auth.currentUser.uid;
+                    var isAdmin = false;
+                    
                     getUser(userId).then(function(userData) {
+                        isAdmin = userData && (userData.role === 'admin' || userData.role === 'superAdmin');
                         var photo = (userData && userData.photoURL) || auth.currentUser.photoURL || '';
                         var newRef = db.ref('forum_posts/' + postId + '/comments').push();
                         return newRef.set({
@@ -5135,7 +5158,8 @@
                             user: auth.currentUser.displayName || auth.currentUser.email || 'طالب',
                             userPhoto: photo || '',
                             userId: userId,
-                            status: 'pending',
+                            status: isAdmin ? 'approved' : 'pending',
+                            isAdminReply: isAdmin || false,
                             likes: 0,
                             likesData: {},
                             createdAt: firebase.database.ServerValue.TIMESTAMP
@@ -5143,6 +5167,7 @@
                     }).then(function() {
                         input.value = '';
                         showPopup('✅', 'تم إرسال تعليقك!', 'تم إرسال تعليقك للإدارة للمراجعة');
+                        loadForumPosts();
                     }).catch(function(err) {
                         showToast('❌ خطأ: ' + err.message, 'error');
                     });
@@ -5163,7 +5188,7 @@
         }
 
         // ============================================================
-        // دوال منشورات الفريق
+        // دوال منشورات الفريق - النسخة المعدلة
         // ============================================================
         function loadTeamPosts() {
             try {
@@ -5181,7 +5206,7 @@
                 }
 
                 container.innerHTML = '';
-                var displayCount = Math.min(posts.length, 5);
+                var displayCount = 5;
                 var displayPosts = posts.slice(0, displayCount);
 
                 displayPosts.forEach(function(data) {
@@ -5193,9 +5218,13 @@
                     var loadMoreBtn = document.createElement('button');
                     loadMoreBtn.className = 'btn-primary';
                     loadMoreBtn.style.width = '100%';
-                    loadMoreBtn.style.padding = '12px';
-                    loadMoreBtn.style.marginTop = '12px';
-                    loadMoreBtn.textContent = '📥 تحميل المزيد (' + (posts.length - 5) + ' منشورات)';
+                    loadMoreBtn.style.padding = '16px';
+                    loadMoreBtn.style.marginTop = '16px';
+                    loadMoreBtn.style.fontSize = '18px';
+                    loadMoreBtn.style.fontWeight = '800';
+                    loadMoreBtn.style.borderRadius = '14px';
+                    loadMoreBtn.style.boxShadow = '0 4px 15px rgba(46, 204, 113, 0.3)';
+                    loadMoreBtn.textContent = '📥 عرض المزيد (' + (posts.length - 5) + ' منشورات)';
                     loadMoreBtn.onclick = function() {
                         try {
                             var currentCount = container.querySelectorAll('.post-card').length;
@@ -5205,7 +5234,9 @@
                                 container.innerHTML += postHTML;
                             });
                             if (container.querySelectorAll('.post-card').length >= posts.length) {
-                                this.style.display = 'none';
+                                this.textContent = '✅ تم عرض جميع المنشورات';
+                                this.style.background = '#2ecc71';
+                                this.disabled = true;
                             }
                             bindTeamPostEvents();
                         } catch (e) {}
@@ -5220,7 +5251,7 @@
                 var container = document.getElementById('teamPostsContainer');
                 if (container) {
                     container.innerHTML =
-                        '<div class="empty-state"><div class="icon">❌</div><h3>حدث خطأ</h3></div>';
+                        '<div class="empty-state"><div class="icon">❌</div><h3>حدث خطأ في تحميل المنشورات</h3></div>';
                 }
             }
         }
@@ -5255,6 +5286,7 @@
                                     <div class="name">
                                         ${comment.userPhoto ? `<img src="${comment.userPhoto}" class="user-avatar-small">` : ''}
                                         ${safeText(comment.user || 'مجهول')}
+                                        ${comment.isAdminReply ? '<span style="background:#1a237e20;color:#1a237e;padding:0 8px;border-radius:50px;font-size:10px;font-weight:700;">✅ رد رسمي</span>' : ''}
                                     </div>
                                     <div>${safeText(comment.text || '')}</div>
                                     <div style="margin-top:4px;display:flex;gap:8px;align-items:center;">
@@ -5282,6 +5314,7 @@
                         </div>
                         <h4 style="color:#2ecc71;font-size:18px;">${safeText(data.title || 'منشور')}</h4>
                         <div class="post-content-text">${safeText(data.content || '')}</div>
+                        ${data.imageUrl ? `<img src="${data.imageUrl}" class="post-image" loading="lazy" onerror="this.style.display='none'" style="max-height:250px;width:100%;object-fit:cover;border-radius:10px;margin:8px 0;">` : ''}
                         <div class="post-meta">${data.createdAt ? new Date(data.createdAt).toLocaleString('ar') : ''}</div>
                         <div class="post-actions">
                             <button onclick="likeTeamPost('${data.id}', this)" ${userLiked ? 'style="color:#e74c3c;"' : ''}>
@@ -5299,7 +5332,8 @@
                     </div>
                 `;
             } catch (e) {
-                return '<div class="post-card">حدث خطأ في عرض المنشور</div>';
+                console.error('خطأ في عرض منشور الفريق:', e);
+                return '<div class="post-card">⚠️ حدث خطأ في عرض هذا المنشور</div>';
             }
         }
 
@@ -5338,9 +5372,15 @@
                 }
 
                 var userId = auth.currentUser.uid;
+                var isAdmin = false;
+                
                 getUser(userId).then(function(userData) {
+                    isAdmin = userData && (userData.role === 'admin' || userData.role === 'superAdmin');
                     var photo = (userData && userData.photoURL) || auth.currentUser.photoURL || '';
-                    return addTeamComment(postId, { text: text }, userId,
+                    return addTeamComment(postId, { 
+                        text: text,
+                        isAdminReply: isAdmin || false
+                    }, userId,
                         auth.currentUser.displayName || auth.currentUser.email, photo);
                 }).then(function() {
                     input.value = '';
@@ -5365,7 +5405,7 @@
         }
 
         // ============================================================
-        // دوال الصفحات الأخرى
+        // دوال الصفحات الأخرى (نفس الكود مع try/catch)
         // ============================================================
         function loadFavorites() {
             try {
@@ -6309,8 +6349,7 @@
 
                         var title = document.getElementById('forumPostTitle').value.trim();
                         var content = document.getElementById('forumPostContent').value.trim();
-                        var imageInput = document.getElementById('forumPostImage');
-                        var imageFile = imageInput.files?.[0];
+                        var imageUrl = document.getElementById('forumPostImage').value.trim();
 
                         if (!title || !content) {
                             alert('❌ يرجى ملء جميع الحقول');
@@ -6321,6 +6360,7 @@
                         var userPhoto = userData?.photoURL || auth.currentUser.photoURL || '';
                         var userName = userData?.name || auth.currentUser.displayName || auth.currentUser
                             .email || 'طالب';
+                        var isAdmin = userData && (userData.role === 'admin' || userData.role === 'superAdmin');
 
                         var postData = {
                             title: title,
@@ -6328,7 +6368,9 @@
                             userId: auth.currentUser.uid,
                             author: userName,
                             authorPhoto: userPhoto,
-                            status: 'pending',
+                            imageUrl: imageUrl || '',
+                            status: isAdmin ? 'approved' : 'pending',
+                            isAdminPost: isAdmin || false,
                             likesCount: 0,
                             likesData: {},
                             comments: [],
@@ -6337,10 +6379,6 @@
                         };
 
                         var result = await addForumPost(postData, auth.currentUser.uid, userName, userPhoto);
-
-                        if (imageFile) {
-                            await uploadForumImage(result.id, imageFile);
-                        }
 
                         showPopup('✅', 'تم إرسال منشورك!', 'تم إرسال المنشور للإدارة للمراجعة، سيتم مراجعته خلال 24 ساعة');
                         document.getElementById('forumPostForm').reset();
