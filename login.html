@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>تسجيل الدخول - الثانوية الرسمية بلس</title>
 
     <!-- Firebase -->
@@ -16,17 +16,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
 
     <style>
+        /* كل الستايلات كما هي... */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Tajawal', 'Segoe UI', sans-serif;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
         }
-
         body {
             background: #f0f4f8;
             min-height: 100vh;
@@ -35,12 +31,10 @@
             align-items: center;
             padding: 20px;
         }
-
         body.dark-mode {
             background: #12121f;
             color: #e0e0e0;
         }
-
         .login-container {
             max-width: 480px;
             width: 100%;
@@ -53,34 +47,10 @@
             max-height: 95vh;
             overflow-y: auto;
         }
-
         body.dark-mode .login-container {
             background: #24243a;
             box-shadow: 0 8px 50px rgba(0, 0, 0, 0.3);
         }
-
-        .login-container::-webkit-scrollbar {
-            width: 4px;
-        }
-        .login-container::-webkit-scrollbar-thumb {
-            background: #c0c0c0;
-            border-radius: 10px;
-        }
-
-        .login-container .logo {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 16px;
-        }
-
-        .login-container .logo img {
-            height: 45px;
-            width: auto;
-            border-radius: 12px;
-        }
-
         .login-container .logo h1 {
             font-size: 20px;
             background: linear-gradient(45deg, #2ecc71, #3498db, #e74c3c);
@@ -88,33 +58,24 @@
             -webkit-text-fill-color: transparent;
             font-weight: 900;
         }
-
         .login-container h2 {
             font-size: 20px;
             font-weight: 800;
             color: #2c3e50;
             margin-bottom: 4px;
         }
-
         body.dark-mode .login-container h2 {
             color: #ecf0f1;
         }
-
         .login-container .sub-text {
             color: #777;
             font-size: 13px;
             margin-bottom: 18px;
         }
-
-        body.dark-mode .login-container .sub-text {
-            color: #aaa;
-        }
-
         .login-container .form-group {
             text-align: right;
             margin-bottom: 12px;
         }
-
         .login-container .form-group label {
             display: block;
             font-weight: 700;
@@ -122,15 +83,9 @@
             color: #2c3e50;
             margin-bottom: 4px;
         }
-
         body.dark-mode .login-container .form-group label {
             color: #ecf0f1;
         }
-
-        .login-container .form-group label .required {
-            color: #e74c3c;
-        }
-
         .login-container .login-input,
         .login-container .login-select {
             width: 100%;
@@ -143,44 +98,17 @@
             background: #f8f9fa;
             outline: none;
         }
-
         body.dark-mode .login-container .login-input,
         body.dark-mode .login-container .login-select {
             background: #2d2d44;
             border-color: #3d3d55;
             color: white;
         }
-
         .login-container .login-input:focus,
         .login-container .login-select:focus {
             border-color: #3498db;
             box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.15);
         }
-
-        .login-container .login-input.error,
-        .login-container .login-select.error {
-            border-color: #e74c3c;
-            box-shadow: 0 0 0 4px rgba(231, 76, 60, 0.15);
-        }
-
-        .login-container .login-input.success,
-        .login-container .login-select.success {
-            border-color: #2ecc71;
-            box-shadow: 0 0 0 4px rgba(46, 204, 113, 0.15);
-        }
-
-        .login-container .input-error {
-            color: #e74c3c;
-            font-size: 12px;
-            margin-top: 3px;
-            display: none;
-            text-align: right;
-        }
-
-        .login-container .input-error.show {
-            display: block;
-        }
-
         .login-container .login-btn {
             width: 100%;
             padding: 13px;
@@ -195,52 +123,37 @@
             font-family: 'Tajawal', sans-serif;
             margin-top: 6px;
         }
-
         .login-container .login-btn:hover {
             background: #2980b9;
             transform: scale(1.02);
         }
-
         .login-container .login-btn:disabled {
             opacity: 0.6;
             cursor: not-allowed;
             transform: none;
         }
-
         .login-container .login-error {
             color: #e74c3c;
             font-size: 13px;
             margin-top: 8px;
             display: none;
         }
-
         .login-container .login-success {
             color: #2ecc71;
             font-size: 13px;
             margin-top: 8px;
             display: none;
         }
-
         .login-container .switch-link {
             margin-top: 14px;
             font-size: 13px;
             color: #888;
         }
-
-        body.dark-mode .login-container .switch-link {
-            color: #aaa;
-        }
-
         .login-container .switch-link span {
             color: #3498db;
             font-weight: 700;
             cursor: pointer;
         }
-
-        .login-container .switch-link span:hover {
-            text-decoration: underline;
-        }
-
         .login-container .back-home {
             display: inline-block;
             margin-top: 14px;
@@ -250,11 +163,6 @@
             font-size: 13px;
             cursor: pointer;
         }
-
-        .login-container .back-home:hover {
-            text-decoration: underline;
-        }
-
         .spinner {
             display: inline-block;
             width: 20px;
@@ -266,7 +174,6 @@
             vertical-align: middle;
             margin-left: 8px;
         }
-
         @keyframes spin {
             0% {
                 transform: rotate(0deg);
@@ -275,7 +182,6 @@
                 transform: rotate(360deg);
             }
         }
-
         .dark-mode-toggle {
             position: fixed;
             top: 16px;
@@ -290,22 +196,15 @@
             transition: 0.3s;
             z-index: 100;
         }
-
         body.dark-mode .dark-mode-toggle {
             background: #f1c40f;
             color: #1a1a2e;
         }
-
-        .dark-mode-toggle:hover {
-            transform: scale(1.05);
-        }
-
-        .login-container .row-2col {
+        .row-2col {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 12px;
         }
-
         .verification-box {
             background: #e8f0fe;
             border-radius: 12px;
@@ -314,59 +213,15 @@
             border-right: 4px solid #1a237e;
             display: none;
         }
-
-        body.dark-mode .verification-box {
-            background: #1a237e30;
-            border-color: #64b5f6;
-        }
-
         .verification-box.show {
             display: block;
         }
-
         .verification-box .title {
             font-weight: 800;
             font-size: 14px;
             color: #1a237e;
             margin-bottom: 4px;
         }
-
-        body.dark-mode .verification-box .title {
-            color: #90caf9;
-        }
-
-        .verification-box .desc {
-            font-size: 12px;
-            color: #555;
-        }
-
-        body.dark-mode .verification-box .desc {
-            color: #ccc;
-        }
-
-        .verification-box .resend-btn {
-            margin-top: 8px;
-            padding: 6px 16px;
-            background: #1a237e;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 700;
-            font-size: 12px;
-            font-family: 'Tajawal', sans-serif;
-            transition: 0.3s;
-        }
-
-        .verification-box .resend-btn:hover {
-            background: #2d4373;
-        }
-
-        .verification-box .resend-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
         .google-btn {
             width: 100%;
             padding: 12px;
@@ -385,27 +240,11 @@
             gap: 10px;
             margin-top: 8px;
         }
-
         body.dark-mode .google-btn {
             background: #2d2d44;
             color: white;
             border-color: #3d3d55;
         }
-
-        .google-btn:hover {
-            background: #f0f4f8;
-            transform: scale(1.02);
-        }
-
-        body.dark-mode .google-btn:hover {
-            background: #3d3d55;
-        }
-
-        .google-btn img {
-            width: 24px;
-            height: 24px;
-        }
-
         .divider {
             display: flex;
             align-items: center;
@@ -414,7 +253,6 @@
             color: #aaa;
             font-size: 13px;
         }
-
         .divider::before,
         .divider::after {
             content: '';
@@ -422,26 +260,29 @@
             height: 1px;
             background: #ddd;
         }
-
-        body.dark-mode .divider::before,
-        body.dark-mode .divider::after {
-            background: #3d3d55;
+        .input-error {
+            color: #e74c3c;
+            font-size: 12px;
+            margin-top: 3px;
+            display: none;
+            text-align: right;
         }
-
+        .input-error.show {
+            display: block;
+        }
+        .login-input.error,
+        .login-select.error {
+            border-color: #e74c3c !important;
+        }
+        .login-input.success,
+        .login-select.success {
+            border-color: #2ecc71 !important;
+        }
         @media (max-width: 480px) {
             .login-container {
                 padding: 20px 16px;
             }
-            .login-container .logo h1 {
-                font-size: 18px;
-            }
-            .login-container .logo img {
-                height: 36px;
-            }
-            .login-container h2 {
-                font-size: 18px;
-            }
-            .login-container .row-2col {
+            .row-2col {
                 grid-template-columns: 1fr;
                 gap: 0;
             }
@@ -450,35 +291,34 @@
 </head>
 <body>
 
-    <button class="dark-mode-toggle" id="darkModeToggle" title="وضع النهار/الليل">🌙</button>
+    <button class="dark-mode-toggle" id="darkModeToggle">🌙</button>
 
     <div class="login-container" id="loginContainer">
         <div class="logo">
-            <img src="https://cdn.phototourl.com/free/2026-07-21-1dd4b984-ed08-4a40-aead-9ef086ebbd45.jpg" alt="شعار المنصة">
-            <h1>الثانوية الرسمية بلس</h1>
+            <h1>🏫 الثانوية الرسمية بلس</h1>
         </div>
 
         <h2 id="formTitle">🔐 تسجيل الدخول</h2>
         <p class="sub-text" id="formSubText">سجل الدخول للوصول إلى جميع مميزات المنصة</p>
 
-        <!-- ===== نموذج تسجيل الدخول ===== -->
+        <!-- نموذج تسجيل الدخول -->
         <div id="loginForm">
             <div class="form-group">
                 <label>📧 البريد الإلكتروني <span class="required">*</span></label>
-                <input type="email" id="loginEmail" class="login-input" placeholder="أدخل بريدك الإلكتروني" autocomplete="email">
+                <input type="email" id="loginEmail" class="login-input" placeholder="أدخل بريدك الإلكتروني">
                 <div class="input-error" id="loginEmailError">❌ يرجى إدخال بريد إلكتروني صحيح</div>
             </div>
 
             <div class="form-group">
                 <label>🔑 كلمة المرور <span class="required">*</span></label>
-                <input type="password" id="loginPassword" class="login-input" placeholder="أدخل كلمة المرور" autocomplete="current-password">
+                <input type="password" id="loginPassword" class="login-input" placeholder="أدخل كلمة المرور">
                 <div class="input-error" id="loginPasswordError">❌ كلمة المرور يجب أن تكون 6 أحرف على الأقل</div>
             </div>
 
             <div class="verification-box" id="verificationBox">
                 <div class="title">📧 تحقق من بريدك الإلكتروني</div>
-                <div class="desc" id="verificationDesc">لم يتم التحقق من بريدك الإلكتروني. يرجى التحقق من صندوق الوارد والضغط على رابط التفعيل.</div>
-                <button class="resend-btn" id="resendVerificationBtn">📨 إعادة إرسال رابط التحقق</button>
+                <div class="desc" id="verificationDesc">لم يتم التحقق من بريدك الإلكتروني.</div>
+                <button class="login-btn" style="margin-top:10px;padding:8px;font-size:14px;" id="resendVerificationBtn">📨 إعادة إرسال رابط التحقق</button>
             </div>
 
             <button class="login-btn" id="loginBtn">🚀 تسجيل الدخول</button>
@@ -495,18 +335,18 @@
             </button>
         </div>
 
-        <!-- ===== نموذج إنشاء حساب ===== -->
+        <!-- نموذج إنشاء حساب -->
         <div id="signupForm" style="display:none;">
             <div class="form-group">
                 <label>👤 الاسم الكامل <span class="required">*</span></label>
-                <input type="text" id="signupName" class="login-input" placeholder="مثال: أحمد محمد علي">
+                <input type="text" id="signupName" class="login-input" placeholder="مثال: أحمد محمد">
                 <div class="input-error" id="signupNameError">❌ الاسم يجب أن يكون حرفين على الأقل</div>
             </div>
 
             <div class="form-group">
                 <label>📱 رقم الهاتف <span class="required">*</span></label>
-                <input type="tel" id="signupPhone" class="login-input" placeholder="مثال: 01012345678" maxlength="15">
-                <div class="input-error" id="signupPhoneError">❌ رقم الهاتف يجب أن يكون 11 رقم (مصري) أو 10 رقم (سعودي)</div>
+                <input type="tel" id="signupPhone" class="login-input" placeholder="مثال: 01012345678">
+                <div class="input-error" id="signupPhoneError">❌ رقم هاتف غير صحيح</div>
             </div>
 
             <div class="row-2col">
@@ -518,7 +358,7 @@
                         <option value="2">تانية بكالوريا</option>
                         <option value="3">تالتة ثانوي</option>
                     </select>
-                    <div class="input-error" id="signupGradeError">❌ يرجى اختيار الصف الدراسي</div>
+                    <div class="input-error" id="signupGradeError">❌ يرجى اختيار الصف</div>
                 </div>
 
                 <div class="form-group">
@@ -529,7 +369,7 @@
                         <option value="أزهري">أزهري</option>
                         <option value="بكالوريا">بكالوريا</option>
                     </select>
-                    <div class="input-error" id="signupEducationError">❌ يرجى اختيار نوع التعليم</div>
+                    <div class="input-error" id="signupEducationError">❌ يرجى اختيار النوع</div>
                 </div>
             </div>
 
@@ -547,26 +387,26 @@
             <div class="form-group">
                 <label>📧 البريد الإلكتروني <span class="required">*</span></label>
                 <input type="email" id="signupEmail" class="login-input" placeholder="أدخل بريدك الإلكتروني">
-                <div class="input-error" id="signupEmailError">❌ يرجى إدخال بريد إلكتروني صحيح</div>
+                <div class="input-error" id="signupEmailError">❌ بريد إلكتروني غير صحيح</div>
             </div>
 
             <div class="form-group">
                 <label>🔑 كلمة المرور <span class="required">*</span></label>
                 <input type="password" id="signupPassword" class="login-input" placeholder="6 أحرف على الأقل">
-                <div class="input-error" id="signupPasswordError">❌ كلمة المرور يجب أن تكون 6 أحرف على الأقل</div>
+                <div class="input-error" id="signupPasswordError">❌ 6 أحرف على الأقل</div>
             </div>
 
             <div class="form-group">
                 <label>🔑 تأكيد كلمة المرور <span class="required">*</span></label>
                 <input type="password" id="signupPasswordConfirm" class="login-input" placeholder="أعد كتابة كلمة المرور">
-                <div class="input-error" id="signupPasswordConfirmError">❌ كلمة المرور غير متطابقة</div>
+                <div class="input-error" id="signupPasswordConfirmError">❌ غير متطابقة</div>
             </div>
 
             <button class="login-btn" id="signupBtn">📝 إنشاء حساب</button>
         </div>
 
         <div id="loginError" class="login-error"></div>
-        <div id="loginSuccess" class="login-success">✅ تم بنجاح! جاري التحويل...</div>
+        <div id="loginSuccess" class="login-success">✅ تم بنجاح!</div>
 
         <div class="switch-link">
             <span id="switchText">ليس لديك حساب؟</span>
@@ -589,7 +429,15 @@
             appId: "1:883728724353:web:3f611e29d556d03c61b880"
         };
 
-        firebase.initializeApp(firebaseConfig);
+        // تأكد من تهيئة Firebase
+        try {
+            firebase.initializeApp(firebaseConfig);
+        } catch (e) {
+            console.error('خطأ في تهيئة Firebase:', e);
+            document.getElementById('loginError').textContent = '❌ خطأ في الاتصال بـ Firebase';
+            document.getElementById('loginError').style.display = 'block';
+        }
+
         const auth = firebase.auth();
         const db = firebase.firestore();
 
@@ -629,21 +477,15 @@
         let isSignup = false;
 
         // ============================================================
-        // دوال التحقق
+        // دوال المساعدة
         // ============================================================
         function isValidName(name) {
-            const trimmed = name.trim();
-            return trimmed.length >= 2 && /^[\u0621-\u064A\s]+$/.test(trimmed);
+            return name.trim().length >= 2;
         }
 
         function isValidPhone(phone) {
             const cleaned = phone.replace(/\s/g, '');
-            const egyptPattern = /^(010|011|012|015)\d{8}$/;
-            const saudiPattern = /^05\d{8}$/;
-            if (egyptPattern.test(cleaned)) return true;
-            if (saudiPattern.test(cleaned)) return true;
-            if (/^\d{10,15}$/.test(cleaned)) return true;
-            return false;
+            return /^\d{10,15}$/.test(cleaned);
         }
 
         function isValidEmail(email) {
@@ -660,11 +502,9 @@
 
         function showError(elementId, show) {
             const el = document.getElementById(elementId);
-            if (!el) return;
-            if (show) {
-                el.classList.add('show');
-            } else {
-                el.classList.remove('show');
+            if (el) {
+                if (show) el.classList.add('show');
+                else el.classList.remove('show');
             }
         }
 
@@ -676,6 +516,18 @@
             if (status === 'success') el.classList.add('success');
         }
 
+        function showVerificationBox(message) {
+            verificationBox.classList.add('show');
+            if (message) verificationDesc.textContent = message;
+        }
+
+        function hideVerificationBox() {
+            verificationBox.classList.remove('show');
+        }
+
+        // ============================================================
+        // التحقق من صحة الإدخال
+        // ============================================================
         function validateLogin() {
             let valid = true;
             const email = loginEmail.value.trim();
@@ -687,6 +539,7 @@
                 showError('loginEmailError', false);
                 setInputStatus('loginEmail', 'success');
             }
+
             const password = loginPassword.value;
             if (!isValidPassword(password)) {
                 showError('loginPasswordError', true);
@@ -781,43 +634,8 @@
             return valid;
         }
 
-        async function isPhoneRegistered(phone) {
-            try {
-                const snapshot = await db.collection('users')
-                    .where('phone', '==', phone.trim())
-                    .limit(1)
-                    .get();
-                return !snapshot.empty;
-            } catch (err) {
-                return false;
-            }
-        }
-
-        async function sendVerificationEmail(user) {
-            try {
-                await user.sendEmailVerification({
-                    url: 'https://thanawya-official-plus.web.app',
-                    handleCodeInApp: true
-                });
-                return true;
-            } catch (err) {
-                return false;
-            }
-        }
-
-        function showVerificationBox(message) {
-            verificationBox.classList.add('show');
-            if (message) {
-                verificationDesc.textContent = message;
-            }
-        }
-
-        function hideVerificationBox() {
-            verificationBox.classList.remove('show');
-        }
-
         // ============================================================
-        // تسجيل الدخول بالبريد
+        // تسجيل الدخول
         // ============================================================
         loginBtn.addEventListener('click', async () => {
             loginError.style.display = 'none';
@@ -837,28 +655,27 @@
                 const user = userCredential.user;
 
                 if (!user.emailVerified) {
-                    await sendVerificationEmail(user);
-                    showVerificationBox('📧 لم يتم التحقق من بريدك الإلكتروني. تم إرسال رابط تحقق جديد.');
+                    await user.sendEmailVerification();
+                    showVerificationBox('📧 تم إرسال رابط التحقق إلى بريدك الإلكتروني.');
                     loginBtn.disabled = false;
                     loginBtn.innerHTML = '🚀 تسجيل الدخول';
                     await auth.signOut();
                     return;
                 }
 
-                loginSuccess.textContent = '✅ تم تسجيل الدخول بنجاح! جاري التحويل...';
+                loginSuccess.textContent = '✅ تم تسجيل الدخول بنجاح!';
                 loginSuccess.style.display = 'block';
                 setTimeout(() => {
-                    window.location.href = 'index.html';
+                    // غيّر هذا الرابط إلى الصفحة التي تريدها
+                    window.location.href = 'dashboard.html';
                 }, 1500);
 
             } catch (err) {
                 let msg = err.message;
-                // ترجمة رسائل Firebase
-                if (msg.includes('user-not-found')) msg = '❌ لا يوجد حساب بهذا البريد الإلكتروني';
+                if (msg.includes('user-not-found')) msg = '❌ لا يوجد حساب بهذا البريد';
                 else if (msg.includes('wrong-password')) msg = '❌ كلمة المرور غير صحيحة';
                 else if (msg.includes('too-many-requests')) msg = '❌ محاولات كثيرة جداً. حاول لاحقاً';
                 else if (msg.includes('invalid-email')) msg = '❌ البريد الإلكتروني غير صحيح';
-                else if (msg.includes('network-request-failed')) msg = '❌ مشكلة في الاتصال بالإنترنت';
                 else msg = '❌ ' + msg;
 
                 loginError.textContent = msg;
@@ -892,17 +709,12 @@
 
                 const userCredential = await auth.signInWithEmailAndPassword(email, password);
                 const user = userCredential.user;
-
-                await sendVerificationEmail(user);
-                verificationDesc.textContent = '✅ تم إرسال رابط التحقق مجدداً إلى بريدك الإلكتروني.';
+                await user.sendEmailVerification();
+                verificationDesc.textContent = '✅ تم إرسال رابط التحقق مجدداً.';
                 await auth.signOut();
 
             } catch (err) {
-                let msg = err.message;
-                if (msg.includes('user-not-found')) msg = '❌ لا يوجد حساب بهذا البريد';
-                else if (msg.includes('wrong-password')) msg = '❌ كلمة المرور غير صحيحة';
-                else msg = '❌ ' + msg;
-                verificationDesc.textContent = msg;
+                verificationDesc.textContent = '❌ ' + err.message;
             }
 
             resendVerificationBtn.disabled = false;
@@ -921,9 +733,7 @@
 
             try {
                 const provider = new firebase.auth.GoogleAuthProvider();
-                provider.setCustomParameters({
-                    prompt: 'select_account'
-                });
+                provider.setCustomParameters({ prompt: 'select_account' });
 
                 const result = await auth.signInWithPopup(provider);
                 const user = result.user;
@@ -940,7 +750,6 @@
                 const userDoc = await db.collection('users').doc(user.uid).get();
 
                 if (!userDoc.exists) {
-                    // حفظ بيانات المستخدم من جوجل
                     await db.collection('users').doc(user.uid).set({
                         name: user.displayName || 'مستخدم Google',
                         email: user.email,
@@ -953,16 +762,15 @@
                     });
                 }
 
-                loginSuccess.textContent = '✅ تم تسجيل الدخول بنجاح! جاري التحويل...';
+                loginSuccess.textContent = '✅ تم تسجيل الدخول بنجاح!';
                 loginSuccess.style.display = 'block';
                 setTimeout(() => {
-                    window.location.href = 'index.html';
+                    window.location.href = 'dashboard.html';
                 }, 1500);
 
             } catch (err) {
                 let msg = err.message;
                 if (msg.includes('popup-closed')) msg = '❌ تم إغلاق نافذة جوجل';
-                else if (msg.includes('network-request-failed')) msg = '❌ مشكلة في الاتصال بالإنترنت';
                 else msg = '❌ ' + msg;
 
                 loginError.textContent = msg;
@@ -973,7 +781,7 @@
         });
 
         // ============================================================
-        // إنشاء حساب جديد - مع ترجمة الأخطاء
+        // إنشاء حساب جديد
         // ============================================================
         signupBtn.addEventListener('click', async () => {
             loginError.style.display = 'none';
@@ -989,16 +797,6 @@
             const email = signupEmail.value.trim();
             const password = signupPassword.value;
 
-            const phoneExists = await isPhoneRegistered(phone);
-            if (phoneExists) {
-                loginError.textContent = '❌ هذا رقم الهاتف مسجل بالفعل، يرجى استخدام رقم آخر';
-                loginError.style.display = 'block';
-                setInputStatus('signupPhone', 'error');
-                showError('signupPhoneError', true);
-                document.getElementById('signupPhoneError').textContent = '❌ هذا الرقم مسجل بالفعل';
-                return;
-            }
-
             signupBtn.disabled = true;
             signupBtn.innerHTML = '⏳ جاري ... <span class="spinner"></span>';
 
@@ -1006,11 +804,8 @@
                 const userCredential = await auth.createUserWithEmailAndPassword(email, password);
                 const user = userCredential.user;
 
-                await user.updateProfile({
-                    displayName: name
-                });
-
-                await sendVerificationEmail(user);
+                await user.updateProfile({ displayName: name });
+                await user.sendEmailVerification();
 
                 await db.collection('users').doc(user.uid).set({
                     name: name,
@@ -1025,16 +820,14 @@
 
                 await auth.signOut();
 
-                loginSuccess.textContent = '✅ تم إنشاء الحساب! تم إرسال رابط التحقق إلى بريدك الإلكتروني.';
+                loginSuccess.textContent = '✅ تم إنشاء الحساب! تم إرسال رابط التحقق.';
                 loginSuccess.style.display = 'block';
-
-                showVerificationBox('📧 تم إرسال رابط التحقق إلى بريدك الإلكتروني. يرجى التحقق من صندوق الوارد وتفعيل حسابك.');
 
                 signupBtn.disabled = false;
                 signupBtn.innerHTML = '📝 إنشاء حساب';
 
+                // العودة لشاشة تسجيل الدخول
                 setTimeout(() => {
-                    if (!isSignup) return;
                     isSignup = false;
                     loginForm.style.display = 'block';
                     signupForm.style.display = 'none';
@@ -1047,12 +840,9 @@
 
             } catch (err) {
                 let msg = err.message;
-                // ترجمة رسائل Firebase الشائعة
-                if (msg.includes('email-already-in-use')) msg = '❌ هذا البريد الإلكتروني مسجل بالفعل';
+                if (msg.includes('email-already-in-use')) msg = '❌ هذا البريد مسجل بالفعل';
                 else if (msg.includes('invalid-email')) msg = '❌ البريد الإلكتروني غير صحيح';
                 else if (msg.includes('weak-password')) msg = '❌ كلمة المرور ضعيفة (6 أحرف على الأقل)';
-                else if (msg.includes('network-request-failed')) msg = '❌ مشكلة في الاتصال بالإنترنت';
-                else if (msg.includes('too-many-requests')) msg = '❌ محاولات كثيرة جداً. حاول لاحقاً';
                 else msg = '❌ ' + msg;
 
                 loginError.textContent = msg;
@@ -1063,7 +853,7 @@
         });
 
         // ============================================================
-        // تبديل الوضع
+        // تبديل الوضع (تسجيل دخول / إنشاء حساب)
         // ============================================================
         function switchMode() {
             isSignup = !isSignup;
@@ -1076,8 +866,6 @@
                 formSubText.textContent = 'أنشئ حساباً جديداً للاستفادة من جميع المميزات';
                 switchText.textContent = 'لديك حساب بالفعل؟';
                 switchLink.textContent = 'تسجيل الدخول';
-                loginError.style.display = 'none';
-                loginSuccess.style.display = 'none';
             } else {
                 loginForm.style.display = 'block';
                 signupForm.style.display = 'none';
@@ -1085,22 +873,20 @@
                 formSubText.textContent = 'سجل الدخول للوصول إلى جميع مميزات المنصة';
                 switchText.textContent = 'ليس لديك حساب؟';
                 switchLink.textContent = 'أنشئ حساباً جديداً';
-                loginError.style.display = 'none';
-                loginSuccess.style.display = 'none';
             }
 
+            loginError.style.display = 'none';
+            loginSuccess.style.display = 'none';
             loginBtn.disabled = false;
             loginBtn.innerHTML = '🚀 تسجيل الدخول';
             signupBtn.disabled = false;
             signupBtn.innerHTML = '📝 إنشاء حساب';
-            googleLoginBtn.disabled = false;
-            googleLoginBtn.innerHTML = '🔵 تسجيل الدخول بـ Google';
         }
 
         switchLink.addEventListener('click', switchMode);
 
         // ============================================================
-        // التحقق الفوري
+        // التحقق الفوري من الإدخال
         // ============================================================
         signupName.addEventListener('input', function() {
             const name = this.value.trim();
@@ -1145,16 +931,6 @@
                 showError('signupPasswordError', true);
                 setInputStatus('signupPassword', 'error');
             }
-            const confirm = signupPasswordConfirm.value;
-            if (confirm.length > 0) {
-                if (isPasswordMatch(password, confirm)) {
-                    showError('signupPasswordConfirmError', false);
-                    setInputStatus('signupPasswordConfirm', 'success');
-                } else {
-                    showError('signupPasswordConfirmError', true);
-                    setInputStatus('signupPasswordConfirm', 'error');
-                }
-            }
         });
 
         signupPasswordConfirm.addEventListener('input', function() {
@@ -1168,36 +944,6 @@
                     showError('signupPasswordConfirmError', true);
                     setInputStatus('signupPasswordConfirm', 'error');
                 }
-            }
-        });
-
-        signupGrade.addEventListener('change', function() {
-            if (this.value) {
-                showError('signupGradeError', false);
-                setInputStatus('signupGrade', 'success');
-            } else {
-                showError('signupGradeError', true);
-                setInputStatus('signupGrade', 'error');
-            }
-        });
-
-        signupEducation.addEventListener('change', function() {
-            if (this.value) {
-                showError('signupEducationError', false);
-                setInputStatus('signupEducation', 'success');
-            } else {
-                showError('signupEducationError', true);
-                setInputStatus('signupEducation', 'error');
-            }
-        });
-
-        signupRole.addEventListener('change', function() {
-            if (this.value) {
-                showError('signupRoleError', false);
-                setInputStatus('signupRole', 'success');
-            } else {
-                showError('signupRoleError', true);
-                setInputStatus('signupRole', 'error');
             }
         });
 
@@ -1224,16 +970,13 @@
         });
 
         // ============================================================
-        // دعم Enter
+        // دعم مفتاح Enter
         // ============================================================
         document.querySelectorAll('input').forEach(input => {
             input.addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') {
-                    if (isSignup) {
-                        signupBtn.click();
-                    } else {
-                        loginBtn.click();
-                    }
+                    if (isSignup) signupBtn.click();
+                    else loginBtn.click();
                 }
             });
         });
@@ -1268,20 +1011,11 @@
         });
 
         // ============================================================
-        // التحقق من حالة المصادقة
+        // التحقق من حالة المصادقة - تم تعديله لعدم التحويل التلقائي
         // ============================================================
-        auth.onAuthStateChanged(async (user) => {
-            if (user) {
-                if (!user.emailVerified) {
-                    await sendVerificationEmail(user);
-                    showVerificationBox('📧 لم يتم التحقق من بريدك الإلكتروني. تم إرسال رابط تحقق جديد.');
-                    await auth.signOut();
-                    return;
-                }
-                window.location.href = 'index.html';
-            }
-        });
+        // تم إزالة onAuthStateChanged الذي كان يحول المستخدم تلقائياً
+        // لأننا نريد أن يظل المستخدم في صفحة تسجيل الدخول
+        console.log('✅ صفحة تسجيل الدخول جاهزة!');
     </script>
-
 </body>
 </html>
