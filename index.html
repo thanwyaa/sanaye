@@ -9,151 +9,6 @@
     <link rel="manifest" href="./manifest.json" />
     <link rel="apple-touch-icon" href="./icon-512.jpg" />
 
-    <!-- ===== حماية متقدمة ===== -->
-    <script>
-        (function() {
-            'use strict';
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'F12' ||
-                    (e.ctrlKey && e.shiftKey && ['I', 'J', 'C', 'K', 'E'].includes(e.key.toUpperCase())) ||
-                    (e.ctrlKey && ['U', 'S', 'P', 'N', 'T', 'W'].includes(e.key.toUpperCase())) ||
-                    (e.ctrlKey && e.key === 'Tab') ||
-                    (e.altKey && e.key === 'Tab') ||
-                    e.key === 'F5' ||
-                    e.key === 'F11') {
-                    e.preventDefault();
-                    return false;
-                }
-            });
-            document.addEventListener('contextmenu', function(e) { e.preventDefault(); return false; });
-            document.addEventListener('selectstart', function(e) {
-                if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA' &&
-                    !e.target.classList.contains('search-input') &&
-                    !e.target.classList.contains('section-search')) {
-                    e.preventDefault();
-                    return false;
-                }
-            });
-            document.addEventListener('copy', function(e) {
-                if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
-                    e.preventDefault();
-                    return false;
-                }
-            });
-            document.addEventListener('cut', function(e) {
-                if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
-                    e.preventDefault();
-                    return false;
-                }
-            });
-            document.addEventListener('paste', function(e) {
-                if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
-                    e.preventDefault();
-                    return false;
-                }
-            });
-            document.addEventListener('dragstart', function(e) {
-                if (e.target.tagName === 'IMG') {
-                    e.preventDefault();
-                    return false;
-                }
-            });
-            let _eventCounter = {};
-            let _lastClickTime = 0;
-            document.addEventListener('click', function(e) {
-                const now = Date.now();
-                if (now - _lastClickTime < 50) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    return false;
-                }
-                _lastClickTime = now;
-                const key = (e.target.id || e.target.className || 'unknown').toString();
-                _eventCounter[key] = (_eventCounter[key] || 0) + 1;
-                setTimeout(() => { _eventCounter[key] = 0; }, 1000);
-                if (_eventCounter[key] > 8) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    _eventCounter[key] = 0;
-                    return false;
-                }
-            }, true);
-            const _setInterval = window.setInterval;
-            window.setInterval = function(fn, delay) {
-                if (delay < 100) delay = 100;
-                return _setInterval(fn, delay);
-            };
-            if (window.location.hostname !== 'localhost' && !window.location.hostname.includes('127.0.0.1')) {
-                const noop = function() {};
-                ['log', 'warn', 'info', 'debug', 'trace', 'dir', 'dirxml', 'group', 'groupEnd', 'time', 'timeEnd',
-                    'count', 'assert', 'table', 'clear', 'profile', 'profileEnd'
-                ].forEach(function(method) {
-                    if (console[method]) console[method] = noop;
-                });
-                console.error = function() {};
-                console.exception = function() {};
-            }
-            setInterval(function() { debugger; }, 1000);
-            if (window.location.protocol === 'view-source:') {
-                window.location.href = window.location.href.replace('view-source:', '');
-            }
-            Object.defineProperty(document, 'cookie', {
-                get: function() { return ''; },
-                set: function() { return ''; }
-            });
-            window._callStack = {};
-            window._safeCall = function(name, fn) {
-                if (window._callStack[name]) {
-                    return null;
-                }
-                window._callStack[name] = true;
-                try {
-                    return fn();
-                } finally {
-                    setTimeout(function() {
-                        window._callStack[name] = false;
-                    }, 200);
-                }
-            };
-            document.addEventListener('mousedown', function(e) {
-                if (e.button === 1) {
-                    e.preventDefault();
-                    return false;
-                }
-            });
-            if (window.__REACT_DEVTOOLS_GLOBAL_HOOK__) {
-                delete window.__REACT_DEVTOOLS_GLOBAL_HOOK__;
-            }
-            console.log = function() {};
-            console.warn = function() {};
-            console.info = function() {};
-            console.debug = function() {};
-            console.error = function() {};
-            console.table = function() {};
-            console.dir = function() {};
-            console.dirxml = function() {};
-            console.group = function() {};
-            console.groupEnd = function() {};
-            console.time = function() {};
-            console.timeEnd = function() {};
-            console.trace = function() {};
-            console.assert = function() {};
-            console.count = function() {};
-            console.clear = function() {};
-            console.profile = function() {};
-            console.profileEnd = function() {};
-        })();
-    </script>
-
-    <!-- ===== Service Worker ===== -->
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function() {
-                navigator.serviceWorker.register('./sw.js').catch(function() {});
-            });
-        }
-    </script>
-
     <!-- ===== Firebase ===== -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js">
     </script>
@@ -281,11 +136,6 @@
             display: flex !important;
         }
 
-        /* ===== Overlay الحظر القديم ===== */
-        .banned-overlay {
-            display: none !important;
-        }
-
         .inactive-overlay {
             display: none;
             position: fixed;
@@ -318,7 +168,6 @@
             line-height: 1.8;
         }
 
-        /* ===== علامة التوثيق الزرقاء ===== */
         .verified-badge {
             display: inline-flex;
             align-items: center;
@@ -333,494 +182,6 @@
             flex-shrink: 0;
         }
 
-        /* ===== الرد الرسمي ===== */
-        .official-reply {
-            background: #e8f0fe;
-            border-right: 4px solid #1a237e;
-            padding: 10px 14px;
-            border-radius: 10px;
-            margin: 6px 0;
-        }
-        .official-reply .reply-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 4px;
-        }
-        .official-reply .reply-header .team-logo {
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid #1a237e;
-        }
-        .official-reply .reply-header .team-name {
-            font-weight: 800;
-            font-size: 13px;
-            color: #1a237e;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-        .official-reply .reply-body {
-            font-size: 13px;
-            color: #1a237e;
-            line-height: 1.6;
-            padding-right: 10px;
-        }
-        .dark-mode .official-reply {
-            background: #1a237e30;
-            border-color: #64b5f6;
-        }
-        .dark-mode .official-reply .reply-body {
-            color: #e3f2fd;
-        }
-
-        .admin-reply {
-            background: #e3f2fd;
-            border-right: 3px solid #1a237e;
-            padding: 6px 10px;
-            border-radius: 8px;
-            margin: 4px 0;
-        }
-        .admin-reply .reply-header {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-weight: 700;
-            color: #1a237e;
-            font-size: 10px;
-        }
-        .admin-reply .reply-header img {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            border: 1px solid #1a237e;
-        }
-        .admin-reply .reply-body {
-            font-size: 10px;
-            padding: 4px 0;
-            color: #1a237e;
-        }
-        .dark-mode .admin-reply {
-            background: #1a237e40;
-            border-color: #64b5f6;
-        }
-        .dark-mode .admin-reply .reply-header {
-            color: #90caf9;
-        }
-        .dark-mode .admin-reply .reply-body {
-            color: #e3f2fd;
-        }
-
-        .official-like {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: #e3f2fd;
-            padding: 3px 10px;
-            border-radius: 20px;
-            font-size: 10px;
-            font-weight: 700;
-            color: #1a237e;
-            border: 1px solid #90caf9;
-        }
-        .official-like img {
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            border: 1px solid #1a237e;
-        }
-        .dark-mode .official-like {
-            background: #1a237e40;
-            color: #90caf9;
-            border-color: #64b5f6;
-        }
-        .user-like {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            font-size: 10px;
-            color: #e74c3c;
-            font-weight: 700;
-        }
-
-        .team-post-images {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 8px;
-            margin: 10px 0;
-        }
-        .team-post-images .img-wrapper {
-            position: relative;
-            overflow: hidden;
-            border-radius: 10px;
-            cursor: pointer;
-            aspect-ratio: 16/9;
-            background: #eee;
-        }
-        .team-post-images .img-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: 0.3s;
-            pointer-events: none;
-        }
-        .team-post-images .img-wrapper img:hover {
-            transform: scale(1.05);
-        }
-        .team-post-images .img-wrapper .count-overlay {
-            position: absolute;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 24px;
-            font-weight: 800;
-        }
-        .lightbox {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.92);
-            z-index: 9999;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            flex-direction: column;
-        }
-        .lightbox.active {
-            display: flex;
-        }
-        .lightbox .lightbox-close {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            font-size: 32px;
-            color: white;
-            background: none;
-            border: none;
-            cursor: pointer;
-            z-index: 10;
-        }
-        .lightbox .lightbox-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255, 255, 255, 0.15);
-            color: white;
-            border: none;
-            font-size: 30px;
-            padding: 15px 20px;
-            cursor: pointer;
-            border-radius: 50%;
-            transition: 0.3s;
-            z-index: 10;
-        }
-        .lightbox .lightbox-nav:hover {
-            background: rgba(255, 255, 255, 0.3);
-        }
-        .lightbox .lightbox-nav.prev {
-            right: 20px;
-        }
-        .lightbox .lightbox-nav.next {
-            left: 20px;
-        }
-        .lightbox .lightbox-image {
-            max-width: 90%;
-            max-height: 80vh;
-            object-fit: contain;
-            border-radius: 8px;
-            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
-            pointer-events: none;
-        }
-        .lightbox .lightbox-counter {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 14px;
-            margin-top: 12px;
-        }
-        .lightbox .lightbox-dots {
-            display: flex;
-            gap: 8px;
-            margin-top: 10px;
-            justify-content: center;
-        }
-        .lightbox .lightbox-dots .dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            cursor: pointer;
-            transition: 0.3s;
-            border: none;
-        }
-        .lightbox .lightbox-dots .dot.active {
-            background: white;
-            transform: scale(1.2);
-        }
-        .notification-bell {
-            position: relative;
-            cursor: pointer;
-            font-size: 24px;
-            background: none;
-            border: none;
-            color: #2c3e50;
-            transition: 0.3s;
-            padding: 4px;
-            border-radius: 50%;
-        }
-        body.dark-mode .notification-bell {
-            color: #ecf0f1;
-        }
-        .notification-bell:hover {
-            background: #f0f0f0;
-            transform: scale(1.05);
-        }
-        body.dark-mode .notification-bell:hover {
-            background: #3d3d55;
-        }
-        .notification-bell .bell-icon {
-            display: inline-block;
-            transition: 0.3s;
-        }
-        .notification-bell .bell-icon.has-notifs {
-            animation: bell-ring 0.6s ease;
-            color: #f1c40f;
-        }
-        @keyframes bell-ring {
-            0%,
-            100% {
-                transform: rotate(0);
-            }
-            10%,
-            30% {
-                transform: rotate(15deg);
-            }
-            20%,
-            40% {
-                transform: rotate(-15deg);
-            }
-            50% {
-                transform: rotate(10deg);
-            }
-            60% {
-                transform: rotate(-10deg);
-            }
-            70% {
-                transform: rotate(5deg);
-            }
-            80% {
-                transform: rotate(-5deg);
-            }
-        }
-        .notification-bell .badge-count {
-            position: absolute;
-            top: -6px;
-            right: -6px;
-            background: #e74c3c;
-            color: white;
-            border-radius: 50%;
-            padding: 1px 6px;
-            font-size: 10px;
-            font-weight: 800;
-            min-width: 18px;
-            text-align: center;
-            border: 2px solid white;
-            display: none;
-            box-shadow: 0 2px 8px rgba(231, 76, 60, 0.4);
-        }
-        body.dark-mode .notification-bell .badge-count {
-            border-color: #1e1e32;
-        }
-        .notification-bell .badge-count.show {
-            display: block;
-            animation: pulse-badge 1.5s infinite;
-        }
-        @keyframes pulse-badge {
-            0%,
-            100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.2);
-            }
-        }
-        .ad-popup-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(10px);
-            z-index: 99999;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-        .ad-popup-overlay.active {
-            display: flex;
-        }
-        .ad-popup {
-            background: white;
-            border-radius: 24px;
-            max-width: 650px;
-            width: 100%;
-            padding: 40px;
-            position: relative;
-            animation: slideUp 0.5s ease;
-            max-height: 92vh;
-            overflow-y: auto;
-            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4);
-        }
-        body.dark-mode .ad-popup {
-            background: #1e1e32;
-            color: #eee;
-        }
-        .ad-popup .ad-close {
-            position: absolute;
-            top: 12px;
-            left: 16px;
-            font-size: 30px;
-            background: rgba(0, 0, 0, 0.08);
-            border: none;
-            cursor: pointer;
-            color: #666;
-            transition: 0.3s;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10;
-        }
-        .ad-popup .ad-close:hover {
-            background: rgba(0, 0, 0, 0.15);
-            color: #333;
-            transform: rotate(90deg);
-        }
-        .ad-popup .ad-image {
-            width: 100%;
-            max-height: 300px;
-            object-fit: cover;
-            border-radius: 16px;
-            margin-bottom: 20px;
-            border: 1px solid #eee;
-        }
-        body.dark-mode .ad-popup .ad-image {
-            border-color: #3d3d55;
-        }
-        .ad-popup .ad-title {
-            font-size: 26px;
-            font-weight: 900;
-            margin-bottom: 12px;
-            color: #2c3e50;
-            text-align: center;
-        }
-        body.dark-mode .ad-popup .ad-title {
-            color: #ecf0f1;
-        }
-        .ad-popup .ad-desc {
-            font-size: 16px;
-            color: #555;
-            line-height: 1.8;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        body.dark-mode .ad-popup .ad-desc {
-            color: #ccc;
-        }
-        .ad-popup .ad-btn {
-            display: block;
-            width: 100%;
-            padding: 14px 35px;
-            background: #3498db;
-            color: white;
-            border: none;
-            border-radius: 14px;
-            font-weight: 800;
-            font-size: 18px;
-            cursor: pointer;
-            font-family: 'Tajawal', sans-serif;
-            transition: 0.3s;
-            text-decoration: none;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
-        }
-        .ad-popup .ad-btn:hover {
-            background: #2980b9;
-            transform: scale(1.02);
-            box-shadow: 0 6px 25px rgba(52, 152, 219, 0.4);
-        }
-        .ad-popup .ad-btn.green {
-            background: #2ecc71;
-            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
-        }
-        .ad-popup .ad-btn.green:hover {
-            background: #27ae60;
-            box-shadow: 0 6px 25px rgba(46, 204, 113, 0.4);
-        }
-        .ad-popup .ad-btn.red {
-            background: #e74c3c;
-            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
-        }
-        .ad-popup .ad-btn.red:hover {
-            background: #c0392b;
-            box-shadow: 0 6px 25px rgba(231, 76, 60, 0.4);
-        }
-        .ad-popup .ad-btn.purple {
-            background: #9b59b6;
-            box-shadow: 0 4px 15px rgba(155, 89, 182, 0.3);
-        }
-        .ad-popup .ad-btn.purple:hover {
-            background: #8e44ad;
-            box-shadow: 0 6px 25px rgba(155, 89, 182, 0.4);
-        }
-        .ad-popup .ad-btn.orange {
-            background: #f39c12;
-            box-shadow: 0 4px 15px rgba(243, 156, 18, 0.3);
-        }
-        .ad-popup .ad-btn.orange:hover {
-            background: #d68910;
-            box-shadow: 0 6px 25px rgba(243, 156, 18, 0.4);
-        }
-        .ad-popup .ad-badge {
-            display: inline-block;
-            background: #e74c3c;
-            color: white;
-            padding: 4px 16px;
-            border-radius: 50px;
-            font-size: 12px;
-            font-weight: 700;
-            margin-bottom: 12px;
-        }
-        .ad-popup .ad-timer {
-            text-align: center;
-            font-size: 13px;
-            color: #999;
-            margin-top: 12px;
-        }
-        body.dark-mode .ad-popup .ad-timer {
-            color: #aaa;
-        }
-        .ad-popup .ad-timer span {
-            font-weight: 800;
-            color: #e74c3c;
-        }
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(60px) scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -1316,44 +677,6 @@
             transform: translateY(-4px);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
         }
-        .book-item .book-badges {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 4px;
-            margin-bottom: 4px;
-            justify-content: center;
-        }
-        .book-badge {
-            display: inline-block;
-            font-size: 10px;
-            font-weight: 800;
-            padding: 2px 8px;
-            border-radius: 50px;
-        }
-        .book-badge.pinned {
-            background: #3498db20;
-            color: #3498db;
-        }
-        .book-badge.featured {
-            background: #f39c1220;
-            color: #f39c12;
-        }
-        .book-badge.urgent {
-            background: #e74c3c20;
-            color: #e74c3c;
-        }
-        .book-badge.new {
-            background: #2ecc7120;
-            color: #2ecc71;
-        }
-        .book-badge.important {
-            background: #9b59b620;
-            color: #9b59b6;
-        }
-        .book-badge.premium {
-            background: #f1c40f20;
-            color: #f1c40f;
-        }
         .book-item .book-cover {
             width: 100%;
             height: 160px;
@@ -1470,14 +793,6 @@
         .book-detail .detail-row .value {
             font-weight: 500;
         }
-        .book-detail .detail-desc {
-            padding: 12px 0;
-            line-height: 1.8;
-            color: #555;
-        }
-        body.dark-mode .book-detail .detail-desc {
-            color: #ccc;
-        }
         .book-detail .btn-download-large {
             display: block;
             width: 100%;
@@ -1498,16 +813,6 @@
         .book-detail .btn-download-large:hover {
             background: #27ae60;
             transform: scale(1.02);
-        }
-        .book-detail .badges-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin: 10px 0;
-        }
-        .book-detail .detail-row .fav-count {
-            color: #e74c3c;
-            font-weight: 700;
         }
         .upload-section {
             background: linear-gradient(135deg, #2ecc71, #27ae60);
@@ -1919,22 +1224,6 @@
             padding: 1px 8px;
             border-radius: 50px;
         }
-        .post-card .admin-header .admin-info .admin-verified-label {
-            display: inline-block;
-            background: #1da1f215;
-            color: #1da1f2;
-            font-size: 10px;
-            font-weight: 700;
-            padding: 1px 8px;
-            border-radius: 50px;
-            border: 1px solid #1da1f230;
-        }
-        .post-card .post-badges {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin: 8px 0;
-        }
         .post-card .post-content-text {
             color: #555;
             font-size: 14px;
@@ -1943,14 +1232,6 @@
         }
         body.dark-mode .post-card .post-content-text {
             color: #ccc;
-        }
-        .post-card .post-content-text a {
-            color: #3498db;
-            text-decoration: underline;
-            word-break: break-all;
-        }
-        .post-card .post-content-text a:hover {
-            color: #2980b9;
         }
         .post-card .post-meta {
             font-size: 12px;
@@ -2307,21 +1588,6 @@
             transform: scale(1.02);
             box-shadow: 0 5px 20px rgba(46, 204, 113, 0.4);
         }
-        .upload-progress {
-            display: none;
-            margin-top: 12px;
-            background: #f0f0f0;
-            border-radius: 50px;
-            height: 6px;
-            overflow: hidden;
-        }
-        .upload-progress .progress-bar {
-            height: 100%;
-            background: #2ecc71;
-            width: 0%;
-            transition: width 0.3s;
-            border-radius: 50px;
-        }
         .forum-form label {
             display: block;
             margin: 10px 0 4px;
@@ -2404,15 +1670,6 @@
             color: #3498db;
             font-weight: 700;
             margin-left: 8px;
-        }
-        .contact-link {
-            color: #3498db;
-            text-decoration: none;
-            font-weight: 700;
-            cursor: pointer;
-        }
-        .contact-link:hover {
-            text-decoration: underline;
         }
         .install-banner {
             background: linear-gradient(135deg, #6c5ce7, #a29bfe);
@@ -2501,52 +1758,6 @@
         .btn-primary:hover {
             transform: scale(1.05);
         }
-        .status-badge {
-            display: inline-block;
-            padding: 2px 10px;
-            border-radius: 50px;
-            font-size: 11px;
-            font-weight: 700;
-        }
-        .status-pending {
-            background: #f39c1220;
-            color: #f39c12;
-        }
-        .status-approved {
-            background: #2ecc7120;
-            color: #2ecc71;
-        }
-        .banned-message {
-            text-align: center;
-            padding: 40px 20px;
-            background: #e74c3c15;
-            border-radius: 20px;
-            border-right: 4px solid #e74c3c;
-        }
-        .banned-message .icon {
-            font-size: 60px;
-        }
-        .banned-message h2 {
-            color: #e74c3c;
-            margin: 10px 0;
-        }
-        .banned-message p {
-            color: #555;
-        }
-        body.dark-mode .banned-message p {
-            color: #aaa;
-        }
-        .banned-message .reason {
-            background: white;
-            padding: 12px;
-            border-radius: 10px;
-            margin-top: 10px;
-            display: inline-block;
-            border: 1px solid #e74c3c30;
-        }
-        body.dark-mode .banned-message .reason {
-            background: #2d2d44;
-        }
         .youtube-detail {
             max-width: 600px;
             margin: 0 auto;
@@ -2610,20 +1821,6 @@
             background: #cc0000;
             transform: scale(1.05);
         }
-        .upload-error-link {
-            margin-top: 8px;
-            font-size: 13px;
-            color: #888;
-            text-align: center;
-        }
-        .upload-error-link a {
-            color: #3498db;
-            text-decoration: none;
-            font-weight: 700;
-        }
-        .upload-error-link a:hover {
-            text-decoration: underline;
-        }
         .forum-rules {
             background: #e3f2fd;
             border-right: 4px solid #1a237e;
@@ -2643,10 +1840,6 @@
         }
         body.dark-mode .forum-rules strong {
             color: #90caf9;
-        }
-        .forum-rules .rule-icon {
-            font-size: 18px;
-            margin-left: 6px;
         }
         .forum-rules .rule-item {
             padding: 4px 0;
@@ -2781,9 +1974,6 @@
                 max-width: 60px;
                 font-size: 12px;
             }
-            .team-post-images {
-                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            }
             .lightbox .lightbox-nav {
                 padding: 10px 14px;
                 font-size: 20px;
@@ -2821,9 +2011,6 @@
             }
             .user-profile .user-name {
                 display: none;
-            }
-            .team-post-images {
-                grid-template-columns: 1fr 1fr;
             }
             .lightbox .lightbox-nav {
                 padding: 8px 12px;
@@ -3174,6 +2361,340 @@
         }
         .channels-telegram a:hover {
             text-decoration: underline;
+        }
+
+        .ad-popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 99999;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .ad-popup-overlay.active {
+            display: flex;
+        }
+        .ad-popup {
+            background: white;
+            border-radius: 24px;
+            max-width: 650px;
+            width: 100%;
+            padding: 40px;
+            position: relative;
+            animation: slideUp 0.5s ease;
+            max-height: 92vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4);
+        }
+        body.dark-mode .ad-popup {
+            background: #1e1e32;
+            color: #eee;
+        }
+        .ad-popup .ad-close {
+            position: absolute;
+            top: 12px;
+            left: 16px;
+            font-size: 30px;
+            background: rgba(0, 0, 0, 0.08);
+            border: none;
+            cursor: pointer;
+            color: #666;
+            transition: 0.3s;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+        .ad-popup .ad-close:hover {
+            background: rgba(0, 0, 0, 0.15);
+            color: #333;
+            transform: rotate(90deg);
+        }
+        .ad-popup .ad-image {
+            width: 100%;
+            max-height: 300px;
+            object-fit: cover;
+            border-radius: 16px;
+            margin-bottom: 20px;
+            border: 1px solid #eee;
+        }
+        body.dark-mode .ad-popup .ad-image {
+            border-color: #3d3d55;
+        }
+        .ad-popup .ad-title {
+            font-size: 26px;
+            font-weight: 900;
+            margin-bottom: 12px;
+            color: #2c3e50;
+            text-align: center;
+        }
+        body.dark-mode .ad-popup .ad-title {
+            color: #ecf0f1;
+        }
+        .ad-popup .ad-desc {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        body.dark-mode .ad-popup .ad-desc {
+            color: #ccc;
+        }
+        .ad-popup .ad-btn {
+            display: block;
+            width: 100%;
+            padding: 14px 35px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 14px;
+            font-weight: 800;
+            font-size: 18px;
+            cursor: pointer;
+            font-family: 'Tajawal', sans-serif;
+            transition: 0.3s;
+            text-decoration: none;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+        }
+        .ad-popup .ad-btn:hover {
+            background: #2980b9;
+            transform: scale(1.02);
+            box-shadow: 0 6px 25px rgba(52, 152, 219, 0.4);
+        }
+        .ad-popup .ad-btn.green {
+            background: #2ecc71;
+            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
+        }
+        .ad-popup .ad-btn.green:hover {
+            background: #27ae60;
+            box-shadow: 0 6px 25px rgba(46, 204, 113, 0.4);
+        }
+        .ad-popup .ad-btn.red {
+            background: #e74c3c;
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+        }
+        .ad-popup .ad-btn.red:hover {
+            background: #c0392b;
+            box-shadow: 0 6px 25px rgba(231, 76, 60, 0.4);
+        }
+        .ad-popup .ad-btn.purple {
+            background: #9b59b6;
+            box-shadow: 0 4px 15px rgba(155, 89, 182, 0.3);
+        }
+        .ad-popup .ad-btn.purple:hover {
+            background: #8e44ad;
+            box-shadow: 0 6px 25px rgba(155, 89, 182, 0.4);
+        }
+        .ad-popup .ad-btn.orange {
+            background: #f39c12;
+            box-shadow: 0 4px 15px rgba(243, 156, 18, 0.3);
+        }
+        .ad-popup .ad-btn.orange:hover {
+            background: #d68910;
+            box-shadow: 0 6px 25px rgba(243, 156, 18, 0.4);
+        }
+        .ad-popup .ad-badge {
+            display: inline-block;
+            background: #e74c3c;
+            color: white;
+            padding: 4px 16px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        .ad-popup .ad-timer {
+            text-align: center;
+            font-size: 13px;
+            color: #999;
+            margin-top: 12px;
+        }
+        body.dark-mode .ad-popup .ad-timer {
+            color: #aaa;
+        }
+        .ad-popup .ad-timer span {
+            font-weight: 800;
+            color: #e74c3c;
+        }
+
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.92);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            flex-direction: column;
+        }
+        .lightbox.active {
+            display: flex;
+        }
+        .lightbox .lightbox-close {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 32px;
+            color: white;
+            background: none;
+            border: none;
+            cursor: pointer;
+            z-index: 10;
+        }
+        .lightbox .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            border: none;
+            font-size: 30px;
+            padding: 15px 20px;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: 0.3s;
+            z-index: 10;
+        }
+        .lightbox .lightbox-nav:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        .lightbox .lightbox-nav.prev {
+            right: 20px;
+        }
+        .lightbox .lightbox-nav.next {
+            left: 20px;
+        }
+        .lightbox .lightbox-image {
+            max-width: 90%;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+            pointer-events: none;
+        }
+        .lightbox .lightbox-counter {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            margin-top: 12px;
+        }
+        .lightbox .lightbox-dots {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+            justify-content: center;
+        }
+        .lightbox .lightbox-dots .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: 0.3s;
+            border: none;
+        }
+        .lightbox .lightbox-dots .dot.active {
+            background: white;
+            transform: scale(1.2);
+        }
+
+        .notification-bell {
+            position: relative;
+            cursor: pointer;
+            font-size: 24px;
+            background: none;
+            border: none;
+            color: #2c3e50;
+            transition: 0.3s;
+            padding: 4px;
+            border-radius: 50%;
+        }
+        body.dark-mode .notification-bell {
+            color: #ecf0f1;
+        }
+        .notification-bell:hover {
+            background: #f0f0f0;
+            transform: scale(1.05);
+        }
+        body.dark-mode .notification-bell:hover {
+            background: #3d3d55;
+        }
+        .notification-bell .bell-icon {
+            display: inline-block;
+            transition: 0.3s;
+        }
+        .notification-bell .bell-icon.has-notifs {
+            animation: bell-ring 0.6s ease;
+            color: #f1c40f;
+        }
+        @keyframes bell-ring {
+            0%,
+            100% {
+                transform: rotate(0);
+            }
+            10%,
+            30% {
+                transform: rotate(15deg);
+            }
+            20%,
+            40% {
+                transform: rotate(-15deg);
+            }
+            50% {
+                transform: rotate(10deg);
+            }
+            60% {
+                transform: rotate(-10deg);
+            }
+            70% {
+                transform: rotate(5deg);
+            }
+            80% {
+                transform: rotate(-5deg);
+            }
+        }
+        .notification-bell .badge-count {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background: #e74c3c;
+            color: white;
+            border-radius: 50%;
+            padding: 1px 6px;
+            font-size: 10px;
+            font-weight: 800;
+            min-width: 18px;
+            text-align: center;
+            border: 2px solid white;
+            display: none;
+            box-shadow: 0 2px 8px rgba(231, 76, 60, 0.4);
+        }
+        body.dark-mode .notification-bell .badge-count {
+            border-color: #1e1e32;
+        }
+        .notification-bell .badge-count.show {
+            display: block;
+            animation: pulse-badge 1.5s infinite;
+        }
+        @keyframes pulse-badge {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
         }
     </style>
 </head>
@@ -3832,40 +3353,24 @@
         var storage = firebase.storage();
 
         // ============================================================
-        // دوال مساعدة مع try/catch
+        // دوال مساعدة
         // ============================================================
-        function sanitizeHTML(html) {
-            try {
-                if (typeof DOMPurify !== 'undefined') {
-                    return DOMPurify.sanitize(html);
-                }
-                var temp = document.createElement('div');
-                temp.textContent = html;
-                return temp.innerHTML;
-            } catch (e) {
-                return html || '';
-            }
-        }
-
         function safeText(text) {
             if (!text) return '';
-            return sanitizeHTML(text);
+            return text;
         }
 
         function showToast(message, type) {
             try {
-                type = type || 'success';
                 var toast = document.getElementById('toast');
                 if (!toast) return;
                 toast.textContent = message;
-                toast.className = 'toast show ' + type;
+                toast.className = 'toast show ' + (type || 'success');
                 clearTimeout(toast._timer);
                 toast._timer = setTimeout(function() {
                     toast.classList.remove('show');
                 }, 3000);
-            } catch (e) {
-                console.error('خطأ في عرض Toast:', e);
-            }
+            } catch (e) {}
         }
 
         function showPopup(icon, title, desc) {
@@ -3879,9 +3384,7 @@
                 setTimeout(function() {
                     popup.classList.remove('active');
                 }, 4000);
-            } catch (e) {
-                console.error('خطأ في عرض Popup:', e);
-            }
+            } catch (e) {}
         }
 
         function closePopup() {
@@ -3891,7 +3394,6 @@
             } catch (e) {}
         }
 
-        // ===== علامة التوثيق الزرقاء =====
         var VERIFIED_BADGE_SVG =
             '<span class="verified-badge" title="حساب موثق رسمي"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="#1D9BF0"><path d="M22.25 12c0-1.06-.82-1.95-1.88-2.07.61-.88.54-2.08-.25-2.87-.79-.79-1.99-.86-2.87-.25C17.13 5.82 16.24 5 15.18 5c-.52 0-1 .18-1.39.48A2.07 2.07 0 0 0 12 4c-.69 0-1.32.34-1.7.86A2.07 2.07 0 0 0 8.82 5c-1.06 0-1.95.82-2.07 1.88-.88-.61-2.08-.54-2.87.25-.79.79-.86 1.99-.25 2.87C2.82 10.05 2 10.94 2 12s.82 1.95 1.88 2.07c-.61.88-.54 2.08.25 2.87.79.79 1.99.86 2.87.25.12 1.06 1.01 1.88 2.07 1.88.52 0 1-.18 1.39-.48.38.52 1.01.86 1.7.86.69 0 1.32-.34 1.7-.86.39.3.87.48 1.39.48 1.06 0 1.95-.82 2.07-1.88.88.61 2.08.54 2.87-.25.79.79.86-1.99.25-2.87A2.08 2.08 0 0 0 22.25 12z"/><path fill="#FFFFFF" d="M10.3 15.7l-2.5-2.5 1.06-1.06 1.44 1.44 4.9-4.9 1.06 1.06z"/></svg></span>';
 
@@ -3943,18 +3445,6 @@
             });
         }
 
-        function updateData(path, id, data) {
-            return new Promise(function(resolve, reject) {
-                try {
-                    db.ref(path + '/' + id).update(data)
-                        .then(function() { resolve(); })
-                        .catch(function(error) { reject(error); });
-                } catch (e) {
-                    reject(e);
-                }
-            });
-        }
-
         function getUser(userId) {
             return new Promise(function(resolve, reject) {
                 try {
@@ -3994,9 +3484,6 @@
             });
         }
 
-        // ============================================================
-        // دوال المفضلة
-        // ============================================================
         function getUserFavorites(userId) {
             return new Promise(function(resolve, reject) {
                 try {
@@ -4025,36 +3512,7 @@
         }
 
         // ============================================================
-        // التحقق من صلاحية الأدمن
-        // ============================================================
-        function checkAdmin() {
-            return new Promise(function(resolve) {
-                try {
-                    if (!auth.currentUser) {
-                        resolve(false);
-                        return;
-                    }
-                    getUser(auth.currentUser.uid).then(function(userData) {
-                        try {
-                            if (userData && (userData.role === 'admin' || userData.role === 'superAdmin')) {
-                                resolve(true);
-                            } else {
-                                resolve(false);
-                            }
-                        } catch (e) {
-                            resolve(false);
-                        }
-                    }).catch(function() {
-                        resolve(false);
-                    });
-                } catch (e) {
-                    resolve(false);
-                }
-            });
-        }
-
-        // ============================================================
-        // التحقق من حالة المستخدم (isBanned, isActive) - مع صفحة الحظر الكاملة
+        // التحقق من حالة المستخدم
         // ============================================================
         var isBannedUser = false;
         var isInactiveUser = false;
@@ -4069,20 +3527,14 @@
                             if (userData && userData.isBanned === true) {
                                 isBannedUser = true;
                                 isInactiveUser = false;
-                                
-                                // إظهار صفحة الحظر الكاملة
                                 document.getElementById('bannedFullPage').classList.add('active');
                                 document.getElementById('bannedFullPage').style.display = 'flex';
                                 document.getElementById('banReasonDisplay').textContent = 'السبب: ' + (userData
                                     .banReason || 'مخالفة قواعد المنصة');
-                                
-                                // إخفاء كل المحتوى
                                 document.body.classList.add('banned-page');
                                 document.querySelector('.navbar').style.display = 'none';
                                 document.querySelector('.footer').style.display = 'none';
                                 document.querySelectorAll('.page').forEach(function(p) { p.style.display = 'none'; });
-                                
-                                // تسجيل الخروج
                                 auth.signOut();
                                 resolve({ isBanned: true, isActive: false });
                             } else if (userData && userData.isActive === false) {
@@ -4121,533 +3573,6 @@
         }
 
         // ============================================================
-        // دالة تنظيف بيانات المنشورات
-        // ============================================================
-        function sanitizeForumPost(post) {
-            return {
-                id: post.id || '',
-                title: post.title || 'بدون عنوان',
-                content: post.content || '',
-                author: post.author || 'طالب',
-                authorPhoto: post.authorPhoto || '',
-                userId: post.userId || '',
-                status: post.status || 'pending',
-                isAdminPost: post.isAdminPost || false,
-                likesCount: post.likesCount || 0,
-                likesData: post.likesData || {},
-                createdAt: post.createdAt || Date.now(),
-                updatedAt: post.updatedAt || Date.now(),
-                imageUrl: post.imageUrl || '',
-                comments: Array.isArray(post.comments) ? post.comments : []
-            };
-        }
-
-        function sanitizeTeamPost(post) {
-            return {
-                id: post.id || '',
-                title: post.title || 'منشور',
-                content: post.content || '',
-                imageUrl: post.imageUrl || '',
-                likesCount: post.likesCount || 0,
-                likesData: post.likesData || {},
-                createdAt: post.createdAt || Date.now(),
-                comments: Array.isArray(post.comments) ? post.comments : []
-            };
-        }
-
-        // ============================================================
-        // دوال اللايك
-        // ============================================================
-        function likeForumPost(postId, btn) {
-            try {
-                if (!auth.currentUser) {
-                    alert('🔐 يرجى تسجيل الدخول أولاً');
-                    window.location.href = 'login.html';
-                    return;
-                }
-
-                var userId = auth.currentUser.uid;
-
-                checkUserStatus(userId).then(function(status) {
-                    if (status.isBanned || !status.isActive) {
-                        showToast('⛔ لا يمكنك التفاعل، حسابك غير نشط', 'error');
-                        return;
-                    }
-
-                    var postRef = db.ref('forum_posts/' + postId);
-
-                    postRef.transaction(function(post) {
-                        try {
-                            if (!post) return post;
-                            var likesData = post.likesData || {};
-                            var currentLikes = post.likesCount || 0;
-
-                            if (likesData[userId]) {
-                                delete likesData[userId];
-                                post.likesData = likesData;
-                                post.likesCount = Math.max(0, currentLikes - 1);
-                            } else {
-                                likesData[userId] = true;
-                                post.likesData = likesData;
-                                post.likesCount = currentLikes + 1;
-                            }
-                            return post;
-                        } catch (e) {
-                            return post;
-                        }
-                    }, function(error, committed, snapshot) {
-                        try {
-                            if (error) {
-                                showToast('❌ حدث خطأ: ' + error.message, 'error');
-                            } else if (committed) {
-                                var postData = snapshot.val();
-                                var newCount = postData.likesCount || 0;
-                                var isLiked = postData.likesData && !!postData.likesData[userId];
-
-                                if (btn) {
-                                    var span = btn.querySelector('span');
-                                    if (span) {
-                                        span.textContent = newCount;
-                                    }
-                                    btn.innerHTML = (isLiked ? '❤️' : '🤍') + ' <span>' + newCount + '</span>';
-                                    btn.style.color = isLiked ? '#e74c3c' : '';
-                                }
-                                showToast(isLiked ? '✅ تم الإعجاب!' : '✅ تم إلغاء الإعجاب!');
-                            }
-                        } catch (e) {
-                            showToast('❌ حدث خطأ', 'error');
-                        }
-                    });
-                });
-            } catch (e) {
-                showToast('❌ حدث خطأ: ' + e.message, 'error');
-            }
-        }
-
-        window.likeTeamPost = function(postId, btn) {
-            try {
-                if (!auth.currentUser) {
-                    alert('🔐 يرجى تسجيل الدخول أولاً');
-                    window.location.href = 'login.html';
-                    return;
-                }
-
-                var userId = auth.currentUser.uid;
-
-                checkUserStatus(userId).then(function(status) {
-                    if (status.isBanned || !status.isActive) {
-                        showToast('⛔ لا يمكنك التفاعل، حسابك غير نشط', 'error');
-                        return;
-                    }
-
-                    var postRef = db.ref('team_posts/' + postId);
-
-                    postRef.transaction(function(post) {
-                        try {
-                            if (!post) return post;
-                            var likesData = post.likesData || {};
-                            var currentLikes = post.likesCount || 0;
-
-                            if (likesData[userId]) {
-                                delete likesData[userId];
-                                post.likesData = likesData;
-                                post.likesCount = Math.max(0, currentLikes - 1);
-                            } else {
-                                likesData[userId] = true;
-                                post.likesData = likesData;
-                                post.likesCount = currentLikes + 1;
-                            }
-                            return post;
-                        } catch (e) {
-                            return post;
-                        }
-                    }, function(error, committed, snapshot) {
-                        try {
-                            if (error) {
-                                showToast('❌ حدث خطأ: ' + error.message, 'error');
-                            } else if (committed) {
-                                var postData = snapshot.val();
-                                var newCount = postData.likesCount || 0;
-                                var isLiked = postData.likesData && !!postData.likesData[userId];
-
-                                if (btn) {
-                                    var span = btn.querySelector('span');
-                                    if (span) {
-                                        span.textContent = newCount;
-                                    }
-                                    btn.innerHTML = (isLiked ? '❤️' : '🤍') + ' <span>' + newCount + '</span>';
-                                    btn.style.color = isLiked ? '#e74c3c' : '';
-                                }
-                                showToast(isLiked ? '✅ تم الإعجاب!' : '✅ تم إلغاء الإعجاب!');
-                            }
-                        } catch (e) {
-                            showToast('❌ حدث خطأ', 'error');
-                        }
-                    });
-                });
-            } catch (e) {
-                showToast('❌ حدث خطأ: ' + e.message, 'error');
-            }
-        };
-
-        function likeForumComment(postId, commentIndex, btn) {
-            try {
-                if (!auth.currentUser) {
-                    alert('🔐 يرجى تسجيل الدخول أولاً');
-                    window.location.href = 'login.html';
-                    return;
-                }
-
-                var userId = auth.currentUser.uid;
-
-                checkUserStatus(userId).then(function(status) {
-                    if (status.isBanned || !status.isActive) {
-                        showToast('⛔ لا يمكنك التفاعل، حسابك غير نشط', 'error');
-                        return;
-                    }
-
-                    var postRef = db.ref('forum_posts/' + postId);
-
-                    postRef.transaction(function(post) {
-                        try {
-                            if (!post || !post.comments) return post;
-                            if (commentIndex >= post.comments.length) return post;
-                            var comment = post.comments[commentIndex];
-                            if (!comment) return post;
-
-                            var likesData = comment.likesData || {};
-                            var currentLikes = comment.likes || 0;
-
-                            if (likesData[userId]) {
-                                delete likesData[userId];
-                                comment.likesData = likesData;
-                                comment.likes = Math.max(0, currentLikes - 1);
-                            } else {
-                                likesData[userId] = true;
-                                comment.likesData = likesData;
-                                comment.likes = currentLikes + 1;
-                            }
-
-                            post.comments[commentIndex] = comment;
-                            return post;
-                        } catch (e) {
-                            return post;
-                        }
-                    }, function(error, committed, snapshot) {
-                        try {
-                            if (error) {
-                                showToast('❌ حدث خطأ: ' + error.message, 'error');
-                            } else if (committed) {
-                                var postData = snapshot.val();
-                                if (postData && postData.comments && postData.comments[commentIndex]) {
-                                    var comment = postData.comments[commentIndex];
-                                    var newCount = comment.likes || 0;
-                                    var isLiked = comment.likesData && !!comment.likesData[userId];
-
-                                    if (btn) {
-                                        var span = btn.querySelector('span');
-                                        if (span) {
-                                            span.textContent = newCount;
-                                        }
-                                        btn.innerHTML = (isLiked ? '❤️' : '🤍') + ' <span>' + newCount + '</span>';
-                                        btn.style.color = isLiked ? '#e74c3c' : '';
-                                    }
-                                    showToast(isLiked ? '✅ تم الإعجاب!' : '✅ تم إلغاء الإعجاب!');
-                                }
-                            }
-                        } catch (e) {
-                            showToast('❌ حدث خطأ', 'error');
-                        }
-                    });
-                });
-            } catch (e) {
-                showToast('❌ حدث خطأ: ' + e.message, 'error');
-            }
-        }
-
-        window.likeTeamComment = function(postId, commentIndex, btn) {
-            try {
-                if (!auth.currentUser) {
-                    alert('🔐 يرجى تسجيل الدخول أولاً');
-                    window.location.href = 'login.html';
-                    return;
-                }
-
-                var userId = auth.currentUser.uid;
-
-                checkUserStatus(userId).then(function(status) {
-                    if (status.isBanned || !status.isActive) {
-                        showToast('⛔ لا يمكنك التفاعل، حسابك غير نشط', 'error');
-                        return;
-                    }
-
-                    var postRef = db.ref('team_posts/' + postId);
-
-                    postRef.transaction(function(post) {
-                        try {
-                            if (!post || !post.comments) return post;
-                            if (commentIndex >= post.comments.length) return post;
-                            var comment = post.comments[commentIndex];
-                            if (!comment) return post;
-
-                            var likesData = comment.likesData || {};
-                            var currentLikes = comment.likes || 0;
-
-                            if (likesData[userId]) {
-                                delete likesData[userId];
-                                comment.likesData = likesData;
-                                comment.likes = Math.max(0, currentLikes - 1);
-                            } else {
-                                likesData[userId] = true;
-                                comment.likesData = likesData;
-                                comment.likes = currentLikes + 1;
-                            }
-
-                            post.comments[commentIndex] = comment;
-                            return post;
-                        } catch (e) {
-                            return post;
-                        }
-                    }, function(error, committed, snapshot) {
-                        try {
-                            if (error) {
-                                showToast('❌ حدث خطأ: ' + error.message, 'error');
-                            } else if (committed) {
-                                var postData = snapshot.val();
-                                if (postData && postData.comments && postData.comments[commentIndex]) {
-                                    var comment = postData.comments[commentIndex];
-                                    var newCount = comment.likes || 0;
-                                    var isLiked = comment.likesData && !!comment.likesData[userId];
-
-                                    if (btn) {
-                                        var span = btn.querySelector('span');
-                                        if (span) {
-                                            span.textContent = newCount;
-                                        }
-                                        btn.innerHTML = (isLiked ? '❤️' : '🤍') + ' <span>' + newCount + '</span>';
-                                        btn.style.color = isLiked ? '#e74c3c' : '';
-                                    }
-                                    showToast(isLiked ? '✅ تم الإعجاب!' : '✅ تم إلغاء الإعجاب!');
-                                }
-                            }
-                        } catch (e) {
-                            showToast('❌ حدث خطأ', 'error');
-                        }
-                    });
-                });
-            } catch (e) {
-                showToast('❌ حدث خطأ: ' + e.message, 'error');
-            }
-        };
-
-        // ============================================================
-        // دوال رفع الصور
-        // ============================================================
-        async function uploadImageToStorage(path, file, onProgress) {
-            try {
-                if (!auth.currentUser) {
-                    throw new Error('يرجى تسجيل الدخول أولاً');
-                }
-
-                const storageRef = storage.ref();
-                const imageRef = storageRef.child(`${path}/${Date.now()}_${file.name}`);
-
-                const uploadTask = imageRef.put(file);
-
-                if (onProgress && typeof onProgress === 'function') {
-                    uploadTask.on('state_changed', function(snapshot) {
-                        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                        onProgress(progress);
-                    });
-                }
-
-                await uploadTask;
-                const downloadURL = await imageRef.getDownloadURL();
-
-                return downloadURL;
-            } catch (error) {
-                console.error('خطأ في رفع الصورة:', error);
-                throw new Error('فشل رفع الصورة: ' + error.message);
-            }
-        }
-
-        async function uploadProfileImageFirestore(imageFile) {
-            try {
-                if (!auth.currentUser) {
-                    throw new Error('يرجى تسجيل الدخول أولاً');
-                }
-
-                const uid = auth.currentUser.uid;
-                const downloadURL = await uploadImageToStorage(`profile_images/${uid}`, imageFile);
-
-                await db.ref('users/' + uid).update({
-                    photoURL: downloadURL,
-                    updatedAt: firebase.database.ServerValue.TIMESTAMP
-                });
-
-                return downloadURL;
-            } catch (error) {
-                console.error('خطأ في رفع الصورة الشخصية:', error);
-                throw new Error('فشل رفع الصورة: ' + error.message);
-            }
-        }
-
-        // ============================================================
-        // دوال الكتب
-        // ============================================================
-        function getAllBooks() {
-            return getAllData('books');
-        }
-
-        function incrementBookViews(bookId) {
-            return new Promise(function(resolve, reject) {
-                try {
-                    var userId = auth.currentUser ? auth.currentUser.uid : null;
-                    if (!userId) {
-                        resolve();
-                        return;
-                    }
-                    
-                    var bookRef = db.ref('books/' + bookId);
-                    bookRef.transaction(function(book) {
-                        try {
-                            if (!book) return book;
-                            var viewsData = book.viewsData || {};
-                            
-                            if (!viewsData[userId]) {
-                                viewsData[userId] = true;
-                                book.viewsData = viewsData;
-                                book.views = Object.keys(viewsData).length;
-                            }
-                            return book;
-                        } catch (e) {
-                            return book;
-                        }
-                    }, function(error, committed, snapshot) {
-                        if (error) {
-                            reject(error);
-                        } else {
-                            resolve();
-                        }
-                    });
-                } catch (e) {
-                    resolve();
-                }
-            });
-        }
-
-        function incrementBookDownloads(bookId) {
-            return new Promise(function(resolve, reject) {
-                try {
-                    var userId = auth.currentUser ? auth.currentUser.uid : null;
-                    if (!userId) {
-                        resolve();
-                        return;
-                    }
-                    
-                    var bookRef = db.ref('books/' + bookId);
-                    bookRef.transaction(function(book) {
-                        try {
-                            if (!book) return book;
-                            var downloadsData = book.downloadsData || {};
-                            
-                            if (!downloadsData[userId]) {
-                                downloadsData[userId] = true;
-                                book.downloadsData = downloadsData;
-                                book.downloads = Object.keys(downloadsData).length;
-                            }
-                            return book;
-                        } catch (e) {
-                            return book;
-                        }
-                    }, function(error, committed, snapshot) {
-                        if (error) {
-                            reject(error);
-                        } else {
-                            resolve();
-                        }
-                    });
-                } catch (e) {
-                    resolve();
-                }
-            });
-        }
-
-        function addBookFavorite(bookId) {
-            return new Promise(function(resolve, reject) {
-                try {
-                    var userId = auth.currentUser ? auth.currentUser.uid : null;
-                    if (!userId) {
-                        reject(new Error('يرجى تسجيل الدخول'));
-                        return;
-                    }
-                    
-                    var bookRef = db.ref('books/' + bookId);
-                    bookRef.transaction(function(book) {
-                        try {
-                            if (!book) return book;
-                            var favoritesData = book.favoritesData || {};
-                            
-                            if (!favoritesData[userId]) {
-                                favoritesData[userId] = true;
-                                book.favoritesData = favoritesData;
-                                book.favorites = Object.keys(favoritesData).length;
-                            }
-                            return book;
-                        } catch (e) {
-                            return book;
-                        }
-                    }, function(error, committed, snapshot) {
-                        if (error) {
-                            reject(error);
-                        } else {
-                            resolve();
-                        }
-                    });
-                } catch (e) {
-                    reject(e);
-                }
-            });
-        }
-
-        function removeBookFavorite(bookId) {
-            return new Promise(function(resolve, reject) {
-                try {
-                    var userId = auth.currentUser ? auth.currentUser.uid : null;
-                    if (!userId) {
-                        reject(new Error('يرجى تسجيل الدخول'));
-                        return;
-                    }
-                    
-                    var bookRef = db.ref('books/' + bookId);
-                    bookRef.transaction(function(book) {
-                        try {
-                            if (!book) return book;
-                            var favoritesData = book.favoritesData || {};
-                            
-                            if (favoritesData[userId]) {
-                                delete favoritesData[userId];
-                                book.favoritesData = favoritesData;
-                                book.favorites = Object.keys(favoritesData).length;
-                            }
-                            return book;
-                        } catch (e) {
-                            return book;
-                        }
-                    }, function(error, committed, snapshot) {
-                        if (error) {
-                            reject(error);
-                        } else {
-                            resolve();
-                        }
-                    });
-                } catch (e) {
-                    reject(e);
-                }
-            });
-        }
-
-        // ============================================================
         // دوال المنتدى
         // ============================================================
         function addForumPost(postData, userId, userName, userPhoto) {
@@ -4664,29 +3589,6 @@
             }));
         }
 
-        function addTeamComment(postId, commentData, userId, userName, userPhoto) {
-            return new Promise(function(resolve, reject) {
-                try {
-                    var newRef = db.ref('team_posts/' + postId + '/comments').push();
-                    newRef.set(Object.assign({}, commentData, {
-                        userId: userId,
-                        user: userName || 'طالب',
-                        userPhoto: userPhoto || '',
-                        status: 'pending',
-                        likes: 0,
-                        likesData: {},
-                        createdAt: firebase.database.ServerValue.TIMESTAMP
-                    })).then(function() {
-                        resolve({ id: newRef.key });
-                    }).catch(function(error) {
-                        reject(error);
-                    });
-                } catch (e) {
-                    reject(e);
-                }
-            });
-        }
-
         function addSummary(summaryData, userId) {
             return addData('handwritten_notes', Object.assign({}, summaryData, {
                 userId: userId,
@@ -4700,10 +3602,6 @@
 
         function getAllYoutubeChannels() {
             return getAllData('youtube_channels');
-        }
-
-        function getAllAds() {
-            return getAllData('ads');
         }
 
         function getActiveAds() {
@@ -4723,7 +3621,7 @@
         }
 
         // ============================================================
-        // إدارة المستخدم وUI
+        // إدارة المستخدم
         // ============================================================
         function updateUIForUser(user) {
             try {
@@ -4774,9 +3672,7 @@
                             loadAllData();
                             startNotificationListener();
                         });
-                    }).catch(function() {
-                        // فشل في تسجيل المستخدم
-                    });
+                    }).catch(function() {});
                 } else {
                     userSection.innerHTML =
                         '<button class="btn-login-header" onclick="window.location.href=\'login.html\'">🔐 تسجيل الدخول</button>';
@@ -4795,9 +3691,7 @@
                         notificationListener = null;
                     }
                 }
-            } catch (e) {
-                console.error('خطأ في تحديث UI:', e);
-            }
+            } catch (e) {}
         }
 
         function updateOnlineStatus(user) {
@@ -4886,15 +3780,11 @@
                             });
                             notifList.innerHTML = html;
                         }
-                    } catch (e) {
-                        console.error('خطأ في تحديث الإشعارات:', e);
-                    }
+                    } catch (e) {}
                 };
 
                 db.ref('notifications').orderByChild('createdAt').on('value', notificationListener);
-            } catch (e) {
-                console.error('خطأ في بدء مراقبة الإشعارات:', e);
-            }
+            } catch (e) {}
         }
 
         // ============================================================
@@ -4908,15 +3798,14 @@
         var allAdsCache = [];
         var allUsersCache = [];
         var isNavigating = false;
-        var teamPostsListener = null;
 
         function loadAllData() {
             try {
                 Promise.all([
-                    getAllBooks().then(function(data) { allBooksCache = data || []; }),
+                    getAllData('books').then(function(data) { allBooksCache = data || []; }),
                     getAllSummaries().then(function(data) { allSummariesCache = data || []; }),
                     getAllYoutubeChannels().then(function(data) { allYoutubeCache = data || []; }),
-                    getAllAds().then(function(data) { allAdsCache = data || []; }),
+                    getActiveAds().then(function(data) { allAdsCache = data || []; }),
                     getAllData('users').then(function(data) { allUsersCache = data || []; })
                 ]).then(function() {
                     if (auth.currentUser) {
@@ -4956,35 +3845,115 @@
             } catch (e) {}
         }
 
-        // ============================================================
-        // البحث
-        // ============================================================
-        function searchBooks(query) {
-            try {
-                var q = query.toLowerCase().trim();
-                if (!q) return Promise.resolve([]);
-                return Promise.resolve(allBooksCache.filter(function(book) {
-                    return book.status === 'approved' &&
-                        (book.title && book.title.toLowerCase().includes(q) ||
-                            book.author && book.author.toLowerCase().includes(q) ||
-                            book.subject && book.subject.toLowerCase().includes(q));
-                }));
-            } catch (e) { return Promise.resolve([]); }
+        var teamPostsListener = null;
+
+        function getAllBooks() {
+            return getAllData('books');
+        }
+
+        function incrementBookViews(bookId) {
+            return new Promise(function(resolve) {
+                try {
+                    var userId = auth.currentUser ? auth.currentUser.uid : null;
+                    if (!userId) { resolve(); return; }
+                    var bookRef = db.ref('books/' + bookId);
+                    bookRef.transaction(function(book) {
+                        try {
+                            if (!book) return book;
+                            var viewsData = book.viewsData || {};
+                            if (!viewsData[userId]) {
+                                viewsData[userId] = true;
+                                book.viewsData = viewsData;
+                                book.views = Object.keys(viewsData).length;
+                            }
+                            return book;
+                        } catch (e) { return book; }
+                    }, function() { resolve(); });
+                } catch (e) { resolve(); }
+            });
+        }
+
+        function incrementBookDownloads(bookId) {
+            return new Promise(function(resolve) {
+                try {
+                    var userId = auth.currentUser ? auth.currentUser.uid : null;
+                    if (!userId) { resolve(); return; }
+                    var bookRef = db.ref('books/' + bookId);
+                    bookRef.transaction(function(book) {
+                        try {
+                            if (!book) return book;
+                            var downloadsData = book.downloadsData || {};
+                            if (!downloadsData[userId]) {
+                                downloadsData[userId] = true;
+                                book.downloadsData = downloadsData;
+                                book.downloads = Object.keys(downloadsData).length;
+                            }
+                            return book;
+                        } catch (e) { return book; }
+                    }, function() { resolve(); });
+                } catch (e) { resolve(); }
+            });
+        }
+
+        function addBookFavorite(bookId) {
+            return new Promise(function(resolve, reject) {
+                try {
+                    var userId = auth.currentUser ? auth.currentUser.uid : null;
+                    if (!userId) { reject(new Error('يرجى تسجيل الدخول')); return; }
+                    var bookRef = db.ref('books/' + bookId);
+                    bookRef.transaction(function(book) {
+                        try {
+                            if (!book) return book;
+                            var favoritesData = book.favoritesData || {};
+                            if (!favoritesData[userId]) {
+                                favoritesData[userId] = true;
+                                book.favoritesData = favoritesData;
+                                book.favorites = Object.keys(favoritesData).length;
+                            }
+                            return book;
+                        } catch (e) { return book; }
+                    }, function(error, committed, snapshot) {
+                        if (error) { reject(error); } else { resolve(); }
+                    });
+                } catch (e) { reject(e); }
+            });
+        }
+
+        function removeBookFavorite(bookId) {
+            return new Promise(function(resolve, reject) {
+                try {
+                    var userId = auth.currentUser ? auth.currentUser.uid : null;
+                    if (!userId) { reject(new Error('يرجى تسجيل الدخول')); return; }
+                    var bookRef = db.ref('books/' + bookId);
+                    bookRef.transaction(function(book) {
+                        try {
+                            if (!book) return book;
+                            var favoritesData = book.favoritesData || {};
+                            if (favoritesData[userId]) {
+                                delete favoritesData[userId];
+                                book.favoritesData = favoritesData;
+                                book.favorites = Object.keys(favoritesData).length;
+                            }
+                            return book;
+                        } catch (e) { return book; }
+                    }, function(error, committed, snapshot) {
+                        if (error) { reject(error); } else { resolve(); }
+                    });
+                } catch (e) { reject(e); }
+            });
         }
 
         // ============================================================
-        // التنقل بين الصفحات مع التحقق من الحظر
+        // التنقل بين الصفحات
         // ============================================================
         function navigateTo(pageId) {
             if (isNavigating) return;
-
             if (isBannedUser || isInactiveUser) {
                 showToast('⛔ حسابك غير نشط، لا يمكنك استخدام هذه الصفحة', 'error');
                 return;
             }
 
             isNavigating = true;
-
             try {
                 document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
                 var target = document.getElementById('page-' + pageId);
@@ -5016,18 +3985,14 @@
             } catch (err) {
                 console.error('خطأ في التنقل:', err);
             } finally {
-                setTimeout(function() {
-                    isNavigating = false;
-                }, 300);
+                setTimeout(function() { isNavigating = false; }, 300);
             }
         }
 
         // ============================================================
-        // دوال عرض المنتدى - مع الردود الرسمية والتعليقات في الانتظار
+        // دوال عرض المنتدى
         // ============================================================
         var forumListener = null;
-
-        // شعار المنصة وصورة الفريق للردود الرسمية
         var TEAM_LOGO = "https://cdn.phototourl.com/free/2026-07-21-1dd4b984-ed08-4a40-aead-9ef086ebbd45.jpg";
         var TEAM_NAME = "فريق الثانوية الرسمية بلس";
 
@@ -5050,14 +4015,13 @@
                             Object.keys(data).forEach(function(key) {
                                 var post = data[key];
                                 post.id = key;
-                                posts.push(sanitizeForumPost(post));
+                                posts.push(post);
                             });
                         }
                         posts.sort(function(a, b) { return (b.createdAt || 0) - (a.createdAt || 0); });
 
-                        // عرض فقط المنشورات المقبولة
-                        var approvedPosts = posts.filter(function(post) { 
-                            return post.status === 'approved'; 
+                        var approvedPosts = posts.filter(function(post) {
+                            return post.status === 'approved';
                         });
 
                         if (approvedPosts.length === 0) {
@@ -5067,7 +4031,6 @@
                         }
 
                         container.innerHTML = '';
-                        
                         var displayCount = 5;
                         var displayPosts = approvedPosts.slice(0, displayCount);
 
@@ -5084,8 +4047,6 @@
                             loadMoreBtn.style.marginTop = '16px';
                             loadMoreBtn.style.fontSize = '18px';
                             loadMoreBtn.style.fontWeight = '800';
-                            loadMoreBtn.style.borderRadius = '14px';
-                            loadMoreBtn.style.boxShadow = '0 4px 15px rgba(46, 204, 113, 0.3)';
                             loadMoreBtn.textContent = '📥 عرض المزيد (' + (approvedPosts.length - 5) + ' منشورات)';
                             loadMoreBtn.onclick = function() {
                                 try {
@@ -5102,9 +4063,7 @@
                                         this.disabled = true;
                                     }
                                     bindForumEvents();
-                                } catch (e) {
-                                    console.error('خطأ في تحميل المزيد:', e);
-                                }
+                                } catch (e) {}
                             };
                             container.appendChild(loadMoreBtn);
                         }
@@ -5112,19 +4071,15 @@
                         bindForumEvents();
 
                     } catch (e) {
-                        console.error('خطأ في تحميل المنتدى:', e);
                         container.innerHTML =
                             '<div class="empty-state"><div class="icon">❌</div><h3>حدث خطأ في تحميل المنشورات</h3></div>';
                     }
                 };
 
                 db.ref('forum_posts').orderByChild('createdAt').on('value', forumListener);
-            } catch (e) {
-                console.error('خطأ في تحميل المنتدى:', e);
-            }
+            } catch (e) {}
         }
 
-        // ===== دالة إنشاء HTML للمنشور مع الردود الرسمية =====
         function createForumPostHTML(data) {
             try {
                 var userLiked = false;
@@ -5132,7 +4087,7 @@
                     userLiked = data.likesData[auth.currentUser.uid] || false;
                 }
                 var likeCount = data.likesCount || 0;
-                
+
                 var imageHtml = '';
                 if (data.imageUrl) {
                     imageHtml = `<img src="${data.imageUrl}" class="post-image" loading="lazy" onerror="this.style.display='none'">`;
@@ -5140,9 +4095,8 @@
 
                 var commentsHtml = '';
                 var commentCounter = 0;
-                // عرض التعليقات المقبولة فقط (status === 'approved')
-                var comments = (data.comments || []).filter(function(c) { 
-                    return c.status === 'approved'; 
+                var comments = (data.comments || []).filter(function(c) {
+                    return c.status === 'approved';
                 });
 
                 if (comments.length === 0) {
@@ -5153,13 +4107,11 @@
                         if (auth.currentUser && comment.likesData) {
                             userCommentLiked = comment.likesData[auth.currentUser.uid] || false;
                         }
-                        var initial = comment.user ? comment.user.charAt(0).toUpperCase() : '?';
                         var index = commentCounter;
 
-                        // التحقق من أن التعليق رد رسمي من فريق الثانوية
-                        var isOfficialReply = comment.isAdminReply || comment.isOfficialReply || 
-                                              (comment.user === TEAM_NAME) || 
-                                              (comment.user && comment.user.includes('فريق الثانوية'));
+                        var isOfficialReply = comment.isAdminReply || comment.isOfficialReply ||
+                            (comment.user === TEAM_NAME) ||
+                            (comment.user && comment.user.includes('فريق الثانوية'));
 
                         if (isOfficialReply) {
                             commentsHtml += `
@@ -5180,7 +4132,7 @@
                             commentsHtml += `
                                 <div class="comment">
                                     <div class="avatar" style="background-image:url('${comment.userPhoto || ''}');background-size:cover;background-position:center;${comment.userPhoto ? '' : 'background:#3498db;'}">
-                                        ${!comment.userPhoto ? initial : ''}
+                                        ${!comment.userPhoto ? (comment.user ? comment.user.charAt(0).toUpperCase() : '?') : ''}
                                     </div>
                                     <div class="comment-text">
                                         <div class="name">
@@ -5236,7 +4188,6 @@
                     </div>
                 `;
             } catch (e) {
-                console.error('خطأ في عرض المنشور:', e);
                 return '<div class="forum-post">⚠️ حدث خطأ في عرض هذا المنشور</div>';
             }
         }
@@ -5278,7 +4229,7 @@
 
                     var userId = auth.currentUser.uid;
                     var isAdmin = false;
-                    
+
                     getUser(userId).then(function(userData) {
                         isAdmin = userData && (userData.role === 'admin' || userData.role === 'superAdmin');
                         var photo = (userData && userData.photoURL) || auth.currentUser.photoURL || '';
@@ -5318,6 +4269,127 @@
             } catch (e) {}
         }
 
+        window.likeForumPost = function(postId, btn) {
+            try {
+                if (!auth.currentUser) {
+                    alert('🔐 يرجى تسجيل الدخول أولاً');
+                    return;
+                }
+
+                var userId = auth.currentUser.uid;
+
+                checkUserStatus(userId).then(function(status) {
+                    if (status.isBanned || !status.isActive) {
+                        showToast('⛔ لا يمكنك التفاعل، حسابك غير نشط', 'error');
+                        return;
+                    }
+
+                    var postRef = db.ref('forum_posts/' + postId);
+
+                    postRef.transaction(function(post) {
+                        try {
+                            if (!post) return post;
+                            var likesData = post.likesData || {};
+                            var currentLikes = post.likesCount || 0;
+
+                            if (likesData[userId]) {
+                                delete likesData[userId];
+                                post.likesData = likesData;
+                                post.likesCount = Math.max(0, currentLikes - 1);
+                            } else {
+                                likesData[userId] = true;
+                                post.likesData = likesData;
+                                post.likesCount = currentLikes + 1;
+                            }
+                            return post;
+                        } catch (e) { return post; }
+                    }, function(error, committed, snapshot) {
+                        try {
+                            if (error) {
+                                showToast('❌ حدث خطأ: ' + error.message, 'error');
+                            } else if (committed) {
+                                var postData = snapshot.val();
+                                var newCount = postData.likesCount || 0;
+                                var isLiked = postData.likesData && !!postData.likesData[userId];
+
+                                if (btn) {
+                                    var span = btn.querySelector('span');
+                                    if (span) span.textContent = newCount;
+                                    btn.innerHTML = (isLiked ? '❤️' : '🤍') + ' <span>' + newCount + '</span>';
+                                    btn.style.color = isLiked ? '#e74c3c' : '';
+                                }
+                            }
+                        } catch (e) {}
+                    });
+                });
+            } catch (e) {}
+        };
+
+        window.likeForumComment = function(postId, commentIndex, btn) {
+            try {
+                if (!auth.currentUser) {
+                    alert('🔐 يرجى تسجيل الدخول أولاً');
+                    return;
+                }
+
+                var userId = auth.currentUser.uid;
+
+                checkUserStatus(userId).then(function(status) {
+                    if (status.isBanned || !status.isActive) {
+                        showToast('⛔ لا يمكنك التفاعل، حسابك غير نشط', 'error');
+                        return;
+                    }
+
+                    var postRef = db.ref('forum_posts/' + postId);
+
+                    postRef.transaction(function(post) {
+                        try {
+                            if (!post || !post.comments) return post;
+                            if (commentIndex >= post.comments.length) return post;
+                            var comment = post.comments[commentIndex];
+                            if (!comment) return post;
+
+                            var likesData = comment.likesData || {};
+                            var currentLikes = comment.likes || 0;
+
+                            if (likesData[userId]) {
+                                delete likesData[userId];
+                                comment.likesData = likesData;
+                                comment.likes = Math.max(0, currentLikes - 1);
+                            } else {
+                                likesData[userId] = true;
+                                comment.likesData = likesData;
+                                comment.likes = currentLikes + 1;
+                            }
+
+                            post.comments[commentIndex] = comment;
+                            return post;
+                        } catch (e) { return post; }
+                    }, function(error, committed, snapshot) {
+                        try {
+                            if (error) {
+                                showToast('❌ حدث خطأ: ' + error.message, 'error');
+                            } else if (committed) {
+                                var postData = snapshot.val();
+                                if (postData && postData.comments && postData.comments[commentIndex]) {
+                                    var comment = postData.comments[commentIndex];
+                                    var newCount = comment.likes || 0;
+                                    var isLiked = comment.likesData && !!comment.likesData[userId];
+
+                                    if (btn) {
+                                        var span = btn.querySelector('span');
+                                        if (span) span.textContent = newCount;
+                                        btn.innerHTML = (isLiked ? '❤️' : '🤍') + ' <span>' + newCount + '</span>';
+                                        btn.style.color = isLiked ? '#e74c3c' : '';
+                                    }
+                                }
+                            }
+                        } catch (e) {}
+                    });
+                });
+            } catch (e) {}
+        };
+
         // ============================================================
         // دوال منشورات الفريق
         // ============================================================
@@ -5327,9 +4399,9 @@
                 if (!container) return;
                 container.innerHTML = '<div class="loading-container"><div class="spinner"></div></div>';
 
-                var posts = (allTeamPostsCache || []).map(function(post) {
-                    return sanitizeTeamPost(post);
-                }).sort(function(a, b) { return (b.createdAt || 0) - (a.createdAt || 0); });
+                var posts = (allTeamPostsCache || []).sort(function(a, b) {
+                    return (b.createdAt || 0) - (a.createdAt || 0);
+                });
 
                 if (posts.length === 0) {
                     container.innerHTML =
@@ -5354,8 +4426,6 @@
                     loadMoreBtn.style.marginTop = '16px';
                     loadMoreBtn.style.fontSize = '18px';
                     loadMoreBtn.style.fontWeight = '800';
-                    loadMoreBtn.style.borderRadius = '14px';
-                    loadMoreBtn.style.boxShadow = '0 4px 15px rgba(46, 204, 113, 0.3)';
                     loadMoreBtn.textContent = '📥 عرض المزيد (' + (posts.length - 5) + ' منشورات)';
                     loadMoreBtn.onclick = function() {
                         try {
@@ -5379,7 +4449,6 @@
                 bindTeamPostEvents();
 
             } catch (err) {
-                console.error('خطأ في تحميل منشورات الفريق:', err);
                 var container = document.getElementById('teamPostsContainer');
                 if (container) {
                     container.innerHTML =
@@ -5398,25 +4467,23 @@
 
                 var commentsHtml = '';
                 var commentCounter = 0;
-                // عرض التعليقات المقبولة فقط
-                var comments = (data.comments || []).filter(function(c) { 
-                    return c.status === 'approved'; 
+                var comments = (data.comments || []).filter(function(c) {
+                    return c.status === 'approved';
                 });
 
                 if (comments.length === 0) {
                     commentsHtml = `<div style="color:#888;font-size:12px;padding:8px 0;text-align:center;">💬 لا توجد تعليقات حتى الآن</div>`;
                 } else {
                     comments.forEach(function(comment) {
-                        var initial = comment.user ? comment.user.charAt(0).toUpperCase() : '?';
                         var commentIdx = commentCounter;
                         var userCommentLiked = false;
                         if (auth.currentUser && comment.likesData) {
                             userCommentLiked = comment.likesData[auth.currentUser.uid] || false;
                         }
 
-                        var isOfficialReply = comment.isAdminReply || comment.isOfficialReply || 
-                                              (comment.user === TEAM_NAME) || 
-                                              (comment.user && comment.user.includes('فريق الثانوية'));
+                        var isOfficialReply = comment.isAdminReply || comment.isOfficialReply ||
+                            (comment.user === TEAM_NAME) ||
+                            (comment.user && comment.user.includes('فريق الثانوية'));
 
                         if (isOfficialReply) {
                             commentsHtml += `
@@ -5437,7 +4504,7 @@
                             commentsHtml += `
                                 <div class="comment">
                                     <div class="avatar" style="background-image:url('${comment.userPhoto || ''}');background-size:cover;background-position:center;${comment.userPhoto ? '' : 'background:#2ecc71;'}">
-                                        ${!comment.userPhoto ? initial : ''}
+                                        ${!comment.userPhoto ? (comment.user ? comment.user.charAt(0).toUpperCase() : '?') : ''}
                                     </div>
                                     <div class="comment-text">
                                         <div class="name">
@@ -5489,7 +4556,6 @@
                     </div>
                 `;
             } catch (e) {
-                console.error('خطأ في عرض منشور الفريق:', e);
                 return '<div class="post-card">⚠️ حدث خطأ في عرض هذا المنشور</div>';
             }
         }
@@ -5530,16 +4596,23 @@
 
                 var userId = auth.currentUser.uid;
                 var isAdmin = false;
-                
+
                 getUser(userId).then(function(userData) {
                     isAdmin = userData && (userData.role === 'admin' || userData.role === 'superAdmin');
                     var photo = (userData && userData.photoURL) || auth.currentUser.photoURL || '';
-                    return addTeamComment(postId, { 
+                    var newRef = db.ref('team_posts/' + postId + '/comments').push();
+                    return newRef.set({
                         text: text,
+                        user: auth.currentUser.displayName || auth.currentUser.email || 'طالب',
+                        userPhoto: photo || '',
+                        userId: userId,
+                        status: isAdmin ? 'approved' : 'pending',
                         isAdminReply: isAdmin || false,
-                        isOfficialReply: isAdmin || false
-                    }, userId,
-                        auth.currentUser.displayName || auth.currentUser.email, photo);
+                        isOfficialReply: isAdmin || false,
+                        likes: 0,
+                        likesData: {},
+                        createdAt: firebase.database.ServerValue.TIMESTAMP
+                    });
                 }).then(function() {
                     input.value = '';
                     showPopup('✅', 'تم إرسال تعليقك!', 'سيتم مراجعة تعليقك من قبل الإدارة');
@@ -5561,6 +4634,127 @@
                 }
             } catch (e) {}
         }
+
+        window.likeTeamPost = function(postId, btn) {
+            try {
+                if (!auth.currentUser) {
+                    alert('🔐 يرجى تسجيل الدخول أولاً');
+                    return;
+                }
+
+                var userId = auth.currentUser.uid;
+
+                checkUserStatus(userId).then(function(status) {
+                    if (status.isBanned || !status.isActive) {
+                        showToast('⛔ لا يمكنك التفاعل، حسابك غير نشط', 'error');
+                        return;
+                    }
+
+                    var postRef = db.ref('team_posts/' + postId);
+
+                    postRef.transaction(function(post) {
+                        try {
+                            if (!post) return post;
+                            var likesData = post.likesData || {};
+                            var currentLikes = post.likesCount || 0;
+
+                            if (likesData[userId]) {
+                                delete likesData[userId];
+                                post.likesData = likesData;
+                                post.likesCount = Math.max(0, currentLikes - 1);
+                            } else {
+                                likesData[userId] = true;
+                                post.likesData = likesData;
+                                post.likesCount = currentLikes + 1;
+                            }
+                            return post;
+                        } catch (e) { return post; }
+                    }, function(error, committed, snapshot) {
+                        try {
+                            if (error) {
+                                showToast('❌ حدث خطأ: ' + error.message, 'error');
+                            } else if (committed) {
+                                var postData = snapshot.val();
+                                var newCount = postData.likesCount || 0;
+                                var isLiked = postData.likesData && !!postData.likesData[userId];
+
+                                if (btn) {
+                                    var span = btn.querySelector('span');
+                                    if (span) span.textContent = newCount;
+                                    btn.innerHTML = (isLiked ? '❤️' : '🤍') + ' <span>' + newCount + '</span>';
+                                    btn.style.color = isLiked ? '#e74c3c' : '';
+                                }
+                            }
+                        } catch (e) {}
+                    });
+                });
+            } catch (e) {}
+        };
+
+        window.likeTeamComment = function(postId, commentIndex, btn) {
+            try {
+                if (!auth.currentUser) {
+                    alert('🔐 يرجى تسجيل الدخول أولاً');
+                    return;
+                }
+
+                var userId = auth.currentUser.uid;
+
+                checkUserStatus(userId).then(function(status) {
+                    if (status.isBanned || !status.isActive) {
+                        showToast('⛔ لا يمكنك التفاعل، حسابك غير نشط', 'error');
+                        return;
+                    }
+
+                    var postRef = db.ref('team_posts/' + postId);
+
+                    postRef.transaction(function(post) {
+                        try {
+                            if (!post || !post.comments) return post;
+                            if (commentIndex >= post.comments.length) return post;
+                            var comment = post.comments[commentIndex];
+                            if (!comment) return post;
+
+                            var likesData = comment.likesData || {};
+                            var currentLikes = comment.likes || 0;
+
+                            if (likesData[userId]) {
+                                delete likesData[userId];
+                                comment.likesData = likesData;
+                                comment.likes = Math.max(0, currentLikes - 1);
+                            } else {
+                                likesData[userId] = true;
+                                comment.likesData = likesData;
+                                comment.likes = currentLikes + 1;
+                            }
+
+                            post.comments[commentIndex] = comment;
+                            return post;
+                        } catch (e) { return post; }
+                    }, function(error, committed, snapshot) {
+                        try {
+                            if (error) {
+                                showToast('❌ حدث خطأ: ' + error.message, 'error');
+                            } else if (committed) {
+                                var postData = snapshot.val();
+                                if (postData && postData.comments && postData.comments[commentIndex]) {
+                                    var comment = postData.comments[commentIndex];
+                                    var newCount = comment.likes || 0;
+                                    var isLiked = comment.likesData && !!comment.likesData[userId];
+
+                                    if (btn) {
+                                        var span = btn.querySelector('span');
+                                        if (span) span.textContent = newCount;
+                                        btn.innerHTML = (isLiked ? '❤️' : '🤍') + ' <span>' + newCount + '</span>';
+                                        btn.style.color = isLiked ? '#e74c3c' : '';
+                                    }
+                                }
+                            }
+                        } catch (e) {}
+                    });
+                });
+            } catch (e) {}
+        };
 
         // ============================================================
         // دوال الصفحات الأخرى
@@ -5592,8 +4786,9 @@
 
                     var html = '<div class="books-grid">';
                     favs.forEach(function(fav) {
-                        var book = allBooksCache.find(function(b) { return b.id === fav.bookId; });
-                        if (book && book.status === 'approved') {
+                        var book = allBooksCache.find(function(b) { return b.id === fav.bookId && b.status ===
+                                'approved'; });
+                        if (book) {
                             var coverUrl = book.coverUrl || 'https://via.placeholder.com/200x180?text=كتاب';
                             html +=
                                 '<div class="book-item">' +
@@ -5616,9 +4811,7 @@
                     container.innerHTML =
                         '<div class="empty-state"><div class="icon">❌</div><h3>حدث خطأ</h3></div>';
                 });
-            } catch (e) {
-                console.error('خطأ في تحميل المفضلات:', e);
-            }
+            } catch (e) {}
         }
 
         function loadProfile() {
@@ -5650,8 +4843,8 @@
                     favoritesCount = favs.length;
                 }).then(function() {
                     var photoURL = (profileData && profileData.photoURL) || user.photoURL || '';
-                    var displayName = (profileData && profileData.name) || user.displayName || user
-                    .email || 'مستخدم';
+                    var displayName = (profileData && profileData.name) || user.displayName || user.email ||
+                    'مستخدم';
 
                     container.innerHTML =
                         '<div class="profile-card">' +
@@ -5662,7 +4855,8 @@
                         '<div class="profile-email">' + safeText(user.email) + '</div>' +
                         '<div class="profile-stats">' +
                         '<div><div class="num">' + allBooksCache.filter(function(b) { return b
-                                .userId === user.uid && b.status === 'approved'; }).length + '</div><div class="label">📚 كتبي</div></div>' +
+                                .userId === user.uid && b.status === 'approved'; }).length +
+                        '</div><div class="label">📚 كتبي</div></div>' +
                         '<div><div class="num">' + favoritesCount +
                         '</div><div class="label">⭐ مفضلاتي</div></div>' +
                         '</div>' +
@@ -5674,12 +4868,10 @@
                     container.innerHTML =
                         '<div class="empty-state"><div class="icon">❌</div><h3>حدث خطأ</h3></div>';
                 });
-            } catch (e) {
-                console.error('خطأ في تحميل الملف الشخصي:', e);
-            }
+            } catch (e) {}
         }
 
-        function uploadProfileImage() {
+        async function uploadProfileImage() {
             try {
                 if (!auth.currentUser) {
                     alert('🔐 يرجى تسجيل الدخول أولاً');
@@ -5700,7 +4892,17 @@
                         var file = this.files[0];
                         if (!file) return;
 
-                        var downloadURL = await uploadProfileImageFirestore(file);
+                        var uid = auth.currentUser.uid;
+                        var storageRef = storage.ref();
+                        var imageRef = storageRef.child(`profile_images/${uid}/${Date.now()}_${file.name}`);
+
+                        var uploadTask = await imageRef.put(file);
+                        var downloadURL = await uploadTask.ref.getDownloadURL();
+
+                        await db.ref('users/' + uid).update({
+                            photoURL: downloadURL,
+                            updatedAt: firebase.database.ServerValue.TIMESTAMP
+                        });
 
                         var profileImg = document.querySelector('.profile-img');
                         if (profileImg) {
@@ -5785,9 +4987,7 @@
                     container.innerHTML =
                         '<div class="empty-state"><div class="icon">❌</div><h3>حدث خطأ</h3></div>';
                 });
-            } catch (e) {
-                console.error('خطأ في تحميل قنوات يوتيوب:', e);
-            }
+            } catch (e) {}
         }
 
         function showYoutubeDetail(channelId) {
@@ -5829,9 +5029,7 @@
                     '" target="_blank" class="yt-visit-btn">🎥 زيارة القناة</a>' +
                     '<button class="btn-primary" onclick="navigateTo(\'youtube\')" style="display:block;width:100%;margin-top:10px;text-align:center;">← العودة للقنوات</button>' +
                     '</div>';
-            } catch (e) {
-                console.error('خطأ في عرض تفاصيل القناة:', e);
-            }
+            } catch (e) {}
         }
 
         // ============================================================
@@ -5848,8 +5046,8 @@
                 var container = document.getElementById('bookDetailContainer');
                 container.innerHTML = '<div class="loading-container"><div class="spinner"></div></div>';
 
-                var book = allBooksCache.find(function(b) { return b.id === bookId; });
-                if (!book || book.status !== 'approved') {
+                var book = allBooksCache.find(function(b) { return b.id === bookId && b.status === 'approved'; });
+                if (!book) {
                     container.innerHTML =
                         '<div class="empty-state"><div class="icon">📚</div><h3>الكتاب غير موجود</h3></div>';
                     return;
@@ -5884,7 +5082,6 @@
                     '<button class="btn-primary" onclick="navigateTo(\'home\')" style="display:block;width:100%;margin-top:10px;text-align:center;">🏠 العودة للرئيسية</button>' +
                     '</div>';
             } catch (e) {
-                console.error('خطأ في عرض تفاصيل الكتاب:', e);
                 container.innerHTML =
                     '<div class="empty-state"><div class="icon">❌</div><h3>حدث خطأ</h3></div>';
             }
@@ -5903,8 +5100,8 @@
                     return;
                 }
 
-                var book = allBooksCache.find(function(b) { return b.id === bookId; });
-                if (!book || book.status !== 'approved') { alert('❌ الكتاب غير موجود'); return; }
+                var book = allBooksCache.find(function(b) { return b.id === bookId && b.status === 'approved'; });
+                if (!book) { alert('❌ الكتاب غير موجود'); return; }
                 incrementBookDownloads(bookId);
                 if (book.fileUrl) { window.open(book.fileUrl, '_blank'); } else if (book.link) { window.open(book
                         .link, '_blank'); } else { alert('❌ رابط التحميل غير متوفر'); }
@@ -5935,7 +5132,8 @@
                         getUserFavorites(auth.currentUser.uid).then(function(favs) {
                             allFavoritesCache = favs;
                         }).catch(function() {});
-                    }).catch(function() {});
+                        showToast('✅ تم إزالة من المفضلة');
+                    }).catch(function() { showToast('❌ حدث خطأ', 'error'); });
                 } else {
                     addBookFavorite(bookId).then(function() {
                         btn.classList.add('faved');
@@ -5945,7 +5143,8 @@
                         getUserFavorites(auth.currentUser.uid).then(function(favs) {
                             allFavoritesCache = favs;
                         }).catch(function() {});
-                    }).catch(function() {});
+                        showToast('✅ تم إضافة للمفضلة');
+                    }).catch(function() { showToast('❌ حدث خطأ', 'error'); });
                 }
             } catch (err) {
                 alert('❌ خطأ: ' + err.message);
@@ -6017,9 +5216,7 @@
                         loadBooksForSection(gradeId, sec.id);
                     }
                 });
-            } catch (e) {
-                console.error('خطأ في عرض الصف:', e);
-            }
+            } catch (e) {}
         }
 
         function loadBooksForSection(gradeId, sectionId) {
@@ -6066,9 +5263,7 @@
                         '</div>';
                     container.appendChild(item);
                 });
-            } catch (e) {
-                console.error('خطأ في تحميل الكتب:', e);
-            }
+            } catch (e) {}
         }
 
         window.filterBooksInSection = function(input, gradeId, sectionId) {
@@ -6116,9 +5311,7 @@
                         '</div>';
                 });
                 container.innerHTML += '</div>';
-            } catch (e) {
-                console.error('خطأ في تحميل ملخصات الطلاب:', e);
-            }
+            } catch (e) {}
         }
 
         // ============================================================
@@ -6192,21 +5385,11 @@
         function checkAndShowAd() {
             try {
                 getActiveAds().then(function(ads) {
-                    try {
-                        if (ads.length > 0) {
-                            showAdPopup(ads[0]);
-                        } else {
-                            console.log('📢 لا توجد إعلانات نشطة حالياً');
-                        }
-                    } catch (e) {
-                        console.log('⚠️ خطأ في عرض الإعلان:', e);
+                    if (ads.length > 0) {
+                        showAdPopup(ads[0]);
                     }
-                }).catch(function() {
-                    console.log('⚠️ خطأ في جلب الإعلانات');
-                });
-            } catch (e) {
-                console.log('⚠️ خطأ عام في الإعلانات:', e);
-            }
+                }).catch(function() {});
+            } catch (e) {}
         }
 
         function showAdPopup(ad) {
@@ -6259,9 +5442,7 @@
                 popup.classList.add('active');
                 document.body.style.overflow = 'hidden';
 
-            } catch (e) {
-                console.log('⚠️ خطأ في عرض الإعلان المنبثق:', e);
-            }
+            } catch (e) {}
         }
 
         function closeAdPopup() {
@@ -6362,30 +5543,33 @@
                                 return;
                             }
 
-                            searchBooks(query).then(function(books) {
-                                try {
-                                    if (books.length === 0) {
-                                        results.innerHTML =
-                                            '<div style="padding:16px;text-align:center;color:#999;">❌ لا توجد نتائج</div>';
-                                        results.classList.add('active');
-                                        return;
-                                    }
-
-                                    var html = '';
-                                    books.forEach(function(book) {
-                                        var gradeName = book.grade === '1' ? 'أولى' :
-                                            book.grade === '2' ? 'تانية' : 'تالتة';
-                                        html +=
-                                            '<div class="search-result-item" onclick="showBookDetail(\'' +
-                                            book.id + '\')">' +
-                                            '<span>📚 ' + safeText(book.title) + '</span>' +
-                                            '<span><span class="tag">' + gradeName + '</span></span>' +
-                                            '</div>';
-                                    });
-                                    results.innerHTML = html;
-                                    results.classList.add('active');
-                                } catch (e) {}
+                            var filtered = allBooksCache.filter(function(book) {
+                                return book.status === 'approved' &&
+                                    (book.title && book.title.toLowerCase().includes(query) ||
+                                        book.author && book.author.toLowerCase().includes(query) ||
+                                        book.subject && book.subject.toLowerCase().includes(query));
                             });
+
+                            if (filtered.length === 0) {
+                                results.innerHTML =
+                                    '<div style="padding:16px;text-align:center;color:#999;">❌ لا توجد نتائج</div>';
+                                results.classList.add('active');
+                                return;
+                            }
+
+                            var html = '';
+                            filtered.forEach(function(book) {
+                                var gradeName = book.grade === '1' ? 'أولى' :
+                                    book.grade === '2' ? 'تانية' : 'تالتة';
+                                html +=
+                                    '<div class="search-result-item" onclick="showBookDetail(\'' +
+                                    book.id + '\')">' +
+                                    '<span>📚 ' + safeText(book.title) + '</span>' +
+                                    '<span><span class="tag">' + gradeName + '</span></span>' +
+                                    '</div>';
+                            });
+                            results.innerHTML = html;
+                            results.classList.add('active');
                         } catch (e) {}
                     });
                 }
@@ -6536,7 +5720,7 @@
                             updatedAt: firebase.database.ServerValue.TIMESTAMP
                         };
 
-                        var result = await addForumPost(postData, auth.currentUser.uid, userName, userPhoto);
+                        await addForumPost(postData, auth.currentUser.uid, userName, userPhoto);
 
                         showPopup('✅', 'تم إرسال منشورك!', 'تم إرسال المنشور للإدارة للمراجعة، سيتم مراجعته خلال 24 ساعة');
                         document.getElementById('forumPostForm').reset();
@@ -6546,7 +5730,6 @@
                             loadForumPosts();
                         }
                     } catch (error) {
-                        console.error('خطأ في إضافة المنشور:', error);
                         alert('❌ خطأ: ' + error.message);
                     }
                 });
@@ -6672,9 +5855,7 @@
                     } catch (e) {}
                 });
 
-            } catch (e) {
-                console.error('خطأ في DOMContentLoaded:', e);
-            }
+            } catch (e) {}
         });
 
         // ============================================================
@@ -6711,18 +5892,16 @@
         });
 
         console.log('✅ منصة الثانوية الرسمية بلس 2027 - نسخة Production النهائية');
-        console.log('🔒 نظام حماية متكامل (حظر + تفعيل + أدمن)');
+        console.log('🔒 نظام حماية متكامل');
         console.log('❤️ نظام Like يعتمد على UID مع Transaction');
         console.log('📚 نظام الكتب مع viewsData, downloadsData, favoritesData');
-        console.log('📸 رفع الصور عبر Firebase Storage (Download URL فقط)');
+        console.log('📸 رفع الصور عبر Firebase Storage');
         console.log('📢 إعلانات منبثقة ذكية');
         console.log('🔔 إشعارات في الوقت الفعلي');
-        console.log('📱 متوافق مع جميع الأجهزة (320px - 1440px)');
-        console.log('⚡ معالجة الأخطاء بشكل كامل مع try/catch');
-        console.log('✅ PWA جاهز للتثبيت (Standalone Mode)');
-        console.log('🛠️ تم إصلاح مشكلة عرض المنشورات في المنتدى ومنشورات الفريق');
-        console.log('✅ صفحة حظر كاملة تمنع الدخول نهائياً');
-        console.log('✅ الردود الرسمية تظهر بالشعار والاسم وعلامة التوثيق الزرقاء');
+        console.log('✅ PWA جاهز للتثبيت');
+        console.log('🛠️ تم إصلاح جميع الأخطاء');
+        console.log('✅ صفحة حظر كاملة تمنع الدخول');
+        console.log('✅ الردود الرسمية تظهر بالشعار والعلامة الزرقاء');
         console.log('✅ التعليقات تذهب إلى Firebase وتستنتظر القبول من الإدارة');
     </script>
 
