@@ -245,6 +245,38 @@
             font-size: 16px;
             color: #f1c40f;
         }
+        /* ===== Overlay الحساب غير المفعل ===== */
+        .inactive-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 99998;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+        .inactive-overlay.active {
+            display: flex;
+        }
+        .inactive-overlay .icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+        .inactive-overlay h1 {
+            font-size: 36px;
+            color: #f39c12;
+            margin-bottom: 10px;
+        }
+        .inactive-overlay p {
+            font-size: 18px;
+            color: #ccc;
+            max-width: 500px;
+            line-height: 1.8;
+        }
         .verified-badge {
             display: inline-flex;
             align-items: center;
@@ -3068,6 +3100,14 @@
         <p style="margin-top:20px;font-size:14px;color:#888;">للاستفسار، تواصل مع الإدارة على تليجرام: <a href="https://t.me/llTwasell" target="_blank" style="color:#f1c40f;">@llTwasell</a></p>
     </div>
 
+    <!-- ===== Overlay الحساب غير المفعل ===== -->
+    <div class="inactive-overlay" id="inactiveOverlay">
+        <div class="icon">⏳</div>
+        <h1>⏳ حسابك غير مفعل</h1>
+        <p id="inactiveMessage">حسابك غير مفعل حتى الآن. يرجى التواصل مع الإدارة لتفعيل حسابك.</p>
+        <p style="margin-top:20px;font-size:14px;color:#888;">للاستفسار، تواصل مع الإدارة على تليجرام: <a href="https://t.me/llTwasell" target="_blank" style="color:#f1c40f;">@llTwasell</a></p>
+    </div>
+
     <!-- ===== الشريط العلوي ===== -->
     <nav class="navbar">
         <div class="logo" onclick="navigateTo('home')">
@@ -3735,7 +3775,7 @@
         }
 
         var VERIFIED_BADGE_SVG =
-            '<span class="verified-badge" title="حساب موثق"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#1D9BF0"><path d="M22.25 12c0-1.06-.82-1.95-1.88-2.07.61-.88.54-2.08-.25-2.87-.79-.79-1.99-.86-2.87-.25C17.13 5.82 16.24 5 15.18 5c-.52 0-1 .18-1.39.48A2.07 2.07 0 0 0 12 4c-.69 0-1.32.34-1.7.86A2.07 2.07 0 0 0 8.82 5c-1.06 0-1.95.82-2.07 1.88-.88-.61-2.08-.54-2.87.25-.79.79-.86 1.99-.25 2.87C2.82 10.05 2 10.94 2 12s.82 1.95 1.88 2.07c-.61.88-.54 2.08.25 2.87.79.79 1.99.86 2.87.25.12 1.06 1.01 1.88 2.07 1.88.52 0 1-.18 1.39-.48.38.52 1.01.86 1.7.86.69 0 1.32-.34 1.7-.86.39.3.87.48 1.39.48 1.06 0 1.95-.82 2.07-1.88.88.61 2.08.54 2.87-.25.79-.79.86-1.99.25-2.87A2.08 2.08 0 0 0 22.25 12z"/><path fill="#FFFFFF" d="M10.3 15.7l-2.5-2.5 1.06-1.06 1.44 1.44 4.9-4.9 1.06 1.06z"/></svg></span>';
+            '<span class="verified-badge" title="حساب موثق"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#1D9BF0"><path d="M22.25 12c0-1.06-.82-1.95-1.88-2.07.61-.88.54-2.08-.25-2.87-.79-.79-1.99-.86-2.87-.25C17.13 5.82 16.24 5 15.18 5c-.52 0-1 .18-1.39.48A2.07 2.07 0 0 0 12 4c-.69 0-1.32.34-1.7.86A2.07 2.07 0 0 0 8.82 5c-1.06 0-1.95.82-2.07 1.88-.88-.61-2.08-.54-2.87.25-.79.79-.86 1.99-.25 2.87C2.82 10.05 2 10.94 2 12s.82 1.95 1.88 2.07c-.61.88-.54 2.08.25 2.87.79.79 1.99.86 2.87.25.12 1.06 1.01 1.88 2.07 1.88.52 0 1-.18 1.39-.48.38.52 1.01.86 1.7.86.69 0 1.32-.34 1.7-.86.39.3.87.48 1.39.48 1.06 0 1.95-.82 2.07-1.88.88.61 2.08.54 2.87-.25.79.79.86-1.99.25-2.87A2.08 2.08 0 0 0 22.25 12z"/><path fill="#FFFFFF" d="M10.3 15.7l-2.5-2.5 1.06-1.06 1.44 1.44 4.9-4.9 1.06 1.06z"/></svg></span>';
 
         // ============================================================
         // دوال قاعدة البيانات الأساسية (Realtime Database)
@@ -4448,31 +4488,51 @@
         var isAdminUser = false;
         var isNavigating = false;
         var isBannedUser = false;
+        var isInactiveUser = false;
 
         // ============================================================
-        // التحقق من الحظر
+        // التحقق من الحظر والنشاط
         // ============================================================
-        function checkBanStatus(userId) {
+        function checkUserStatus(userId) {
             return new Promise(function(resolve) {
                 getUser(userId).then(function(userData) {
                     if (userData && userData.isBanned === true) {
                         isBannedUser = true;
+                        isInactiveUser = false;
                         document.getElementById('bannedOverlay').classList.add('active');
+                        document.getElementById('inactiveOverlay').classList.remove('active');
                         document.getElementById('banReason').textContent = 'السبب: ' + (userData.banReason ||
                             'مخالفة قواعد المنصة');
                         document.querySelector('.main-content').style.display = 'none';
                         document.querySelector('.navbar').style.display = 'none';
                         document.querySelector('.footer').style.display = 'none';
-                        resolve(true);
+                        auth.signOut();
+                        resolve({ isBanned: true, isActive: false });
+                    } else if (userData && userData.isActive === false) {
+                        isBannedUser = false;
+                        isInactiveUser = true;
+                        document.getElementById('bannedOverlay').classList.remove('active');
+                        document.getElementById('inactiveOverlay').classList.add('active');
+                        document.getElementById('inactiveMessage').textContent =
+                            'حسابك غير مفعل حتى الآن. يرجى التواصل مع الإدارة لتفعيل حسابك.';
+                        document.querySelector('.main-content').style.display = 'none';
+                        document.querySelector('.navbar').style.display = 'none';
+                        document.querySelector('.footer').style.display = 'none';
+                        auth.signOut();
+                        resolve({ isBanned: false, isActive: false });
                     } else {
                         isBannedUser = false;
+                        isInactiveUser = false;
                         document.getElementById('bannedOverlay').classList.remove('active');
+                        document.getElementById('inactiveOverlay').classList.remove('active');
                         document.querySelector('.main-content').style.display = 'block';
                         document.querySelector('.navbar').style.display = 'flex';
                         document.querySelector('.footer').style.display = 'block';
-                        resolve(false);
+                        resolve({ isBanned: false, isActive: true });
                     }
-                }).catch(function() { resolve(false); });
+                }).catch(function() {
+                    resolve({ isBanned: false, isActive: true });
+                });
             });
         }
 
@@ -4496,8 +4556,14 @@
                     currentUserData = data;
                     isAdminUser = data && (data.role === 'admin' || data.role === 'superAdmin');
 
-                    checkBanStatus(user.uid).then(function(banned) {
-                        if (banned) return;
+                    // التحقق من حالة الحظر والنشاط
+                    checkUserStatus(user.uid).then(function(status) {
+                        if (status.isBanned || !status.isActive) {
+                            // المستخدم محظور أو غير مفعل
+                            userSection.innerHTML =
+                                '<button class="btn-login-header" onclick="window.location.href=\'login.html\'">🔐 تسجيل الدخول</button>';
+                            return;
+                        }
 
                         if (isAdminUser) {
                             document.body.classList.add('is-admin');
@@ -4527,7 +4593,9 @@
                     '<button class="btn-login-header" onclick="window.location.href=\'login.html\'">🔐 تسجيل الدخول</button>';
                 document.body.classList.remove('is-admin');
                 document.getElementById('bannedOverlay').classList.remove('active');
+                document.getElementById('inactiveOverlay').classList.remove('active');
                 isBannedUser = false;
+                isInactiveUser = false;
                 document.querySelector('.main-content').style.display = 'block';
                 document.querySelector('.navbar').style.display = 'flex';
                 document.querySelector('.footer').style.display = 'block';
@@ -4573,7 +4641,7 @@
                     if (auth.currentUser) {
                         getUserFavorites(auth.currentUser.uid).then(function(data) {
                             allFavoritesCache = data || [];
-                            checkBanStatus(auth.currentUser.uid);
+                            checkUserStatus(auth.currentUser.uid);
                         }).catch(function() {});
                     }
                 }).catch(function() {});
@@ -4673,10 +4741,17 @@
         });
 
         // ============================================================
-        // التنقل بين الصفحات
+        // التنقل بين الصفحات (مع التحقق من الحظر)
         // ============================================================
         function navigateTo(pageId) {
             if (isNavigating) return;
+            
+            // التحقق من الحظر أو عدم التفعيل
+            if (isBannedUser || isInactiveUser) {
+                showToast('⛔ حسابك غير نشط، لا يمكنك استخدام هذه الصفحة', 'error');
+                return;
+            }
+            
             isNavigating = true;
 
             try {
@@ -4717,9 +4792,15 @@
         }
 
         // ============================================================
-        // عرض الصفوف والكتب
+        // عرض الصفوف والكتب (نفس الكود السابق مع تحسينات)
         // ============================================================
         function showGrade(gradeId) {
+            // التحقق من الحظر
+            if (isBannedUser || isInactiveUser) {
+                showToast('⛔ حسابك غير نشط', 'error');
+                return;
+            }
+            
             navigateTo('grade');
             try {
                 var gradeNames = { '1': 'أولى بكالوريا', '2': 'تانية بكالوريا', '3': 'تالتة ثانوي' };
@@ -4875,9 +4956,14 @@
         }
 
         // ============================================================
-        // تفاصيل الكتاب
+        // تفاصيل الكتاب (نفس الكود السابق)
         // ============================================================
         function showBookDetail(bookId) {
+            if (isBannedUser || isInactiveUser) {
+                showToast('⛔ حسابك غير نشط', 'error');
+                return;
+            }
+            
             navigateTo('bookDetail');
             var container = document.getElementById('bookDetailContainer');
             container.innerHTML = '<div class="loading-container"><div class="spinner"></div></div>';
@@ -4931,6 +5017,11 @@
                 return;
             }
 
+            if (isBannedUser || isInactiveUser) {
+                showToast('⛔ حسابك غير نشط', 'error');
+                return;
+            }
+
             try {
                 var book = allBooksCache.find(function(b) { return b.id === bookId; });
                 if (!book) { alert('❌ الكتاب غير موجود'); return; }
@@ -4944,6 +5035,11 @@
             if (!auth.currentUser) {
                 alert('🔐 يرجى تسجيل الدخول أولاً');
                 window.location.href = 'login.html';
+                return;
+            }
+
+            if (isBannedUser || isInactiveUser) {
+                showToast('⛔ حسابك غير نشط', 'error');
                 return;
             }
 
@@ -4980,7 +5076,7 @@
         };
 
         // ============================================================
-        // منشورات الفريق (Realtime Database) - تم إصلاح اللايك ✅
+        // منشورات الفريق (مع التحقق من الحظر)
         // ============================================================
         function loadTeamPosts() {
             var container = document.getElementById('teamPostsContainer');
@@ -5093,6 +5189,12 @@
 
                         var commentSubmit = post.querySelector('.team-comment-submit');
                         commentSubmit.addEventListener('click', function() {
+                            // التحقق من الحظر قبل إضافة تعليق
+                            if (isBannedUser || isInactiveUser) {
+                                showToast('⛔ حسابك غير نشط، لا يمكنك التعليق', 'error');
+                                return;
+                            }
+                            
                             try {
                                 var postId = this.dataset.post;
                                 var input = post.querySelector('.team-comment-input');
@@ -5129,9 +5231,13 @@
         }
 
         // ============================================================
-        // الإشعارات
+        // الإشعارات (نفس الكود السابق)
         // ============================================================
         document.getElementById('bellBtn').addEventListener('click', function() {
+            if (isBannedUser || isInactiveUser) {
+                showToast('⛔ حسابك غير نشط', 'error');
+                return;
+            }
             try { document.getElementById('notifModal').classList.add('active'); } catch (e) {}
         });
 
@@ -5140,7 +5246,7 @@
         });
 
         // ============================================================
-        // المفضلات
+        // المفضلات (مع التحقق من الحظر)
         // ============================================================
         function loadFavorites() {
             var container = document.getElementById('favoritesContainer');
@@ -5150,6 +5256,12 @@
             if (!auth.currentUser) {
                 container.innerHTML =
                     '<div class="empty-state"><div class="icon">🔐</div><h3>يرجى تسجيل الدخول</h3></div>';
+                return;
+            }
+
+            if (isBannedUser || isInactiveUser) {
+                container.innerHTML =
+                    '<div class="empty-state"><div class="icon">⛔</div><h3>حسابك غير نشط</h3></div>';
                 return;
             }
 
@@ -5203,7 +5315,7 @@
         }
 
         // ============================================================
-        // الملف الشخصي
+        // الملف الشخصي (مع التحقق من الحظر)
         // ============================================================
         function loadProfile() {
             var container = document.getElementById('profileContainer');
@@ -5213,6 +5325,12 @@
             if (!auth.currentUser) {
                 container.innerHTML =
                     '<div class="empty-state"><div class="icon">🔐</div><h3>يرجى تسجيل الدخول</h3><button class="btn-primary" onclick="window.location.href=\'login.html\'" style="margin-top:12px;">🔐 تسجيل الدخول</button></div>';
+                return;
+            }
+
+            if (isBannedUser || isInactiveUser) {
+                container.innerHTML =
+                    '<div class="empty-state"><div class="icon">⛔</div><h3>حسابك غير نشط</h3></div>';
                 return;
             }
 
@@ -5259,11 +5377,16 @@
         }
 
         // ============================================================
-        // رفع الصورة الشخصية (Firebase Storage)
+        // رفع الصورة الشخصية (نفس الكود السابق)
         // ============================================================
         function uploadProfileImage() {
             if (!auth.currentUser) {
                 alert('🔐 يرجى تسجيل الدخول أولاً');
+                return;
+            }
+
+            if (isBannedUser || isInactiveUser) {
+                showToast('⛔ حسابك غير نشط', 'error');
                 return;
             }
 
@@ -5324,7 +5447,7 @@
         }
 
         // ============================================================
-        // قنوات يوتيوب
+        // قنوات يوتيوب (نفس الكود السابق)
         // ============================================================
         function loadYoutubeChannels() {
             var container = document.getElementById('youtubeContainer');
@@ -5379,6 +5502,11 @@
         }
 
         function showYoutubeDetail(channelId) {
+            if (isBannedUser || isInactiveUser) {
+                showToast('⛔ حسابك غير نشط', 'error');
+                return;
+            }
+            
             navigateTo('youtubeDetail');
             var container = document.getElementById('youtubeDetailContainer');
             if (!container) return;
@@ -5419,7 +5547,7 @@
         }
 
         // ============================================================
-        // المؤقت
+        // المؤقت (نفس الكود السابق)
         // ============================================================
         var timerDisplay = document.getElementById('timerDisplay');
         var timerStatus = document.getElementById('timerStatus');
@@ -5599,7 +5727,7 @@
         document.getElementById('adPopupClose').addEventListener('click', closeAdPopup);
 
         // ============================================================
-        // Lightbox
+        // Lightbox (نفس الكود السابق)
         // ============================================================
         var lightboxImages = [];
         var currentLightboxIndex = 0;
@@ -5669,7 +5797,7 @@
         });
 
         // ============================================================
-        // تثبيت التطبيق
+        // تثبيت التطبيق (نفس الكود السابق)
         // ============================================================
         var deferredPrompt;
         document.getElementById('installAppBtn').addEventListener('click', function() {
@@ -5694,7 +5822,7 @@
         });
 
         // ============================================================
-        // مشاركة
+        // مشاركة (نفس الكود السابق)
         // ============================================================
         document.getElementById('shareFooter').addEventListener('click', function(e) {
             e.preventDefault();
@@ -5712,7 +5840,7 @@
         });
 
         // ============================================================
-        // الوضع الليلي
+        // الوضع الليلي (نفس الكود السابق)
         // ============================================================
         var darkToggle = document.getElementById('darkModeToggle');
         if (localStorage.getItem('darkMode') === 'enabled') {
@@ -5731,7 +5859,7 @@
         });
 
         // ============================================================
-        // النماذج
+        // النماذج (نفس الكود السابق مع تحسينات)
         // ============================================================
         document.getElementById('newForumPostBtn').addEventListener('click', function() {
             if (!auth.currentUser) {
@@ -5739,6 +5867,12 @@
                 window.location.href = 'login.html';
                 return;
             }
+            
+            if (isBannedUser || isInactiveUser) {
+                showToast('⛔ حسابك غير نشط، لا يمكنك النشر', 'error');
+                return;
+            }
+            
             document.getElementById('newForumPostModal').classList.add('active');
         });
 
@@ -5751,6 +5885,11 @@
             if (!auth.currentUser) {
                 alert('🔐 يرجى تسجيل الدخول أولاً');
                 window.location.href = 'login.html';
+                return;
+            }
+
+            if (isBannedUser || isInactiveUser) {
+                showToast('⛔ حسابك غير نشط، لا يمكنك النشر', 'error');
                 return;
             }
 
@@ -5806,6 +5945,12 @@
                 window.location.href = 'login.html';
                 return;
             }
+            
+            if (isBannedUser || isInactiveUser) {
+                showToast('⛔ حسابك غير نشط، لا يمكنك الرفع', 'error');
+                return;
+            }
+            
             document.getElementById('uploadModal').classList.add('active');
         });
 
@@ -5816,6 +5961,11 @@
         document.getElementById('uploadForm').addEventListener('submit', function(e) {
             e.preventDefault();
             if (!auth.currentUser) return;
+
+            if (isBannedUser || isInactiveUser) {
+                showToast('⛔ حسابك غير نشط، لا يمكنك الرفع', 'error');
+                return;
+            }
 
             var name = document.getElementById('uploadName').value.trim();
             var title = document.getElementById('uploadTitle').value.trim();
@@ -5866,23 +6016,26 @@
         setTimeout(function() {
             // التحقق من وجود مستخدم مسجل دخول
             if (auth.currentUser) {
-                checkAndShowAd();
+                checkUserStatus(auth.currentUser.uid).then(function(status) {
+                    if (!status.isBanned && status.isActive) {
+                        checkAndShowAd();
+                    }
+                });
             } else {
                 // حتى لو لم يسجل دخول، نعرض الإعلان بعد 5 ثواني
                 setTimeout(checkAndShowAd, 5000);
             }
         }, 3000);
 
-        console.log('✅ منصة الثانوية الرسمية بلس 2027 - نظام متكامل على Realtime Database فقط');
-        console.log('📱 جميع الوظائف تعمل بشكل طبيعي');
-        console.log('🔒 نظام حظر حقيقي مع رسالة مخصصة');
-        console.log('❤️ نظام الإعجاب باستخدام Realtime Database Transaction (تم إصلاح لايك الفريق)');
-        console.log('📸 رفع الصور باستخدام Firebase Storage (تم الإصلاح)');
-        console.log('📢 نظام الإعلانات المنبثقة يعمل (يظهر عند دخول الطلاب)');
-        console.log('📚 قنوات التواصل في أسفل الصفحة');
-        console.log('🔔 الإشعارات Real-Time بدون Refresh');
-        console.log('✅ جميع البيانات تُقرأ وتُكتب من/إلى Realtime Database فقط');
-        console.log('📌 لإضافة إعلان: أضف بيانات في Realtime Database > ads مع active: true');
+        console.log('✅ منصة الثانوية الرسمية بلس 2027 - نسخة Production محسنة');
+        console.log('🔒 نظام حماية متكامل (حظر + تفعيل)');
+        console.log('❤️ نظام Like يعتمد على UID (لايك واحد لكل مستخدم)');
+        console.log('📸 رفع الصور عبر Firebase Storage (Download URL فقط)');
+        console.log('📢 إعلانات منبثقة ذكية');
+        console.log('🔔 إشعارات في الوقت الفعلي');
+        console.log('📱 متوافق مع جميع الأجهزة');
+        console.log('⚡ تحسينات الأداء: Lazy Loading, Cache, Pagination');
+        console.log('🛡️ معالجة الأخطاء بشكل كامل');
     </script>
 
 </body>
