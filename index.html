@@ -5288,7 +5288,7 @@
                             user: auth.currentUser.displayName || auth.currentUser.email || 'طالب',
                             userPhoto: photo || '',
                             userId: userId,
-                            status: isAdmin ? 'approved' : 'pending', // ✅ غير الأدمن يرسل pending
+                            status: isAdmin ? 'approved' : 'pending',
                             isAdminReply: isAdmin || false,
                             isOfficialReply: isAdmin || false,
                             likes: 0,
@@ -5593,7 +5593,7 @@
                     var html = '<div class="books-grid">';
                     favs.forEach(function(fav) {
                         var book = allBooksCache.find(function(b) { return b.id === fav.bookId; });
-                        if (book) {
+                        if (book && book.status === 'approved') {
                             var coverUrl = book.coverUrl || 'https://via.placeholder.com/200x180?text=كتاب';
                             html +=
                                 '<div class="book-item">' +
@@ -5662,7 +5662,7 @@
                         '<div class="profile-email">' + safeText(user.email) + '</div>' +
                         '<div class="profile-stats">' +
                         '<div><div class="num">' + allBooksCache.filter(function(b) { return b
-                                .userId === user.uid; }).length + '</div><div class="label">📚 كتبي</div></div>' +
+                                .userId === user.uid && b.status === 'approved'; }).length + '</div><div class="label">📚 كتبي</div></div>' +
                         '<div><div class="num">' + favoritesCount +
                         '</div><div class="label">⭐ مفضلاتي</div></div>' +
                         '</div>' +
@@ -5849,7 +5849,7 @@
                 container.innerHTML = '<div class="loading-container"><div class="spinner"></div></div>';
 
                 var book = allBooksCache.find(function(b) { return b.id === bookId; });
-                if (!book) {
+                if (!book || book.status !== 'approved') {
                     container.innerHTML =
                         '<div class="empty-state"><div class="icon">📚</div><h3>الكتاب غير موجود</h3></div>';
                     return;
@@ -5904,7 +5904,7 @@
                 }
 
                 var book = allBooksCache.find(function(b) { return b.id === bookId; });
-                if (!book) { alert('❌ الكتاب غير موجود'); return; }
+                if (!book || book.status !== 'approved') { alert('❌ الكتاب غير موجود'); return; }
                 incrementBookDownloads(bookId);
                 if (book.fileUrl) { window.open(book.fileUrl, '_blank'); } else if (book.link) { window.open(book
                         .link, '_blank'); } else { alert('❌ رابط التحميل غير متوفر'); }
