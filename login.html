@@ -2,27 +2,29 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
     <title>تسجيل الدخول - الثانوية الرسمية بلس</title>
 
-    <!-- Firebase v9 Modular (CDN) -->
-    <script type="importmap">
-        {
-            "imports": {
-                "https://www.gstatic.com/firebasejs/10.12.0/": "https://www.gstatic.com/firebasejs/10.12.0/"
-            }
-        }
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js">
+    </script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js">
+    </script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js">
     </script>
 
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
 
     <style>
-        /* ===== جميع الستايلات ===== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Tajawal', 'Segoe UI', sans-serif;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
 
         body {
@@ -32,7 +34,6 @@
             justify-content: center;
             align-items: center;
             padding: 20px;
-            transition: background 0.3s;
         }
 
         body.dark-mode {
@@ -41,7 +42,8 @@
         }
 
         .login-container {
-            width: min(100%, 480px);
+            max-width: 480px;
+            width: 100%;
             background: white;
             border-radius: 28px;
             padding: 30px 25px;
@@ -57,52 +59,63 @@
             box-shadow: 0 8px 50px rgba(0, 0, 0, 0.3);
         }
 
-        .logo h1 {
-            font-size: 22px;
+        .login-container::-webkit-scrollbar {
+            width: 4px;
+        }
+        .login-container::-webkit-scrollbar-thumb {
+            background: #c0c0c0;
+            border-radius: 10px;
+        }
+
+        .login-container .logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .login-container .logo img {
+            height: 45px;
+            width: auto;
+            border-radius: 12px;
+        }
+
+        .login-container .logo h1 {
+            font-size: 20px;
             background: linear-gradient(45deg, #2ecc71, #3498db, #e74c3c);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             font-weight: 900;
         }
 
-        .logo .sub-logo {
-            font-size: 14px;
-            color: #777;
-            -webkit-text-fill-color: #777;
-        }
-
-        body.dark-mode .logo .sub-logo {
-            color: #aaa;
-            -webkit-text-fill-color: #aaa;
-        }
-
-        h2 {
+        .login-container h2 {
             font-size: 20px;
             font-weight: 800;
             color: #2c3e50;
             margin-bottom: 4px;
         }
 
-        body.dark-mode h2 {
+        body.dark-mode .login-container h2 {
             color: #ecf0f1;
         }
 
-        .sub-text {
+        .login-container .sub-text {
             color: #777;
             font-size: 13px;
             margin-bottom: 18px;
         }
 
-        body.dark-mode .sub-text {
+        body.dark-mode .login-container .sub-text {
             color: #aaa;
         }
 
-        .form-group {
+        .login-container .form-group {
             text-align: right;
             margin-bottom: 12px;
         }
 
-        .form-group label {
+        .login-container .form-group label {
             display: block;
             font-weight: 700;
             font-size: 13px;
@@ -110,16 +123,16 @@
             margin-bottom: 4px;
         }
 
-        body.dark-mode .form-group label {
+        body.dark-mode .login-container .form-group label {
             color: #ecf0f1;
         }
 
-        .form-group label .required {
+        .login-container .form-group label .required {
             color: #e74c3c;
         }
 
-        .login-input,
-        .login-select {
+        .login-container .login-input,
+        .login-container .login-select {
             width: 100%;
             padding: 11px 14px;
             border: 2px solid #eee;
@@ -131,39 +144,32 @@
             outline: none;
         }
 
-        body.dark-mode .login-input,
-        body.dark-mode .login-select {
+        body.dark-mode .login-container .login-input,
+        body.dark-mode .login-container .login-select {
             background: #2d2d44;
             border-color: #3d3d55;
             color: white;
         }
 
-        .login-input:focus,
-        .login-select:focus {
+        .login-container .login-input:focus,
+        .login-container .login-select:focus {
             border-color: #3498db;
             box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.15);
         }
 
-        .login-input.error,
-        .login-select.error {
-            border-color: #e74c3c !important;
+        .login-container .login-input.error,
+        .login-container .login-select.error {
+            border-color: #e74c3c;
+            box-shadow: 0 0 0 4px rgba(231, 76, 60, 0.15);
         }
 
-        .login-input.success,
-        .login-select.success {
-            border-color: #2ecc71 !important;
+        .login-container .login-input.success,
+        .login-container .login-select.success {
+            border-color: #2ecc71;
+            box-shadow: 0 0 0 4px rgba(46, 204, 113, 0.15);
         }
 
-        .login-input:disabled {
-            background: #e8e8e8;
-            cursor: not-allowed;
-        }
-
-        body.dark-mode .login-input:disabled {
-            background: #3d3d55;
-        }
-
-        .input-error {
+        .login-container .input-error {
             color: #e74c3c;
             font-size: 12px;
             margin-top: 3px;
@@ -171,11 +177,11 @@
             text-align: right;
         }
 
-        .input-error.show {
+        .login-container .input-error.show {
             display: block;
         }
 
-        .login-btn {
+        .login-container .login-btn {
             width: 100%;
             padding: 13px;
             background: #3498db;
@@ -190,56 +196,52 @@
             margin-top: 6px;
         }
 
-        .login-btn:hover {
+        .login-container .login-btn:hover {
             background: #2980b9;
             transform: scale(1.02);
         }
 
-        .login-btn:disabled {
+        .login-container .login-btn:disabled {
             opacity: 0.6;
             cursor: not-allowed;
             transform: none;
         }
 
-        .login-btn.secondary {
-            background: #2c3e50;
-        }
-
-        .login-btn.secondary:hover {
-            background: #1a252f;
-        }
-
-        .login-error {
+        .login-container .login-error {
             color: #e74c3c;
             font-size: 13px;
             margin-top: 8px;
             display: none;
         }
 
-        .login-success {
+        .login-container .login-success {
             color: #2ecc71;
             font-size: 13px;
             margin-top: 8px;
             display: none;
         }
 
-        .switch-link {
+        .login-container .switch-link {
             margin-top: 14px;
             font-size: 13px;
             color: #888;
         }
 
-        .switch-link span {
+        body.dark-mode .login-container .switch-link {
+            color: #aaa;
+        }
+
+        .login-container .switch-link span {
             color: #3498db;
             font-weight: 700;
             cursor: pointer;
         }
 
-        .switch-link span:hover {
+        .login-container .switch-link span:hover {
             text-decoration: underline;
         }
 
-        .back-home {
+        .login-container .back-home {
             display: inline-block;
             margin-top: 14px;
             color: #3498db;
@@ -249,7 +251,7 @@
             cursor: pointer;
         }
 
-        .back-home:hover {
+        .login-container .back-home:hover {
             text-decoration: underline;
         }
 
@@ -298,10 +300,71 @@
             transform: scale(1.05);
         }
 
-        .row-2col {
+        .login-container .row-2col {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 12px;
+        }
+
+        .verification-box {
+            background: #e8f0fe;
+            border-radius: 12px;
+            padding: 14px;
+            margin: 12px 0;
+            border-right: 4px solid #1a237e;
+            display: none;
+        }
+
+        body.dark-mode .verification-box {
+            background: #1a237e30;
+            border-color: #64b5f6;
+        }
+
+        .verification-box.show {
+            display: block;
+        }
+
+        .verification-box .title {
+            font-weight: 800;
+            font-size: 14px;
+            color: #1a237e;
+            margin-bottom: 4px;
+        }
+
+        body.dark-mode .verification-box .title {
+            color: #90caf9;
+        }
+
+        .verification-box .desc {
+            font-size: 12px;
+            color: #555;
+        }
+
+        body.dark-mode .verification-box .desc {
+            color: #ccc;
+        }
+
+        .verification-box .resend-btn {
+            margin-top: 8px;
+            padding: 6px 16px;
+            background: #1a237e;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 12px;
+            font-family: 'Tajawal', sans-serif;
+            transition: 0.3s;
+        }
+
+        .verification-box .resend-btn:hover {
+            background: #2d4373;
+        }
+
+        .verification-box .resend-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
         }
 
         .google-btn {
@@ -338,10 +401,9 @@
             background: #3d3d55;
         }
 
-        .google-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
+        .google-btn img {
+            width: 24px;
+            height: 24px;
         }
 
         .divider {
@@ -366,243 +428,98 @@
             background: #3d3d55;
         }
 
-        .forgot-password {
-            text-align: left;
-            margin-top: 4px;
-        }
-
-        .forgot-password a {
-            color: #3498db;
-            text-decoration: none;
-            font-size: 12px;
-            cursor: pointer;
-        }
-
-        .forgot-password a:hover {
-            text-decoration: underline;
-        }
-
-        .remember-me {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            justify-content: flex-start;
-            margin: 8px 0;
-        }
-
-        .remember-me input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            accent-color: #3498db;
-            cursor: pointer;
-        }
-
-        .remember-me label {
-            font-size: 13px;
-            color: #555;
-            cursor: pointer;
-        }
-
-        body.dark-mode .remember-me label {
-            color: #aaa;
-        }
-
-        .terms-check {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            justify-content: flex-start;
-            margin: 8px 0;
-        }
-
-        .terms-check input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            accent-color: #3498db;
-            cursor: pointer;
-        }
-
-        .terms-check label {
-            font-size: 13px;
-            color: #555;
-            cursor: pointer;
-        }
-
-        body.dark-mode .terms-check label {
-            color: #aaa;
-        }
-
-        .terms-check label a {
-            color: #3498db;
-            text-decoration: none;
-        }
-
-        .terms-check label a:hover {
-            text-decoration: underline;
-        }
-
-        .password-strength {
-            margin-top: 6px;
-            height: 4px;
-            border-radius: 2px;
-            background: #eee;
-            overflow: hidden;
-            transition: 0.3s;
-        }
-
-        .password-strength .bar {
-            height: 100%;
-            width: 0%;
-            transition: 0.3s;
-            border-radius: 2px;
-        }
-
-        .password-strength .bar.weak {
-            width: 33%;
-            background: #e74c3c;
-        }
-
-        .password-strength .bar.medium {
-            width: 66%;
-            background: #f39c12;
-        }
-
-        .password-strength .bar.strong {
-            width: 100%;
-            background: #2ecc71;
-        }
-
-        .password-strength-label {
-            font-size: 11px;
-            margin-top: 2px;
-            text-align: left;
-        }
-
+        /* ===== تنسيق صفحة إكمال البيانات ===== */
         .complete-profile {
             display: none;
         }
-
         .complete-profile.show {
             display: block;
         }
-
-        .toast {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            padding: 12px 24px;
-            border-radius: 12px;
-            font-weight: 700;
-            font-size: 14px;
-            z-index: 1000;
-            display: none;
-            animation: slideUp 0.3s ease;
-            max-width: 90%;
-            text-align: center;
+        .complete-profile .login-input[disabled] {
+            background: #e8e8e8;
+            cursor: not-allowed;
         }
-
-        .toast.success {
-            background: #2ecc71;
-            color: white;
-        }
-
-        .toast.error {
-            background: #e74c3c;
-            color: white;
-        }
-
-        .toast.info {
-            background: #3498db;
-            color: white;
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateX(-50%) translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(-50%) translateY(0);
-            }
+        body.dark-mode .complete-profile .login-input[disabled] {
+            background: #3d3d55;
         }
 
         @media (max-width: 480px) {
             .login-container {
                 padding: 20px 16px;
             }
-            .row-2col {
+            .login-container .logo h1 {
+                font-size: 18px;
+            }
+            .login-container .logo img {
+                height: 36px;
+            }
+            .login-container h2 {
+                font-size: 18px;
+            }
+            .login-container .row-2col {
                 grid-template-columns: 1fr;
                 gap: 0;
-            }
-            .toast {
-                width: 90%;
-                bottom: 10px;
             }
         }
     </style>
 </head>
 <body>
 
-    <button class="dark-mode-toggle" id="darkModeToggle">🌙</button>
-
-    <div class="toast" id="toast"></div>
+    <button class="dark-mode-toggle" id="darkModeToggle" title="وضع النهار/الليل">🌙</button>
 
     <div class="login-container" id="loginContainer">
 
         <!-- ===== الشعار ===== -->
         <div class="logo">
-            <h1>🏫 الثانوية الرسمية بلس</h1>
-            <div class="sub-logo">منصة التعليم المتكاملة</div>
+            <img src="https://cdn.phototourl.com/free/2026-07-21-1dd4b984-ed08-4a40-aead-9ef086ebbd45.jpg" alt="شعار المنصة" onerror="this.style.display='none'">
+            <h1>الثانوية الرسمية بلس</h1>
         </div>
 
         <!-- ===== صفحة تسجيل الدخول ===== -->
         <div id="loginPage">
-            <h2>🔐 تسجيل الدخول</h2>
-            <p class="sub-text">سجل الدخول للوصول إلى جميع مميزات المنصة</p>
+            <h2 id="formTitle">🔐 تسجيل الدخول</h2>
+            <p class="sub-text" id="formSubText">سجل الدخول للوصول إلى جميع مميزات المنصة</p>
 
-            <div class="form-group">
-                <label>📧 البريد الإلكتروني <span class="required">*</span></label>
-                <input type="email" id="loginEmail" class="login-input" placeholder="أدخل بريدك الإلكتروني" autocomplete="email">
-                <div class="input-error" id="loginEmailError">❌ يرجى إدخال بريد إلكتروني صحيح</div>
+            <div id="loginForm">
+                <div class="form-group">
+                    <label>📧 البريد الإلكتروني <span class="required">*</span></label>
+                    <input type="email" id="loginEmail" class="login-input" placeholder="أدخل بريدك الإلكتروني" autocomplete="email">
+                    <div class="input-error" id="loginEmailError">❌ يرجى إدخال بريد إلكتروني صحيح</div>
+                </div>
+
+                <div class="form-group">
+                    <label>🔑 كلمة المرور <span class="required">*</span></label>
+                    <input type="password" id="loginPassword" class="login-input" placeholder="أدخل كلمة المرور" autocomplete="current-password">
+                    <div class="input-error" id="loginPasswordError">❌ كلمة المرور يجب أن تكون 6 أحرف على الأقل</div>
+                </div>
+
+                <div class="verification-box" id="verificationBox">
+                    <div class="title">📧 تحقق من بريدك الإلكتروني</div>
+                    <div class="desc" id="verificationDesc">لم يتم التحقق من بريدك الإلكتروني. يرجى التحقق من صندوق الوارد والضغط على رابط التفعيل.</div>
+                    <button class="resend-btn" id="resendVerificationBtn">📨 إعادة إرسال رابط التحقق</button>
+                </div>
+
+                <button class="login-btn" id="loginBtn">🚀 تسجيل الدخول</button>
+
+                <div class="divider">أو</div>
+
+                <button class="google-btn" id="googleLoginBtn">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="24" height="24">
+                        <path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z" />
+                        <path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z" />
+                        <path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z" />
+                        <path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z" />
+                    </svg>
+                    تسجيل الدخول بـ Google
+                </button>
             </div>
-
-            <div class="form-group">
-                <label>🔑 كلمة المرور <span class="required">*</span></label>
-                <input type="password" id="loginPassword" class="login-input" placeholder="أدخل كلمة المرور" autocomplete="current-password">
-                <div class="input-error" id="loginPasswordError">❌ 8 أحرف، حرف كبير، حرف صغير، رقم</div>
-            </div>
-
-            <div class="remember-me">
-                <input type="checkbox" id="rememberMe">
-                <label for="rememberMe">تذكرني</label>
-            </div>
-
-            <div class="forgot-password">
-                <a id="forgotPasswordLink">نسيت كلمة المرور؟</a>
-            </div>
-
-            <button class="login-btn" id="loginBtn">🚀 تسجيل الدخول</button>
-
-            <div class="divider">أو</div>
-
-            <button class="google-btn" id="googleLoginBtn">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="24" height="24">
-                    <path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z" />
-                    <path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z" />
-                    <path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z" />
-                    <path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z" />
-                </svg>
-                تسجيل الدخول بـ Google
-            </button>
 
             <div id="loginError" class="login-error"></div>
-            <div id="loginSuccess" class="login-success"></div>
+            <div id="loginSuccess" class="login-success">✅ تم بنجاح! جاري التحويل...</div>
 
             <div class="switch-link">
-                <span>ليس لديك حساب؟</span>
-                <span id="switchToSignup">أنشئ حساباً جديداً</span>
+                <span id="switchText">ليس لديك حساب؟</span>
+                <span id="switchLink">أنشئ حساباً جديداً</span>
             </div>
 
             <a class="back-home" onclick="goHome()">🏠 العودة للرئيسية</a>
@@ -613,98 +530,88 @@
             <h2>📝 إنشاء حساب جديد</h2>
             <p class="sub-text">أنشئ حساباً جديداً للاستفادة من جميع المميزات</p>
 
-            <div class="form-group">
-                <label>👤 الاسم الكامل <span class="required">*</span></label>
-                <input type="text" id="signupName" class="login-input" placeholder="مثال: أحمد محمد علي">
-                <div class="input-error" id="signupNameError">❌ الاسم يجب أن يكون حرفين على الأقل</div>
-            </div>
-
-            <div class="form-group">
-                <label>📱 رقم الهاتف <span class="required">*</span></label>
-                <input type="tel" id="signupPhone" class="login-input" placeholder="مثال: 01012345678" maxlength="15">
-                <div class="input-error" id="signupPhoneError">❌ رقم هاتف غير صحيح (10-15 رقم)</div>
-            </div>
-
-            <div class="row-2col">
+            <div id="signupForm">
                 <div class="form-group">
-                    <label>📚 الصف الدراسي <span class="required">*</span></label>
-                    <select id="signupGrade" class="login-select">
-                        <option value="">اختر الصف</option>
-                        <option value="1">أولى بكالوريا</option>
-                        <option value="2">تانية بكالوريا</option>
-                        <option value="3">تالتة ثانوي</option>
-                    </select>
-                    <div class="input-error" id="signupGradeError">❌ يرجى اختيار الصف الدراسي</div>
+                    <label>👤 الاسم الكامل <span class="required">*</span></label>
+                    <input type="text" id="signupName" class="login-input" placeholder="مثال: أحمد محمد علي">
+                    <div class="input-error" id="signupNameError">❌ الاسم يجب أن يكون حرفين على الأقل</div>
                 </div>
 
                 <div class="form-group">
-                    <label>🏫 نوع التعليم <span class="required">*</span></label>
-                    <select id="signupEducation" class="login-select">
-                        <option value="">اختر النوع</option>
-                        <option value="عام">عام</option>
-                        <option value="أزهري">أزهري</option>
-                        <option value="بكالوريا">بكالوريا</option>
+                    <label>📱 رقم الهاتف <span class="required">*</span></label>
+                    <input type="tel" id="signupPhone" class="login-input" placeholder="مثال: 01012345678" maxlength="15">
+                    <div class="input-error" id="signupPhoneError">❌ رقم الهاتف يجب أن يكون 11 رقم (مصري) أو 10 رقم (سعودي)</div>
+                </div>
+
+                <div class="row-2col">
+                    <div class="form-group">
+                        <label>📚 الصف الدراسي <span class="required">*</span></label>
+                        <select id="signupGrade" class="login-select">
+                            <option value="">اختر الصف</option>
+                            <option value="1">أولى بكالوريا</option>
+                            <option value="2">تانية بكالوريا</option>
+                            <option value="3">تالتة ثانوي</option>
+                        </select>
+                        <div class="input-error" id="signupGradeError">❌ يرجى اختيار الصف الدراسي</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>🏫 نوع التعليم <span class="required">*</span></label>
+                        <select id="signupSystem" class="login-select">
+                            <option value="">اختر النوع</option>
+                            <option value="عام">عام</option>
+                            <option value="أزهري">أزهري</option>
+                            <option value="بكالوريا">بكالوريا</option>
+                        </select>
+                        <div class="input-error" id="signupSystemError">❌ يرجى اختيار نوع التعليم</div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>👥 أنا <span class="required">*</span></label>
+                    <select id="signupRole" class="login-select">
+                        <option value="">اختر</option>
+                        <option value="طالب">طالب</option>
+                        <option value="معلم">معلم</option>
+                        <option value="ولي أمر">ولي أمر</option>
                     </select>
-                    <div class="input-error" id="signupEducationError">❌ يرجى اختيار نوع التعليم</div>
+                    <div class="input-error" id="signupRoleError">❌ يرجى اختيار نوع المستخدم</div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <label>👥 أنا <span class="required">*</span></label>
-                <select id="signupRole" class="login-select">
-                    <option value="">اختر</option>
-                    <option value="طالب">طالب</option>
-                    <option value="معلم">معلم</option>
-                    <option value="ولي أمر">ولي أمر</option>
-                </select>
-                <div class="input-error" id="signupRoleError">❌ يرجى اختيار نوع المستخدم</div>
-            </div>
-
-            <div class="form-group">
-                <label>📧 البريد الإلكتروني <span class="required">*</span></label>
-                <input type="email" id="signupEmail" class="login-input" placeholder="أدخل بريدك الإلكتروني">
-                <div class="input-error" id="signupEmailError">❌ يرجى إدخال بريد إلكتروني صحيح</div>
-            </div>
-
-            <div class="form-group">
-                <label>🔑 كلمة المرور <span class="required">*</span></label>
-                <input type="password" id="signupPassword" class="login-input" placeholder="8 أحرف على الأقل">
-                <div class="password-strength" id="passwordStrength">
-                    <div class="bar" id="passwordStrengthBar"></div>
+                <div class="form-group">
+                    <label>📧 البريد الإلكتروني <span class="required">*</span></label>
+                    <input type="email" id="signupEmail" class="login-input" placeholder="أدخل بريدك الإلكتروني">
+                    <div class="input-error" id="signupEmailError">❌ يرجى إدخال بريد إلكتروني صحيح</div>
                 </div>
-                <div class="password-strength-label" id="passwordStrengthLabel"></div>
-                <div class="input-error" id="signupPasswordError">❌ 8 أحرف، حرف كبير، حرف صغير، رقم</div>
-            </div>
 
-            <div class="form-group">
-                <label>🔑 تأكيد كلمة المرور <span class="required">*</span></label>
-                <input type="password" id="signupPasswordConfirm" class="login-input" placeholder="أعد كتابة كلمة المرور">
-                <div class="input-error" id="signupPasswordConfirmError">❌ كلمة المرور غير متطابقة</div>
-            </div>
+                <div class="form-group">
+                    <label>🔑 كلمة المرور <span class="required">*</span></label>
+                    <input type="password" id="signupPassword" class="login-input" placeholder="6 أحرف على الأقل">
+                    <div class="input-error" id="signupPasswordError">❌ كلمة المرور يجب أن تكون 6 أحرف على الأقل</div>
+                </div>
 
-            <div class="terms-check">
-                <input type="checkbox" id="termsCheck">
-                <label for="termsCheck">
-                    ☑️ أوافق على <a href="#">الشروط والأحكام</a> و <a href="#">سياسة الخصوصية</a>
-                </label>
-            </div>
-            <div class="input-error" id="termsError">❌ يرجى الموافقة على الشروط</div>
+                <div class="form-group">
+                    <label>🔑 تأكيد كلمة المرور <span class="required">*</span></label>
+                    <input type="password" id="signupPasswordConfirm" class="login-input" placeholder="أعد كتابة كلمة المرور">
+                    <div class="input-error" id="signupPasswordConfirmError">❌ كلمة المرور غير متطابقة</div>
+                </div>
 
-            <button class="login-btn" id="signupBtn">📝 إنشاء حساب</button>
+                <button class="login-btn" id="signupBtn">📝 إنشاء حساب</button>
+            </div>
 
             <div id="signupError" class="login-error"></div>
-            <div id="signupSuccess" class="login-success"></div>
+            <div id="signupSuccess" class="login-success">✅ تم إنشاء الحساب! جاري التحويل...</div>
 
             <div class="switch-link">
                 <span>لديك حساب بالفعل؟</span>
-                <span id="switchToLogin">تسجيل الدخول</span>
+                <span id="signupSwitchLink" style="color:#3498db;font-weight:700;cursor:pointer;">تسجيل الدخول</span>
             </div>
         </div>
 
-        <!-- ===== صفحة إكمال البيانات (مرة واحدة فقط) ===== -->
+        <!-- ===== صفحة إكمال البيانات (بعد تسجيل الدخول) ===== -->
         <div id="completeProfilePage" class="complete-profile">
             <h2>📋 أكمل بياناتك</h2>
-            <p class="sub-text">أكمل بياناتك لتتمكن من استخدام المنصة (مرة واحدة فقط)</p>
+            <p class="sub-text">يرجى إكمال بياناتك لتتمكن من استخدام المنصة</p>
 
             <div class="form-group">
                 <label>👤 الاسم الكامل</label>
@@ -736,13 +643,13 @@
 
                 <div class="form-group">
                     <label>🏫 نوع التعليم <span class="required">*</span></label>
-                    <select id="completeEducation" class="login-select">
+                    <select id="completeSystem" class="login-select">
                         <option value="">اختر النوع</option>
                         <option value="عام">عام</option>
                         <option value="أزهري">أزهري</option>
                         <option value="بكالوريا">بكالوريا</option>
                     </select>
-                    <div class="input-error" id="completeEducationError">❌ يرجى اختيار النوع</div>
+                    <div class="input-error" id="completeSystemError">❌ يرجى اختيار النوع</div>
                 </div>
             </div>
 
@@ -757,155 +664,713 @@
                 <div class="input-error" id="completeRoleError">❌ يرجى اختيار نوع المستخدم</div>
             </div>
 
-            <button class="login-btn" id="completeProfileBtn">📤 إكمال البيانات</button>
+            <button class="login-btn" id="completeProfileBtn">📤 إرسال البيانات</button>
 
             <div id="completeError" class="login-error"></div>
-            <div id="completeSuccess" class="login-success"></div>
+            <div id="completeSuccess" class="login-success">✅ تم حفظ البيانات!</div>
 
             <div class="switch-link">
                 <span id="completeSwitchToLogin" style="color:#3498db;font-weight:700;cursor:pointer;">⬅️ العودة لتسجيل الدخول</span>
             </div>
         </div>
+
     </div>
 
-    <script type="module">
+    <script>
         // ============================================================
-        // 1. IMPORTS
-        // ============================================================
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-        import {
-            getAuth,
-            signInWithEmailAndPassword,
-            signInWithPopup,
-            GoogleAuthProvider,
-            createUserWithEmailAndPassword,
-            sendEmailVerification,
-            sendPasswordResetEmail,
-            signOut as firebaseSignOut,
-            onAuthStateChanged,
-            updateProfile,
-            browserLocalPersistence,
-            browserSessionPersistence,
-            setPersistence
-        } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-        import {
-            getFirestore,
-            doc,
-            getDoc,
-            setDoc,
-            serverTimestamp,
-            collection,
-            query,
-            where,
-            getDocs,
-            enableIndexedDbPersistence
-        } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
-        // ============================================================
-        // 2. FIREBASE CONFIG
+        // إعدادات Firebase
         // ============================================================
         const firebaseConfig = {
             apiKey: "AIzaSyAz9BfG1INB3shlCiMtK395SEo6sCkaZSI",
             authDomain: "thanawya-official-plus.firebaseapp.com",
+            databaseURL: "https://thanawya-official-plus-default-rtdb.firebaseio.com",
             projectId: "thanawya-official-plus",
             storageBucket: "thanawya-official-plus.firebasestorage.app",
             messagingSenderId: "883728724353",
             appId: "1:883728724353:web:3f611e29d556d03c61b880"
         };
 
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-
-        // Enable Offline Persistence
-        try {
-            await enableIndexedDbPersistence(db);
-        } catch (err) {
-            console.warn('⚠️ Offline persistence not available:', err);
-        }
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const database = firebase.database();
 
         // ============================================================
-        // 3. DOM Elements
+        // عناصر الصفحة
         // ============================================================
         const loginPage = document.getElementById('loginPage');
         const signupPage = document.getElementById('signupPage');
         const completePage = document.getElementById('completeProfilePage');
 
+        const loginForm = document.getElementById('loginForm');
+        const loginBtn = document.getElementById('loginBtn');
         const loginEmail = document.getElementById('loginEmail');
         const loginPassword = document.getElementById('loginPassword');
-        const loginBtn = document.getElementById('loginBtn');
         const loginError = document.getElementById('loginError');
         const loginSuccess = document.getElementById('loginSuccess');
-        const rememberMe = document.getElementById('rememberMe');
-        const forgotPasswordLink = document.getElementById('forgotPasswordLink');
+        const verificationBox = document.getElementById('verificationBox');
+        const verificationDesc = document.getElementById('verificationDesc');
+        const resendVerificationBtn = document.getElementById('resendVerificationBtn');
 
+        const signupForm = document.getElementById('signupForm');
+        const signupBtn = document.getElementById('signupBtn');
         const signupName = document.getElementById('signupName');
         const signupPhone = document.getElementById('signupPhone');
         const signupGrade = document.getElementById('signupGrade');
-        const signupEducation = document.getElementById('signupEducation');
+        const signupSystem = document.getElementById('signupSystem');
         const signupRole = document.getElementById('signupRole');
         const signupEmail = document.getElementById('signupEmail');
         const signupPassword = document.getElementById('signupPassword');
         const signupPasswordConfirm = document.getElementById('signupPasswordConfirm');
-        const signupBtn = document.getElementById('signupBtn');
         const signupError = document.getElementById('signupError');
         const signupSuccess = document.getElementById('signupSuccess');
-        const termsCheck = document.getElementById('termsCheck');
-        const termsError = document.getElementById('termsError');
 
         const completeName = document.getElementById('completeName');
         const completeEmail = document.getElementById('completeEmail');
         const completePhone = document.getElementById('completePhone');
         const completeGrade = document.getElementById('completeGrade');
-        const completeEducation = document.getElementById('completeEducation');
+        const completeSystem = document.getElementById('completeSystem');
         const completeRole = document.getElementById('completeRole');
         const completeProfileBtn = document.getElementById('completeProfileBtn');
         const completeError = document.getElementById('completeError');
         const completeSuccess = document.getElementById('completeSuccess');
 
         const googleLoginBtn = document.getElementById('googleLoginBtn');
-        const toast = document.getElementById('toast');
+        const switchLink = document.getElementById('switchLink');
+        const signupSwitchLink = document.getElementById('signupSwitchLink');
+        const completeSwitchToLogin = document.getElementById('completeSwitchToLogin');
 
+        let isSignup = false;
         let currentUser = null;
 
         // ============================================================
-        // 4. TOAST
+        // دوال التحقق
         // ============================================================
-        let toastTimeout = null;
+        function isValidName(name) {
+            return name.trim().length >= 2;
+        }
 
-        function showToast(message, type = 'info') {
-            if (toastTimeout) clearTimeout(toastTimeout);
-            toast.textContent = message;
-            toast.className = `toast ${type}`;
-            toast.style.display = 'block';
-            toastTimeout = setTimeout(() => { toast.style.display = 'none'; }, 5000);
+        function isValidPhone(phone) {
+            const cleaned = phone.replace(/\s/g, '');
+            const egyptPattern = /^(010|011|012|015)\d{8}$/;
+            const saudiPattern = /^05\d{8}$/;
+            return egyptPattern.test(cleaned) || saudiPattern.test(cleaned);
+        }
+
+        function isValidEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
+        }
+
+        function isValidPassword(password) {
+            return password.length >= 6;
+        }
+
+        function isPasswordMatch(password, confirm) {
+            return password === confirm;
+        }
+
+        function showError(elementId, show) {
+            const el = document.getElementById(elementId);
+            if (!el) return;
+            if (show) el.classList.add('show');
+            else el.classList.remove('show');
+        }
+
+        function setInputStatus(inputId, status) {
+            const el = document.getElementById(inputId);
+            if (!el) return;
+            el.classList.remove('error', 'success');
+            if (status === 'error') el.classList.add('error');
+            if (status === 'success') el.classList.add('success');
         }
 
         // ============================================================
-        // 5. UI HELPERS
+        // التحقق من وجود رقم الهاتف في قاعدة البيانات
         // ============================================================
-        function showError(id, msg) {
-            const el = document.getElementById(id);
-            if (el) { el.textContent = msg;
-                el.style.display = 'block'; }
+        async function isPhoneRegistered(phone) {
+            try {
+                const snapshot = await database.ref('users')
+                    .orderByChild('phone')
+                    .equalTo(phone.trim())
+                    .once('value');
+                return snapshot.exists();
+            } catch (err) {
+                console.warn('⚠️ Error checking phone:', err);
+                return false;
+            }
         }
 
-        function hideError(id) {
-            const el = document.getElementById(id);
-            if (el) el.style.display = 'none';
+        // ============================================================
+        // التحقق من وجود بريد إلكتروني في قاعدة البيانات
+        // ============================================================
+        async function isEmailRegistered(email) {
+            try {
+                const snapshot = await database.ref('users')
+                    .orderByChild('email')
+                    .equalTo(email.trim())
+                    .once('value');
+                return snapshot.exists();
+            } catch (err) {
+                console.warn('⚠️ Error checking email:', err);
+                return false;
+            }
         }
 
-        function showSuccess(id, msg) {
-            const el = document.getElementById(id);
-            if (el) { el.textContent = msg;
-                el.style.display = 'block'; }
+        // ============================================================
+        // إرسال رابط التحقق
+        // ============================================================
+        async function sendVerificationEmail(user) {
+            try {
+                await user.sendEmailVerification({
+                    url: 'https://thanawya-official-plus.web.app',
+                    handleCodeInApp: true
+                });
+                return true;
+            } catch (err) {
+                return false;
+            }
         }
 
-        function hideSuccess(id) {
-            const el = document.getElementById(id);
-            if (el) el.style.display = 'none';
+        // ============================================================
+        // عرض صفحة إكمال البيانات
+        // ============================================================
+        function showCompleteProfile(user) {
+            currentUser = user;
+            loginPage.style.display = 'none';
+            signupPage.style.display = 'none';
+            completePage.classList.add('show');
+
+            completeName.value = user.displayName || '';
+            completeEmail.value = user.email || '';
         }
 
+        // ============================================================
+        // التحقق من صحة تسجيل الدخول
+        // ============================================================
+        function validateLogin() {
+            let valid = true;
+            const email = loginEmail.value.trim();
+            if (!isValidEmail(email)) {
+                showError('loginEmailError', true);
+                setInputStatus('loginEmail', 'error');
+                valid = false;
+            } else {
+                showError('loginEmailError', false);
+                setInputStatus('loginEmail', 'success');
+            }
+
+            const password = loginPassword.value;
+            if (!isValidPassword(password)) {
+                showError('loginPasswordError', true);
+                setInputStatus('loginPassword', 'error');
+                valid = false;
+            } else {
+                showError('loginPasswordError', false);
+                setInputStatus('loginPassword', 'success');
+            }
+            return valid;
+        }
+
+        // ============================================================
+        // التحقق من صحة إنشاء الحساب
+        // ============================================================
+        function validateSignup() {
+            let valid = true;
+
+            const name = signupName.value.trim();
+            if (!isValidName(name)) {
+                showError('signupNameError', true);
+                setInputStatus('signupName', 'error');
+                valid = false;
+            } else {
+                showError('signupNameError', false);
+                setInputStatus('signupName', 'success');
+            }
+
+            const phone = signupPhone.value.trim();
+            if (!isValidPhone(phone)) {
+                showError('signupPhoneError', true);
+                setInputStatus('signupPhone', 'error');
+                valid = false;
+            } else {
+                showError('signupPhoneError', false);
+                setInputStatus('signupPhone', 'success');
+            }
+
+            if (!signupGrade.value) {
+                showError('signupGradeError', true);
+                setInputStatus('signupGrade', 'error');
+                valid = false;
+            } else {
+                showError('signupGradeError', false);
+                setInputStatus('signupGrade', 'success');
+            }
+
+            if (!signupSystem.value) {
+                showError('signupSystemError', true);
+                setInputStatus('signupSystem', 'error');
+                valid = false;
+            } else {
+                showError('signupSystemError', false);
+                setInputStatus('signupSystem', 'success');
+            }
+
+            if (!signupRole.value) {
+                showError('signupRoleError', true);
+                setInputStatus('signupRole', 'error');
+                valid = false;
+            } else {
+                showError('signupRoleError', false);
+                setInputStatus('signupRole', 'success');
+            }
+
+            const email = signupEmail.value.trim();
+            if (!isValidEmail(email)) {
+                showError('signupEmailError', true);
+                setInputStatus('signupEmail', 'error');
+                valid = false;
+            } else {
+                showError('signupEmailError', false);
+                setInputStatus('signupEmail', 'success');
+            }
+
+            const password = signupPassword.value;
+            if (!isValidPassword(password)) {
+                showError('signupPasswordError', true);
+                setInputStatus('signupPassword', 'error');
+                valid = false;
+            } else {
+                showError('signupPasswordError', false);
+                setInputStatus('signupPassword', 'success');
+            }
+
+            if (!isPasswordMatch(signupPassword.value, signupPasswordConfirm.value)) {
+                showError('signupPasswordConfirmError', true);
+                setInputStatus('signupPasswordConfirm', 'error');
+                valid = false;
+            } else if (signupPassword.value.length > 0) {
+                showError('signupPasswordConfirmError', false);
+                setInputStatus('signupPasswordConfirm', 'success');
+            }
+
+            return valid;
+        }
+
+        // ============================================================
+        // التحقق من صحة إكمال البيانات
+        // ============================================================
+        function validateComplete() {
+            let valid = true;
+
+            const phone = completePhone.value.trim();
+            if (!isValidPhone(phone)) {
+                showError('completePhoneError', true);
+                setInputStatus('completePhone', 'error');
+                valid = false;
+            } else {
+                showError('completePhoneError', false);
+                setInputStatus('completePhone', 'success');
+            }
+
+            if (!completeGrade.value) {
+                showError('completeGradeError', true);
+                setInputStatus('completeGrade', 'error');
+                valid = false;
+            } else {
+                showError('completeGradeError', false);
+                setInputStatus('completeGrade', 'success');
+            }
+
+            if (!completeSystem.value) {
+                showError('completeSystemError', true);
+                setInputStatus('completeSystem', 'error');
+                valid = false;
+            } else {
+                showError('completeSystemError', false);
+                setInputStatus('completeSystem', 'success');
+            }
+
+            if (!completeRole.value) {
+                showError('completeRoleError', true);
+                setInputStatus('completeRole', 'error');
+                valid = false;
+            } else {
+                showError('completeRoleError', false);
+                setInputStatus('completeRole', 'success');
+            }
+
+            return valid;
+        }
+
+        // ============================================================
+        // تسجيل الدخول
+        // ============================================================
+        loginBtn.addEventListener('click', async () => {
+            loginError.style.display = 'none';
+            loginSuccess.style.display = 'none';
+            verificationBox.classList.remove('show');
+
+            if (!validateLogin()) return;
+
+            const email = loginEmail.value.trim();
+            const password = loginPassword.value;
+
+            loginBtn.disabled = true;
+            loginBtn.innerHTML = '⏳ جاري ... <span class="spinner"></span>';
+
+            try {
+                const userCredential = await auth.signInWithEmailAndPassword(email, password);
+                const user = userCredential.user;
+
+                // التحقق من الحظر
+                const snapshot = await database.ref('users/' + user.uid).once('value');
+                const userData = snapshot.val();
+
+                if (userData && userData.isBanned) {
+                    await auth.signOut();
+                    loginError.textContent = '⛔ تم حظر هذا الحساب';
+                    loginError.style.display = 'block';
+                    loginBtn.disabled = false;
+                    loginBtn.innerHTML = '🚀 تسجيل الدخول';
+                    return;
+                }
+
+                // التحقق من البريد الإلكتروني
+                if (!user.emailVerified) {
+                    await sendVerificationEmail(user);
+                    verificationBox.classList.add('show');
+                    verificationDesc.textContent = '📧 لم يتم التحقق من بريدك الإلكتروني. تم إرسال رابط تحقق جديد.';
+                    loginBtn.disabled = false;
+                    loginBtn.innerHTML = '🚀 تسجيل الدخول';
+                    await auth.signOut();
+                    return;
+                }
+
+                // التحقق من اكتمال الملف الشخصي
+                if (userData && !userData.profileCompleted) {
+                    loginSuccess.textContent = '✅ تم تسجيل الدخول! أكمل بياناتك.';
+                    loginSuccess.style.display = 'block';
+                    setTimeout(() => {
+                        showCompleteProfile(user);
+                        loginBtn.disabled = false;
+                        loginBtn.innerHTML = '🚀 تسجيل الدخول';
+                    }, 1500);
+                } else {
+                    loginSuccess.textContent = '✅ تم تسجيل الدخول بنجاح! جاري التحويل...';
+                    loginSuccess.style.display = 'block';
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 1500);
+                }
+
+            } catch (err) {
+                let msg = err.message;
+                if (msg.includes('user-not-found')) msg = '❌ لا يوجد حساب بهذا البريد الإلكتروني';
+                else if (msg.includes('wrong-password')) msg = '❌ كلمة المرور غير صحيحة';
+                else if (msg.includes('too-many-requests')) msg = '❌ محاولات كثيرة جداً. حاول لاحقاً';
+                else if (msg.includes('invalid-email')) msg = '❌ البريد الإلكتروني غير صحيح';
+                else msg = '❌ ' + msg;
+
+                loginError.textContent = msg;
+                loginError.style.display = 'block';
+                loginBtn.disabled = false;
+                loginBtn.innerHTML = '🚀 تسجيل الدخول';
+            }
+        });
+
+        // ============================================================
+        // إعادة إرسال التحقق
+        // ============================================================
+        resendVerificationBtn.addEventListener('click', async () => {
+            const email = loginEmail.value.trim();
+            if (!isValidEmail(email)) {
+                showError('loginEmailError', true);
+                return;
+            }
+
+            resendVerificationBtn.disabled = true;
+            resendVerificationBtn.textContent = '⏳ جاري ...';
+
+            try {
+                const password = loginPassword.value;
+                if (!isValidPassword(password)) {
+                    showError('loginPasswordError', true);
+                    resendVerificationBtn.disabled = false;
+                    resendVerificationBtn.textContent = '📨 إعادة إرسال رابط التحقق';
+                    return;
+                }
+
+                const userCredential = await auth.signInWithEmailAndPassword(email, password);
+                const user = userCredential.user;
+
+                await sendVerificationEmail(user);
+                verificationDesc.textContent = '✅ تم إرسال رابط التحقق مجدداً إلى بريدك الإلكتروني.';
+                await auth.signOut();
+
+            } catch (err) {
+                let msg = err.message;
+                if (msg.includes('user-not-found')) msg = '❌ لا يوجد حساب بهذا البريد';
+                else if (msg.includes('wrong-password')) msg = '❌ كلمة المرور غير صحيحة';
+                else msg = '❌ ' + msg;
+                verificationDesc.textContent = msg;
+            }
+
+            resendVerificationBtn.disabled = false;
+            resendVerificationBtn.textContent = '📨 إعادة إرسال رابط التحقق';
+        });
+
+        // ============================================================
+        // تسجيل الدخول بـ Google
+        // ============================================================
+        googleLoginBtn.addEventListener('click', async () => {
+            loginError.style.display = 'none';
+            loginSuccess.style.display = 'none';
+
+            googleLoginBtn.disabled = true;
+            googleLoginBtn.innerHTML = '⏳ جاري ... <span class="spinner"></span>';
+
+            try {
+                const provider = new firebase.auth.GoogleAuthProvider();
+                provider.setCustomParameters({
+                    prompt: 'select_account'
+                });
+
+                const result = await auth.signInWithPopup(provider);
+                const user = result.user;
+
+                // التحقق من الحظر
+                const snapshot = await database.ref('users/' + user.uid).once('value');
+                const userData = snapshot.val();
+
+                if (userData && userData.isBanned) {
+                    await auth.signOut();
+                    loginError.textContent = '⛔ تم حظر هذا الحساب';
+                    loginError.style.display = 'block';
+                    googleLoginBtn.disabled = false;
+                    googleLoginBtn.innerHTML = '🔵 تسجيل الدخول بـ Google';
+                    return;
+                }
+
+                if (!userData) {
+                    // مستخدم جديد من Google - حفظ البيانات الأساسية
+                    await database.ref('users/' + user.uid).set({
+                        name: user.displayName || 'مستخدم Google',
+                        email: user.email,
+                        phone: '',
+                        grade: '',
+                        system: '',
+                        role: 'طالب',
+                        photoURL: user.photoURL || '',
+                        verified: true,
+                        profileCompleted: false,
+                        isActive: true,
+                        isBanned: false,
+                        createdAt: firebase.database.ServerValue.TIMESTAMP,
+                        lastActive: firebase.database.ServerValue.TIMESTAMP
+                    });
+
+                    loginSuccess.textContent = '✅ مرحباً بك! أكمل بياناتك.';
+                    loginSuccess.style.display = 'block';
+                    setTimeout(() => {
+                        showCompleteProfile(user);
+                        googleLoginBtn.disabled = false;
+                        googleLoginBtn.innerHTML = '🔵 تسجيل الدخول بـ Google';
+                    }, 1500);
+                } else if (!userData.profileCompleted) {
+                    loginSuccess.textContent = '✅ أكمل بياناتك.';
+                    loginSuccess.style.display = 'block';
+                    setTimeout(() => {
+                        showCompleteProfile(user);
+                        googleLoginBtn.disabled = false;
+                        googleLoginBtn.innerHTML = '🔵 تسجيل الدخول بـ Google';
+                    }, 1500);
+                } else {
+                    loginSuccess.textContent = '✅ تم تسجيل الدخول بنجاح! جاري التحويل...';
+                    loginSuccess.style.display = 'block';
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 1500);
+                }
+
+            } catch (err) {
+                let msg = err.message;
+                if (msg.includes('popup-closed')) msg = '❌ تم إغلاق نافذة جوجل';
+                else if (msg.includes('network-request-failed')) msg = '❌ مشكلة في الاتصال بالإنترنت';
+                else msg = '❌ ' + msg;
+
+                loginError.textContent = msg;
+                loginError.style.display = 'block';
+                googleLoginBtn.disabled = false;
+                googleLoginBtn.innerHTML = '🔵 تسجيل الدخول بـ Google';
+            }
+        });
+
+        // ============================================================
+        // إنشاء حساب جديد
+        // ============================================================
+        signupBtn.addEventListener('click', async () => {
+            signupError.style.display = 'none';
+            signupSuccess.style.display = 'none';
+
+            if (!validateSignup()) return;
+
+            const name = signupName.value.trim();
+            const phone = signupPhone.value.trim();
+            const grade = signupGrade.value;
+            const system = signupSystem.value;
+            const role = signupRole.value;
+            const email = signupEmail.value.trim();
+            const password = signupPassword.value;
+
+            // التحقق من تكرار رقم الهاتف
+            const phoneExists = await isPhoneRegistered(phone);
+            if (phoneExists) {
+                signupError.textContent = '❌ هذا رقم الهاتف مسجل بالفعل، يرجى استخدام رقم آخر';
+                signupError.style.display = 'block';
+                setInputStatus('signupPhone', 'error');
+                showError('signupPhoneError', true);
+                document.getElementById('signupPhoneError').textContent = '❌ هذا الرقم مسجل بالفعل';
+                return;
+            }
+
+            // التحقق من تكرار البريد الإلكتروني
+            const emailExists = await isEmailRegistered(email);
+            if (emailExists) {
+                signupError.textContent = '❌ هذا البريد الإلكتروني مسجل بالفعل';
+                signupError.style.display = 'block';
+                setInputStatus('signupEmail', 'error');
+                showError('signupEmailError', true);
+                document.getElementById('signupEmailError').textContent = '❌ هذا البريد مسجل بالفعل';
+                return;
+            }
+
+            signupBtn.disabled = true;
+            signupBtn.innerHTML = '⏳ جاري ... <span class="spinner"></span>';
+
+            try {
+                const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+                const user = userCredential.user;
+
+                await user.updateProfile({
+                    displayName: name
+                });
+
+                await sendVerificationEmail(user);
+
+                // حفظ البيانات في Realtime Database
+                await database.ref('users/' + user.uid).set({
+                    name: name,
+                    email: email,
+                    phone: phone,
+                    grade: grade,
+                    system: system, // ← مهم جداً: system وليس education
+                    role: role,
+                    photoURL: '',
+                    verified: false,
+                    profileCompleted: false,
+                    isActive: true,
+                    isBanned: false,
+                    createdAt: firebase.database.ServerValue.TIMESTAMP,
+                    lastActive: firebase.database.ServerValue.TIMESTAMP
+                });
+
+                await auth.signOut();
+
+                signupSuccess.textContent = '✅ تم إنشاء الحساب! تم إرسال رابط التحقق إلى بريدك الإلكتروني.';
+                signupSuccess.style.display = 'block';
+
+                signupBtn.disabled = false;
+                signupBtn.innerHTML = '📝 إنشاء حساب';
+
+                setTimeout(() => {
+                    loginPage.style.display = 'block';
+                    signupPage.style.display = 'none';
+                    completePage.classList.remove('show');
+                    loginEmail.value = email;
+                }, 3000);
+
+            } catch (err) {
+                let msg = err.message;
+                if (msg.includes('email-already-in-use')) msg = '❌ هذا البريد الإلكتروني مسجل بالفعل';
+                else if (msg.includes('invalid-email')) msg = '❌ البريد الإلكتروني غير صحيح';
+                else if (msg.includes('weak-password')) msg = '❌ كلمة المرور ضعيفة (6 أحرف على الأقل)';
+                else if (msg.includes('network-request-failed')) msg = '❌ مشكلة في الاتصال بالإنترنت';
+                else msg = '❌ ' + msg;
+
+                signupError.textContent = msg;
+                signupError.style.display = 'block';
+                signupBtn.disabled = false;
+                signupBtn.innerHTML = '📝 إنشاء حساب';
+            }
+        });
+
+        // ============================================================
+        // إكمال البيانات (مرة واحدة)
+        // ============================================================
+        completeProfileBtn.addEventListener('click', async () => {
+            completeError.style.display = 'none';
+            completeSuccess.style.display = 'none';
+
+            if (!validateComplete()) return;
+
+            const phone = completePhone.value.trim();
+            const grade = completeGrade.value;
+            const system = completeSystem.value;
+            const role = completeRole.value;
+
+            setLoading(completeProfileBtn, true);
+
+            try {
+                const user = auth.currentUser;
+                if (!user) throw new Error('لا يوجد مستخدم مسجل');
+
+                // التحقق من تكرار رقم الهاتف
+                const phoneExists = await isPhoneRegistered(phone);
+                if (phoneExists) {
+                    completeError.textContent = '❌ هذا الرقم مسجل بالفعل';
+                    completeError.style.display = 'block';
+                    setInputStatus('completePhone', 'error');
+                    showError('completePhoneError', true);
+                    setLoading(completeProfileBtn, false);
+                    return;
+                }
+
+                // تحديث البيانات مع profileCompleted: true
+                await database.ref('users/' + user.uid).update({
+                    phone: phone,
+                    grade: grade,
+                    system: system,
+                    role: role,
+                    verified: true,
+                    profileCompleted: true,
+                    lastActive: firebase.database.ServerValue.TIMESTAMP
+                });
+
+                completeSuccess.textContent = '✅ تم إكمال البيانات بنجاح!';
+                completeSuccess.style.display = 'block';
+
+                // تعطيل الحقول بعد الإكمال
+                completePhone.disabled = true;
+                completeGrade.disabled = true;
+                completeSystem.disabled = true;
+                completeRole.disabled = true;
+                completeProfileBtn.style.display = 'none';
+
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1500);
+
+            } catch (err) {
+                completeError.textContent = '❌ ' + err.message;
+                completeError.style.display = 'block';
+                setLoading(completeProfileBtn, false);
+            } finally {
+                setLoading(completeProfileBtn, false);
+            }
+        });
+
+        // ============================================================
+        // دوال مساعدة للـ Loading
+        // ============================================================
         function setLoading(btn, loading) {
             if (loading) {
                 btn.dataset.originalText = btn.innerHTML;
@@ -917,551 +1382,242 @@
             }
         }
 
-        function setInputStatus(id, status) {
-            const el = document.getElementById(id);
-            if (!el) return;
-            el.classList.remove('error', 'success');
-            if (status === 'error') el.classList.add('error');
-            if (status === 'success') el.classList.add('success');
+        // ============================================================
+        // التبديل بين الصفحات
+        // ============================================================
+        function switchMode() {
+            isSignup = !isSignup;
+
+            if (isSignup) {
+                loginPage.style.display = 'none';
+                signupPage.style.display = 'block';
+                completePage.classList.remove('show');
+                document.getElementById('formTitle').textContent = '📝 إنشاء حساب جديد';
+                document.getElementById('formSubText').textContent = 'أنشئ حساباً جديداً للاستفادة من جميع المميزات';
+                document.getElementById('switchText').textContent = 'لديك حساب بالفعل؟';
+                document.getElementById('switchLink').textContent = 'تسجيل الدخول';
+                loginError.style.display = 'none';
+                loginSuccess.style.display = 'none';
+            } else {
+                loginPage.style.display = 'block';
+                signupPage.style.display = 'none';
+                completePage.classList.remove('show');
+                document.getElementById('formTitle').textContent = '🔐 تسجيل الدخول';
+                document.getElementById('formSubText').textContent = 'سجل الدخول للوصول إلى جميع مميزات المنصة';
+                document.getElementById('switchText').textContent = 'ليس لديك حساب؟';
+                document.getElementById('switchLink').textContent = 'أنشئ حساباً جديداً';
+                loginError.style.display = 'none';
+                loginSuccess.style.display = 'none';
+            }
+
+            loginBtn.disabled = false;
+            loginBtn.innerHTML = '🚀 تسجيل الدخول';
+            signupBtn.disabled = false;
+            signupBtn.innerHTML = '📝 إنشاء حساب';
+            googleLoginBtn.disabled = false;
+            googleLoginBtn.innerHTML = '🔵 تسجيل الدخول بـ Google';
         }
 
-        function showCompleteProfile(user) {
-            currentUser = user;
-            loginPage.style.display = 'none';
+        switchLink.addEventListener('click', switchMode);
+        signupSwitchLink.addEventListener('click', switchMode);
+
+        completeSwitchToLogin.addEventListener('click', () => {
+            loginPage.style.display = 'block';
             signupPage.style.display = 'none';
-            completePage.classList.add('show');
-            completeName.value = user.displayName || '';
-            completeEmail.value = user.email || '';
-        }
-
-        // ============================================================
-        // 6. VALIDATION
-        // ============================================================
-        function isValidName(name) { return name.trim().length >= 2; }
-
-        function isValidPhone(phone) {
-            const cleaned = phone.replace(/\s/g, '');
-            return /^(010|011|012|015|05)\d{8}$/.test(cleaned);
-        }
-
-        function isValidEmail(email) {
-            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
-        }
-
-        function isValidPassword(password) {
-            return password.length >= 8 &&
-                /[A-Z]/.test(password) &&
-                /[a-z]/.test(password) &&
-                /\d/.test(password);
-        }
-
-        function getPasswordStrength(password) {
-            let score = 0;
-            if (password.length >= 8) score++;
-            if (/[A-Z]/.test(password)) score++;
-            if (/[a-z]/.test(password)) score++;
-            if (/\d/.test(password)) score++;
-            if (/[^A-Za-z0-9]/.test(password)) score++;
-            if (score <= 2) return { label: 'ضعيفة', class: 'weak' };
-            if (score <= 3) return { label: 'متوسطة', class: 'medium' };
-            return { label: 'قوية', class: 'strong' };
-        }
-
-        // ============================================================
-        // 7. RATE LIMITER
-        // ============================================================
-        const rateLimiter = {
-            _getKey(email) { return `login_attempts_${email}`; },
-            getAttempts(email) {
-                const key = this._getKey(email);
-                const data = JSON.parse(localStorage.getItem(key) || '[]');
-                const now = Date.now();
-                return data.filter(time => now - time < 15 * 60 * 1000);
-            },
-            logAttempt(email) {
-                const key = this._getKey(email);
-                const attempts = this.getAttempts(email);
-                attempts.push(Date.now());
-                localStorage.setItem(key, JSON.stringify(attempts));
-            },
-            isRateLimited(email) { return this.getAttempts(email).length >= 5; },
-            getRemainingTime(email) {
-                const attempts = this.getAttempts(email);
-                if (attempts.length < 5) return 0;
-                const oldest = attempts[0];
-                const remaining = 15 * 60 * 1000 - (Date.now() - oldest);
-                return Math.max(0, Math.ceil(remaining / 1000));
-            },
-            reset(email) { localStorage.removeItem(this._getKey(email)); }
-        };
-
-        // ============================================================
-        // 8. LOGIN
-        // ============================================================
-        loginBtn.addEventListener('click', async () => {
-            hideError('loginError');
-            hideSuccess('loginSuccess');
-
-            const email = loginEmail.value.trim();
-            const password = loginPassword.value;
-
-            if (!isValidEmail(email)) {
-                showError('loginEmailError', '❌ بريد إلكتروني غير صحيح');
-                setInputStatus('loginEmail', 'error');
-                return;
-            }
-            hideError('loginEmailError');
-            setInputStatus('loginEmail', 'success');
-
-            if (!isValidPassword(password)) {
-                showError('loginPasswordError', '❌ 8 أحرف، حرف كبير، حرف صغير، رقم');
-                setInputStatus('loginPassword', 'error');
-                return;
-            }
-            hideError('loginPasswordError');
-            setInputStatus('loginPassword', 'success');
-
-            if (rateLimiter.isRateLimited(email)) {
-                const remaining = rateLimiter.getRemainingTime(email);
-                showError('loginError', `❌ محاولات كثيرة جداً. حاول بعد ${Math.ceil(remaining/60)} دقيقة`);
-                return;
-            }
-
-            await setPersistence(auth, rememberMe.checked ? browserLocalPersistence : browserSessionPersistence);
-            setLoading(loginBtn, true);
-
-            try {
-                const userCredential = await signInWithEmailAndPassword(auth, email, password);
-                const user = userCredential.user;
-                rateLimiter.reset(email);
-
-                const userDoc = await getDoc(doc(db, 'users', user.uid));
-                const userData = userDoc.data();
-
-                if (userData?.isBanned) {
-                    await firebaseSignOut(auth);
-                    showError('loginError', '⛔ هذا الحساب محظور');
-                    setLoading(loginBtn, false);
-                    return;
-                }
-
-                if (!user.emailVerified) {
-                    await sendEmailVerification(user);
-                    await firebaseSignOut(auth);
-                    showError('loginError', '📧 يرجى التحقق من بريدك الإلكتروني. تم إرسال رابط تحقق جديد.');
-                    setLoading(loginBtn, false);
-                    return;
-                }
-
-                if (userData && !userData.profileCompleted) {
-                    showSuccess('loginSuccess', '✅ تم تسجيل الدخول! أكمل بياناتك.');
-                    setTimeout(() => { showCompleteProfile(user);
-                        setLoading(loginBtn, false); }, 1500);
-                } else {
-                    showSuccess('loginSuccess', '✅ تم تسجيل الدخول بنجاح!');
-                    setTimeout(() => { window.location.href = 'dashboard.html'; }, 1500);
-                }
-
-            } catch (err) {
-                rateLimiter.logAttempt(email);
-                let msg = err.message;
-                if (msg.includes('user-not-found')) msg = '❌ لا يوجد حساب بهذا البريد';
-                else if (msg.includes('wrong-password')) msg = '❌ كلمة المرور غير صحيحة';
-                else if (msg.includes('too-many-requests')) msg = '❌ محاولات كثيرة جداً. حاول لاحقاً';
-                else msg = '❌ ' + msg;
-                showError('loginError', msg);
-                setLoading(loginBtn, false);
-            } finally {
-                setLoading(loginBtn, false);
-            }
+            completePage.classList.remove('show');
+            auth.signOut();
         });
 
         // ============================================================
-        // 9. GOOGLE LOGIN
+        // التحقق الفوري من المدخلات
         // ============================================================
-        googleLoginBtn.addEventListener('click', async () => {
-            hideError('loginError');
-            hideSuccess('loginSuccess');
-            setLoading(googleLoginBtn, true);
-
-            try {
-                const provider = new GoogleAuthProvider();
-                provider.setCustomParameters({ prompt: 'select_account' });
-                const result = await signInWithPopup(auth, provider);
-                const user = result.user;
-
-                if (!user.email) throw new Error('❌ لم يتم الحصول على البريد الإلكتروني من Google');
-
-                const userDoc = await getDoc(doc(db, 'users', user.uid));
-                const userData = userDoc.data();
-
-                if (userData?.isBanned) {
-                    await firebaseSignOut(auth);
-                    showError('loginError', '⛔ هذا الحساب محظور');
-                    setLoading(googleLoginBtn, false);
-                    return;
-                }
-
-                if (!userDoc.exists()) {
-                    await setDoc(doc(db, 'users', user.uid), {
-                        name: user.displayName || '',
-                        email: user.email,
-                        photoURL: user.photoURL || '',
-                        phone: '',
-                        grade: '',
-                        system: '',
-                        role: 'طالب',
-                        year: '2027',
-                        verified: true,
-                        profileCompleted: false,
-                        isActive: true,
-                        isBanned: false,
-                        createdAt: serverTimestamp(),
-                        lastActive: serverTimestamp()
-                    });
-                    showSuccess('loginSuccess', '✅ مرحباً بك! أكمل بياناتك.');
-                    setTimeout(() => { showCompleteProfile(user);
-                        setLoading(googleLoginBtn, false); }, 1500);
-                } else if (!userData.profileCompleted) {
-                    showSuccess('loginSuccess', '✅ أكمل بياناتك.');
-                    setTimeout(() => { showCompleteProfile(user);
-                        setLoading(googleLoginBtn, false); }, 1500);
-                } else {
-                    await setDoc(doc(db, 'users', user.uid), { lastActive: serverTimestamp() }, { merge: true });
-                    showSuccess('loginSuccess', '✅ تم تسجيل الدخول بنجاح!');
-                    setTimeout(() => { window.location.href = 'dashboard.html'; }, 1500);
-                }
-
-            } catch (err) {
-                let msg = err.message;
-                if (msg.includes('popup-closed')) msg = '❌ تم إغلاق نافذة جوجل';
-                else msg = '❌ ' + msg;
-                showError('loginError', msg);
-                setLoading(googleLoginBtn, false);
-            } finally {
-                setLoading(googleLoginBtn, false);
-            }
-        });
-
-        // ============================================================
-        // 10. SIGNUP
-        // ============================================================
-        signupBtn.addEventListener('click', async () => {
-            hideError('signupError');
-            hideSuccess('signupSuccess');
-
-            const name = signupName.value.trim();
-            const phone = signupPhone.value.trim();
-            const grade = signupGrade.value;
-            const education = signupEducation.value;
-            const role = signupRole.value;
-            const email = signupEmail.value.trim();
-            const password = signupPassword.value;
-            const confirm = signupPasswordConfirm.value;
-
-            if (!isValidName(name)) {
-                showError('signupNameError', '❌ اسم غير صحيح');
+        signupName.addEventListener('input', function() {
+            const name = this.value.trim();
+            if (name.length >= 2) {
+                showError('signupNameError', false);
+                setInputStatus('signupName', 'success');
+            } else if (name.length > 0) {
+                showError('signupNameError', true);
                 setInputStatus('signupName', 'error');
-                return;
             }
-            hideError('signupNameError');
-            setInputStatus('signupName', 'success');
+        });
 
-            if (!isValidPhone(phone)) {
-                showError('signupPhoneError', '❌ رقم هاتف غير صحيح');
+        signupPhone.addEventListener('input', function() {
+            this.value = this.value.replace(/\D/g, '');
+            const phone = this.value.trim();
+            if (isValidPhone(phone)) {
+                showError('signupPhoneError', false);
+                setInputStatus('signupPhone', 'success');
+            } else if (phone.length > 0) {
+                showError('signupPhoneError', true);
                 setInputStatus('signupPhone', 'error');
-                return;
             }
-            hideError('signupPhoneError');
-            setInputStatus('signupPhone', 'success');
+        });
 
-            if (!grade) {
-                showError('signupGradeError', '❌ يرجى اختيار الصف');
-                setInputStatus('signupGrade', 'error');
-                return;
-            }
-            hideError('signupGradeError');
-            setInputStatus('signupGrade', 'success');
-
-            if (!education) {
-                showError('signupEducationError', '❌ يرجى اختيار النوع');
-                setInputStatus('signupEducation', 'error');
-                return;
-            }
-            hideError('signupEducationError');
-            setInputStatus('signupEducation', 'success');
-
-            if (!role) {
-                showError('signupRoleError', '❌ يرجى اختيار نوع المستخدم');
-                setInputStatus('signupRole', 'error');
-                return;
-            }
-            hideError('signupRoleError');
-            setInputStatus('signupRole', 'success');
-
-            if (!isValidEmail(email)) {
-                showError('signupEmailError', '❌ بريد إلكتروني غير صحيح');
+        signupEmail.addEventListener('input', function() {
+            const email = this.value.trim();
+            if (isValidEmail(email)) {
+                showError('signupEmailError', false);
+                setInputStatus('signupEmail', 'success');
+            } else if (email.length > 0) {
+                showError('signupEmailError', true);
                 setInputStatus('signupEmail', 'error');
-                return;
-            }
-            hideError('signupEmailError');
-            setInputStatus('signupEmail', 'success');
-
-            if (!isValidPassword(password)) {
-                showError('signupPasswordError', '❌ 8 أحرف، حرف كبير، حرف صغير، رقم');
-                setInputStatus('signupPassword', 'error');
-                return;
-            }
-            hideError('signupPasswordError');
-            setInputStatus('signupPassword', 'success');
-
-            if (password !== confirm) {
-                showError('signupPasswordConfirmError', '❌ كلمة المرور غير متطابقة');
-                setInputStatus('signupPasswordConfirm', 'error');
-                return;
-            }
-            hideError('signupPasswordConfirmError');
-            setInputStatus('signupPasswordConfirm', 'success');
-
-            if (!termsCheck.checked) {
-                showError('termsError', '❌ يرجى الموافقة على الشروط والأحكام');
-                return;
-            }
-            hideError('termsError');
-
-            const phoneQuery = query(collection(db, 'users'), where('phone', '==', phone));
-            const phoneSnapshot = await getDocs(phoneQuery);
-            if (!phoneSnapshot.empty) {
-                showError('signupPhoneError', '❌ هذا الرقم مسجل بالفعل');
-                setInputStatus('signupPhone', 'error');
-                return;
-            }
-
-            setLoading(signupBtn, true);
-
-            try {
-                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-                const user = userCredential.user;
-
-                await updateProfile(user, { displayName: name });
-                await sendEmailVerification(user);
-
-                await setDoc(doc(db, 'users', user.uid), {
-                    name: name,
-                    email: email,
-                    phone: phone,
-                    grade: grade,
-                    system: education,
-                    role: role,
-                    year: '2027',
-                    photoURL: '',
-                    verified: false,
-                    profileCompleted: false,
-                    isActive: true,
-                    isBanned: false,
-                    createdAt: serverTimestamp(),
-                    lastActive: serverTimestamp()
-                });
-
-                await firebaseSignOut(auth);
-                showSuccess('signupSuccess', '✅ تم إنشاء الحساب! تم إرسال رابط التحقق إلى بريدك.');
-
-                setTimeout(() => {
-                    loginPage.style.display = 'block';
-                    signupPage.style.display = 'none';
-                    completePage.classList.remove('show');
-                    loginEmail.value = email;
-                    setLoading(signupBtn, false);
-                    showToast('📧 تم إرسال رابط التحقق إلى بريدك الإلكتروني', 'success');
-                }, 3000);
-
-            } catch (err) {
-                let msg = err.message;
-                if (msg.includes('email-already-in-use')) msg = '❌ هذا البريد مسجل بالفعل';
-                else if (msg.includes('invalid-email')) msg = '❌ البريد الإلكتروني غير صحيح';
-                else if (msg.includes('weak-password')) msg = '❌ كلمة المرور ضعيفة';
-                else msg = '❌ ' + msg;
-                showError('signupError', msg);
-                setLoading(signupBtn, false);
-            } finally {
-                setLoading(signupBtn, false);
             }
         });
 
-        // ============================================================
-        // 11. COMPLETE PROFILE
-        // ============================================================
-        completeProfileBtn.addEventListener('click', async () => {
-            hideError('completeError');
-            hideSuccess('completeSuccess');
-
-            const phone = completePhone.value.trim();
-            const grade = completeGrade.value;
-            const education = completeEducation.value;
-            const role = completeRole.value;
-
-            if (!isValidPhone(phone)) {
-                showError('completePhoneError', '❌ رقم هاتف غير صحيح');
-                setInputStatus('completePhone', 'error');
-                return;
-            }
-            hideError('completePhoneError');
-            setInputStatus('completePhone', 'success');
-
-            if (!grade) {
-                showError('completeGradeError', '❌ يرجى اختيار الصف');
-                setInputStatus('completeGrade', 'error');
-                return;
-            }
-            hideError('completeGradeError');
-            setInputStatus('completeGrade', 'success');
-
-            if (!education) {
-                showError('completeEducationError', '❌ يرجى اختيار النوع');
-                setInputStatus('completeEducation', 'error');
-                return;
-            }
-            hideError('completeEducationError');
-            setInputStatus('completeEducation', 'success');
-
-            if (!role) {
-                showError('completeRoleError', '❌ يرجى اختيار نوع المستخدم');
-                setInputStatus('completeRole', 'error');
-                return;
-            }
-            hideError('completeRoleError');
-            setInputStatus('completeRole', 'success');
-
-            setLoading(completeProfileBtn, true);
-
-            try {
-                const user = auth.currentUser;
-                if (!user) throw new Error('لا يوجد مستخدم مسجل');
-
-                const phoneQuery = query(collection(db, 'users'), where('phone', '==', phone));
-                const phoneSnapshot = await getDocs(phoneQuery);
-                if (!phoneSnapshot.empty) {
-                    const existing = phoneSnapshot.docs.find(d => d.id !== user.uid);
-                    if (existing) {
-                        showError('completePhoneError', '❌ هذا الرقم مسجل بالفعل');
-                        setInputStatus('completePhone', 'error');
-                        setLoading(completeProfileBtn, false);
-                        return;
-                    }
-                }
-
-                await setDoc(doc(db, 'users', user.uid), {
-                    phone: phone,
-                    grade: grade,
-                    system: education,
-                    role: role,
-                    verified: true,
-                    profileCompleted: true,
-                    lastActive: serverTimestamp()
-                }, { merge: true });
-
-                showSuccess('completeSuccess', '✅ تم إكمال البيانات بنجاح!');
-                completePhone.disabled = true;
-                completeGrade.disabled = true;
-                completeEducation.disabled = true;
-                completeRole.disabled = true;
-                completeProfileBtn.style.display = 'none';
-
-                setTimeout(() => { window.location.href = 'dashboard.html'; }, 1500);
-
-            } catch (err) {
-                showError('completeError', '❌ ' + err.message);
-                setLoading(completeProfileBtn, false);
-            } finally {
-                setLoading(completeProfileBtn, false);
-            }
-        });
-
-        // ============================================================
-        // 12. FORGOT PASSWORD
-        // ============================================================
-        forgotPasswordLink.addEventListener('click', async () => {
-            const email = loginEmail.value.trim();
-            if (!isValidEmail(email)) {
-                showError('loginEmailError', '❌ أدخل بريدك الإلكتروني أولاً');
-                return;
-            }
-
-            const resetKey = `reset_password_${email}`;
-            const lastReset = localStorage.getItem(resetKey);
-            if (lastReset && Date.now() - parseInt(lastReset) < 5 * 60 * 1000) {
-                showError('loginError', '❌ تم الإرسال مؤخراً. حاول بعد 5 دقائق');
-                return;
-            }
-
-            try {
-                await sendPasswordResetEmail(auth, email);
-                localStorage.setItem(resetKey, Date.now().toString());
-                showSuccess('loginSuccess', '✅ تم إرسال رابط إعادة تعيين كلمة المرور إلى بريدك');
-                showToast('📧 تم إرسال رابط إعادة تعيين كلمة المرور', 'success');
-            } catch (err) {
-                showError('loginError', '❌ ' + err.message);
-            }
-        });
-
-        // ============================================================
-        // 13. PASSWORD STRENGTH
-        // ============================================================
         signupPassword.addEventListener('input', function() {
             const password = this.value;
-            const bar = document.getElementById('passwordStrengthBar');
-            const label = document.getElementById('passwordStrengthLabel');
-
-            if (password.length === 0) {
-                bar.className = 'bar';
-                label.textContent = '';
-                return;
+            if (isValidPassword(password)) {
+                showError('signupPasswordError', false);
+                setInputStatus('signupPassword', 'success');
+            } else if (password.length > 0) {
+                showError('signupPasswordError', true);
+                setInputStatus('signupPassword', 'error');
             }
+            const confirm = signupPasswordConfirm.value;
+            if (confirm.length > 0) {
+                if (isPasswordMatch(password, confirm)) {
+                    showError('signupPasswordConfirmError', false);
+                    setInputStatus('signupPasswordConfirm', 'success');
+                } else {
+                    showError('signupPasswordConfirmError', true);
+                    setInputStatus('signupPasswordConfirm', 'error');
+                }
+            }
+        });
 
-            const strength = getPasswordStrength(password);
-            bar.className = `bar ${strength.class}`;
-            label.textContent = `قوة كلمة المرور: ${strength.label}`;
-            label.style.color = strength.class === 'weak' ? '#e74c3c' :
-                strength.class === 'medium' ? '#f39c12' : '#2ecc71';
+        signupPasswordConfirm.addEventListener('input', function() {
+            const confirm = this.value;
+            const password = signupPassword.value;
+            if (confirm.length > 0) {
+                if (isPasswordMatch(password, confirm)) {
+                    showError('signupPasswordConfirmError', false);
+                    setInputStatus('signupPasswordConfirm', 'success');
+                } else {
+                    showError('signupPasswordConfirmError', true);
+                    setInputStatus('signupPasswordConfirm', 'error');
+                }
+            }
+        });
+
+        signupGrade.addEventListener('change', function() {
+            if (this.value) {
+                showError('signupGradeError', false);
+                setInputStatus('signupGrade', 'success');
+            } else {
+                showError('signupGradeError', true);
+                setInputStatus('signupGrade', 'error');
+            }
+        });
+
+        signupSystem.addEventListener('change', function() {
+            if (this.value) {
+                showError('signupSystemError', false);
+                setInputStatus('signupSystem', 'success');
+            } else {
+                showError('signupSystemError', true);
+                setInputStatus('signupSystem', 'error');
+            }
+        });
+
+        signupRole.addEventListener('change', function() {
+            if (this.value) {
+                showError('signupRoleError', false);
+                setInputStatus('signupRole', 'success');
+            } else {
+                showError('signupRoleError', true);
+                setInputStatus('signupRole', 'error');
+            }
+        });
+
+        loginEmail.addEventListener('input', function() {
+            const email = this.value.trim();
+            if (isValidEmail(email)) {
+                showError('loginEmailError', false);
+                setInputStatus('loginEmail', 'success');
+            } else if (email.length > 0) {
+                showError('loginEmailError', true);
+                setInputStatus('loginEmail', 'error');
+            }
+        });
+
+        loginPassword.addEventListener('input', function() {
+            const password = this.value;
+            if (isValidPassword(password)) {
+                showError('loginPasswordError', false);
+                setInputStatus('loginPassword', 'success');
+            } else if (password.length > 0) {
+                showError('loginPasswordError', true);
+                setInputStatus('loginPassword', 'error');
+            }
+        });
+
+        completePhone.addEventListener('input', function() {
+            this.value = this.value.replace(/\D/g, '');
+            const phone = this.value.trim();
+            if (isValidPhone(phone)) {
+                showError('completePhoneError', false);
+                setInputStatus('completePhone', 'success');
+            } else if (phone.length > 0) {
+                showError('completePhoneError', true);
+                setInputStatus('completePhone', 'error');
+            }
+        });
+
+        completeGrade.addEventListener('change', function() {
+            if (this.value) {
+                showError('completeGradeError', false);
+                setInputStatus('completeGrade', 'success');
+            } else {
+                showError('completeGradeError', true);
+                setInputStatus('completeGrade', 'error');
+            }
+        });
+
+        completeSystem.addEventListener('change', function() {
+            if (this.value) {
+                showError('completeSystemError', false);
+                setInputStatus('completeSystem', 'success');
+            } else {
+                showError('completeSystemError', true);
+                setInputStatus('completeSystem', 'error');
+            }
+        });
+
+        completeRole.addEventListener('change', function() {
+            if (this.value) {
+                showError('completeRoleError', false);
+                setInputStatus('completeRole', 'success');
+            } else {
+                showError('completeRoleError', true);
+                setInputStatus('completeRole', 'error');
+            }
         });
 
         // ============================================================
-        // 14. SWITCH PAGES
+        // دعم Enter
         // ============================================================
-        document.getElementById('switchToSignup').addEventListener('click', () => {
-            loginPage.style.display = 'none';
-            signupPage.style.display = 'block';
-            completePage.classList.remove('show');
-            hideError('loginError');
-            hideSuccess('loginSuccess');
-            hideError('signupError');
-            hideSuccess('signupSuccess');
-        });
-
-        document.getElementById('switchToLogin').addEventListener('click', () => {
-            loginPage.style.display = 'block';
-            signupPage.style.display = 'none';
-            completePage.classList.remove('show');
-            hideError('loginError');
-            hideSuccess('loginSuccess');
-            hideError('signupError');
-            hideSuccess('signupSuccess');
-        });
-
-        document.getElementById('completeSwitchToLogin').addEventListener('click', () => {
-            loginPage.style.display = 'block';
-            signupPage.style.display = 'none';
-            completePage.classList.remove('show');
-            firebaseSignOut(auth);
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    if (isSignup) {
+                        signupBtn.click();
+                    } else {
+                        loginBtn.click();
+                    }
+                }
+            });
         });
 
         // ============================================================
-        // 15. GO HOME
+        // العودة للرئيسية
         // ============================================================
-        window.goHome = function() { window.location.href = 'index.html'; };
+        function goHome() {
+            window.location.href = 'index.html';
+        }
 
         // ============================================================
-        // 16. DARK MODE
+        // الوضع الليلي
         // ============================================================
         const darkToggle = document.getElementById('darkModeToggle');
         const body = document.body;
@@ -1483,26 +1639,18 @@
         });
 
         // ============================================================
-        // 17. AUTO-FILL REMEMBERED EMAIL
+        // التحقق من حالة المصادقة
         // ============================================================
-        const rememberedEmail = localStorage.getItem('rememberedEmail');
-        if (rememberedEmail) {
-            loginEmail.value = rememberedEmail;
-            rememberMe.checked = true;
-        }
-
-        // ============================================================
-        // 18. AUTH STATE OBSERVER
-        // ============================================================
-        onAuthStateChanged(auth, async (user) => {
+        auth.onAuthStateChanged(async (user) => {
             if (user) {
                 try {
-                    const userDoc = await getDoc(doc(db, 'users', user.uid));
-                    const userData = userDoc.data();
+                    const snapshot = await database.ref('users/' + user.uid).once('value');
+                    const userData = snapshot.val();
 
                     if (userData?.isBanned) {
-                        await firebaseSignOut(auth);
-                        showToast('⛔ هذا الحساب محظور', 'error');
+                        await auth.signOut();
+                        alert('⛔ تم حظر هذا الحساب');
+                        window.location.href = 'login.html';
                         return;
                     }
 
@@ -1512,7 +1660,7 @@
                         }
                     } else if (userData && userData.profileCompleted) {
                         if (completePage.classList.contains('show')) {
-                            window.location.href = 'dashboard.html';
+                            window.location.href = 'index.html';
                         }
                     }
                 } catch (err) {
@@ -1521,18 +1669,7 @@
             }
         });
 
-        // ============================================================
-        // 19. LOGOUT
-        // ============================================================
-        window.logout = async function() {
-            const user = auth.currentUser;
-            if (user) await firebaseSignOut(auth);
-            window.location.href = 'login.html';
-        };
-
         console.log('✅ تم تحميل الصفحة بنجاح!');
-        console.log('🔐 نظام مصادقة احترافي جاهز للإنتاج');
-        console.log('📌 استخدم reCAPTCHA حقيقي في الإنتاج');
     </script>
 
 </body>
