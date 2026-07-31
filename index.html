@@ -197,55 +197,95 @@
             background: #12121f;
             color: #e0e0e0;
         }
-        body.banned {
-            background: #1a0000;
-        }
-        body.banned .main-content,
-        body.banned .navbar,
-        body.banned .footer {
-            display: none !important;
-        }
-        .banned-overlay {
+        
+        /* ===== صفحة الحظر الكاملة ===== */
+        .banned-full-page {
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 99999;
+            background: #ffffff;
+            z-index: 999999;
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            padding: 20px;
+            padding: 30px;
             text-align: center;
-            color: white;
+            font-family: 'Tajawal', 'Segoe UI', sans-serif;
         }
-        .banned-overlay.active {
+        .banned-full-page.active {
             display: flex;
         }
-        .banned-overlay .icon {
+        .banned-full-page .ban-icon {
             font-size: 80px;
             margin-bottom: 20px;
         }
-        .banned-overlay h1 {
+        .banned-full-page .ban-title {
             font-size: 36px;
+            font-weight: 900;
             color: #e74c3c;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
-        .banned-overlay p {
+        .banned-full-page .ban-subtitle {
             font-size: 18px;
-            color: #ccc;
-            max-width: 500px;
+            color: #666;
+            margin-bottom: 8px;
+            max-width: 550px;
             line-height: 1.8;
         }
-        .banned-overlay .reason {
-            background: #2d2d44;
-            padding: 12px 24px;
-            border-radius: 10px;
-            margin-top: 16px;
+        .banned-full-page .ban-reason {
+            background: #f8f9fa;
+            padding: 14px 28px;
+            border-radius: 12px;
             border-right: 4px solid #e74c3c;
             font-size: 16px;
-            color: #f1c40f;
+            color: #e74c3c;
+            font-weight: 700;
+            margin: 12px 0 20px;
+            max-width: 500px;
         }
-        /* ===== Overlay الحساب غير المفعل ===== */
+        .banned-full-page .ban-contact {
+            font-size: 14px;
+            color: #888;
+            margin-top: 8px;
+        }
+        .banned-full-page .ban-contact a {
+            color: #1a237e;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        .banned-full-page .ban-contact a:hover {
+            text-decoration: underline;
+        }
+        .banned-full-page .ban-divider {
+            width: 60px;
+            height: 3px;
+            background: #e74c3c;
+            border-radius: 2px;
+            margin: 12px auto;
+        }
+        .banned-full-page .ban-logo {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #e74c3c20;
+            margin-bottom: 16px;
+        }
+
+        body.banned-page .navbar,
+        body.banned-page .main-content,
+        body.banned-page .footer {
+            display: none !important;
+        }
+        body.banned-page .banned-full-page {
+            display: flex !important;
+        }
+
+        /* ===== Overlay الحظر القديم (تم إزالته واستبداله بالصفحة الكاملة) ===== */
+        .banned-overlay {
+            display: none !important;
+        }
+
         .inactive-overlay {
             display: none;
             position: fixed;
@@ -277,6 +317,8 @@
             max-width: 500px;
             line-height: 1.8;
         }
+
+        /* ===== علامة التوثيق الزرقاء ===== */
         .verified-badge {
             display: inline-flex;
             align-items: center;
@@ -286,10 +328,54 @@
         }
         .verified-badge svg {
             display: block;
-            width: 16px;
-            height: 16px;
+            width: 18px;
+            height: 18px;
             flex-shrink: 0;
         }
+
+        /* ===== الرد الرسمي ===== */
+        .official-reply {
+            background: #e8f0fe;
+            border-right: 4px solid #1a237e;
+            padding: 10px 14px;
+            border-radius: 10px;
+            margin: 6px 0;
+        }
+        .official-reply .reply-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 4px;
+        }
+        .official-reply .reply-header .team-logo {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #1a237e;
+        }
+        .official-reply .reply-header .team-name {
+            font-weight: 800;
+            font-size: 13px;
+            color: #1a237e;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .official-reply .reply-body {
+            font-size: 13px;
+            color: #1a237e;
+            line-height: 1.6;
+            padding-right: 10px;
+        }
+        .dark-mode .official-reply {
+            background: #1a237e30;
+            border-color: #64b5f6;
+        }
+        .dark-mode .official-reply .reply-body {
+            color: #e3f2fd;
+        }
+
         .admin-reply {
             background: #e3f2fd;
             border-right: 3px solid #1a237e;
@@ -326,6 +412,7 @@
         .dark-mode .admin-reply .reply-body {
             color: #e3f2fd;
         }
+
         .official-like {
             display: inline-flex;
             align-items: center;
@@ -357,6 +444,7 @@
             color: #e74c3c;
             font-weight: 700;
         }
+
         .team-post-images {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -3091,13 +3179,18 @@
 </head>
 <body>
 
-    <!-- ===== Overlay الحظر ===== -->
-    <div class="banned-overlay" id="bannedOverlay">
-        <div class="icon">🚫</div>
-        <h1>⛔ حسابك محظور</h1>
-        <p>تم حظر حسابك من منصة الثانوية الرسمية بلس بسبب مخالفة قواعد المنصة.</p>
-        <div class="reason" id="banReason">السبب: مخالفة قواعد المنتدى</div>
-        <p style="margin-top:20px;font-size:14px;color:#888;">للاستفسار، تواصل مع الإدارة على تليجرام: <a href="https://t.me/llTwasell" target="_blank" style="color:#f1c40f;">@llTwasell</a></p>
+    <!-- ===== صفحة الحظر الكاملة (تظهر بدلاً من كل شيء) ===== -->
+    <div class="banned-full-page" id="bannedFullPage">
+        <img src="https://cdn.phototourl.com/free/2026-07-21-1dd4b984-ed08-4a40-aead-9ef086ebbd45.jpg" alt="شعار المنصة" class="ban-logo">
+        <div class="ban-icon">🚫</div>
+        <div class="ban-title">⛔ حسابك محظور</div>
+        <div class="ban-subtitle">تم حظر حسابك من منصة الثانوية الرسمية بلس بسبب مخالفة قواعد المنصة.</div>
+        <div class="ban-divider"></div>
+        <div class="ban-reason" id="banReasonDisplay">السبب: مخالفة قواعد المنتدى</div>
+        <div class="ban-contact">
+            للاستفسار، تواصل مع الإدارة على تليجرام: <a href="https://t.me/llTwasell" target="_blank">@llTwasell</a>
+        </div>
+        <div style="margin-top:20px;font-size:12px;color:#ccc;">لا يمكنك استخدام المنصة حتى يتم فك الحظر</div>
     </div>
 
     <!-- ===== Overlay الحساب غير المفعل ===== -->
@@ -3798,11 +3891,12 @@
             } catch (e) {}
         }
 
+        // ===== علامة التوثيق الزرقاء =====
         var VERIFIED_BADGE_SVG =
-            '<span class="verified-badge" title="حساب موثق"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#1D9BF0"><path d="M22.25 12c0-1.06-.82-1.95-1.88-2.07.61-.88.54-2.08-.25-2.87-.79-.79-1.99-.86-2.87-.25C17.13 5.82 16.24 5 15.18 5c-.52 0-1 .18-1.39.48A2.07 2.07 0 0 0 12 4c-.69 0-1.32.34-1.7.86A2.07 2.07 0 0 0 8.82 5c-1.06 0-1.95.82-2.07 1.88-.88-.61-2.08-.54-2.87.25-.79.79-.86 1.99-.25 2.87C2.82 10.05 2 10.94 2 12s.82 1.95 1.88 2.07c-.61.88-.54 2.08.25 2.87.79.79 1.99.86 2.87.25.12 1.06 1.01 1.88 2.07 1.88.52 0 1-.18 1.39-.48.38.52 1.01.86 1.7.86.69 0 1.32-.34 1.7-.86.39.3.87.48 1.39.48 1.06 0 1.95-.82 2.07-1.88.88.61 2.08.54 2.87-.25.79.79.86-1.99.25-2.87A2.08 2.08 0 0 0 22.25 12z"/><path fill="#FFFFFF" d="M10.3 15.7l-2.5-2.5 1.06-1.06 1.44 1.44 4.9-4.9 1.06 1.06z"/></svg></span>';
+            '<span class="verified-badge" title="حساب موثق رسمي"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="#1D9BF0"><path d="M22.25 12c0-1.06-.82-1.95-1.88-2.07.61-.88.54-2.08-.25-2.87-.79-.79-1.99-.86-2.87-.25C17.13 5.82 16.24 5 15.18 5c-.52 0-1 .18-1.39.48A2.07 2.07 0 0 0 12 4c-.69 0-1.32.34-1.7.86A2.07 2.07 0 0 0 8.82 5c-1.06 0-1.95.82-2.07 1.88-.88-.61-2.08-.54-2.87.25-.79.79-.86 1.99-.25 2.87C2.82 10.05 2 10.94 2 12s.82 1.95 1.88 2.07c-.61.88-.54 2.08.25 2.87.79.79 1.99.86 2.87.25.12 1.06 1.01 1.88 2.07 1.88.52 0 1-.18 1.39-.48.38.52 1.01.86 1.7.86.69 0 1.32-.34 1.7-.86.39.3.87.48 1.39.48 1.06 0 1.95-.82 2.07-1.88.88.61 2.08.54 2.87-.25.79.79.86-1.99.25-2.87A2.08 2.08 0 0 0 22.25 12z"/><path fill="#FFFFFF" d="M10.3 15.7l-2.5-2.5 1.06-1.06 1.44 1.44 4.9-4.9 1.06 1.06z"/></svg></span>';
 
         // ============================================================
-        // دوال قاعدة البيانات الأساسية مع try/catch
+        // دوال قاعدة البيانات الأساسية
         // ============================================================
         function getAllData(path) {
             return new Promise(function(resolve, reject) {
@@ -3901,7 +3995,7 @@
         }
 
         // ============================================================
-        // دوال المفضلة مع try/catch
+        // دوال المفضلة
         // ============================================================
         function getUserFavorites(userId) {
             return new Promise(function(resolve, reject) {
@@ -3930,34 +4024,8 @@
             });
         }
 
-        function addFavorite(userId, bookId) {
-            return addData('favorites', { userId: userId, bookId: bookId });
-        }
-
-        function removeFavorite(favId) {
-            return new Promise(function(resolve, reject) {
-                try {
-                    db.ref('favorites/' + favId).remove()
-                        .then(function() { resolve(); })
-                        .catch(function(error) { reject(error); });
-                } catch (e) {
-                    reject(e);
-                }
-            });
-        }
-
         // ============================================================
-        // دوال الإشعارات مع try/catch
-        // ============================================================
-        function sendNotification(notifData) {
-            return addData('notifications', Object.assign({}, notifData, {
-                read: false,
-                createdAt: firebase.database.ServerValue.TIMESTAMP
-            }));
-        }
-
-        // ============================================================
-        // التحقق من صلاحية الأدمن (من Firebase)
+        // التحقق من صلاحية الأدمن
         // ============================================================
         function checkAdmin() {
             return new Promise(function(resolve) {
@@ -3986,7 +4054,7 @@
         }
 
         // ============================================================
-        // التحقق من حالة المستخدم (isBanned, isActive)
+        // التحقق من حالة المستخدم (isBanned, isActive) - مع صفحة الحظر الكاملة
         // ============================================================
         var isBannedUser = false;
         var isInactiveUser = false;
@@ -4001,35 +4069,43 @@
                             if (userData && userData.isBanned === true) {
                                 isBannedUser = true;
                                 isInactiveUser = false;
-                                document.getElementById('bannedOverlay').classList.add('active');
-                                document.getElementById('inactiveOverlay').classList.remove('active');
-                                document.getElementById('banReason').textContent = 'السبب: ' + (userData
+                                
+                                // إظهار صفحة الحظر الكاملة
+                                document.getElementById('bannedFullPage').classList.add('active');
+                                document.getElementById('bannedFullPage').style.display = 'flex';
+                                document.getElementById('banReasonDisplay').textContent = 'السبب: ' + (userData
                                     .banReason || 'مخالفة قواعد المنصة');
-                                document.querySelector('.main-content').style.display = 'none';
+                                
+                                // إخفاء كل المحتوى
+                                document.body.classList.add('banned-page');
                                 document.querySelector('.navbar').style.display = 'none';
                                 document.querySelector('.footer').style.display = 'none';
+                                document.querySelectorAll('.page').forEach(function(p) { p.style.display = 'none'; });
+                                
+                                // تسجيل الخروج
                                 auth.signOut();
                                 resolve({ isBanned: true, isActive: false });
                             } else if (userData && userData.isActive === false) {
                                 isBannedUser = false;
                                 isInactiveUser = true;
-                                document.getElementById('bannedOverlay').classList.remove('active');
+                                document.getElementById('bannedFullPage').classList.remove('active');
+                                document.getElementById('bannedFullPage').style.display = 'none';
                                 document.getElementById('inactiveOverlay').classList.add('active');
-                                document.getElementById('inactiveMessage').textContent =
-                                    'حسابك غير مفعل حتى الآن. يرجى التواصل مع الإدارة لتفعيل حسابك.';
-                                document.querySelector('.main-content').style.display = 'none';
                                 document.querySelector('.navbar').style.display = 'none';
                                 document.querySelector('.footer').style.display = 'none';
+                                document.querySelectorAll('.page').forEach(function(p) { p.style.display = 'none'; });
                                 auth.signOut();
                                 resolve({ isBanned: false, isActive: false });
                             } else {
                                 isBannedUser = false;
                                 isInactiveUser = false;
-                                document.getElementById('bannedOverlay').classList.remove('active');
+                                document.getElementById('bannedFullPage').classList.remove('active');
+                                document.getElementById('bannedFullPage').style.display = 'none';
                                 document.getElementById('inactiveOverlay').classList.remove('active');
-                                document.querySelector('.main-content').style.display = 'block';
+                                document.body.classList.remove('banned-page');
                                 document.querySelector('.navbar').style.display = 'flex';
                                 document.querySelector('.footer').style.display = 'block';
+                                document.querySelectorAll('.page').forEach(function(p) { p.style.display = ''; });
                                 resolve({ isBanned: false, isActive: true });
                             }
                         } catch (e) {
@@ -4080,10 +4156,8 @@
         }
 
         // ============================================================
-        // دوال اللايك باستخدام Transaction (تعتمد على likesData)
+        // دوال اللايك
         // ============================================================
-        
-        // Like لمنشورات المنتدى
         function likeForumPost(postId, btn) {
             try {
                 if (!auth.currentUser) {
@@ -4150,7 +4224,6 @@
             }
         }
 
-        // Like لمنشورات الفريق
         window.likeTeamPost = function(postId, btn) {
             try {
                 if (!auth.currentUser) {
@@ -4217,7 +4290,6 @@
             }
         };
 
-        // Like للتعليقات
         function likeForumComment(postId, commentIndex, btn) {
             try {
                 if (!auth.currentUser) {
@@ -4293,7 +4365,6 @@
             }
         }
 
-        // Like لتعليقات منشورات الفريق
         window.likeTeamComment = function(postId, commentIndex, btn) {
             try {
                 if (!auth.currentUser) {
@@ -4370,7 +4441,7 @@
         };
 
         // ============================================================
-        // دوال رفع الصور (Firebase Storage) مع try/catch
+        // دوال رفع الصور
         // ============================================================
         async function uploadImageToStorage(path, file, onProgress) {
             try {
@@ -4400,14 +4471,6 @@
             }
         }
 
-        async function uploadForumImage(postId, imageFile, onProgress) {
-            try {
-                return await uploadImageToStorage(`forum_posts/${postId}`, imageFile, onProgress);
-            } catch (error) {
-                throw error;
-            }
-        }
-
         async function uploadProfileImageFirestore(imageFile) {
             try {
                 if (!auth.currentUser) {
@@ -4430,7 +4493,7 @@
         }
 
         // ============================================================
-        // دوال الكتب مع نظام بيانات المستخدم (viewsData, downloadsData, favoritesData)
+        // دوال الكتب
         // ============================================================
         function getAllBooks() {
             return getAllData('books');
@@ -4718,13 +4781,15 @@
                     userSection.innerHTML =
                         '<button class="btn-login-header" onclick="window.location.href=\'login.html\'">🔐 تسجيل الدخول</button>';
                     document.body.classList.remove('is-admin');
-                    document.getElementById('bannedOverlay').classList.remove('active');
+                    document.getElementById('bannedFullPage').classList.remove('active');
+                    document.getElementById('bannedFullPage').style.display = 'none';
                     document.getElementById('inactiveOverlay').classList.remove('active');
+                    document.body.classList.remove('banned-page');
                     isBannedUser = false;
                     isInactiveUser = false;
-                    document.querySelector('.main-content').style.display = 'block';
                     document.querySelector('.navbar').style.display = 'flex';
                     document.querySelector('.footer').style.display = 'block';
+                    document.querySelectorAll('.page').forEach(function(p) { p.style.display = ''; });
                     if (notificationListener) {
                         db.ref('notifications').off('value', notificationListener);
                         notificationListener = null;
@@ -4958,9 +5023,13 @@
         }
 
         // ============================================================
-        // دوال عرض المنتدى - النسخة المعدلة
+        // دوال عرض المنتدى - مع الردود الرسمية
         // ============================================================
         var forumListener = null;
+
+        // شعار المنصة وصورة الفريق للردود الرسمية
+        var TEAM_LOGO = "https://cdn.phototourl.com/free/2026-07-21-1dd4b984-ed08-4a40-aead-9ef086ebbd45.jpg";
+        var TEAM_NAME = "فريق الثانوية الرسمية بلس";
 
         function loadForumPosts() {
             try {
@@ -4981,7 +5050,6 @@
                             Object.keys(data).forEach(function(key) {
                                 var post = data[key];
                                 post.id = key;
-                                // تنظيف البيانات
                                 posts.push(sanitizeForumPost(post));
                             });
                         }
@@ -4999,7 +5067,6 @@
 
                         container.innerHTML = '';
                         
-                        // عرض جميع المنشورات دفعة واحدة مع زر عرض المزيد
                         var displayCount = 5;
                         var displayPosts = approvedPosts.slice(0, displayCount);
 
@@ -5008,7 +5075,6 @@
                             container.innerHTML += postHTML;
                         });
 
-                        // زر عرض المزيد
                         if (approvedPosts.length > 5) {
                             var loadMoreBtn = document.createElement('button');
                             loadMoreBtn.className = 'btn-primary';
@@ -5057,7 +5123,7 @@
             }
         }
 
-        // ===== دالة إنشاء HTML للمنشور (نسخة معدلة) =====
+        // ===== دالة إنشاء HTML للمنشور مع الردود الرسمية =====
         function createForumPostHTML(data) {
             try {
                 var userLiked = false;
@@ -5066,7 +5132,6 @@
                 }
                 var likeCount = data.likesCount || 0;
                 
-                // عرض الصورة من الرابط إذا وجد
                 var imageHtml = '';
                 if (data.imageUrl) {
                     imageHtml = `<img src="${data.imageUrl}" class="post-image" loading="lazy" onerror="this.style.display='none'">`;
@@ -5084,28 +5149,55 @@
                     var initial = comment.user ? comment.user.charAt(0).toUpperCase() : '?';
                     var index = commentCounter;
 
-                    commentsHtml += `
-                        <div class="comment">
-                            <div class="avatar" style="background-image:url('${comment.userPhoto || ''}');background-size:cover;background-position:center;${comment.userPhoto ? '' : 'background:#3498db;'}">
-                                ${!comment.userPhoto ? initial : ''}
-                            </div>
-                            <div class="comment-text">
-                                <div class="name">
-                                    ${comment.userPhoto ? `<img src="${comment.userPhoto}" class="user-avatar-small">` : ''}
-                                    ${safeText(comment.user || 'مجهول')}
+                    // التحقق من أن التعليق رد رسمي من فريق الثانوية
+                    var isOfficialReply = comment.isAdminReply || comment.isOfficialReply || 
+                                          (comment.user === TEAM_NAME) || 
+                                          (comment.user && comment.user.includes('فريق الثانوية'));
+
+                    // بناء عرض المستخدم
+                    var userDisplay = '';
+                    if (isOfficialReply) {
+                        // رد رسمي - يظهر بالشعار والاسم وعلامة التوثيق
+                        userDisplay = `
+                            <div class="official-reply" style="background:#e8f0fe;border-right:4px solid #1a237e;padding:10px 14px;border-radius:10px;margin:6px 0;width:100%;">
+                                <div class="reply-header" style="display:flex;align-items:center;gap:10px;margin-bottom:4px;">
+                                    <img src="${TEAM_LOGO}" style="width:28px;height:28px;border-radius:50%;object-fit:cover;border:2px solid #1a237e;">
+                                    <span style="font-weight:800;font-size:13px;color:#1a237e;display:flex;align-items:center;gap:4px;">
+                                        ${TEAM_NAME}
+                                        ${VERIFIED_BADGE_SVG}
+                                    </span>
                                 </div>
-                                <div>${safeText(comment.text || '')}</div>
-                                <div style="margin-top:4px;display:flex;gap:8px;align-items:center;">
-                                    <button onclick="likeForumComment('${data.id}', ${index}, this)" 
-                                        style="background:none;border:none;cursor:pointer;font-size:12px;color:${userCommentLiked ? '#e74c3c' : '#555'};
-                                        font-family:'Tajawal',sans-serif;display:flex;align-items:center;gap:4px;">
-                                        ${userCommentLiked ? '❤️' : '🤍'} <span>${comment.likes || 0}</span>
-                                    </button>
-                                    ${comment.isAdminReply ? '<span style="background:#1a237e20;color:#1a237e;padding:0 8px;border-radius:50px;font-size:10px;font-weight:700;">✅ رد رسمي</span>' : ''}
+                                <div style="font-size:13px;color:#1a237e;line-height:1.6;padding-right:10px;">
+                                    ${safeText(comment.text || '')}
                                 </div>
                             </div>
-                        </div>
-                    `;
+                        `;
+                    } else {
+                        // رد عادي
+                        userDisplay = `
+                            <div class="comment">
+                                <div class="avatar" style="background-image:url('${comment.userPhoto || ''}');background-size:cover;background-position:center;${comment.userPhoto ? '' : 'background:#3498db;'}">
+                                    ${!comment.userPhoto ? initial : ''}
+                                </div>
+                                <div class="comment-text">
+                                    <div class="name">
+                                        ${comment.userPhoto ? `<img src="${comment.userPhoto}" class="user-avatar-small">` : ''}
+                                        ${safeText(comment.user || 'مجهول')}
+                                    </div>
+                                    <div>${safeText(comment.text || '')}</div>
+                                    <div style="margin-top:4px;display:flex;gap:8px;align-items:center;">
+                                        <button onclick="likeForumComment('${data.id}', ${index}, this)" 
+                                            style="background:none;border:none;cursor:pointer;font-size:12px;color:${userCommentLiked ? '#e74c3c' : '#555'};
+                                            font-family:'Tajawal',sans-serif;display:flex;align-items:center;gap:4px;">
+                                            ${userCommentLiked ? '❤️' : '🤍'} <span>${comment.likes || 0}</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    }
+
+                    commentsHtml += userDisplay;
                     commentCounter++;
                 });
 
@@ -5196,6 +5288,7 @@
                             userId: userId,
                             status: isAdmin ? 'approved' : 'pending',
                             isAdminReply: isAdmin || false,
+                            isOfficialReply: isAdmin || false,
                             likes: 0,
                             likesData: {},
                             createdAt: firebase.database.ServerValue.TIMESTAMP
@@ -5224,7 +5317,7 @@
         }
 
         // ============================================================
-        // دوال منشورات الفريق - النسخة المعدلة
+        // دوال منشورات الفريق
         // ============================================================
         function loadTeamPosts() {
             try {
@@ -5232,7 +5325,6 @@
                 if (!container) return;
                 container.innerHTML = '<div class="loading-container"><div class="spinner"></div></div>';
 
-                // تنظيف بيانات المنشورات قبل العرض
                 var posts = (allTeamPostsCache || []).map(function(post) {
                     return sanitizeTeamPost(post);
                 }).sort(function(a, b) { return (b.createdAt || 0) - (a.createdAt || 0); });
@@ -5304,7 +5396,6 @@
 
                 var commentsHtml = '';
                 var commentCounter = 0;
-                // التأكد من أن comments عبارة عن مصفوفة
                 var comments = (data.comments || []).filter(function(c) { return c.status === 'approved'; });
                 
                 comments.forEach(function(comment) {
@@ -5315,37 +5406,61 @@
                         userCommentLiked = comment.likesData[auth.currentUser.uid] || false;
                     }
 
-                    commentsHtml += `
-                        <div class="comment">
-                            <div class="avatar" style="background-image:url('${comment.userPhoto || ''}');background-size:cover;background-position:center;${comment.userPhoto ? '' : 'background:#2ecc71;'}">
-                                ${!comment.userPhoto ? initial : ''}
-                            </div>
-                            <div class="comment-text">
-                                <div class="name">
-                                    ${comment.userPhoto ? `<img src="${comment.userPhoto}" class="user-avatar-small">` : ''}
-                                    ${safeText(comment.user || 'مجهول')}
-                                    ${comment.isAdminReply ? '<span style="background:#1a237e20;color:#1a237e;padding:0 8px;border-radius:50px;font-size:10px;font-weight:700;">✅ رد رسمي</span>' : ''}
+                    // التحقق من أن التعليق رد رسمي من فريق الثانوية
+                    var isOfficialReply = comment.isAdminReply || comment.isOfficialReply || 
+                                          (comment.user === TEAM_NAME) || 
+                                          (comment.user && comment.user.includes('فريق الثانوية'));
+
+                    var commentDisplay = '';
+                    if (isOfficialReply) {
+                        commentDisplay = `
+                            <div style="background:#e8f0fe;border-right:4px solid #1a237e;padding:10px 14px;border-radius:10px;margin:6px 0;width:100%;">
+                                <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;">
+                                    <img src="${TEAM_LOGO}" style="width:28px;height:28px;border-radius:50%;object-fit:cover;border:2px solid #1a237e;">
+                                    <span style="font-weight:800;font-size:13px;color:#1a237e;display:flex;align-items:center;gap:4px;">
+                                        ${TEAM_NAME}
+                                        ${VERIFIED_BADGE_SVG}
+                                    </span>
                                 </div>
-                                <div>${safeText(comment.text || '')}</div>
-                                <div style="margin-top:4px;display:flex;gap:8px;align-items:center;">
-                                    <button onclick="likeTeamComment('${data.id}', ${commentIdx}, this)" 
-                                        style="background:none;border:none;cursor:pointer;font-size:12px;color:${userCommentLiked ? '#e74c3c' : '#555'};
-                                        font-family:'Tajawal',sans-serif;display:flex;align-items:center;gap:4px;">
-                                        ${userCommentLiked ? '❤️' : '🤍'} <span>${comment.likes || 0}</span>
-                                    </button>
+                                <div style="font-size:13px;color:#1a237e;line-height:1.6;padding-right:10px;">
+                                    ${safeText(comment.text || '')}
                                 </div>
                             </div>
-                        </div>
-                    `;
+                        `;
+                    } else {
+                        commentDisplay = `
+                            <div class="comment">
+                                <div class="avatar" style="background-image:url('${comment.userPhoto || ''}');background-size:cover;background-position:center;${comment.userPhoto ? '' : 'background:#2ecc71;'}">
+                                    ${!comment.userPhoto ? initial : ''}
+                                </div>
+                                <div class="comment-text">
+                                    <div class="name">
+                                        ${comment.userPhoto ? `<img src="${comment.userPhoto}" class="user-avatar-small">` : ''}
+                                        ${safeText(comment.user || 'مجهول')}
+                                    </div>
+                                    <div>${safeText(comment.text || '')}</div>
+                                    <div style="margin-top:4px;display:flex;gap:8px;align-items:center;">
+                                        <button onclick="likeTeamComment('${data.id}', ${commentIdx}, this)" 
+                                            style="background:none;border:none;cursor:pointer;font-size:12px;color:${userCommentLiked ? '#e74c3c' : '#555'};
+                                            font-family:'Tajawal',sans-serif;display:flex;align-items:center;gap:4px;">
+                                            ${userCommentLiked ? '❤️' : '🤍'} <span>${comment.likes || 0}</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    }
+
+                    commentsHtml += commentDisplay;
                     commentCounter++;
                 });
 
                 return `
                     <div class="post-card">
                         <div class="admin-header">
-                            <img src="https://cdn.phototourl.com/free/2026-07-21-1dd4b984-ed08-4a40-aead-9ef086ebbd45.jpg" class="admin-logo">
+                            <img src="${TEAM_LOGO}" class="admin-logo">
                             <div class="admin-info">
-                                <div class="admin-name">فريق الثانوية الرسمية بلس ${VERIFIED_BADGE_SVG}</div>
+                                <div class="admin-name">${TEAM_NAME} ${VERIFIED_BADGE_SVG}</div>
                                 <div><span class="admin-badge">📢 حساب رسمي</span></div>
                             </div>
                         </div>
@@ -5416,7 +5531,8 @@
                     var photo = (userData && userData.photoURL) || auth.currentUser.photoURL || '';
                     return addTeamComment(postId, { 
                         text: text,
-                        isAdminReply: isAdmin || false
+                        isAdminReply: isAdmin || false,
+                        isOfficialReply: isAdmin || false
                     }, userId,
                         auth.currentUser.displayName || auth.currentUser.email, photo);
                 }).then(function() {
@@ -5442,7 +5558,7 @@
         }
 
         // ============================================================
-        // دوال الصفحات الأخرى (نفس الكود مع try/catch)
+        // دوال الصفحات الأخرى
         // ============================================================
         function loadFavorites() {
             try {
@@ -6589,7 +6705,7 @@
             updateUIForUser(user);
         });
 
-        console.log('✅ منصة الثانوية الرسمية بلس 2027 - نسخة Production النهائية (معدلة)');
+        console.log('✅ منصة الثانوية الرسمية بلس 2027 - نسخة Production النهائية');
         console.log('🔒 نظام حماية متكامل (حظر + تفعيل + أدمن)');
         console.log('❤️ نظام Like يعتمد على UID مع Transaction');
         console.log('📚 نظام الكتب مع viewsData, downloadsData, favoritesData');
@@ -6600,6 +6716,8 @@
         console.log('⚡ معالجة الأخطاء بشكل كامل مع try/catch');
         console.log('✅ PWA جاهز للتثبيت (Standalone Mode)');
         console.log('🛠️ تم إصلاح مشكلة عرض المنشورات في المنتدى ومنشورات الفريق');
+        console.log('✅ صفحة حظر كاملة تمنع الدخول نهائياً');
+        console.log('✅ الردود الرسمية تظهر بالشعار والاسم وعلامة التوثيق الزرقاء');
     </script>
 
 </body>
