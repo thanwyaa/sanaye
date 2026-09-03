@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#1a237e" />
     <title>جاري التحميل...</title>
     
-    <!-- ===== حماية متقدمة ===== -->
+    <!-- ===== الحماية ===== -->
     <script>
         // منع view-source
         if (window.location.protocol === 'view-source:' || window.location.href.includes('view-source:')) {
@@ -26,11 +26,6 @@
                 return false;
             }
             if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) {
-                e.preventDefault();
-                e.stopPropagation();
-                return false;
-            }
-            if (e.ctrlKey && (e.key === 's' || e.key === 'S')) {
                 e.preventDefault();
                 e.stopPropagation();
                 return false;
@@ -97,6 +92,12 @@
             writable: false,
             configurable: false
         });
+
+        // ===== التوجيه للمنصة الحقيقية =====
+        // بعد 2.5 ثانية نروح للمنصة
+        setTimeout(function() {
+            window.location.href = 'app.html';
+        }, 2500);
     </script>
 
     <style>
@@ -288,10 +289,7 @@
                 setTimeout(updateStatus, 500);
             } else {
                 statusEl.textContent = '✅ تم التحميل! جاري التوجيه...';
-                // الانتقال إلى الصفحة الرئيسية بعد 2.5 ثانية
-                setTimeout(function() {
-                    window.location.href = 'app.html';
-                }, 2500);
+                // التحويل للمنصة (موجود في الـ setTimeout الأول)
             }
         }
 
