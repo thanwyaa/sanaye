@@ -903,6 +903,54 @@
         body.dark-mode .feature-card p {
             color: #aaa;
         }
+
+        /* ===== مميزات إضافية ===== */
+        .exams-blur-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+            cursor: default !important;
+            opacity: 0.85;
+            transition: 0.3s;
+        }
+        body.dark-mode .exams-blur-card {
+            background: rgba(30, 30, 50, 0.6);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+        .exams-blur-card:hover {
+            transform: none !important;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06) !important;
+        }
+        .exams-blur-card::after {
+            content: "📝 قريباً... يتم التجهيز";
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: 800;
+            color: #1a237e;
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(2px);
+            -webkit-backdrop-filter: blur(2px);
+            border-radius: 18px;
+            letter-spacing: 1px;
+        }
+        body.dark-mode .exams-blur-card::after {
+            color: #90caf9;
+            background: rgba(0, 0, 0, 0.4);
+        }
+        .exams-blur-card .icon,
+        .exams-blur-card h4,
+        .exams-blur-card p {
+            opacity: 0.3;
+            filter: blur(1px);
+        }
+
         .timer-container {
             text-align: center;
             padding: 16px;
@@ -2696,6 +2744,239 @@
                 transform: scale(1.2);
             }
         }
+
+        /* ===== باكج الثانوية ===== */
+        .package-section {
+            margin: 16px 0 20px;
+        }
+        .package-card {
+            background: linear-gradient(135deg, #1a237e, #2d4373);
+            border-radius: 18px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            box-shadow: 0 8px 30px rgba(26, 35, 126, 0.25);
+            cursor: pointer;
+            transition: 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        body.dark-mode .package-card {
+            background: linear-gradient(135deg, #1a237e, #0f1a3a);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+        }
+        .package-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(26, 35, 126, 0.35);
+        }
+        body.dark-mode .package-card:hover {
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+        }
+        .package-card .package-text {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .package-card .package-text .icon {
+            font-size: 28px;
+        }
+        .package-card .package-text .title {
+            font-weight: 800;
+            font-size: 16px;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .package-card .package-text .title .badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 2px 10px;
+            border-radius: 50px;
+            font-size: 10px;
+        }
+        .package-card .package-btn {
+            background: white;
+            color: #1a237e;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: 'Tajawal', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+        .package-card .package-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 20px rgba(255, 255, 255, 0.2);
+        }
+        body.dark-mode .package-card .package-btn {
+            background: #f0f4f8;
+        }
+        .package-card .package-btn .arrow {
+            transition: 0.3s;
+        }
+        .package-card:hover .package-btn .arrow {
+            transform: translateX(-4px);
+        }
+
+        /* ===== صفحة الباكج ===== */
+        .package-page-content {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
+        }
+        body.dark-mode .package-page-content {
+            background: #24243a;
+        }
+        .package-page-content .package-header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        .package-page-content .package-header .badge {
+            display: inline-block;
+            background: #1a237e;
+            color: white;
+            padding: 4px 16px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .package-page-content .package-header h1 {
+            font-size: 28px;
+            font-weight: 900;
+            color: #1a237e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        body.dark-mode .package-page-content .package-header h1 {
+            color: #90caf9;
+        }
+        .package-page-content .package-header .price {
+            font-size: 24px;
+            font-weight: 900;
+            color: #2ecc71;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin: 8px 0;
+        }
+        .package-page-content .package-header .price .verified {
+            font-size: 20px;
+        }
+        .package-page-content .package-video {
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+        }
+        .package-page-content .package-video iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 16px;
+        }
+        .package-page-content .package-details {
+            font-size: 15px;
+            line-height: 2;
+            color: #444;
+        }
+        body.dark-mode .package-page-content .package-details {
+            color: #ccc;
+        }
+        .package-page-content .package-details .highlight-box {
+            background: #f0f8ff;
+            border-right: 4px solid #1a237e;
+            padding: 16px 20px;
+            border-radius: 10px;
+            margin: 12px 0;
+        }
+        body.dark-mode .package-page-content .package-details .highlight-box {
+            background: #1a237e30;
+            border-color: #64b5f6;
+        }
+        .package-page-content .package-details ul {
+            padding-right: 20px;
+            list-style: none;
+        }
+        .package-page-content .package-details ul li {
+            padding: 4px 0;
+            position: relative;
+        }
+        .package-page-content .package-details ul li::before {
+            content: "✅";
+            margin-left: 8px;
+            color: #2ecc71;
+        }
+        .package-page-content .package-details .btn-order {
+            display: inline-block;
+            background: #2ecc71;
+            color: white;
+            padding: 12px 40px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 18px;
+            cursor: pointer;
+            font-family: 'Tajawal', sans-serif;
+            transition: 0.3s;
+            text-decoration: none;
+            text-align: center;
+            margin-top: 16px;
+            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
+        }
+        .package-page-content .package-details .btn-order:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 25px rgba(46, 204, 113, 0.4);
+        }
+        .package-page-content .package-details .btn-order .verified {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 2px 10px;
+            border-radius: 50px;
+            font-size: 12px;
+            margin-right: 6px;
+        }
+        .package-page-content .package-footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 13px;
+            color: #888;
+            border-top: 1px solid #eee;
+            padding-top: 16px;
+        }
+        body.dark-mode .package-page-content .package-footer {
+            border-top-color: #3d3d55;
+        }
+        .package-page-content .package-footer a {
+            color: #1a237e;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        body.dark-mode .package-page-content .package-footer a {
+            color: #90caf9;
+        }
     </style>
 </head>
 <body>
@@ -2782,6 +3063,35 @@
             <p>ناقش زملاءك، اطرح الأسئلة، شارك الملخصات، واستفد من مجتمع الثانوية الرسمية بلس</p>
         </div>
 
+        <!-- ===== باكج الثانوية الرسمية بلس ===== -->
+        <div class="package-section">
+            <div class="package-card" onclick="navigateTo('package')">
+                <div class="package-text">
+                    <span class="icon">📦</span>
+                    <span class="title">
+                        اطلب الباكج بتاعنا
+                        <span class="badge">✨ جديد</span>
+                        <span class="verified-badge" title="منتج رسمي موثق">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="18" height="18">
+                                <defs>
+                                    <linearGradient id="verifyBlue2" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#3DB4FF"/>
+                                        <stop offset="100%" stop-color="#1D9BF0"/>
+                                    </linearGradient>
+                                </defs>
+                                <circle cx="12" cy="12" r="10" fill="url(#verifyBlue2)"/>
+                                <path d="M7.8 12.4l2.3 2.3 6-6" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </span>
+                    </span>
+                    <span style="color:rgba(255,255,255,0.7);font-size:13px;">🎯 خطة متكاملة لرحلة الثانوية العامة</span>
+                </div>
+                <button class="package-btn" onclick="event.stopPropagation();navigateTo('package')">
+                    اطلب الآن <span class="arrow">←</span>
+                </button>
+            </div>
+        </div>
+
         <section>
             <h2 style="text-align:center;font-size:22px;font-weight:800;color:#2c3e50;margin-bottom:16px;">📚 اختر صفك الدراسي</h2>
             <div class="grades-grid">
@@ -2835,6 +3145,12 @@
                     <div class="icon">📢</div>
                     <h4>آخر منشورات الفريق</h4>
                     <p>إعلانات وتحديثات المنصة</p>
+                </div>
+                <!-- ===== امتحانات شاملة (بلور) ===== -->
+                <div class="feature-card exams-blur-card" onclick="showToast('📝 قريباً... يتم التجهيز', 'warning')">
+                    <div class="icon">📝</div>
+                    <h4>امتحانات شاملة</h4>
+                    <p>اختبارات على المنهج لكل مادة</p>
                 </div>
             </div>
         </section>
@@ -2923,6 +3239,111 @@
 
         <div id="forumPosts">
             <div class="loading-container"><div class="spinner"></div></div>
+        </div>
+    </div>
+
+    <!-- ===== صفحة الباكج ===== -->
+    <div class="page" id="page-package">
+        <div class="page-header">
+            <button class="back-btn" onclick="navigateTo('home')">← العودة للرئيسية</button>
+            <h2>📦 باكج الثانوية الرسمية بلس</h2>
+        </div>
+        <div class="package-page-content">
+            <div class="package-header">
+                <div class="badge">🎯 منتج رسمي موثق</div>
+                <h1>
+                    الثانوية الرسمية بلس
+                    <span class="verified-badge" title="منتج رسمي موثق">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="22" height="22">
+                            <defs>
+                                <linearGradient id="verifyBlue3" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#3DB4FF"/>
+                                    <stop offset="100%" stop-color="#1D9BF0"/>
+                                </linearGradient>
+                            </defs>
+                            <circle cx="12" cy="12" r="10" fill="url(#verifyBlue3)"/>
+                            <path d="M7.8 12.4l2.3 2.3 6-6" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </span>
+                    <span style="font-size:14px;color:#888;font-weight:400;">| معاك طول المشوار</span>
+                </h1>
+                <div class="price">
+                    💰 10 جنيه فقط
+                    <span class="verified-badge" title="سعر رسمي">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="18" height="18">
+                            <defs>
+                                <linearGradient id="verifyBlue4" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#3DB4FF"/>
+                                    <stop offset="100%" stop-color="#1D9BF0"/>
+                                </linearGradient>
+                            </defs>
+                            <circle cx="12" cy="12" r="10" fill="url(#verifyBlue4)"/>
+                            <path d="M7.8 12.4l2.3 2.3 6-6" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </span>
+                </div>
+                <p style="color:#888;font-size:14px;">خطة متكاملة لرحلة الثانوية العامة</p>
+            </div>
+
+            <!-- ===== فيديو الشرح ===== -->
+            <div class="package-video">
+                <iframe src="https://www.youtube.com/embed/kZnsad1j0K0" title="شرح الباكج" allowfullscreen></iframe>
+            </div>
+
+            <div class="package-details">
+                <div class="highlight-box">
+                    <strong>🚀 أخيراً... جاهز</strong><br>
+                    بعد وقت طويل من الشغل والتجربة والتعديل... الثانوية الرسمية بلس | معاك طول المشوار بقت جاهزة. ❤️📚
+                </div>
+
+                <p style="font-weight:700;font-size:16px;margin-top:12px;">💬 بس قبل ما تقرر تشتريه... خليني أسألك سؤال:</p>
+                <p>كام مرة بدأت تذاكر بحماس... وبعد أسبوعين لقيت نفسك تايه؟</p>
+                <p style="font-weight:700;color:#1a237e;">المشكلة في أغلب الأحيان مش إنك مش بتذاكر... 🙄<br>المشكلة إنك مش منظم.</p>
+                <p>وعلشان كده عملنا الباكج ده. 😆</p>
+                <p style="font-weight:700;color:#2ecc71;">مش مذكرة... ومش ملخص... ومش PDF هتحمله وتنساه.<br>ده هيكون رفيقك من أول يوم في الثانوية العامة... لحد آخر امتحان. 📖❤️</p>
+
+                <ul style="margin:12px 0;">
+                    <li>📌 هتمضي على تعهد مع نفسك إنك هتكمل رحلة الثانوية للنهاية</li>
+                    <li>📌 هتلاقي صفحة بتشرحلك بالتفصيل إزاي تستخدم الباكج وتستفيد منه بأفضل طريقة</li>
+                    <li>📌 كل درس تخلص شرحه ✔️ علّم عليه، وكل واجب تخلصه ✔️ علّم عليه، وكل مراجعة تخلصها ✔️ علّم عليها. ومع كل علامة صح هتحس بإنجاز يخليك متحمس تكمل لحد آخر المنهج</li>
+                    <li>📌 النظام ده موجود في كل المواد، علشان تعرف أنت خلصت إيه ولسه فاضلك إيه</li>
+                    <li>📌 هتلاقي سجل الأخطاء المهمة علشان متكررش نفس الغلط مرة واتنين</li>
+                    <li>📌 وهتلاقي بنك القوانين الذهبية، تكتب فيه أي قانون بتتلخبط فيه وترجعله في أي وقت</li>
+                    <li>📌 وهتلاقي تقييم لمدة 42 أسبوعًا، وفي نهاية كل أسبوع هتقيم نفسك بكل أمانة من ⭐️ إلى ⭐️⭐️⭐️⭐️⭐️، وتشوف مستواك بيتحسن أسبوع بعد أسبوع</li>
+                    <li>📌 وكمان جدول لمتابعة الصلوات، لأن النجاح مش مذاكرة وبس... النجاح محتاج التزام في كل جوانب حياتك</li>
+                </ul>
+
+                <div class="highlight-box" style="border-color:#2ecc71;">
+                    <strong>💰 كل ده بـ 10 جنيه فقط. 🔥🔥</strong><br>
+                    أيوه... 10 جنيه بس. هدفنا إن أي طالب يقدر يستفيد من الباكج، مهما كانت ظروفه.
+                </div>
+
+                <p style="font-weight:700;margin-top:12px;">📚 متوفر حاليًا: <span style="color:#2ecc71;">✅ نسخة علمي علوم و رياضه</span></p>
+                <p style="font-size:14px;color:#888;">ولو الفكرة عجبتكم ولاقت دعم منكم، بإذن الله هنشتغل على نسخة علمي رياضة ونسخة أدبي، ونطور الباكج بإضافات جديدة كل سنة.</p>
+
+                <div style="text-align:center;margin:16px 0;">
+                    <a href="https://t.me/llTwasell" target="_blank" class="btn-order">
+                        📩 اطلب الباكج الآن
+                        <span class="verified">✅ رسمي</span>
+                    </a>
+                </div>
+
+                <div class="highlight-box" style="border-color:#e74c3c;">
+                    <strong>🤍 رسالة أخيرة</strong><br>
+                    لو اشتريت الملف واستفدت منه، فضلاً متشاركوش مع أي حد.<br>
+                    مش علشان الـ10 جنيه... لكن علشان الملف ده اتعمل بعد ساعات طويلة جدًا من التفكير، والتصميم، والتعديل، والتجربة، علشان يطلع بالشكل اللي بين إيديك.<br><br>
+                    <strong style="color:#e74c3c;">لذلك نحن غير مسامحين في مشاركة الملف أو إعادة نشره بأي وسيلة.</strong><br>
+                    دعمك للمجهود ده هو اللي هيخلينا نكمل ونقدم نسخًا أقوى وأفضل كل سنة بإذن الله. ❤️
+                </div>
+
+                <div style="text-align:center;margin-top:12px;">
+                    <p style="font-weight:800;font-size:18px;color:#1a237e;">الثانوية الرسمية بلس | معاك طول المشوار. 🚀</p>
+                </div>
+            </div>
+
+            <div class="package-footer">
+                📱 للطلب والتواصل: <a href="https://t.me/llTwasell" target="_blank">@llTwasell</a>
+            </div>
         </div>
     </div>
 
@@ -3995,6 +4416,9 @@
                     case 'home':
                         loadAllData();
                         break;
+                    case 'package':
+                        // صفحة الباكج - لا تحتاج تحميل بيانات خاصة
+                        break;
                     default:
                         break;
                 }
@@ -4417,7 +4841,7 @@
                         </div>
                         <h4 style="color:#2ecc71;font-size:18px;">${safeText(data.title || 'منشور')}</h4>
                         <div class="post-content-text">${safeText(data.content || '')}</div>
-                        ${data.imageUrl ? `<img src="${data.imageUrl}" class="post-image" loading="lazy" onerror="this.style.display='none'" style="max-height:250px;width:100%;object-fit:cover;border-radius:10px;margin:8px 0;">` : ''}
+                        ${data.imageUrl ? `<img src="${data.imageUrl}" class="post-image" loading="lazy" onerror="this.style.display='none'" style="max-height:250px;width:100%;object-fit:cover;border-radius:10px;margin:8px 0;" onclick="openLightbox(['${data.imageUrl}'], 0)">` : ''}
                         <div class="post-meta">${data.createdAt ? new Date(data.createdAt).toLocaleString('ar') : ''}</div>
                         <div class="post-actions">
                             <button onclick="likeTeamPost('${data.id}', this)" ${userLiked ? 'style="color:#e74c3c;"' : ''}>
@@ -4427,11 +4851,10 @@
                         </div>
                         <div class="comments-section">
                             ${commentsHtml}
-                            ${isAdminUser ? `
                             <div class="comment-input">
-                                <input type="text" placeholder="اكتب رداً رسمياً (يظهر بشكل مميز)..." class="team-comment-input" data-post="${data.id}">
+                                <input type="text" placeholder="اكتب تعليقك (يخضع لمراجعة الإدارة)..." class="team-comment-input" data-post="${data.id}">
                                 <button class="team-comment-submit" data-post="${data.id}">نشر</button>
-                            </div>` : `<div style="color:#888;font-size:12px;padding:8px 0;text-align:center;">✍️ فقط الإدارة يمكنها الرد على منشورات الفريق</div>`}
+                            </div>
                         </div>
                     </div>
                 `;
@@ -4474,32 +4897,28 @@
                     return;
                 }
 
-                // فقط الأدمن يمكنه التعليق على منشورات الفريق
-                if (!isAdminUser) {
-                    showToast('⛔ فقط فريق الإدارة يمكنه الرد على منشورات الفريق', 'error');
-                    return;
-                }
-
                 var userId = auth.currentUser.uid;
+                var isAdmin = false;
 
                 getUser(userId).then(function(userData) {
+                    isAdmin = userData && (userData.role === 'admin' || userData.role === 'superAdmin');
                     var photo = (userData && userData.photoURL) || auth.currentUser.photoURL || '';
                     var newRef = db.ref('team_posts/' + postId + '/comments').push();
                     return newRef.set({
                         text: text,
-                        user: auth.currentUser.displayName || auth.currentUser.email || 'إدارة المنصة',
+                        user: auth.currentUser.displayName || auth.currentUser.email || 'طالب',
                         userPhoto: photo || '',
                         userId: userId,
-                        status: 'approved', // الأدمن يظهر فوراً
-                        isAdminReply: true,
-                        isOfficialReply: true,
+                        status: 'pending', // دائماً pending حتى يوافق الأدمن
+                        isAdminReply: false,
+                        isOfficialReply: false,
                         likes: 0,
                         likesData: {},
                         createdAt: firebase.database.ServerValue.TIMESTAMP
                     });
                 }).then(function() {
                     input.value = '';
-                    showPopup('✅', 'تم إرسال ردك الرسمي!', 'سيظهر الرد بشكل مميز');
+                    showPopup('✅', 'تم إرسال تعليقك!', 'سيتم مراجعة تعليقك من قبل الإدارة');
                     loadTeamPosts();
                 }).catch(function(err) {
                     showToast('❌ خطأ: ' + err.message, 'error');
@@ -5724,6 +6143,11 @@
         console.log('✅ التعليقات تذهب إلى Firebase وتستنتظر القبول من الإدارة');
         console.log('✅ دالة registerUser لا تمسح رتبة الأدمن');
         console.log('✅ منشورات الفريق: الأدمن فقط يكتب فيها');
+        console.log('📦 باكج الثانوية الرسمية بلس مضاف مع فيديو وشرح');
+        console.log('📝 امتحانات شاملة (بلور) تحت مميزات المنصة');
+        console.log('🟢 نظام المفضلة شغال 100%');
+        console.log('🖼️ Lightbox لصور منشورات الفريق');
+        console.log('📱 تحسينات التجاوب مع جميع الأجهزة');
     </script>
 
 </body>
