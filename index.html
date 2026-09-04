@@ -1,305 +1,94 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
-    <meta name="theme-color" content="#1a237e" />
+    <meta charset="UTF-8">
     <title>جاري التحميل...</title>
-    
-    <!-- ===== حماية متقدمة ===== -->
-    <script>
-        // منع view-source
-        if (window.location.protocol === 'view-source:' || window.location.href.includes('view-source:')) {
-            window.location.href = window.location.href.replace('view-source:', '');
-        }
-
-        // منع F12
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'F12' || e.keyCode === 123) {
-                e.preventDefault();
-                e.stopPropagation();
-                return false;
-            }
-            if (e.ctrlKey && (e.key === 'u' || e.key === 'U')) {
-                e.preventDefault();
-                e.stopPropagation();
-                return false;
-            }
-            if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) {
-                e.preventDefault();
-                e.stopPropagation();
-                return false;
-            }
-            if (e.ctrlKey && (e.key === 's' || e.key === 'S')) {
-                e.preventDefault();
-                e.stopPropagation();
-                return false;
-            }
-            return true;
-        }, true);
-
-        // منع النقر بزر اليمين
-        document.addEventListener('contextmenu', function(e) {
-            e.preventDefault();
-            return false;
-        });
-
-        // منع dragging
-        document.addEventListener('dragstart', function(e) {
-            e.preventDefault();
-            return false;
-        });
-
-        // منع تحديد النص
-        document.addEventListener('selectstart', function(e) {
-            e.preventDefault();
-            return false;
-        });
-
-        // منع النسخ
-        document.addEventListener('copy', function(e) {
-            e.preventDefault();
-            return false;
-        });
-
-        // تعطيل console
-        console.log = function() {};
-        console.warn = function() {};
-        console.error = function() {};
-        console.info = function() {};
-        console.debug = function() {};
-
-        // منع الـ debugger
-        setInterval(function() {
-            debugger;
-        }, 1000);
-
-        // حماية Object
-        Object.defineProperty(window, 'console', {
-            value: {
-                log: function() {},
-                warn: function() {},
-                error: function() {},
-                info: function() {},
-                debug: function() {},
-                dir: function() {},
-                table: function() {},
-                trace: function() {},
-                group: function() {},
-                groupEnd: function() {},
-                time: function() {},
-                timeEnd: function() {},
-                assert: function() {},
-                count: function() {},
-                profile: function() {},
-                profileEnd: function() {}
-            },
-            writable: false,
-            configurable: false
-        });
-
-        // ===== التوجيه للمنصة الحقيقية =====
-        // بعد 2.5 ثانية نروح للمنصة
-        setTimeout(function() {
-            window.location.href = 'app.html';
-        }, 2500);
-    </script>
-
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin:0; padding:0; box-sizing:border-box; }
         body {
-            background: #0f0f1a;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            font-family: 'Tajawal', 'Segoe UI', sans-serif;
-            overflow: hidden;
-            position: relative;
+            background:#0f0f1a; color:#fff;
+            display:flex; justify-content:center; align-items:center;
+            height:100vh; font-family:'Tajawal',sans-serif;
         }
-        .splash-container {
-            text-align: center;
-            animation: fadeIn 0.8s ease;
-            padding: 20px;
+        .box {
+            text-align:center; padding:40px; max-width:400px; width:90%;
         }
-        .splash-container .logo {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid rgba(255, 255, 255, 0.15);
-            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
-            animation: pulse-logo 2s ease-in-out infinite;
-            margin-bottom: 20px;
+        .logo {
+            width:100px; height:100px; border-radius:50%;
+            border:3px solid rgba(255,255,255,0.15);
+            margin-bottom:20px;
         }
-        @keyframes pulse-logo {
-            0%, 100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.05);
-            }
+        input {
+            width:100%; padding:14px 20px; border:none; border-radius:12px;
+            background:#1a1a2e; color:#fff; font-size:16px; text-align:center;
+            margin:10px 0; outline:none; border:2px solid transparent;
         }
-        .splash-container h1 {
-            color: white;
-            font-size: 28px;
-            font-weight: 900;
-            background: linear-gradient(45deg, #2ecc71, #3498db, #e74c3c);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 6px;
-            letter-spacing: 1px;
+        input:focus { border-color:#3498db; }
+        button {
+            width:100%; padding:14px; border:none; border-radius:12px;
+            background:#3498db; color:#fff; font-size:16px; font-weight:800;
+            cursor:pointer; margin-top:10px; transition:0.3s;
         }
-        .splash-container .sub {
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 14px;
-            margin-bottom: 30px;
-        }
+        button:hover { background:#2980b9; }
+        .error { color:#e74c3c; font-size:14px; margin-top:10px; display:none; }
         .loader {
-            width: 60px;
-            height: 60px;
-            border: 4px solid rgba(255, 255, 255, 0.08);
-            border-top: 4px solid #3498db;
-            border-right: 4px solid #2ecc71;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 20px;
+            width:50px; height:50px; border:4px solid rgba(255,255,255,0.1);
+            border-top-color:#3498db; border-radius:50%;
+            animation:spin 1s linear infinite; margin:20px auto; display:none;
         }
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-        .progress-bar {
-            width: 280px;
-            max-width: 90%;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 4px;
-            margin: 0 auto;
-            overflow: hidden;
-            position: relative;
-        }
-        .progress-bar .fill {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, #2ecc71, #3498db, #9b59b6);
-            border-radius: 4px;
-            animation: progress 2.5s ease-in-out forwards;
-        }
-        @keyframes progress {
-            0% {
-                width: 0%;
-            }
-            30% {
-                width: 25%;
-            }
-            60% {
-                width: 60%;
-            }
-            85% {
-                width: 85%;
-            }
-            100% {
-                width: 100%;
-            }
-        }
-        .splash-container .status {
-            color: rgba(255, 255, 255, 0.4);
-            font-size: 12px;
-            margin-top: 14px;
-            letter-spacing: 1px;
-        }
-        .splash-container .version {
-            color: rgba(255, 255, 255, 0.15);
-            font-size: 10px;
-            margin-top: 8px;
-        }
-        .glow {
-            position: fixed;
-            width: 600px;
-            height: 600px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(52, 152, 219, 0.06), transparent 70%);
-            top: -200px;
-            right: -200px;
-            pointer-events: none;
-            z-index: -1;
-        }
-        .glow2 {
-            position: fixed;
-            width: 500px;
-            height: 500px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(46, 204, 113, 0.04), transparent 70%);
-            bottom: -150px;
-            left: -150px;
-            pointer-events: none;
-            z-index: -1;
-        }
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
+        @keyframes spin { to{transform:rotate(360deg)} }
     </style>
 </head>
 <body>
+    <div class="box" id="loginBox">
+        <img src="https://cdn.phototourl.com/free/2026-07-21-1dd4b984-ed08-4a40-aead-9ef086ebbd45.jpg" class="logo">
+        <h2>الثانوية الرسمية بلس</h2>
+        <p style="color:#888; margin-bottom:20px;">أدخل كلمة المرور للدخول</p>
+        <input type="password" id="pass" placeholder="كلمة المرور">
+        <button onclick="check()">🔓 دخول</button>
+        <div class="error" id="err">❌ كلمة المرور غير صحيحة</div>
+    </div>
 
-    <div class="glow"></div>
-    <div class="glow2"></div>
-
-    <div class="splash-container">
-        <img src="https://cdn.phototourl.com/free/2026-07-21-1dd4b984-ed08-4a40-aead-9ef086ebbd45.jpg" alt="شعار المنصة" class="logo">
-        <h1>الثانوية الرسمية بلس</h1>
-        <div class="sub">معاك طول المشوار</div>
+    <div class="box" id="loadingBox" style="display:none;">
+        <img src="https://cdn.phototourl.com/free/2026-07-21-1dd4b984-ed08-4a40-aead-9ef086ebbd45.jpg" class="logo">
         <div class="loader"></div>
-        <div class="progress-bar">
-            <div class="fill"></div>
-        </div>
-        <div class="status" id="statusText">جاري تجهيز المنصة...</div>
-        <div class="version">v2027.1 · آمن ومشفّر</div>
+        <p>جاري فتح المنصة...</p>
     </div>
 
     <script>
-        // ===== مؤشرات التحميل =====
-        var statusMessages = [
-            'جاري تجهيز المنصة...',
-            'تحميل المكتبة الرقمية...',
-            'تجهيز المنتدى التعليمي...',
-            'تهيئة أدوات المذاكرة...',
-            'جاري التحميل...',
-            'تم التحميل! جاري فتح المنصة...'
-        ];
+        // ===== كلمة السر (غيّرها) =====
+        const PASSWORD = "thanawya2027"; // غيّرها لكلمة قوية
 
-        var currentIndex = 0;
-        var statusEl = document.getElementById('statusText');
-
-        function updateStatus() {
-            if (currentIndex < statusMessages.length) {
-                statusEl.textContent = statusMessages[currentIndex];
-                currentIndex++;
-                setTimeout(updateStatus, 500);
+        function check() {
+            const val = document.getElementById('pass').value;
+            if (val === PASSWORD) {
+                // ✅ صح — نعمل توكن ونخزنه
+                const token = btoa(Date.now() + Math.random() + PASSWORD);
+                sessionStorage.setItem('auth_gate', token);
+                
+                document.getElementById('loginBox').style.display = 'none';
+                document.getElementById('loadingBox').style.display = 'block';
+                
+                setTimeout(() => {
+                    window.location.href = 'app.html?t=' + token;
+                }, 1500);
             } else {
-                statusEl.textContent = '✅ تم التحميل! جاري التوجيه...';
+                document.getElementById('err').style.display = 'block';
             }
         }
 
-        // بدء التحديث
-        setTimeout(updateStatus, 300);
-    </script>
+        // Enter يشتغل
+        document.getElementById('pass').addEventListener('keypress', e => {
+            if (e.key === 'Enter') check();
+        });
 
+        // حماية سطحية (F12, right-click)
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('keydown', e => {
+            if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && ['I','J','C'].includes(e.key))) {
+                e.preventDefault();
+            }
+        });
+    </script>
 </body>
 </html>
