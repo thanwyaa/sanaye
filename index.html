@@ -45,13 +45,22 @@
         console.warn = function() {};
         console.error = function() {};
         console.info = function() {};
-        // ===== التوجيه =====
+
+        // ===== التوجيه للمنصة =====
         var msgs = ['جاري تجهيز المنصة...', 'تحميل المكتبة...', 'تجهيز المنتدى...', 'تم التحميل!'];
         var i = 0;
         var statusEl = document.getElementById('s');
         function up() {
-            if (i < msgs.length) { statusEl.textContent = msgs[i]; i++; setTimeout(up, 600); }
-            else { statusEl.textContent = '✅ جاري فتح المنصة...'; setTimeout(function(){ window.location.href = 'app.html'; }, 1000); }
+            if (i < msgs.length) {
+                statusEl.textContent = msgs[i];
+                i++;
+                setTimeout(up, 600);
+            } else {
+                statusEl.textContent = '✅ جاري فتح المنصة...';
+                setTimeout(function() {
+                    window.location.href = 'app.html';
+                }, 1000);
+            }
         }
         setTimeout(up, 300);
     </script>
