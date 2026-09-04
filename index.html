@@ -1,94 +1,14 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>جاري التحميل...</title>
-    <style>
-        * { margin:0; padding:0; box-sizing:border-box; }
-        body {
-            background:#0f0f1a; color:#fff;
-            display:flex; justify-content:center; align-items:center;
-            height:100vh; font-family:'Tajawal',sans-serif;
-        }
-        .box {
-            text-align:center; padding:40px; max-width:400px; width:90%;
-        }
-        .logo {
-            width:100px; height:100px; border-radius:50%;
-            border:3px solid rgba(255,255,255,0.15);
-            margin-bottom:20px;
-        }
-        input {
-            width:100%; padding:14px 20px; border:none; border-radius:12px;
-            background:#1a1a2e; color:#fff; font-size:16px; text-align:center;
-            margin:10px 0; outline:none; border:2px solid transparent;
-        }
-        input:focus { border-color:#3498db; }
-        button {
-            width:100%; padding:14px; border:none; border-radius:12px;
-            background:#3498db; color:#fff; font-size:16px; font-weight:800;
-            cursor:pointer; margin-top:10px; transition:0.3s;
-        }
-        button:hover { background:#2980b9; }
-        .error { color:#e74c3c; font-size:14px; margin-top:10px; display:none; }
-        .loader {
-            width:50px; height:50px; border:4px solid rgba(255,255,255,0.1);
-            border-top-color:#3498db; border-radius:50%;
-            animation:spin 1s linear infinite; margin:20px auto; display:none;
-        }
-        @keyframes spin { to{transform:rotate(360deg)} }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>جاري التحميل...</title>
+<script>
+setTimeout(function(){window.location.href='app.html';},2000);
+</script>
 </head>
-<body>
-    <div class="box" id="loginBox">
-        <img src="https://cdn.phototourl.com/free/2026-07-21-1dd4b984-ed08-4a40-aead-9ef086ebbd45.jpg" class="logo">
-        <h2>الثانوية الرسمية بلس</h2>
-        <p style="color:#888; margin-bottom:20px;">أدخل كلمة المرور للدخول</p>
-        <input type="password" id="pass" placeholder="كلمة المرور">
-        <button onclick="check()">🔓 دخول</button>
-        <div class="error" id="err">❌ كلمة المرور غير صحيحة</div>
-    </div>
-
-    <div class="box" id="loadingBox" style="display:none;">
-        <img src="https://cdn.phototourl.com/free/2026-07-21-1dd4b984-ed08-4a40-aead-9ef086ebbd45.jpg" class="logo">
-        <div class="loader"></div>
-        <p>جاري فتح المنصة...</p>
-    </div>
-
-    <script>
-        // ===== كلمة السر (غيّرها) =====
-        const PASSWORD = "thanawya2027"; // غيّرها لكلمة قوية
-
-        function check() {
-            const val = document.getElementById('pass').value;
-            if (val === PASSWORD) {
-                // ✅ صح — نعمل توكن ونخزنه
-                const token = btoa(Date.now() + Math.random() + PASSWORD);
-                sessionStorage.setItem('auth_gate', token);
-                
-                document.getElementById('loginBox').style.display = 'none';
-                document.getElementById('loadingBox').style.display = 'block';
-                
-                setTimeout(() => {
-                    window.location.href = 'app.html?t=' + token;
-                }, 1500);
-            } else {
-                document.getElementById('err').style.display = 'block';
-            }
-        }
-
-        // Enter يشتغل
-        document.getElementById('pass').addEventListener('keypress', e => {
-            if (e.key === 'Enter') check();
-        });
-
-        // حماية سطحية (F12, right-click)
-        document.addEventListener('contextmenu', e => e.preventDefault());
-        document.addEventListener('keydown', e => {
-            if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && ['I','J','C'].includes(e.key))) {
-                e.preventDefault();
-            }
-        });
-    </script>
+<body style="background:#0f0f1a;display:flex;justify-content:center;align-items:center;min-height:100vh;font-family:sans-serif;color:white;text-align:center;">
+<div><h1 style="background:linear-gradient(45deg,#2ecc71,#3498db);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">📚 الثانوية الرسمية بلس</h1><p style="color:#888;">جاري التحميل...</p></div>
 </body>
 </html>
