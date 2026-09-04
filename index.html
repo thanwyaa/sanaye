@@ -1,14 +1,719 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang=ar dir=rtl>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>جاري التحميل...</title>
-<script>
-setTimeout(function(){window.location.href='app.html';},2000);
-</script>
+<meta charset=UTF-8>
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=yes">
+<meta name=theme-color content=#3498db>
+<title>الثانوية الرسمية بلس 2027</title>
+<link rel=manifest href=./manifest.json>
+<link rel=apple-touch-icon href=./icon-512.jpg>
+<script src=https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js></script>
+<script src=https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js></script>
+<script src=https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js></script>
+<script src=https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js></script>
+<script src=https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js></script>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel=stylesheet>
+<style>*{margin:0;padding:0;box-sizing:border-box;font-family:Tajawal,'Segoe UI',sans-serif;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}input,textarea{-webkit-user-select:text;-moz-user-select:text;-ms-user-select:text;user-select:text}body{background:#f0f4f8;transition:background .3s,color .3s;min-height:100vh}body.dark-mode{background:#12121f;color:#e0e0e0}.banned-full-page{display:none;position:fixed;inset:0;background:#fff;z-index:999999;justify-content:center;align-items:center;flex-direction:column;padding:30px;text-align:center;font-family:Tajawal,'Segoe UI',sans-serif}.banned-full-page.active{display:flex}.banned-full-page .ban-icon{font-size:80px;margin-bottom:20px}.banned-full-page .ban-title{font-size:36px;font-weight:900;color:#e74c3c;margin-bottom:12px}.banned-full-page .ban-subtitle{font-size:18px;color:#666;margin-bottom:8px;max-width:550px;line-height:1.8}.banned-full-page .ban-reason{background:#f8f9fa;padding:14px 28px;border-radius:12px;border-right:4px solid #e74c3c;font-size:16px;color:#e74c3c;font-weight:700;margin:12px 0 20px;max-width:500px}.banned-full-page .ban-contact{font-size:14px;color:#888;margin-top:8px}.banned-full-page .ban-contact a{color:#1a237e;font-weight:700;text-decoration:none}.banned-full-page .ban-contact a:hover{text-decoration:underline}.banned-full-page .ban-divider{width:60px;height:3px;background:#e74c3c;border-radius:2px;margin:12px auto}.banned-full-page .ban-logo{width:70px;height:70px;border-radius:50%;object-fit:cover;border:3px solid #e74c3c20;margin-bottom:16px}body.banned-page .footer,body.banned-page .main-content,body.banned-page .navbar{display:none!important}body.banned-page .banned-full-page{display:flex!important}.inactive-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:99998;justify-content:center;align-items:center;flex-direction:column;padding:20px;text-align:center;color:#fff}.inactive-overlay.active{display:flex}.inactive-overlay .icon{font-size:80px;margin-bottom:20px}.inactive-overlay h1{font-size:36px;color:#f39c12;margin-bottom:10px}.inactive-overlay p{font-size:18px;color:#ccc;max-width:500px;line-height:1.8}.verified-badge{display:inline-flex;align-items:center;justify-content:center;margin-right:4px;vertical-align:middle}.verified-badge svg{display:block;width:18px;height:18px;flex-shrink:0}.navbar{display:flex;justify-content:space-between;align-items:center;padding:8px 16px;background:#fff;box-shadow:0 2px 12px rgba(0,0,0,.08);position:sticky;top:0;z-index:1000;transition:background .3s;flex-wrap:wrap;gap:6px}body.dark-mode .navbar{background:#1e1e32;box-shadow:0 2px 12px rgba(0,0,0,.4)}.logo{display:flex;align-items:center;gap:6px;cursor:pointer}.logo img{height:36px;width:auto;border-radius:10px;pointer-events:none}.logo h1{font-size:18px;background:linear-gradient(45deg,#2ecc71,#3498db,#e74c3c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900}.nav-actions{display:flex;align-items:center;gap:6px;flex-wrap:wrap}.nav-actions button{padding:5px 10px;border:none;border-radius:8px;cursor:pointer;font-size:13px;font-weight:700;transition:all .3s;font-family:Tajawal,sans-serif}.btn-dark{background:#2c3e50;color:#fff;font-size:16px;padding:5px 8px}body.dark-mode .btn-dark{background:#f1c40f;color:#1a1a2e}.user-profile{display:flex;align-items:center;gap:8px;cursor:pointer;padding:3px 8px;border-radius:30px;transition:.3s;text-decoration:none;color:#2c3e50}body.dark-mode .user-profile{color:#ecf0f1}.user-profile:hover{background:#f0f0f0}body.dark-mode .user-profile:hover{background:#3d3d55}.user-profile .avatar{width:32px;height:32px;border-radius:50%;object-fit:cover;border:2px solid #3498db}.user-profile .avatar-placeholder{width:32px;height:32px;border-radius:50%;background:#3498db;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;border:2px solid #3498db}.user-profile .user-name{font-weight:700;font-size:13px;max-width:100px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.btn-login-header{background:#3498db;color:#fff;padding:5px 14px;border-radius:8px;font-weight:700;border:none;cursor:pointer;font-family:Tajawal,sans-serif;transition:.3s;font-size:12px}.btn-login-header:hover{background:#2980b9;transform:scale(1.05)}.btn-logout-header{background:#e74c3c;color:#fff;padding:5px 12px;border-radius:8px;font-weight:700;border:none;cursor:pointer;font-family:Tajawal,sans-serif;transition:.3s;font-size:12px}.btn-logout-header:hover{background:#c0392b;transform:scale(1.05)}.nav-links{display:flex;gap:4px;flex-wrap:wrap;align-items:center}.nav-links a{color:#2c3e50;text-decoration:none;font-weight:700;font-size:12px;padding:4px 8px;border-radius:8px;transition:.3s;cursor:pointer}body.dark-mode .nav-links a{color:#ecf0f1}.nav-links a:hover{background:#f0f0f0}body.dark-mode .nav-links a:hover{background:#3d3d55}.nav-links a.active-link{background:#3498db20;color:#3498db}body.dark-mode .nav-links a.active-link{background:#3498db40}.page{display:none;padding:15px 12px;max-width:1200px;margin:0 auto}.page.active{display:block}.page-header{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:16px}.page-header h2{font-size:22px;font-weight:800;color:#2c3e50}body.dark-mode .page-header h2{color:#ecf0f1}.back-btn{background:#3498db;color:#fff;border:none;padding:7px 18px;border-radius:10px;font-weight:700;cursor:pointer;font-size:14px;font-family:Tajawal,sans-serif;transition:.3s}.back-btn:hover{transform:scale(1.05)}.main-header{background:linear-gradient(135deg,#1a2a6c,#2d4373);padding:20px 16px 30px;text-align:center;position:relative;overflow:hidden;margin:0 8px 16px;border-radius:22px;box-shadow:0 8px 30px rgba(0,0,0,.15)}body.dark-mode .main-header{background:linear-gradient(135deg,#0f1a3a,#1a2a5a)}.main-header .logo-big{display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap}.main-header .logo-big img{height:60px;width:60px;border-radius:16px;border:4px solid rgba(255,255,255,.3);animation:float-logo 3s ease-in-out infinite;pointer-events:none}@keyframes float-logo{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}.main-header h2{color:#fff;font-size:22px;font-weight:900;text-shadow:0 2px 10px rgba(0,0,0,.2)}.main-header .rating{display:inline-block;background:rgba(255,255,255,.15);backdrop-filter:blur(10px);padding:3px 14px;border-radius:50px;color:#f1c40f;font-weight:700;font-size:14px;margin-top:6px;border:1px solid rgba(255,255,255,.2)}.main-header .sub-text{color:rgba(255,255,255,.95);font-size:14px;max-width:700px;margin:10px auto 0;line-height:1.8;padding:0 12px;font-weight:400}.main-header .sub-text strong{color:#f1c40f}.search-container{max-width:600px;margin:-14px auto 16px;padding:0 12px;position:relative;z-index:5}.search-container input{width:100%;padding:12px 20px;border:none;border-radius:50px;font-size:14px;background:#fff;box-shadow:0 8px 30px rgba(0,0,0,.12);transition:all .3s;font-family:Tajawal,sans-serif;outline:0}body.dark-mode .search-container input{background:#2d2d44;color:#fff;box-shadow:0 8px 30px rgba(0,0,0,.4)}.search-container input:focus{box-shadow:0 8px 40px rgba(52,152,219,.25);transform:scale(1.01)}.search-results{background:#fff;border-radius:16px;margin-top:6px;box-shadow:0 10px 40px rgba(0,0,0,.12);overflow:hidden;max-height:300px;overflow-y:auto;display:none}body.dark-mode .search-results{background:#2d2d44;box-shadow:0 10px 40px rgba(0,0,0,.5)}.search-results.active{display:block}.search-result-item{padding:10px 16px;border-bottom:1px solid #f0f0f0;cursor:pointer;transition:.2s;display:flex;justify-content:space-between;align-items:center}body.dark-mode .search-result-item{border-bottom-color:#3d3d55}.search-result-item:hover{background:#f8f9fa}body.dark-mode .search-result-item:hover{background:#3d3d55}.search-result-item .tag{padding:3px 10px;border-radius:50px;font-size:10px;font-weight:700}.grades-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;margin-top:16px}.grade-card{background:#fff;border-radius:20px;padding:18px 14px 22px;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,.08);transition:all .4s;cursor:pointer;border-top:6px solid}body.dark-mode .grade-card{background:#24243a;box-shadow:0 8px 30px rgba(0,0,0,.3)}.grade-card:hover{transform:translateY(-8px);box-shadow:0 20px 50px rgba(0,0,0,.15)}.grade-card img{width:90px;height:90px;border-radius:50%;object-fit:cover;margin-bottom:10px;border:4px solid;pointer-events:none}.grade-card h3{font-size:18px;font-weight:800;color:#333}body.dark-mode .grade-card h3{color:#eee}.grade-card p{color:#777;font-size:12px;margin-top:4px}body.dark-mode .grade-card p{color:#aaa}.grade-1{border-color:#2ecc71}.grade-1 img{border-color:#2ecc71}.grade-1 h3{color:#27ae60}.grade-2{border-color:#3498db}.grade-2 img{border-color:#3498db}.grade-2 h3{color:#2980b9}.grade-3{border-color:#e74c3c}.grade-3 img{border-color:#e74c3c}.grade-3 h3{color:#c0392b}.section-card{background:#fff;border-radius:16px;padding:16px;box-shadow:0 4px 15px rgba(0,0,0,.06);margin-bottom:18px}body.dark-mode .section-card{background:#24243a}.section-card .section-title{font-size:17px;font-weight:700;display:flex;align-items:center;gap:8px;margin-bottom:4px}.section-card .section-desc{color:#777;font-size:13px;margin-bottom:10px}body.dark-mode .section-card .section-desc{color:#aaa}.section-search{width:100%;padding:8px 14px;border:2px solid #eee;border-radius:10px;font-family:Tajawal,sans-serif;font-size:13px;transition:.3s;background:#f8f9fa;outline:0;margin-bottom:12px}body.dark-mode .section-search{background:#2d2d44;border-color:#3d3d55;color:#fff}.section-search:focus{border-color:#3498db}.books-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:16px}.book-item{background:#fff;border-radius:14px;padding:12px;text-align:center;box-shadow:0 4px 15px rgba(0,0,0,.06);transition:.3s;border:1px solid #eee}body.dark-mode .book-item{background:#2d2d44;border-color:#3d3d55}.book-item:hover{transform:translateY(-4px);box-shadow:0 10px 30px rgba(0,0,0,.12)}.book-item .book-cover{width:100%;height:160px;object-fit:cover;border-radius:10px;margin-bottom:8px;background:#ddd;cursor:pointer;transition:.3s;pointer-events:none}.book-item .book-cover:hover{transform:scale(1.02)}.book-item .book-name{font-weight:700;font-size:15px;margin:4px 0;cursor:pointer}.book-item .book-name:hover{color:#3498db}.book-item .book-meta{font-size:12px;color:#888;display:flex;justify-content:center;gap:8px;flex-wrap:wrap}body.dark-mode .book-item .book-meta{color:#aaa}.book-item .book-meta .fav-count{color:#e74c3c;font-weight:700}.book-item .book-actions{display:flex;justify-content:center;gap:10px;margin-top:10px}.book-item .book-actions button{border:none;cursor:pointer;font-size:16px;transition:.3s;padding:5px 12px;border-radius:8px;font-weight:700;font-family:Tajawal,sans-serif}.book-item .book-actions .fav-btn{background:#f0f0f0;color:#e74c3c}.book-item .book-actions .fav-btn.faved{background:#e74c3c;color:#fff}.book-item .book-actions .download-btn{background:#2ecc71;color:#fff}.book-item .book-actions .download-btn:hover{background:#27ae60;transform:scale(1.05)}.book-item .book-actions .fav-btn:hover{transform:scale(1.05)}.book-detail{max-width:700px;margin:0 auto;background:#fff;border-radius:20px;padding:30px;box-shadow:0 4px 30px rgba(0,0,0,.08)}body.dark-mode .book-detail{background:#24243a}.book-detail .cover-large{width:100%;max-height:350px;object-fit:contain;border-radius:12px;margin-bottom:20px;background:#f8f9fa;pointer-events:none}.book-detail h2{font-size:24px;font-weight:800;margin-bottom:8px}.book-detail .detail-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #eee;flex-wrap:wrap;gap:5px}body.dark-mode .book-detail .detail-row{border-bottom-color:#3d3d55}.book-detail .detail-row .label{font-weight:700;color:#888}.book-detail .detail-row .value{font-weight:500}.book-detail .btn-download-large{display:block;width:100%;padding:14px;background:#2ecc71;color:#fff;border:none;border-radius:12px;font-size:18px;font-weight:800;cursor:pointer;font-family:Tajawal,sans-serif;transition:.3s;margin-top:15px;text-align:center;text-decoration:none}.book-detail .btn-download-large:hover{background:#27ae60;transform:scale(1.02)}.upload-section{background:linear-gradient(135deg,#2ecc71,#27ae60);padding:28px 16px;border-radius:22px;margin:24px 0;text-align:center;color:#fff}body.dark-mode .upload-section{background:linear-gradient(135deg,#1a7a3a,#1a5a2a)}.upload-section h3{font-size:20px;font-weight:800}.upload-section p{opacity:.95;margin:8px 0 16px;font-size:15px}.upload-section .upload-types{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:10px 0}.upload-section .upload-types .type-badge{background:rgba(255,255,255,.15);padding:4px 14px;border-radius:50px;font-size:12px;font-weight:700}.btn-upload{background:#fff;color:#27ae60;padding:12px 32px;border:none;border-radius:50px;font-size:16px;font-weight:800;cursor:pointer;transition:.3s;font-family:Tajawal,sans-serif}.btn-upload:hover{transform:scale(1.05);box-shadow:0 8px 30px rgba(0,0,0,.2)}.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:16px;margin-top:16px}.feature-card{background:#fff;padding:20px 16px;border-radius:18px;box-shadow:0 5px 20px rgba(0,0,0,.06);transition:all .3s;text-align:center;cursor:pointer}body.dark-mode .feature-card{background:#24243a;color:#eee}.feature-card:hover{transform:scale(1.03);box-shadow:0 10px 35px rgba(0,0,0,.1)}.feature-card .icon{font-size:34px;margin-bottom:8px}.feature-card h4{font-size:16px;font-weight:700;margin-bottom:4px}.feature-card p{font-size:12px;color:#777}body.dark-mode .feature-card p{color:#aaa}.exams-blur-card{background:rgba(255,255,255,.6);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:2px solid rgba(255,255,255,.3);position:relative;overflow:hidden;cursor:default!important;opacity:.85;transition:.3s}body.dark-mode .exams-blur-card{background:rgba(30,30,50,.6);border-color:rgba(255,255,255,.1)}.exams-blur-card:hover{transform:none!important;box-shadow:0 5px 20px rgba(0,0,0,.06)!important}.exams-blur-card::after{content:"📝 قريباً... يتم التجهيز";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:#1a237e;background:rgba(255,255,255,.5);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);border-radius:18px;letter-spacing:1px}body.dark-mode .exams-blur-card::after{color:#90caf9;background:rgba(0,0,0,.4)}.exams-blur-card .icon,.exams-blur-card h4,.exams-blur-card p{opacity:.3;filter:blur(1px)}.timer-container{text-align:center;padding:16px}.timer-display{font-size:52px;font-weight:800;font-family:'Courier New',monospace;margin:16px 0;color:#2c3e50}body.dark-mode .timer-display{color:#ecf0f1}.timer-controls{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:12px 0}.timer-controls button{padding:8px 16px;border:none;border-radius:10px;font-weight:700;cursor:pointer;transition:.3s;font-family:Tajawal,sans-serif}.timer-controls .btn-start{background:#2ecc71;color:#fff}.timer-controls .btn-pause{background:#f39c12;color:#fff}.timer-controls .btn-reset{background:#e74c3c;color:#fff}.timer-presets{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:12px 0}.timer-presets button{padding:6px 14px;border:2px solid #3498db;border-radius:50px;background:0 0;color:#3498db;font-weight:700;cursor:pointer;transition:.3s;font-family:Tajawal,sans-serif;font-size:13px}.timer-presets button:hover{background:#3498db;color:#fff}.timer-custom{display:flex;gap:8px;justify-content:center;align-items:center;flex-wrap:wrap;margin-top:12px}.timer-custom input{width:70px;padding:8px;border:2px solid #eee;border-radius:10px;font-size:14px;text-align:center;font-family:Tajawal,sans-serif}body.dark-mode .timer-custom input{background:#2d2d44;border-color:#3d3d55;color:#fff}.timer-custom button{padding:8px 20px;background:#3498db;color:#fff;border:none;border-radius:10px;font-weight:700;cursor:pointer;font-family:Tajawal,sans-serif}.forum-post{background:#fff;border-radius:18px;padding:16px;margin-bottom:16px;box-shadow:0 4px 15px rgba(0,0,0,.06);transition:.3s}body.dark-mode .forum-post{background:#24243a}.forum-post .post-header{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:8px}.forum-post .post-header .user{font-weight:700;color:#3498db;cursor:pointer;display:flex;align-items:center;gap:6px}.forum-post .post-header .user:hover{text-decoration:underline}.forum-post .post-header .user-avatar{width:24px;height:24px;border-radius:50%;object-fit:cover;border:1px solid #3498db}.forum-post .post-header .date{font-size:11px;color:#999}.forum-post .post-content{font-size:14px;line-height:1.8;margin:8px 0}.forum-post .post-image{width:100%;max-height:250px;object-fit:cover;border-radius:10px;margin:8px 0;pointer-events:none}.forum-post .post-actions{display:flex;gap:12px;margin-top:8px;flex-wrap:wrap}.forum-post .post-actions button{background:0 0;border:none;cursor:pointer;font-size:14px;display:flex;align-items:center;gap:4px;color:#555;transition:.3s;font-family:Tajawal,sans-serif;padding:4px 8px;border-radius:8px}body.dark-mode .forum-post .post-actions button{color:#aaa}.forum-post .post-actions button:hover{background:#f0f0f0}body.dark-mode .forum-post .post-actions button:hover{background:#3d3d55}.forum-post .comments-section{margin-top:12px;border-top:1px solid #eee;padding-top:12px}body.dark-mode .forum-post .comments-section{border-top-color:#3d3d55}.forum-post .comment{display:flex;gap:8px;margin-bottom:8px;font-size:13px;align-items:flex-start}.forum-post .comment .avatar{width:30px;height:30px;border-radius:50%;object-fit:cover;border:1px solid #3498db;background:#3498db;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0}.forum-post .comment .comment-text{background:#f5f7fa;padding:6px 12px;border-radius:12px;flex:1}body.dark-mode .forum-post .comment .comment-text{background:#2d2d44}.forum-post .comment .comment-text .name{font-weight:700;font-size:12px;display:flex;align-items:center;gap:4px}.forum-post .comment .comment-text .name .user-avatar-small{width:18px;height:18px;border-radius:50%;object-fit:cover}.forum-post .comment-input{display:flex;gap:8px;margin-top:8px}.forum-post .comment-input input{flex:1;padding:8px 14px;border-radius:50px;border:2px solid #eee;outline:0;font-family:Tajawal,sans-serif;background:#f5f7fa;font-size:13px}body.dark-mode .forum-post .comment-input input{background:#2d2d44;border-color:#3d3d55;color:#fff}.forum-post .comment-input button{padding:8px 16px;border-radius:50px;border:none;background:#3498db;color:#fff;font-weight:700;cursor:pointer;font-family:Tajawal,sans-serif;transition:.3s;font-size:13px}.forum-post .comment-input button:hover{background:#2980b9}.post-card{background:#fff;border-radius:18px;padding:16px;margin-bottom:16px;box-shadow:0 4px 15px rgba(0,0,0,.06);transition:.3s}body.dark-mode .post-card{background:#24243a}.post-card .admin-header{display:flex;align-items:center;gap:10px;margin-bottom:10px;padding-bottom:10px;border-bottom:2px solid #eee}body.dark-mode .post-card .admin-header{border-bottom-color:#3d3d55}.post-card .admin-header .admin-logo{width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid #2ecc71;flex-shrink:0;pointer-events:none}.post-card .admin-header .admin-info{flex:1}.post-card .admin-header .admin-info .admin-name{font-weight:800;font-size:15px;color:#2c3e50;display:flex;align-items:center;gap:4px;flex-wrap:wrap}body.dark-mode .post-card .admin-header .admin-info .admin-name{color:#ecf0f1}.post-card .admin-header .admin-info .admin-badge{display:inline-block;background:#3498db20;color:#3498db;font-size:11px;font-weight:700;padding:1px 8px;border-radius:50px}.post-card .post-content-text{color:#555;font-size:14px;line-height:1.8;margin:10px 0}body.dark-mode .post-card .post-content-text{color:#ccc}.post-card .post-meta{font-size:12px;color:#999;margin-top:8px}.post-card .post-actions{display:flex;gap:12px;margin-top:8px;flex-wrap:wrap}.post-card .post-actions button{background:0 0;border:none;cursor:pointer;font-size:14px;display:flex;align-items:center;gap:4px;color:#555;transition:.3s;font-family:Tajawal,sans-serif;padding:4px 8px;border-radius:8px}body.dark-mode .post-card .post-actions button{color:#aaa}.post-card .post-actions button:hover{background:#f0f0f0}body.dark-mode .post-card .post-actions button:hover{background:#3d3d55}.post-card .comments-section{margin-top:12px;border-top:1px solid #eee;padding-top:12px}body.dark-mode .post-card .comments-section{border-top-color:#3d3d55}.post-card .comment{display:flex;gap:8px;margin-bottom:8px;font-size:13px;align-items:flex-start}.post-card .comment .avatar{width:30px;height:30px;border-radius:50%;object-fit:cover;border:1px solid #2ecc71;background:#2ecc71;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0}.post-card .comment .comment-text{background:#f5f7fa;padding:6px 12px;border-radius:12px;flex:1}body.dark-mode .post-card .comment .comment-text{background:#2d2d44}.post-card .comment .comment-text .name{font-weight:700;font-size:12px;display:flex;align-items:center;gap:4px}.post-card .comment .comment-text .name .user-avatar-small{width:18px;height:18px;border-radius:50%;object-fit:cover}.post-card .comment-input{display:flex;gap:8px;margin-top:8px}.post-card .comment-input input{flex:1;padding:8px 14px;border-radius:50px;border:2px solid #eee;outline:0;font-family:Tajawal,sans-serif;background:#f5f7fa;font-size:13px}body.dark-mode .post-card .comment-input input{background:#2d2d44;border-color:#3d3d55;color:#fff}.post-card .comment-input button{padding:8px 16px;border-radius:50px;border:none;background:#2ecc71;color:#fff;font-weight:700;cursor:pointer;font-family:Tajawal,sans-serif;transition:.3s;font-size:13px}.post-card .comment-input button:hover{background:#27ae60}.profile-card{background:#fff;border-radius:22px;padding:24px;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,.08);max-width:450px;margin:0 auto}body.dark-mode .profile-card{background:#24243a}.profile-card .profile-img{width:100px;height:100px;border-radius:50%;object-fit:cover;border:4px solid #3498db;margin-bottom:12px;pointer-events:none}.profile-card .profile-img-placeholder{width:100px;height:100px;border-radius:50%;background:#3498db;color:#fff;display:flex;align-items:center;justify-content:center;font-size:40px;margin:0 auto 12px;border:4px solid #3498db}.profile-card h3{font-size:20px;font-weight:800}.profile-card .profile-email{color:#777;font-size:13px}body.dark-mode .profile-card .profile-email{color:#aaa}.profile-card .profile-stats{display:flex;justify-content:center;gap:24px;margin:16px 0}.profile-card .profile-stats div{text-align:center}.profile-card .profile-stats .num{font-size:20px;font-weight:800;color:#2c3e50}body.dark-mode .profile-card .profile-stats .num{color:#ecf0f1}.profile-card .profile-stats .label{font-size:12px;color:#888}.profile-card .profile-actions{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:12px}.profile-card .profile-actions button{padding:8px 20px;border:none;border-radius:10px;font-weight:700;cursor:pointer;font-family:Tajawal,sans-serif;transition:.3s;font-size:13px}.profile-card .profile-actions .btn-upload-img{background:#3498db;color:#fff}.profile-card .profile-actions .btn-upload-img:hover{transform:scale(1.05)}.modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.6);backdrop-filter:blur(5px);z-index:2000;display:none;justify-content:center;align-items:center;padding:16px}.modal-overlay.active{display:flex}.modal-content{background:#fff;border-radius:24px;max-width:500px;width:100%;padding:24px;max-height:80vh;overflow-y:auto;position:relative;animation:slideUp .4s ease}body.dark-mode .modal-content{background:#24243a;color:#eee}@keyframes slideUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}.modal-close{position:absolute;top:12px;left:16px;font-size:24px;background:0 0;border:none;cursor:pointer;color:#999;transition:.3s}.modal-close:hover{color:#333;transform:rotate(90deg)}.notification-item{padding:12px 0;border-bottom:1px solid #f0f0f0}body.dark-mode .notification-item{border-bottom-color:#3d3d55}.notification-item:last-child{border-bottom:none}.notification-item .date{font-size:11px;color:#999}.empty-state{text-align:center;padding:30px 16px;color:#999}.empty-state .icon{font-size:40px;margin-bottom:12px}.empty-state h3{color:#555;margin-bottom:8px}body.dark-mode .empty-state h3{color:#aaa}.upload-form-container label{display:block;margin:10px 0 4px;font-weight:700;font-size:14px}.upload-form-container input,.upload-form-container select,.upload-form-container textarea{width:100%;padding:10px 14px;border:2px solid #eee;border-radius:10px;font-family:Tajawal,sans-serif;font-size:13px;transition:.3s;background:#f8f9fa}body.dark-mode .upload-form-container input,body.dark-mode .upload-form-container select,body.dark-mode .upload-form-container textarea{background:#2d2d44;border-color:#3d3d55;color:#fff}.upload-form-container input:focus,.upload-form-container select:focus,.upload-form-container textarea:focus{border-color:#2ecc71;outline:0}.upload-form-container .checkbox-group{display:flex;align-items:center;gap:8px;margin:10px 0}.upload-form-container .checkbox-group input{width:auto}.upload-form-container .submit-upload{background:#2ecc71;color:#fff;border:none;padding:12px;border-radius:10px;font-weight:800;font-size:16px;cursor:pointer;width:100%;margin-top:12px;transition:.3s;font-family:Tajawal,sans-serif}.upload-form-container .submit-upload:hover{transform:scale(1.02);box-shadow:0 5px 20px rgba(46,204,113,.4)}.forum-form label{display:block;margin:10px 0 4px;font-weight:700;font-size:14px}.forum-form input,.forum-form textarea{width:100%;padding:10px 14px;border:2px solid #eee;border-radius:10px;font-family:Tajawal,sans-serif;font-size:13px;transition:.3s;background:#f8f9fa}body.dark-mode .forum-form input,body.dark-mode .forum-form textarea{background:#2d2d44;border-color:#3d3d55;color:#fff}.forum-form input:focus,.forum-form textarea:focus{border-color:#2ecc71;outline:0}.forum-form .submit-post{background:#2ecc71;color:#fff;border:none;padding:12px;border-radius:10px;font-weight:800;font-size:16px;cursor:pointer;width:100%;margin-top:12px;transition:.3s;font-family:Tajawal,sans-serif}.forum-form .submit-post:hover{transform:scale(1.02)}.policy-content{font-size:14px;line-height:2;color:#444}body.dark-mode .policy-content{color:#ccc}.policy-content strong{color:#2c3e50}body.dark-mode .policy-content strong{color:#ecf0f1}.policy-content .highlight{background:#f0f8ff;padding:12px;border-radius:10px;border-right:4px solid #3498db;margin:8px 0}body.dark-mode .policy-content .highlight{background:#1a2a4a}.policy-content ul{padding-right:20px;list-style:none}.policy-content ul li{margin-bottom:4px;position:relative}.policy-content ul li::before{content:"•";color:#3498db;font-weight:700;margin-left:8px}.install-banner{background:linear-gradient(135deg,#6c5ce7,#a29bfe);padding:14px 20px;border-radius:18px;margin:8px 0 16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}.install-banner p{color:#fff;font-weight:700;font-size:14px;margin:0}.install-banner button{background:#fff;border:none;padding:8px 20px;border-radius:50px;font-weight:800;color:#6c5ce7;cursor:pointer;transition:.3s;font-family:Tajawal,sans-serif;font-size:13px;display:inline-block}.footer{text-align:center;padding:24px 16px;background:#fff;margin-top:24px;border-top:1px solid #eee}body.dark-mode .footer{background:#1a1a2e;border-top-color:#333}.footer a{color:#3498db;text-decoration:none;margin:0 6px;font-weight:500;cursor:pointer;font-size:13px}.footer a:hover{text-decoration:underline}.spinner{display:inline-block;width:24px;height:24px;border:3px solid #f3f3f3;border-top:3px solid #3498db;border-radius:50%;animation:spin 1s linear infinite}@keyframes spin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}.loading-container{text-align:center;padding:20px}.btn-primary{background:#2ecc71;color:#fff;border:none;padding:8px 18px;border-radius:10px;font-weight:700;cursor:pointer;font-family:Tajawal,sans-serif;transition:.3s}.btn-primary:hover{transform:scale(1.05)}.youtube-detail{max-width:600px;margin:0 auto;background:#fff;border-radius:20px;padding:30px;text-align:center;box-shadow:0 4px 30px rgba(0,0,0,.08)}body.dark-mode .youtube-detail{background:#24243a}.youtube-detail img{width:120px;height:120px;border-radius:50%;object-fit:cover;border:4px solid red;margin-bottom:15px;pointer-events:none}.youtube-detail h2{font-size:24px;font-weight:800}.youtube-detail .yt-subject{font-size:16px;color:#888;margin:5px 0}.youtube-detail .yt-grade{font-size:14px;color:#aaa;margin-bottom:10px}.youtube-detail .yt-desc{font-size:14px;color:#555;line-height:1.8;margin:15px 0;text-align:right}body.dark-mode .youtube-detail .yt-desc{color:#ccc}.youtube-detail .yt-visit-btn{display:inline-block;padding:12px 40px;background:red;color:#fff;border:none;border-radius:12px;font-size:18px;font-weight:800;cursor:pointer;font-family:Tajawal,sans-serif;transition:.3s;text-decoration:none}.youtube-detail .yt-visit-btn:hover{background:#c00;transform:scale(1.05)}.forum-rules{background:#e3f2fd;border-right:4px solid #1a237e;padding:16px 20px;border-radius:12px;margin-bottom:16px;font-size:13px;line-height:1.8}body.dark-mode .forum-rules{background:#1a237e40;border-color:#64b5f6;color:#e3f2fd}.forum-rules strong{color:#1a237e}body.dark-mode .forum-rules strong{color:#90caf9}.forum-rules .rule-item{padding:4px 0;display:flex;align-items:center;gap:8px}.popup-message{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(.8);background:#fff;padding:30px 40px;border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,.3);z-index:10000;text-align:center;opacity:0;transition:all .3s ease;pointer-events:none;max-width:90%}.popup-message.active{opacity:1;transform:translate(-50%,-50%) scale(1);pointer-events:auto}body.dark-mode .popup-message{background:#24243a;color:#eee}.popup-message .popup-icon{font-size:50px;margin-bottom:10px}.popup-message .popup-title{font-size:20px;font-weight:800;color:#2ecc71}body.dark-mode .popup-message .popup-title{color:#2ecc71}.popup-message .popup-desc{font-size:14px;color:#777;margin:10px 0}body.dark-mode .popup-message .popup-desc{color:#aaa}.popup-message .popup-close{margin-top:12px;padding:8px 30px;background:#3498db;color:#fff;border:none;border-radius:10px;font-weight:700;cursor:pointer;font-family:Tajawal,sans-serif;font-size:14px}.popup-message .popup-close:hover{background:#2980b9}.toast{position:fixed;bottom:20px;left:20px;background:#2ecc71;color:#fff;padding:12px 24px;border-radius:12px;font-weight:700;font-family:Tajawal,sans-serif;box-shadow:0 4px 20px rgba(0,0,0,.15);z-index:9999;display:none;max-width:90%}.toast.error{background:#e74c3c}.toast.warning{background:#f39c12}.toast.show{display:block;animation:slideUp .3s ease}@media (max-width:768px){.navbar{padding:6px 12px}.logo h1{font-size:16px}.logo img{height:30px}.main-header h2{font-size:20px}.main-header .logo-big img{height:50px;width:50px}.grade-card{padding:14px 12px 18px}.grade-card img{width:75px;height:75px}.install-banner{flex-direction:column;text-align:center}.timer-display{font-size:40px}.books-grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}.nav-links a{font-size:11px;padding:3px 6px}.user-profile .user-name{max-width:60px;font-size:12px}.lightbox .lightbox-nav{padding:10px 14px;font-size:20px}.ad-popup{padding:25px}.popup-message{padding:25px 20px}}@media (max-width:480px){.logo h1{font-size:14px}.main-header .sub-text{font-size:13px}.timer-display{font-size:32px}.books-grid{grid-template-columns:1fr 1fr}.modal-content{padding:16px}.profile-card .profile-stats{flex-direction:column;gap:8px}.nav-links a{font-size:10px;padding:2px 5px}.user-profile .user-name{display:none}.lightbox .lightbox-nav{padding:8px 12px;font-size:16px}.ad-popup{padding:20px}.popup-message{padding:20px 16px}.popup-message .popup-icon{font-size:36px}.popup-message .popup-title{font-size:16px}.forum-rules{font-size:12px;padding:12px 14px}}::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:#f0f0f0}::-webkit-scrollbar-thumb{background:silver;border-radius:10px}body.dark-mode ::-webkit-scrollbar-track{background:#2d2d44}body.dark-mode ::-webkit-scrollbar-thumb{background:#555}.forum-hero{background:linear-gradient(135deg,#2ecc71,#27ae60);padding:30px 20px;border-radius:22px;text-align:center;color:#fff;margin:16px 0 20px;cursor:pointer;transition:.3s;box-shadow:0 8px 30px rgba(46,204,113,.3)}.forum-hero:hover{transform:scale(1.02);box-shadow:0 12px 40px rgba(46,204,113,.5)}.forum-hero h2{font-size:32px;font-weight:900;margin-bottom:8px;text-shadow:0 2px 10px rgba(0,0,0,.2)}.forum-hero p{font-size:16px;opacity:.95;max-width:600px;margin:0 auto}.forum-hero .forum-icon{font-size:50px;display:block;margin-bottom:10px}.team-posts-hero{background:linear-gradient(135deg,#3498db,#2980b9);padding:30px 20px;border-radius:22px;text-align:center;color:#fff;margin:16px 0 20px;box-shadow:0 8px 30px rgba(52,152,219,.3)}.team-posts-hero h2{font-size:28px;font-weight:900;margin-bottom:8px;text-shadow:0 2px 10px rgba(0,0,0,.2)}.team-posts-hero p{font-size:15px;opacity:.95;max-width:600px;margin:0 auto}.rules-card{background:#fff;border-radius:18px;padding:24px;box-shadow:0 4px 20px rgba(0,0,0,.08);border-right:6px solid #2ecc71;margin-bottom:16px}body.dark-mode .rules-card{background:#24243a;border-color:#2ecc71}.rules-card h3{font-size:20px;font-weight:800;color:#2c3e50;margin-bottom:12px;display:flex;align-items:center;gap:10px}body.dark-mode .rules-card h3{color:#ecf0f1}.rules-card .rule-item{padding:6px 0;display:flex;align-items:center;gap:10px;font-size:14px;color:#555;border-bottom:1px solid #f0f0f0}body.dark-mode .rules-card .rule-item{color:#ccc;border-bottom-color:#3d3d55}.rules-card .rule-item:last-child{border-bottom:none}.rules-card .rule-item .icon{font-size:20px}.rules-card .rules-btn{display:block;width:100%;padding:12px;margin-top:12px;background:#2ecc71;color:#fff;border:none;border-radius:12px;font-weight:800;font-size:16px;cursor:pointer;font-family:Tajawal,sans-serif;transition:.3s}.rules-card .rules-btn:hover{background:#27ae60;transform:scale(1.02)}.forum-notice{background:#f39c1220;border-right:4px solid #f39c12;padding:12px 16px;border-radius:10px;margin-bottom:16px;color:#f39c12;font-weight:700;font-size:14px;text-align:center}body.dark-mode .forum-notice{background:#f39c1210}.student-summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:16px;margin-top:10px}.student-summary-item{background:#fff;border-radius:14px;padding:12px;text-align:center;box-shadow:0 4px 15px rgba(0,0,0,.06);transition:.3s;border:1px solid #eee;cursor:pointer}body.dark-mode .student-summary-item{background:#2d2d44;border-color:#3d3d55}.student-summary-item:hover{transform:translateY(-4px);box-shadow:0 10px 30px rgba(0,0,0,.12)}.student-summary-item .summary-preview{width:100%;height:140px;object-fit:cover;border-radius:10px;margin-bottom:8px;background:#ddd;pointer-events:none}.student-summary-item .summary-title{font-weight:700;font-size:14px;margin:4px 0}.student-summary-item .summary-meta{font-size:12px;color:#888}body.dark-mode .student-summary-item .summary-meta{color:#aaa}.student-summary-item .summary-download{display:inline-block;margin-top:8px;padding:5px 14px;background:#2ecc71;color:#fff;border:none;border-radius:8px;font-weight:700;cursor:pointer;font-family:Tajawal,sans-serif;font-size:12px;transition:.3s;text-decoration:none}.student-summary-item .summary-download:hover{background:#27ae60;transform:scale(1.05)}.online-badge{display:none;align-items:center;gap:4px;background:#2ecc7120;color:#2ecc71;padding:2px 10px;border-radius:50px;font-size:11px;font-weight:700}.online-badge .dot{width:6px;height:6px;background:#2ecc71;border-radius:50%;animation:pulse-dot 1.5s infinite}@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}.admin-only{display:none}body.is-admin .admin-only{display:inline-flex}.channels-section{background:linear-gradient(135deg,#1a237e,#2d4373);border-radius:20px;padding:24px 20px;margin:20px 0 0;text-align:center;color:#fff;box-shadow:0 8px 30px rgba(0,0,0,.15)}.channels-section h3{font-size:20px;font-weight:900;margin-bottom:6px}.channels-section p{font-size:14px;opacity:.95;margin-bottom:14px;line-height:1.8}.channels-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;max-width:700px;margin:0 auto}.channels-grid .channel-link{background:rgba(255,255,255,.12);padding:10px 12px;border-radius:12px;text-decoration:none;color:#fff;font-weight:700;font-size:14px;transition:.3s;border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;gap:6px}.channels-grid .channel-link:hover{background:rgba(255,255,255,.25);transform:scale(1.03)}.channels-grid .channel-link.green{border-color:rgba(46,204,113,.4)}.channels-grid .channel-link.blue{border-color:rgba(52,152,219,.4)}.channels-grid .channel-link.red{border-color:rgba(231,76,60,.4)}.channels-grid .channel-link.whatsapp{border-color:rgba(37,211,102,.4)}.channels-grid .channel-link.youtube{border-color:rgba(255,0,0,.4)}.channels-grid .channel-link .icon{font-size:18px}.channels-telegram{margin-top:12px;font-size:13px;opacity:.8}.channels-telegram a{color:#f1c40f;font-weight:700;text-decoration:none}.channels-telegram a:hover{text-decoration:underline}.ad-popup-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.85);backdrop-filter:blur(10px);z-index:99999;display:none;justify-content:center;align-items:center;padding:20px}.ad-popup-overlay.active{display:flex}.ad-popup{background:#fff;border-radius:24px;max-width:650px;width:100%;padding:40px;position:relative;animation:slideUp .5s ease;max-height:92vh;overflow-y:auto;box-shadow:0 25px 70px rgba(0,0,0,.4)}body.dark-mode .ad-popup{background:#1e1e32;color:#eee}.ad-popup .ad-close{position:absolute;top:12px;left:16px;font-size:30px;background:rgba(0,0,0,.08);border:none;cursor:pointer;color:#666;transition:.3s;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:10}.ad-popup .ad-close:hover{background:rgba(0,0,0,.15);color:#333;transform:rotate(90deg)}.ad-popup .ad-image{width:100%;max-height:300px;object-fit:cover;border-radius:16px;margin-bottom:20px;border:1px solid #eee}body.dark-mode .ad-popup .ad-image{border-color:#3d3d55}.ad-popup .ad-title{font-size:26px;font-weight:900;margin-bottom:12px;color:#2c3e50;text-align:center}body.dark-mode .ad-popup .ad-title{color:#ecf0f1}.ad-popup .ad-desc{font-size:16px;color:#555;line-height:1.8;margin-bottom:20px;text-align:center}body.dark-mode .ad-popup .ad-desc{color:#ccc}.ad-popup .ad-btn{display:block;width:100%;padding:14px 35px;background:#3498db;color:#fff;border:none;border-radius:14px;font-weight:800;font-size:18px;cursor:pointer;font-family:Tajawal,sans-serif;transition:.3s;text-decoration:none;text-align:center;box-shadow:0 4px 15px rgba(52,152,219,.3)}.ad-popup .ad-btn:hover{background:#2980b9;transform:scale(1.02);box-shadow:0 6px 25px rgba(52,152,219,.4)}.ad-popup .ad-btn.green{background:#2ecc71;box-shadow:0 4px 15px rgba(46,204,113,.3)}.ad-popup .ad-btn.green:hover{background:#27ae60;box-shadow:0 6px 25px rgba(46,204,113,.4)}.ad-popup .ad-btn.red{background:#e74c3c;box-shadow:0 4px 15px rgba(231,76,60,.3)}.ad-popup .ad-btn.red:hover{background:#c0392b;box-shadow:0 6px 25px rgba(231,76,60,.4)}.ad-popup .ad-btn.purple{background:#9b59b6;box-shadow:0 4px 15px rgba(155,89,182,.3)}.ad-popup .ad-btn.purple:hover{background:#8e44ad;box-shadow:0 6px 25px rgba(155,89,182,.4)}.ad-popup .ad-btn.orange{background:#f39c12;box-shadow:0 4px 15px rgba(243,156,18,.3)}.ad-popup .ad-btn.orange:hover{background:#d68910;box-shadow:0 6px 25px rgba(243,156,18,.4)}.ad-popup .ad-badge{display:inline-block;background:#e74c3c;color:#fff;padding:4px 16px;border-radius:50px;font-size:12px;font-weight:700;margin-bottom:12px}.ad-popup .ad-timer{text-align:center;font-size:13px;color:#999;margin-top:12px}body.dark-mode .ad-popup .ad-timer{color:#aaa}.ad-popup .ad-timer span{font-weight:800;color:#e74c3c}.lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:9999;justify-content:center;align-items:center;padding:20px;flex-direction:column}.lightbox.active{display:flex}.lightbox .lightbox-close{position:absolute;top:20px;left:20px;font-size:32px;color:#fff;background:0 0;border:none;cursor:pointer;z-index:10}.lightbox .lightbox-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.15);color:#fff;border:none;font-size:30px;padding:15px 20px;cursor:pointer;border-radius:50%;transition:.3s;z-index:10}.lightbox .lightbox-nav:hover{background:rgba(255,255,255,.3)}.lightbox .lightbox-nav.prev{right:20px}.lightbox .lightbox-nav.next{left:20px}.lightbox .lightbox-image{max-width:90%;max-height:80vh;object-fit:contain;border-radius:8px;box-shadow:0 8px 40px rgba(0,0,0,.5);pointer-events:none}.lightbox .lightbox-counter{color:rgba(255,255,255,.7);font-size:14px;margin-top:12px}.lightbox .lightbox-dots{display:flex;gap:8px;margin-top:10px;justify-content:center}.lightbox .lightbox-dots .dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.3);cursor:pointer;transition:.3s;border:none}.lightbox .lightbox-dots .dot.active{background:#fff;transform:scale(1.2)}.notification-bell{position:relative;cursor:pointer;font-size:24px;background:0 0;border:none;color:#2c3e50;transition:.3s;padding:4px;border-radius:50%}body.dark-mode .notification-bell{color:#ecf0f1}.notification-bell:hover{background:#f0f0f0;transform:scale(1.05)}body.dark-mode .notification-bell:hover{background:#3d3d55}.notification-bell .bell-icon{display:inline-block;transition:.3s}.notification-bell .bell-icon.has-notifs{animation:bell-ring .6s ease;color:#f1c40f}@keyframes bell-ring{0%,100%{transform:rotate(0)}10%,30%{transform:rotate(15deg)}20%,40%{transform:rotate(-15deg)}50%{transform:rotate(10deg)}60%{transform:rotate(-10deg)}70%{transform:rotate(5deg)}80%{transform:rotate(-5deg)}}.notification-bell .badge-count{position:absolute;top:-6px;right:-6px;background:#e74c3c;color:#fff;border-radius:50%;padding:1px 6px;font-size:10px;font-weight:800;min-width:18px;text-align:center;border:2px solid #fff;display:none;box-shadow:0 2px 8px rgba(231,76,60,.4)}body.dark-mode .notification-bell .badge-count{border-color:#1e1e32}.notification-bell .badge-count.show{display:block;animation:pulse-badge 1.5s infinite}@keyframes pulse-badge{0%,100%{transform:scale(1)}50%{transform:scale(1.2)}}.package-section{margin:16px 0 20px}.package-card{background:linear-gradient(135deg,#1a237e,#2d4373);border-radius:18px;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;box-shadow:0 8px 30px rgba(26,35,126,.25);cursor:pointer;transition:.3s;border:1px solid rgba(255,255,255,.1)}body.dark-mode .package-card{background:linear-gradient(135deg,#1a237e,#0f1a3a);box-shadow:0 8px 30px rgba(0,0,0,.3)}.package-card:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(26,35,126,.35)}body.dark-mode .package-card:hover{box-shadow:0 12px 40px rgba(0,0,0,.4)}.package-card .package-text{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.package-card .package-text .icon{font-size:28px}.package-card .package-text .title{font-weight:800;font-size:16px;color:#fff;display:flex;align-items:center;gap:6px}.package-card .package-text .title .badge{background:rgba(255,255,255,.2);padding:2px 10px;border-radius:50px;font-size:10px}.package-card .package-btn{background:#fff;color:#1a237e;border:none;padding:8px 20px;border-radius:50px;font-weight:800;font-size:14px;cursor:pointer;transition:.3s;font-family:Tajawal,sans-serif;display:flex;align-items:center;gap:6px;flex-shrink:0}.package-card .package-btn:hover{transform:scale(1.05);box-shadow:0 4px 20px rgba(255,255,255,.2)}body.dark-mode .package-card .package-btn{background:#f0f4f8}.package-card .package-btn .arrow{transition:.3s}.package-card:hover .package-btn .arrow{transform:translateX(-4px)}.package-page-content{max-width:800px;margin:0 auto;background:#fff;border-radius:20px;padding:30px;box-shadow:0 4px 30px rgba(0,0,0,.08)}body.dark-mode .package-page-content{background:#24243a}.package-page-content .package-header{text-align:center;margin-bottom:24px}.package-page-content .package-header .badge{display:inline-block;background:#1a237e;color:#fff;padding:4px 16px;border-radius:50px;font-size:12px;font-weight:700;margin-bottom:8px}.package-page-content .package-header h1{font-size:28px;font-weight:900;color:#1a237e;display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap}body.dark-mode .package-page-content .package-header h1{color:#90caf9}.package-page-content .package-header .price{font-size:24px;font-weight:900;color:#2ecc71;display:flex;align-items:center;justify-content:center;gap:8px;margin:8px 0}.package-page-content .package-header .price .verified{font-size:20px}.package-page-content .package-video{border-radius:16px;overflow:hidden;margin-bottom:24px;box-shadow:0 4px 20px rgba(0,0,0,.1);position:relative;padding-bottom:56.25%;height:0}.package-page-content .package-video iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none;border-radius:16px}.package-page-content .package-details{font-size:15px;line-height:2;color:#444}body.dark-mode .package-page-content .package-details{color:#ccc}.package-page-content .package-details .highlight-box{background:#f0f8ff;border-right:4px solid #1a237e;padding:16px 20px;border-radius:10px;margin:12px 0}body.dark-mode .package-page-content .package-details .highlight-box{background:#1a237e30;border-color:#64b5f6}.package-page-content .package-details ul{padding-right:20px;list-style:none}.package-page-content .package-details ul li{padding:4px 0;position:relative}.package-page-content .package-details ul li::before{content:"✅";margin-left:8px;color:#2ecc71}.package-page-content .package-details .btn-order{display:inline-block;background:#2ecc71;color:#fff;padding:12px 40px;border:none;border-radius:12px;font-weight:800;font-size:18px;cursor:pointer;font-family:Tajawal,sans-serif;transition:.3s;text-decoration:none;text-align:center;margin-top:16px;box-shadow:0 4px 15px rgba(46,204,113,.3)}.package-page-content .package-details .btn-order:hover{transform:scale(1.02);box-shadow:0 6px 25px rgba(46,204,113,.4)}.package-page-content .package-details .btn-order .verified{display:inline-block;background:rgba(255,255,255,.2);padding:2px 10px;border-radius:50px;font-size:12px;margin-right:6px}.package-page-content .package-footer{text-align:center;margin-top:20px;font-size:13px;color:#888;border-top:1px solid #eee;padding-top:16px}body.dark-mode .package-page-content .package-footer{border-top-color:#3d3d55}.package-page-content .package-footer a{color:#1a237e;font-weight:700;text-decoration:none}body.dark-mode .package-page-content .package-footer a{color:#90caf9}</style>
 </head>
-<body style="background:#0f0f1a;display:flex;justify-content:center;align-items:center;min-height:100vh;font-family:sans-serif;color:white;text-align:center;">
-<div><h1 style="background:linear-gradient(45deg,#2ecc71,#3498db);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">📚 الثانوية الرسمية بلس</h1><p style="color:#888;">جاري التحميل...</p></div>
-</body>
-</html>
+<body>
+<div class=banned-full-page id=bannedFullPage>
+<img src=https://cdn.phototourl.com/free/2026-07-21-1dd4b984-ed08-4a40-aead-9ef086ebbd45.jpg alt="شعار المنصة" class=ban-logo>
+<div class=ban-icon>🚫</div>
+<div class=ban-title>⛔ حسابك محظور</div>
+<div class=ban-subtitle>تم حظر حسابك من منصة الثانوية الرسمية بلس بسبب مخالفة قواعد المنصة.</div>
+<div class=ban-divider></div>
+<div class=ban-reason id=banReasonDisplay>السبب: مخالفة قواعد المنتدى</div>
+<div class=ban-contact>
+للاستفسار، تواصل مع الإدارة على تليجرام: <a href=https://t.me/llTwasell target=_blank>@llTwasell</a>
+</div>
+<div style=margin-top:20px;font-size:12px;color:#ccc>لا يمكنك استخدام المنصة حتى يتم فك الحظر</div>
+</div>
+<div class=inactive-overlay id=inactiveOverlay>
+<div class=icon>⏳</div>
+<h1>⏳ حسابك غير مفعل</h1>
+<p id=inactiveMessage>حسابك غير مفعل حتى الآن. يرجى التواصل مع الإدارة لتفعيل حسابك.</p>
+<p style=margin-top:20px;font-size:14px;color:#888>للاستفسار، تواصل مع الإدارة على تليجرام: <a href=https://t.me/llTwasell target=_blank style=color:#f1c40f>@llTwasell</a></p>
+</div>
+<nav class=navbar>
+<div class=logo onclick='navigateTo("home")'>
+<img src=https://cdn.phototourl.com/free/2026-07-21-1dd4b984-ed08-4a40-aead-9ef086ebbd45.jpg alt="شعار المنصة" loading=lazy>
+<h1>الثانوية الرسمية بلس 2027</h1>
+</div>
+<div class=nav-actions>
+<div class=nav-links>
+<a class=active-link onclick='navigateTo("home")'>🏠 الرئيسية</a>
+<a onclick='navigateTo("forum")'>💬 المنتدى</a>
+<a onclick='navigateTo("profile")'>👤 حسابي</a>
+</div>
+<button class=notification-bell id=bellBtn title=الإشعارات>
+<span class=bell-icon id=bellIcon>🔔</span>
+<span class=badge-count id=notifCount>0</span>
+</button>
+<span class="online-badge admin-only" id=onlineBadge>
+<span class=dot></span>
+<span id=onlineCount>0</span>
+</span>
+<button class=btn-dark id=darkModeToggle title="وضع النهار/الليل">🌙</button>
+<div id=userSection>
+</div>
+</div>
+</nav>
+<div class="page active" id=page-home>
+<header class=main-header>
+<div class=logo-big>
+<img src=https://cdn.phototourl.com/free/2026-07-21-1dd4b984-ed08-4a40-aead-9ef086ebbd45.jpg alt="شعار المنصة" loading=lazy>
+<div>
+<h2>منصة الثانوية الرسمية بلس 2027</h2>
+<div class=rating>⭐ 4.8 تقييم الطلاب</div>
+</div>
+</div>
+<p class=sub-text>
+<strong>أكبر مكتبة لطلاب الثانوية العامة والبكالوريا 2027</strong><br>
+كتب المدرسين · كتب الوزارة · كتب خارجية · تقييمات · تدريبات · أسئلة السنوات السابقة · امتحانات استرشادية<br>
+كل ما تحتاجه في مكان واحد، مجاناً وبجودة عالية
+</p>
+</header>
+<div class=search-container>
+<input id=globalSearch placeholder="🔍 ابحث عن كتاب، مادة، أو درس..." aria-label="البحث في المنصة">
+<div class=search-results id=globalSearchResults></div>
+</div>
+<div class=install-banner>
+<p>📱 حمل التطبيق وادرس في أي وقت</p>
+<button id=installAppBtn>📲 تثبيت التطبيق</button>
+</div>
+<div class=forum-hero onclick='navigateTo("forum")'>
+<span class=forum-icon>💬</span>
+<h2>المنتدى</h2>
+<p>ناقش زملاءك، اطرح الأسئلة، شارك الملخصات، واستفد من مجتمع الثانوية الرسمية بلس</p>
+</div>
+<div class=package-section>
+<div class=package-card onclick='navigateTo("package")'>
+<div class=package-text>
+<span class=icon>📦</span>
+<span class=title>
+اطلب الباكج بتاعنا
+<span class=badge>✨ جديد</span>
+<span class=verified-badge title="منتج رسمي موثق">
+<svg viewBox="0 0 24 24" xmlns=http://www.w3.org/2000/svg width=18 height=18>
+<defs>
+<linearGradient id=verifyBlue2 x1=0% y1=0% x2=100% y2=100%>
+<stop offset=0% stop-color=#3DB4FF />
+<stop offset=100% stop-color=#1D9BF0 />
+</linearGradient>
+</defs>
+<circle cx=12 cy=12 r=10 fill=url(#verifyBlue2) />
+<path d="M7.8 12.4l2.3 2.3 6-6" fill=none stroke=#fff stroke-width=2.4 stroke-linecap=round stroke-linejoin=round />
+</svg>
+</span>
+</span>
+<span style=color:rgba(255,255,255,.7);font-size:13px>🎯 خطة متكاملة لرحلة الثانوية العامة</span>
+</div>
+<button class=package-btn onclick='event.stopPropagation(),navigateTo("package")'>
+اطلب الآن <span class=arrow>←</span>
+</button>
+</div>
+</div>
+<section>
+<h2 style=text-align:center;font-size:22px;font-weight:800;color:#2c3e50;margin-bottom:16px>📚 اختر صفك الدراسي</h2>
+<div class=grades-grid>
+<div class="grade-card grade-1" onclick='showGrade("1")'>
+<img src=https://cdn.phototourl.com/free/2026-07-21-d4bc3784-1377-4026-959b-a7320235824b.png alt="أولى بكالوريا" loading=lazy>
+<h3>📘 أولى بكالوريا</h3>
+<p>كتب المدرسين · الوزارة · خارجية · تقييمات · ملخصات الطلاب</p>
+</div>
+<div class="grade-card grade-2" onclick='showGrade("2")'>
+<img src=https://cdn.phototourl.com/free/2026-07-21-84dbfb87-9f34-4c32-a7c9-676e6c0fda9b.png alt="تانية بكالوريا" loading=lazy>
+<h3>📗 تانية بكالوريا</h3>
+<p>كتب المدرسين · الوزارة · خارجية · تقييمات · ملخصات الطلاب</p>
+</div>
+<div class="grade-card grade-3" onclick='showGrade("3")'>
+<img src=https://cdn.phototourl.com/free/2026-07-21-ca704138-9452-4697-bcf4-ec14ad8c52c1.png alt="تالتة ثانوي" loading=lazy>
+<h3>📕 تالتة ثانوي</h3>
+<p>كتب المدرسين · الوزارة · خارجية · أسئلة سابقة · امتحانات استرشادية · ملخصات الطلاب</p>
+</div>
+</div>
+</section>
+<section style=margin-top:24px>
+<h2 style=text-align:center;font-size:20px;font-weight:800;color:#2c3e50;margin-bottom:16px>✨ مميزات المنصة</h2>
+<div class=features-grid>
+<div class=feature-card onclick='navigateTo("timer")'>
+<div class=icon>⏱️</div>
+<h4>نظم وقتك</h4>
+<p>مؤقت ذكي مع جلسات مذاكرة</p>
+</div>
+<div class=feature-card onclick='navigateTo("youtube")'>
+<div class=icon>🎥</div>
+<h4>أفضل قنوات اليوتيوب</h4>
+<p>ترشيحات لمدرسين مصر 2027</p>
+</div>
+<div class=feature-card onclick='navigateTo("about")'>
+<div class=icon>👤</div>
+<h4>من نحن</h4>
+<p>تعرف على فريق الثانوية الرسمية بلس</p>
+</div>
+<div class=feature-card onclick='navigateTo("favorites")'>
+<div class=icon>⭐</div>
+<h4>مفضلاتي</h4>
+<p>كتبي المفضلة</p>
+</div>
+<div class=feature-card onclick='navigateTo("profile")'>
+<div class=icon>👤</div>
+<h4>حسابي</h4>
+<p>ملفي الشخصي</p>
+</div>
+<div class=feature-card onclick='navigateTo("teamPosts")'>
+<div class=icon>📢</div>
+<h4>آخر منشورات الفريق</h4>
+<p>إعلانات وتحديثات المنصة</p>
+</div>
+<div class="feature-card exams-blur-card" onclick='showToast("📝 قريباً... يتم التجهيز","warning")'>
+<div class=icon>📝</div>
+<h4>امتحانات شاملة</h4>
+<p>اختبارات على المنهج لكل مادة</p>
+</div>
+</div>
+</section>
+<div class=upload-section>
+<h3>📤 هل تمتلك ملخصات بخط اليد مفيدة؟</h3>
+<p>شارك معنا ملخصاتك المكتوبة بخط اليد (صور عالية الجودة) وساعد زملائك (سيتم مراجعة الملفات قبل النشر)</p>
+<div class=upload-types>
+<span class=type-badge>🖊️ ملخصات خط اليد</span>
+<span class=type-badge>📸 صور عالية الجودة</span>
+<span class=type-badge>📝 مذكرات يدوية</span>
+</div>
+<button class=btn-upload id=uploadBtn>🚀 شارك ملخصاتك الآن</button>
+<div class=upload-error-link>
+⚠️ واجهتك مشكلة في الرفع؟ <a href=# onclick='window.open("https://t.me/llTwasell","_blank")'>تواصل معنا على تليجرام</a>
+</div>
+</div>
+<div class=channels-section>
+<h3>📚 الثانوية الرسمية بلس 2027</h3>
+<p>دي القنوات الرسمية لأولى وثانية وثالثة ثانوي 👇<br>اختار صفك وانضم للقناة الخاصة بيك، ولو عندك أخ أو صاحب في أي سنة ابعتله الرابط ❤️</p>
+<div class=channels-grid>
+<a href=https://t.me/sanaye10011 target=_blank class="channel-link green">
+<span class=icon>🟢</span> أولى ثانوي
+</a>
+<a href=https://t.me/sanaye20011 target=_blank class="channel-link blue">
+<span class=icon>🔵</span> ثانية ثانوي
+</a>
+<a href=https://t.me/sanaye1 target=_blank class="channel-link red">
+<span class=icon>🔴</span> ثالثة ثانوي
+</a>
+<a href=https://whatsapp.com/channel/0029VbBGyUFLtOjM90pzeC2y target=_blank class="channel-link whatsapp">
+<span class=icon>💬</span> واتساب
+</a>
+<a href="https://youtube.com/channel/UC0iA20TU33GN50A-Ob4tNUA?si=Biuc_IxEgV7QWEGJ" target=_blank class="channel-link youtube">
+<span class=icon>🎥</span> يوتيوب
+</a>
+</div>
+<div class=channels-telegram>
+📱 تواصل معنا على تليجرام: <a href=https://t.me/llTwasell target=_blank>@llTwasell</a>
+</div>
+</div>
+</div>
+<div class=page id=page-forum>
+<div class=page-header>
+<button class=back-btn onclick='navigateTo("home")'>← العودة للرئيسية</button>
+<h2>💬 المنتدى</h2>
+<button class=btn-primary id=newForumPostBtn>📝 منشور جديد</button>
+</div>
+<div class=rules-card>
+<h3>📋 قواعد المنتدى</h3>
+<div class=rule-item>
+<span class=icon>🤝</span>
+<span><strong>احترم</strong> فريق الثانوية الرسمية بلس وزملائك</span>
+</div>
+<div class=rule-item>
+<span class=icon>📝</span>
+<span>اشرح سؤالك بوضوح مع <strong>صور السؤال</strong> إن وجدت</span>
+</div>
+<div class=rule-item>
+<span class=icon>🔗</span>
+<span>حول الصور لـ <strong>رابط</strong> وانزله مع زمايلك</span>
+</div>
+<div class=rule-item>
+<span class=icon>⏳</span>
+<span>يتم قبول المنشورات خلال <strong>24 ساعة</strong></span>
+</div>
+<div class=rule-item>
+<span class=icon>🚫</span>
+<span><strong>ممنوع</strong> السب أو الإساءة - سيتم الحظر الفوري</span>
+</div>
+<div class=rule-item>
+<span class=icon>💬</span>
+<span>الردود الرسمية من الإدارة تكون <strong>موثقة</strong> بالشعار والتوثيق</span>
+</div>
+<button class=rules-btn onclick='this.style.opacity="0.5",this.textContent="✅ تم القراءة",this.disabled=!0'>📖 قرأت القواعد</button>
+</div>
+<div class=forum-notice>
+📢 جميع المنشورات والتعليقات تتم مراجعتها من فريق الثانوية الرسمية بلس، وقد يستغرق قبولها حتى 24 ساعة
+</div>
+<div id=forumPosts>
+<div class=loading-container><div class=spinner></div></div>
+</div>
+</div>
+<div class=page id=page-package>
+<div class=page-header>
+<button class=back-btn onclick='navigateTo("home")'>← العودة للرئيسية</button>
+<h2>📦 باكج الثانوية الرسمية بلس</h2>
+</div>
+<div class=package-page-content>
+<div class=package-header>
+<div class=badge>🎯 منتج رسمي موثق</div>
+<h1>
+الثانوية الرسمية بلس
+<span class=verified-badge title="منتج رسمي موثق">
+<svg viewBox="0 0 24 24" xmlns=http://www.w3.org/2000/svg width=22 height=22>
+<defs>
+<linearGradient id=verifyBlue3 x1=0% y1=0% x2=100% y2=100%>
+<stop offset=0% stop-color=#3DB4FF />
+<stop offset=100% stop-color=#1D9BF0 />
+</linearGradient>
+</defs>
+<circle cx=12 cy=12 r=10 fill=url(#verifyBlue3) />
+<path d="M7.8 12.4l2.3 2.3 6-6" fill=none stroke=#fff stroke-width=2.4 stroke-linecap=round stroke-linejoin=round />
+</svg>
+</span>
+<span style=font-size:14px;color:#888;font-weight:400>| معاك طول المشوار</span>
+</h1>
+<div class=price>
+💰 10 جنيه فقط
+<span class=verified-badge title="سعر رسمي">
+<svg viewBox="0 0 24 24" xmlns=http://www.w3.org/2000/svg width=18 height=18>
+<defs>
+<linearGradient id=verifyBlue4 x1=0% y1=0% x2=100% y2=100%>
+<stop offset=0% stop-color=#3DB4FF />
+<stop offset=100% stop-color=#1D9BF0 />
+</linearGradient>
+</defs>
+<circle cx=12 cy=12 r=10 fill=url(#verifyBlue4) />
+<path d="M7.8 12.4l2.3 2.3 6-6" fill=none stroke=#fff stroke-width=2.4 stroke-linecap=round stroke-linejoin=round />
+</svg>
+</span>
+</div>
+<p style=color:#888;font-size:14px>خطة متكاملة لرحلة الثانوية العامة</p>
+</div>
+<div class=package-video>
+<iframe src=https://www.youtube.com/embed/kZnsad1j0K0 title="شرح الباكج" allowfullscreen></iframe>
+</div>
+<div class=package-details>
+<div class=highlight-box>
+<strong>🚀 أخيراً... جاهز</strong><br>
+بعد وقت طويل من الشغل والتجربة والتعديل... الثانوية الرسمية بلس | معاك طول المشوار بقت جاهزة. ❤️📚
+</div>
+<p style=font-weight:700;font-size:16px;margin-top:12px>💬 بس قبل ما تقرر تشتريه... خليني أسألك سؤال:</p>
+<p>كام مرة بدأت تذاكر بحماس... وبعد أسبوعين لقيت نفسك تايه؟</p>
+<p style=font-weight:700;color:#1a237e>المشكلة في أغلب الأحيان مش إنك مش بتذاكر... 🙄<br>المشكلة إنك مش منظم.</p>
+<p>وعلشان كده عملنا الباكج ده. 😆</p>
+<p style=font-weight:700;color:#2ecc71>مش مذكرة... ومش ملخص... ومش PDF هتحمله وتنساه.<br>ده هيكون رفيقك من أول يوم في الثانوية العامة... لحد آخر امتحان. 📖❤️</p>
+<ul style="margin:12px 0">
+<li>📌 هتمضي على تعهد مع نفسك إنك هتكمل رحلة الثانوية للنهاية</li>
+<li>📌 هتلاقي صفحة بتشرحلك بالتفصيل إزاي تستخدم الباكج وتستفيد منه بأفضل طريقة</li>
+<li>📌 كل درس تخلص شرحه ✔️ علّم عليه، وكل واجب تخلصه ✔️ علّم عليه، وكل مراجعة تخلصها ✔️ علّم عليها. ومع كل علامة صح هتحس بإنجاز يخليك متحمس تكمل لحد آخر المنهج</li>
+<li>📌 النظام ده موجود في كل المواد، علشان تعرف أنت خلصت إيه ولسه فاضلك إيه</li>
+<li>📌 هتلاقي سجل الأخطاء المهمة علشان متكررش نفس الغلط مرة واتنين</li>
+<li>📌 وهتلاقي بنك القوانين الذهبية، تكتب فيه أي قانون بتتلخبط فيه وترجعله في أي وقت</li>
+<li>📌 وهتلاقي تقييم لمدة 42 أسبوعًا، وفي نهاية كل أسبوع هتقيم نفسك بكل أمانة من ⭐️ إلى ⭐️⭐️⭐️⭐️⭐️، وتشوف مستواك بيتحسن أسبوع بعد أسبوع</li>
+<li>📌 وكمان جدول لمتابعة الصلوات، لأن النجاح مش مذاكرة وبس... النجاح محتاج التزام في كل جوانب حياتك</li>
+</ul>
+<div class=highlight-box style=border-color:#2ecc71>
+<strong>💰 كل ده بـ 10 جنيه فقط. 🔥🔥</strong><br>
+أيوه... 10 جنيه بس. هدفنا إن أي طالب يقدر يستفيد من الباكج، مهما كانت ظروفه.
+</div>
+<p style=font-weight:700;margin-top:12px>📚 متوفر حاليًا: <span style=color:#2ecc71>✅ نسخة علمي علوم و رياضه</span></p>
+<p style=font-size:14px;color:#888>ولو الفكرة عجبتكم ولاقت دعم منكم، بإذن الله هنشتغل على نسخة علمي رياضة ونسخة أدبي، ونطور الباكج بإضافات جديدة كل سنة.</p>
+<div style="text-align:center;margin:16px 0">
+<a href=https://t.me/llTwasell target=_blank class=btn-order>
+📩 اطلب الباكج الآن
+<span class=verified>✅ رسمي</span>
+</a>
+</div>
+<div class=highlight-box style=border-color:#e74c3c>
+<strong>🤍 رسالة أخيرة</strong><br>
+لو اشتريت الملف واستفدت منه، فضلاً متشاركوش مع أي حد.<br>
+مش علشان الـ10 جنيه... لكن علشان الملف ده اتعمل بعد ساعات طويلة جدًا من التفكير، والتصميم، والتعديل، والتجربة، علشان يطلع بالشكل اللي بين إيديك.<br><br>
+<strong style=color:#e74c3c>لذلك نحن غير مسامحين في مشاركة الملف أو إعادة نشره بأي وسيلة.</strong><br>
+دعمك للمجهود ده هو اللي هيخلينا نكمل ونقدم نسخًا أقوى وأفضل كل سنة بإذن الله. ❤️
+</div>
+<div style=text-align:center;margin-top:12px>
+<p style=font-weight:800;font-size:18px;color:#1a237e>الثانوية الرسمية بلس | معاك طول المشوار. 🚀</p>
+</div>
+</div>
+<div class=package-footer>
+📱 للطلب والتواصل: <a href=https://t.me/llTwasell target=_blank>@llTwasell</a>
+</div>
+</div>
+</div>
+<div class=page id=page-grade>
+<div class=page-header>
+<button class=back-btn onclick='navigateTo("home")'>← العودة للرئيسية</button>
+<h2 id=gradeTitle>أولى بكالوريا</h2>
+</div>
+<div id=gradeSections></div>
+</div>
+<div class=page id=page-bookDetail>
+<div class=page-header>
+<button class=back-btn onclick='navigateTo("home")'>← العودة للرئيسية</button>
+<h2>📖 تفاصيل الكتاب</h2>
+</div>
+<div id=bookDetailContainer>
+<div class=loading-container><div class=spinner></div></div>
+</div>
+</div>
+<div class=page id=page-teamPosts>
+<div class=page-header>
+<button class=back-btn onclick='navigateTo("home")'>← العودة للرئيسية</button>
+<h2>📢 آخر منشورات الفريق</h2>
+</div>
+<div class=team-posts-hero>
+<h2>📢 آخر منشورات الفريق</h2>
+<p>هنا يتم نشر جميع الإعلانات الرسمية وآخر الأخبار والتنبيهات الخاصة بفريق الثانوية الرسمية بلس</p>
+</div>
+<div id=teamPostsContainer>
+<div class=loading-container><div class=spinner></div></div>
+</div>
+</div>
+<div class=page id=page-favorites>
+<div class=page-header>
+<button class=back-btn onclick='navigateTo("home")'>← العودة للرئيسية</button>
+<h2>⭐ كتبي المفضلة</h2>
+</div>
+<div id=favoritesContainer>
+<div class=loading-container><div class=spinner></div></div>
+</div>
+</div>
+<div class=page id=page-profile>
+<div class=page-header>
+<button class=back-btn onclick='navigateTo("home")'>← العودة للرئيسية</button>
+<h2>👤 حسابي الشخصي</h2>
+</div>
+<div id=profileContainer>
+<div class=loading-container><div class=spinner></div></div>
+</div>
+</div>
+<div class=page id=page-youtube>
+<div class=page-header>
+<button class=back-btn onclick='navigateTo("home")'>← العودة للرئيسية</button>
+<h2>🎥 أفضل قنوات اليوتيوب للمدرسين</h2>
+</div>
+<p style=color:#777;margin-bottom:12px>ترشيحات لأفضل مدرسين على اليوتيوب</p>
+<div id=youtubeContainer>
+<div class=loading-container><div class=spinner></div></div>
+</div>
+</div>
+<div class=page id=page-youtubeDetail>
+<div class=page-header>
+<button class=back-btn onclick='navigateTo("home")'>← العودة للرئيسية</button>
+<h2>🎥 تفاصيل القناة</h2>
+</div>
+<div id=youtubeDetailContainer>
+<div class=loading-container><div class=spinner></div></div>
+</div>
+</div>
+<div class=page id=page-timer>
+<div class=page-header>
+<button class=back-btn onclick='navigateTo("home")'>← العودة للرئيسية</button>
+<h2>⏱️ مؤقت المذاكرة</h2>
+</div>
+<div class=timer-container>
+<div class=timer-display id=timerDisplay>00:00</div>
+<div class=timer-controls>
+<button class=btn-start id=timerStart>▶️ ابدأ</button>
+<button class=btn-pause id=timerPause>⏸️ إيقاف مؤقت</button>
+<button class=btn-reset id=timerReset>🔄 إعادة ضبط</button>
+</div>
+<div class=timer-presets>
+<button data-minutes=25>25 د</button>
+<button data-minutes=30>30 د</button>
+<button data-minutes=45>45 د</button>
+<button data-minutes=90>90 د</button>
+</div>
+<div class=timer-custom>
+<input type=number id=customMinutes min=1 max=999 placeholder=دقائق>
+<button id=setCustomTimer>⏱️ ضبط</button>
+</div>
+<div id=timerStatus style=margin-top:8px;font-weight:700;color:#2ecc71>⏸️ جاهز</div>
+</div>
+</div>
+<div class=page id=page-about>
+<div class=page-header>
+<button class=back-btn onclick='navigateTo("home")'>← العودة للرئيسية</button>
+<h2>👤 من نحن</h2>
+</div>
+<div class=policy-content style="max-width:700px;margin:0 auto;background:#fff;padding:30px;border-radius:20px;box-shadow:0 4px 20px rgba(0,0,0,.06)">
+<div style=text-align:center;margin-bottom:20px>
+<img src=https://cdn.phototourl.com/free/2026-07-21-1dd4b984-ed08-4a40-aead-9ef086ebbd45.jpg style="width:100px;height:100px;border-radius:50%;border:4px solid #3498db;margin-bottom:10px">
+<h2 style=color:#2c3e50;font-weight:900>الثانوية الرسمية بلس</h2>
+<p style=color:#888>منصة تعليمية مجانية لطلاب الثانوية العامة والبكالوريا</p>
+</div>
+<div class=highlight>
+<strong>🚀 البداية</strong><br>
+نحن مجموعة تطوعية شبابية بدأت الرحلة باسم <strong>"تانية ثانوي الرسمية"</strong> وكانت للصف الثاني الثانوي فقط.<br><br>
+ولكن نظراً للنجاح الكبير الذي حققناه، قمنا بالتوسع وأصبحت تعرف باسم <strong>"الثانوية الرسمية بلس"</strong> لتشمل جميع صفوف الثانوية العامة والبكالوريا.
+</div>
+<div class=highlight style=border-color:#2ecc71>
+<strong>📖 رؤيتنا</strong><br>
+قمنا بإنشاء موقع مجاني لرفع الكتب والملخصات بجودة عالية جداً، لتسهيل التعليم والوصول للطلاب في كل مكان.
+</div>
+<div class=highlight style=border-color:#f39c12>
+<strong>🎯 رسالتنا</strong><br>
+تقديم محتوى تعليمي عالي الجودة، منظم وسهل الوصول، يساعد الطلاب على التفوق الدراسي ويخفف الأعباء عن أولياء الأمور.
+</div>
+<h3 style=margin-top:20px;color:#2c3e50>💪 فريق العمل</h3>
+<p>فريقنا مكون من شباب متطوعين من مختلف التخصصات، يجمعهم حب التعليم والرغبة في مساعدة الآخرين.</p>
+<h3 style=margin-top:16px;color:#2c3e50>🤝 كيف يمكنك المساعدة؟</h3>
+<ul>
+<li>مشاركة ملخصاتك وكتبك مع زملائك</li>
+<li>التواصل معنا لتقديم اقتراحاتك</li>
+<li>مشاركة المنصة مع أصدقائك</li>
+</ul>
+<div style="margin-top:16px;padding:12px;background:#f0f8ff;border-radius:10px;text-align:center;border-right:4px solid #3498db">
+<p style=font-size:14px;color:#2c3e50;font-weight:700>معاً نجعل التعليم أفضل للجميع 💙</p>
+</div>
+<div style=margin-top:16px;padding:12px;background:#f8f9fa;border-radius:10px;text-align:center;font-size:13px;color:#888>
+📱 تواصل معنا على تليجرام: <a href=https://t.me/llTwasell target=_blank style=color:#3498db;font-weight:700>@llTwasell</a>
+</div>
+</div>
+</div>
+<div class=page id=page-privacy>
+<div class=page-header>
+<button class=back-btn onclick='navigateTo("home")'>← العودة للرئيسية</button>
+<h2>🔒 سياسة الخصوصية</h2>
+</div>
+<div class=policy-content style="max-width:700px;margin:0 auto;background:#fff;padding:30px;border-radius:20px;box-shadow:0 4px 20px rgba(0,0,0,.06)">
+<div style=text-align:center;margin-bottom:16px>
+<p style=font-size:16px;color:#2c3e50;font-weight:700>مرحباً بك في منصة الثانوية الرسمية بلس</p>
+<p style=color:#555>نطمئنك أن خصوصيتك وبياناتك في أمان، وهي أولوية قصوى بالنسبة لنا.</p>
+</div>
+<div class=highlight>
+<strong>📌 ما البيانات التي نجمعها؟</strong><br>
+نقوم بحفظ البريد الإلكتروني والاسم لتخصيص المحتوى المناسب لك.
+</div>
+<div class=highlight style=border-color:#f39c12>
+<strong>📍 التتبع والموقع</strong><br>
+لا نقوم بتتبع عنوان الـ IP الخاص بك أو الموقع الجغرافي. المنصة مجانية بالكامل وتهدف لمساعدة الطلاب.
+</div>
+<div class=highlight style=border-color:#e74c3c>
+<strong>📚 المحتوى وحقوق النشر</strong><br>
+إذا كنت صاحب محتوى وترى أن هناك كتاباً أو ملفاً يضر بك أو بمؤسستك، يرجى التواصل معنا وسيتم حذف المحتوى خلال 24 ساعة.
+</div>
+<div class=highlight style=border-color:#2ecc71>
+<strong>🔐 أمان البيانات</strong><br>
+نحن نستخدم أحدث تقنيات الأمان لحماية بياناتك. جميع البيانات مشفرة ويتم نقلها عبر قنوات آمنة.
+</div>
+<div style="margin-top:16px;padding:12px;background:#f0f8ff;border-radius:10px;text-align:center;border-right:4px solid #3498db">
+<p style=font-size:14px;color:#2c3e50>👨‍👩‍👧‍👦 من نحن؟</p>
+<p style=font-size:13px;color:#555>نحن فريق الثانوية الرسمية بلس، نعمل على جعل التعليم سهلاً ومتاحاً للجميع، وتخفيف الأعباء عن كاهل أولياء الأمور.</p>
+<p style=font-size:13px;color:#555;margin-top:4px>نحن لا ننتهك حقوق أي شخص، هدفنا هو تقديم محتوى تعليمي مجاني وسهل الوصول.</p>
+</div>
+<div style=margin-top:16px;padding:12px;background:#f8f9fa;border-radius:10px;text-align:center;font-size:13px;color:#888>
+📧 للتواصل: <a href=https://t.me/llTwasell target=_blank style=color:#3498db;font-weight:700>تليجرام @llTwasell</a>
+</div>
+</div>
+</div>
+<div class=page id=page-dmca>
+<div class=page-header>
+<button class=back-btn onclick='navigateTo("home")'>← العودة للرئيسية</button>
+<h2>⚖️ سياسة الحذف</h2>
+</div>
+<div class=policy-content style="max-width:700px;margin:0 auto;background:#fff;padding:30px;border-radius:20px;box-shadow:0 4px 20px rgba(0,0,0,.06)">
+<div style=text-align:center;margin-bottom:16px>
+<p style=font-size:16px;color:#2c3e50;font-weight:700>سياسة الحذف - الثانوية الرسمية بلس</p>
+</div>
+<div class=highlight style=border-color:#2ecc71>
+<strong>📌 ما هي سياسة الحذف؟</strong><br>
+تحترم منصة الثانوية الرسمية بلس حقوق الملكية الفكرية لجميع الأطراف. إذا كنت تعتقد أن أي محتوى على منصتنا ينتهك حقوق النشر الخاصة بك، يرجى إبلاغنا وسنتخذ الإجراءات اللازمة فوراً.
+</div>
+<h3 style=color:#2c3e50;margin-top:16px>📋 كيف تقدم طلب حذف؟</h3>
+<p>لطلب حذف محتوى، يرجى تزويدنا بالمعلومات التالية:</p>
+<ul>
+<li><strong>بياناتك الشخصية:</strong> الاسم الكامل، البريد الإلكتروني، رقم الهاتف</li>
+<li><strong>وصف المحتوى:</strong> رابط المحتوى الذي تطلب حذفه، ووصف دقيق له</li>
+<li><strong>إثبات الملكية:</strong> دليل على أنك صاحب حقوق النشر أو وكيل معتمد</li>
+<li><strong>توقيعك:</strong> توقيع إلكتروني أو يدوي يؤكد صحة المعلومات</li>
+</ul>
+<h3 style=color:#2c3e50;margin-top:16px>⏳ متى يتم الحذف؟</h3>
+<div class=highlight style=border-color:#3498db>
+يتم حذف المحتوى خلال <strong>24 ساعة</strong> من استلام الطلب الصحيح. سيتم إخطارك بعد الحذف مباشرة.
+</div>
+<h3 style=color:#2c3e50;margin-top:16px>📱 كيف تتواصل معنا؟</h3>
+<p>أرسل طلبك عبر تليجرام: <a href=https://t.me/llTwasell target=_blank style=color:#3498db;font-weight:700>@llTwasell</a></p>
+<div style="margin-top:16px;padding:12px;background:#f0f8ff;border-radius:10px;text-align:center;border-right:4px solid #3498db">
+<p style=font-size:14px;color:#2c3e50;font-weight:700>نلتزم بحماية حقوق جميع المستخدمين وصناع المحتوى 🤝</p>
+</div>
+</div>
+</div>
+<div class=page id=page-terms>
+<div class=page-header>
+<button class=back-btn onclick='navigateTo("home")'>← العودة للرئيسية</button>
+<h2>📜 الشروط والأحكام</h2>
+</div>
+<div class=policy-content style="max-width:700px;margin:0 auto;background:#fff;padding:30px;border-radius:20px;box-shadow:0 4px 20px rgba(0,0,0,.06)">
+<div class=highlight>
+<strong>📋 الشروط والأحكام - الثانوية الرسمية بلس</strong><br>
+باستخدامك لمنصة الثانوية الرسمية بلس، فإنك توافق على هذه الشروط والأحكام.
+</div>
+<h3 style=color:#2c3e50;margin-top:16px>1. قبول الشروط</h3>
+<p>باستخدامك للمنصة، فإنك توافق على الالتزام بجميع الشروط والأحكام المذكورة هنا.</p>
+<h3 style=color:#2c3e50;margin-top:16px>2. المحتوى والسلوك</h3>
+<ul>
+<li>أنت المسؤول الوحيد عن المحتوى الذي تنشره</li>
+<li>يحظر نشر محتوى مسيء، عنصري، غير قانوني</li>
+<li>يحظر انتحال شخصية الآخرين</li>
+<li>جميع المحتويات المنشورة تخضع للمراجعة</li>
+</ul>
+<h3 style=color:#2c3e50;margin-top:16px>3. حقوق الملكية الفكرية</h3>
+<ul>
+<li>جميع المحتويات المنشورة محمية بحقوق النشر</li>
+<li>لا يجوز نسخ أو توزيع المحتويات دون إذن</li>
+</ul>
+<h3 style=color:#2c3e50;margin-top:16px>4. الحسابات</h3>
+<ul>
+<li>أنت المسؤول عن أمان حسابك</li>
+<li>يحق لنا تعليق أو حذف أي حساب يخالف الشروط</li>
+</ul>
+<h3 style=color:#2c3e50;margin-top:16px>5. سياسة الحذف</h3>
+<p>يمكنك تقديم طلب حذف وفقاً لـ <a href=# onclick='navigateTo("dmca")' style=color:#3498db>سياسة الحذف</a>.</p>
+<h3 style=color:#2c3e50;margin-top:16px>6. التواصل</h3>
+<ul>
+<li>📱 تليجرام: <a href=https://t.me/llTwasell target=_blank style=color:#3498db>@llTwasell</a></li>
+</ul>
+<div style=margin-top:16px;padding:12px;background:#f8f9fa;border-radius:10px;text-align:center;font-size:13px;color:#888>
+آخر تحديث: يوليو 2027
+</div>
+</div>
+</div>
+<div class=footer>
+<p>© 2027 الثانوية الرسمية بلس - جميع الحقوق محفوظة</p>
+<p>
+<a onclick='navigateTo("privacy")'>🔒 سياسة الخصوصية</a>
+<a onclick='navigateTo("dmca")'>⚖️ سياسة الحذف</a>
+<a onclick='navigateTo("terms")'>📜 الشروط والأحكام</a>
+<a onclick='navigateTo("about")'>👤 من نحن</a>
+<a onclick='navigateTo("teamPosts")'>📢 آخر منشورات الفريق</a>
+<a id=shareFooter>📤 شارك المنصة</a>
+</p>
+<p style=font-size:12px;color:#888;margin-top:8px>
+المنصة تحت التطوير • سيتم إضافة ميزات عظيمة قريباً ✨
+</p>
+<p style=font-size:11px;color:#aaa;margin-top:4px>
+أنت المسؤول عن أمان حسابك • نحن لا نبيع بياناتك لأي طرف ثالث
+</p>
+<p style=font-size:11px;color:#aaa;margin-top:4px>
+📱 تواصل معنا: <a href=https://t.me/llTwasell target=_blank style=color:#3498db>تليجرام @llTwasell</a>
+</p>
+</div>
+<div class=modal-overlay id=notifModal>
+<div class=modal-content>
+<button class=modal-close id=closeNotifModal>✕</button>
+<h3 style=margin-bottom:12px;font-size:20px>🔔 الإشعارات</h3>
+<div id=notifList>
+<div class=empty-state>
+<div class=icon>📭</div>
+<h3>لا توجد إشعارات</h3>
+<p>ستظهر هنا الإشعارات الجديدة</p>
+</div>
+</div>
+</div>
+</div>
+<div class=modal-overlay id=uploadModal>
+<div class=modal-content>
+<button class=modal-close id=closeUploadModal>✕</button>
+<h3 style=margin-bottom:12px;font-size:20px>📤 شارك ملخصاتك بخط اليد</h3>
+<div class=upload-form-container>
+<form id=uploadForm>
+<label for=uploadName>👤 اسمك (سيظهر للمستخدمين)</label>
+<input id=uploadName placeholder="أدخل اسمك" required>
+<label for=uploadUserType>📌 هل أنت طالب أم مدرس؟</label>
+<select id=uploadUserType required>
+<option value=طالب>طالب</option>
+<option value=مدرس>مدرس</option>
+</select>
+<label for=uploadTitle>📖 عنوان الملخص</label>
+<input id=uploadTitle placeholder="مثال: ملخص فيزياء - الوحدة الأولى" required>
+<label for=uploadCategory>📂 التصنيف</label>
+<select id=uploadCategory required>
+<option value=handwritten>ملخص خط اليد</option>
+<option value=notes>مذكرات يدوية</option>
+<option value=summary>تلخيص</option>
+</select>
+<label for=uploadGrade>📘 اختر الصف</label>
+<select id=uploadGrade required>
+<option value=1>أولى بكالوريا</option>
+<option value=2>تانية بكالوريا</option>
+<option value=3>تالتة ثانوي</option>
+</select>
+<label for=uploadSubject>📖 المادة</label>
+<input id=uploadSubject placeholder="فيزياء / كيمياء / رياضيات" required>
+<label for=uploadDesc>📝 وصف مختصر</label>
+<textarea id=uploadDesc rows=3 placeholder="اكتب وصفاً مختصراً للملخص..."></textarea>
+<label for=uploadLink>🔗 رابط الملخص (Google Drive / Dropbox / إلخ)</label>
+<input type=url id=uploadLink placeholder=https://drive.google.com/... required>
+<div class=checkbox-group>
+<input type=checkbox id=showName checked>
+<label for=showName>إظهار اسمي مع الملخص</label>
+</div>
+<button type=submit class=submit-upload>🚀 إرسال الملخص (سيتم مراجعته)</button>
+</form>
+<div id=uploadStatus style=margin-top:8px;font-weight:700></div>
+</div>
+</div>
+</div>
+<div class=modal-overlay id=newForumPostModal>
+<div class=modal-content>
+<button class=modal-close id=closeForumPostModal>✕</button>
+<h3 style=margin-bottom:12px;font-size:20px>📝 منشور جديد في المنتدى</h3>
+<div class=forum-form>
+<form id=forumPostForm>
+<label for=forumPostTitle>📌 عنوان المنشور</label>
+<input id=forumPostTitle placeholder="مثال: مشكلة في فهم الفيزياء" required>
+<label for=forumPostContent>📝 المحتوى</label>
+<textarea id=forumPostContent rows=4 placeholder="اكتب سؤالك أو مشكلتك بالتفصيل..." required></textarea>
+<label for=forumPostImage>🖼️ رابط الصورة (اختياري)</label>
+<input type=url id=forumPostImage placeholder=https://example.com/image.jpg>
+<button type=submit class=submit-post>📢 نشر المنشور (سيتم اعتماده من الإدارة)</button>
+</form>
+</div>
+</div>
+</div>
+<div class=modal-overlay id=installModal>
+<div class=modal-content style=text-align:center>
+<button class=modal-close id=closeInstallModal>✕</button>
+<div style="font-size:50px;margin:8px 0">📲</div>
+<h3 style=font-size:20px>تثبيت التطبيق</h3>
+<p style="color:#777;margin:12px 0">يمكنك تثبيت المنصة على جهازك للوصول السريع</p>
+<button id=doInstallBtn style="padding:12px 40px;background:#6c5ce7;color:#fff;border:none;border-radius:50px;font-size:16px;font-weight:800;cursor:pointer;font-family:Tajawal,sans-serif;transition:.3s">
+✅ تثبيت التطبيق
+</button>
+<p style=font-size:11px;color:#aaa;margin-top:12px>سيتم إضافة أيقونة المنصة إلى شاشتك الرئيسية</p>
+</div>
+</div>
+<div class=ad-popup-overlay id=adPopup>
+<div class=ad-popup>
+<button class=ad-close id=adPopupClose>✕</button>
+<div style=text-align:center;margin-bottom:10px>
+<span class=ad-badge>📢 إعلان</span>
+</div>
+<img class=ad-image id=adImage src="" alt=إعلان style=display:none>
+<h3 class=ad-title id=adTitle>🎉 عرض خاص</h3>
+<p class=ad-desc id=adDesc>استفد من الخصومات الحصرية الآن!</p>
+<a class="ad-btn green" id=adBtn href=# target=_blank>📱 اكتشف المزيد</a>
+<div class=ad-timer>سيتم إغلاق الإعلان تلقائياً خلال <span id=adTimer>10</span> ثانية</div>
+</div>
+</div>
+<div class=lightbox id=lightbox onclick=closeLightbox()>
+<button class=lightbox-close onclick=closeLightbox()>✕</button>
+<button class="lightbox-nav prev" id=lightboxPrev onclick=event.stopPropagation(),changeLightboxImage(-1)>❮</button>
+<button class="lightbox-nav next" id=lightboxNext onclick=event.stopPropagation(),changeLightboxImage(1)>❯</button>
+<img class=lightbox-image id=lightboxImage src="" alt="صورة مكبرة">
+<div class=lightbox-counter id=lightboxCounter></div>
+<div class=lightbox-dots id=lightboxDots></div>
+</div>
+<div class=popup-message id=popupMessage>
+<div class=popup-icon id=popupIcon>✅</div>
+<div class=popup-title id=popupTitle>تم الإرسال بنجاح!</div>
+<div class=popup-desc id=popupDesc>تم إرسال تعليقك للإدارة للمراجعة</div>
+<button class=popup-close onclick=closePopup()>حسناً</button>
+</div>
+<div class=toast id=toast></div>
+<script>var firebaseConfig={apiKey:"AIzaSyAz9BfG1INB3shlCiMtK395SEo6sCkaZSI",authDomain:"thanawya-official-plus.firebaseapp.com",projectId:"thanawya-official-plus",storageBucket:"thanawya-official-plus.firebasestorage.app",messagingSenderId:"883728724353",appId:"1:883728724353:web:3f611e29d556d03c61b880",databaseURL:"https://thanawya-official-plus-default-rtdb.europe-west1.firebasedatabase.app"};firebase.initializeApp(firebaseConfig);var auth=firebase.auth(),db=firebase.database(),storage=firebase.storage();function safeText(e){return e||""}function showToast(e,t){try{var n=document.getElementById("toast");if(!n)return;n.textContent=e,n.className="toast show "+(t||"success"),clearTimeout(n._timer),n._timer=setTimeout((function(){n.classList.remove("show")}),3e3)}catch(e){}}function showPopup(e,t,n){try{var a=document.getElementById("popupMessage");if(!a)return;document.getElementById("popupIcon").textContent=e||"✅",document.getElementById("popupTitle").textContent=t||"تم الإرسال بنجاح!",document.getElementById("popupDesc").textContent=n||"تم الإرسال",a.classList.add("active"),setTimeout((function(){a.classList.remove("active")}),4e3)}catch(e){}}function closePopup(){try{var e=document.getElementById("popupMessage");e&&e.classList.remove("active")}catch(e){}}var VERIFIED_BADGE_SVG='<span class="verified-badge" title="حساب موثق رسمي"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="#1D9BF0"><path d="M22.25 12c0-1.06-.82-1.95-1.88-2.07.61-.88.54-2.08-.25-2.87-.79-.79-1.99-.86-2.87-.25C17.13 5.82 16.24 5 15.18 5c-.52 0-1 .18-1.39.48A2.07 2.07 0 0 0 12 4c-.69 0-1.32.34-1.7.86A2.07 2.07 0 0 0 8.82 5c-1.06 0-1.95.82-2.07 1.88-.88-.61-2.08-.54-2.87.25-.79.79-.86 1.99-.25 2.87C2.82 10.05 2 10.94 2 12s.82 1.95 1.88 2.07c-.61.88-.54 2.08.25 2.87.79.79 1.99.86 2.87.25.12 1.06 1.01 1.88 2.07 1.88.52 0 1-.18 1.39-.48.38.52 1.01.86 1.7.86.69 0 1.32-.34 1.7-.86.39.3.87.48 1.39.48 1.06 0 1.95-.82 2.07-1.88.88.61 2.08.54 2.87-.25.79.79.86-1.99.25-2.87A2.08 2.08 0 0 0 22.25 12z"/><path fill="#FFFFFF" d="M10.3 15.7l-2.5-2.5 1.06-1.06 1.44 1.44 4.9-4.9 1.06 1.06z"/></svg></span>';function getAllData(e){return new Promise((function(t,n){try{db.ref(e).once("value",(function(e){try{var a=e.val(),o=[];a&&Object.keys(a).forEach((function(e){var t=a[e];t.id=e,o.push(t)})),t(o)}catch(e){n(e)}}),(function(e){n(e)}))}catch(e){t([])}}))}function addData(e,t){return new Promise((function(n,a){try{var o=db.ref(e).push();o.set(Object.assign({},t,{id:o.key,createdAt:firebase.database.ServerValue.TIMESTAMP})).then((function(){n({id:o.key})})).catch((function(e){a(e)}))}catch(e){a(e)}}))}function getUser(e){return new Promise((function(t,n){try{db.ref("users/"+e).once("value",(function(a){try{var o=a.val();o&&(o.id=e),t(o)}catch(e){n(e)}}),(function(e){n(e)}))}catch(e){t(null)}}))}function registerUser(e,t){return new Promise((function(n,a){var o=db.ref("users/"+e);o.once("value").then((function(n){return n.exists()?o.update({name:t.name||n.val().name,photoURL:t.photoURL||n.val().photoURL||""}):o.set({uid:e,name:t.name||"طالب",email:t.email||"",role:"طالب",grade:t.grade||"1",system:"عام",year:"2027",photoURL:t.photoURL||"",isBanned:!1,isActive:!0,createdAt:firebase.database.ServerValue.TIMESTAMP})})).then(n).catch(a)}))}function getUserFavorites(e){return new Promise((function(t,n){try{db.ref("favorites").orderByChild("userId").equalTo(e).once("value",(function(e){try{var a=e.val(),o=[];a&&Object.keys(a).forEach((function(e){var t=a[e];t.id=e,o.push(t)})),t(o)}catch(e){n(e)}}),(function(e){n(e)}))}catch(e){t([])}}))}var isBannedUser=!1,isInactiveUser=!1,currentUserData=null,isAdminUser=!1;function checkUserStatus(e){return new Promise((function(t){try{getUser(e).then((function(e){try{e&&!0===e.isBanned?(isBannedUser=!0,isInactiveUser=!1,document.getElementById("bannedFullPage").classList.add("active"),document.getElementById("bannedFullPage").style.display="flex",document.getElementById("banReasonDisplay").textContent="السبب: "+(e.banReason||"مخالفة قواعد المنصة"),document.body.classList.add("banned-page"),document.querySelector(".navbar").style.display="none",document.querySelector(".footer").style.display="none",document.querySelectorAll(".page").forEach((function(e){e.style.display="none"})),auth.signOut(),t({isBanned:!0,isActive:!1})):e&&!1===e.isActive?(isBannedUser=!1,isInactiveUser=!0,document.getElementById("bannedFullPage").classList.remove("active"),document.getElementById("bannedFullPage").style.display="none",document.getElementById("inactiveOverlay").classList.add("active"),document.querySelector(".navbar").style.display="none",document.querySelector(".footer").style.display="none",document.querySelectorAll(".page").forEach((function(e){e.style.display="none"})),auth.signOut(),t({isBanned:!1,isActive:!1})):(isBannedUser=!1,isInactiveUser=!1,document.getElementById("bannedFullPage").classList.remove("active"),document.getElementById("bannedFullPage").style.display="none",document.getElementById("inactiveOverlay").classList.remove("active"),document.body.classList.remove("banned-page"),document.querySelector(".navbar").style.display="flex",document.querySelector(".footer").style.display="block",document.querySelectorAll(".page").forEach((function(e){e.style.display=""})),t({isBanned:!1,isActive:!0}))}catch(e){t({isBanned:!1,isActive:!0})}})).catch((function(){t({isBanned:!1,isActive:!0})}))}catch(e){t({isBanned:!1,isActive:!0})}}))}var forumListener=null,TEAM_LOGO="https://cdn.phototourl.com/free/2026-07-21-1dd4b984-ed08-4a40-aead-9ef086ebbd45.jpg",TEAM_NAME="فريق الثانوية الرسمية بلس";function addForumPost(e,t,n,a){return addData("forum_posts",Object.assign({},e,{userId:t,author:n||"طالب",authorPhoto:a||"",status:"pending",likesCount:0,likesData:{},comments:{},createdAt:firebase.database.ServerValue.TIMESTAMP,updatedAt:firebase.database.ServerValue.TIMESTAMP}))}function addSummary(e,t){return addData("handwritten_notes",Object.assign({},e,{userId:t,status:"pending"}))}function getAllSummaries(){return getAllData("handwritten_notes")}function getAllYoutubeChannels(){return getAllData("youtube_channels")}function getActiveAds(){return new Promise((function(e){try{getAllData("ads").then((function(t){try{e(t.filter((function(e){return!0===e.active})))}catch(t){e([])}})).catch((function(){e([])}))}catch(t){e([])}}))}function updateUIForUser(e){try{var t=document.getElementById("userSection");if(!t)return;e?registerUser(e.uid,{name:e.displayName||e.email||"مستخدم",email:e.email||"",role:"طالب",grade:"1",system:"عام",year:"2027",photoURL:e.photoURL||""}).then((function(){return getUser(e.uid)})).then((function(n){currentUserData=n,isAdminUser=n&&("admin"===n.role||"superAdmin"===n.role),checkUserStatus(e.uid).then((function(a){if(!a.isBanned&&a.isActive){isAdminUser?document.body.classList.add("is-admin"):document.body.classList.remove("is-admin");var o=n&&n.photoURL||e.photoURL||"",r=n&&n.name||e.displayName||e.email||"مستخدم";t.innerHTML='<div class="user-profile" onclick="navigateTo(\'profile\')">'+(o?'<img src="'+o+'" class="avatar" id="navbarAvatar">':'<div class="avatar-placeholder" id="navbarAvatar">'+r.charAt(0).toUpperCase()+"</div>")+'<span class="user-name">'+safeText(r)+'</span></div><button class="btn-logout-header" onclick="auth.signOut();location.reload();">🚪 خروج</button>',updateOnlineStatus(e),loadAllData(),startNotificationListener()}else t.innerHTML='<button class="btn-login-header" onclick="window.location.href=\'login.html\'">🔐 تسجيل الدخول</button>'}))})).catch((function(){})):(t.innerHTML='<button class="btn-login-header" onclick="window.location.href=\'login.html\'">🔐 تسجيل الدخول</button>',document.body.classList.remove("is-admin"),document.getElementById("bannedFullPage").classList.remove("active"),document.getElementById("bannedFullPage").style.display="none",document.getElementById("inactiveOverlay").classList.remove("active"),document.body.classList.remove("banned-page"),isBannedUser=!1,isInactiveUser=!1,document.querySelector(".navbar").style.display="flex",document.querySelector(".footer").style.display="block",document.querySelectorAll(".page").forEach((function(e){e.style.display=""})),notificationListener&&(db.ref("notifications").off("value",notificationListener),notificationListener=null))}catch(e){}}function updateOnlineStatus(e){try{if(!e)return;var t=db.ref("online_users/"+e.uid);t.set({uid:e.uid,name:e.displayName||e.email||"مستخدم",photoURL:e.photoURL||"",grade:currentUserData&&currentUserData.grade||"1",role:currentUserData&&currentUserData.role||"طالب",lastActive:firebase.database.ServerValue.TIMESTAMP}),t.onDisconnect().remove()}catch(e){}}var notificationListener=null;function startNotificationListener(){try{if(!auth.currentUser)return;notificationListener&&(db.ref("notifications").off("value",notificationListener),notificationListener=null);var e=auth.currentUser.uid;notificationListener=function(t){try{var n=t.val(),a=[];n&&Object.keys(n).forEach((function(t){var o=n[t];o.userId!==e&&"all"!==o.target&&o.target!==e||(o.id=t,a.push(o))})),a.sort((function(e,t){return(t.createdAt||0)-(e.createdAt||0)}));var o=a.filter((function(e){return!e.read})).length,r=document.getElementById("notifCount"),i=document.getElementById("bellIcon");r&&(r.textContent=o||"",r.classList.toggle("show",o>0)),i&&i.classList.toggle("has-notifs",o>0);var s=document.getElementById("notifList");if(!s)return;if(0===a.length)s.innerHTML='<div class="empty-state"><div class="icon">📭</div><h3>لا توجد إشعارات</h3></div>';else{var c="";a.forEach((function(e){c+='<div class="notification-item" style="opacity:'+(e.read?"0.6":"1")+";background:"+(e.read?"transparent":"#3498db10")+";border-right:"+(e.read?"none":"3px solid #3498db")+';"><div><strong>'+safeText(e.title)+'</strong></div><div style="font-size:14px;color:#777;">'+safeText(e.body)+'</div><div class="date">'+(e.createdAt?new Date(e.createdAt).toLocaleString("ar"):"")+"</div></div>"})),s.innerHTML=c}}catch(e){}},db.ref("notifications").orderByChild("createdAt").on("value",notificationListener)}catch(e){}}var allBooksCache=[],allSummariesCache=[],allTeamPostsCache=[],allFavoritesCache=[],allYoutubeCache=[],allAdsCache=[],allUsersCache=[],isNavigating=!1;function loadAllData(){try{Promise.all([getAllData("books").then((function(e){allBooksCache=e||[]})),getAllSummaries().then((function(e){allSummariesCache=e||[]})),getAllYoutubeChannels().then((function(e){allYoutubeCache=e||[]})),getActiveAds().then((function(e){allAdsCache=e||[]})),getAllData("users").then((function(e){allUsersCache=e||[]}))]).then((function(){auth.currentUser&&getUserFavorites(auth.currentUser.uid).then((function(e){allFavoritesCache=e||[],checkUserStatus(auth.currentUser.uid)})).catch((function(){}))})).catch((function(){}))}catch(e){}try{teamPostsListener&&(db.ref("team_posts").off("value",teamPostsListener),teamPostsListener=null),auth.currentUser&&(teamPostsListener=function(e){try{var t=e.val();allTeamPostsCache=[],t&&Object.keys(t).forEach((function(e){var n=t[e];n.id=e,allTeamPostsCache.push(n)}));var n=document.getElementById("page-teamPosts");n&&n.classList.contains("active")&&loadTeamPosts()}catch(e){}},db.ref("team_posts").on("value",teamPostsListener))}catch(e){}}var teamPostsListener=null;function getAllBooks(){return getAllData("books")}function incrementBookViews(e){return new Promise((function(t){try{var n=auth.currentUser?auth.currentUser.uid:null;if(!n)return void t();db.ref("books/"+e).transaction((function(e){try{if(!e)return e;var t=e.viewsData||{};return t[n]||(t[n]=!0,e.viewsData=t,e.views=Object.keys(t).length),e}catch(t){return e}}),(function(){t()}))}catch(e){t()}}))}function incrementBookDownloads(e){return new Promise((function(t){try{var n=auth.currentUser?auth.currentUser.uid:null;if(!n)return void t();db.ref("books/"+e).transaction((function(e){try{if(!e)return e;var t=e.downloadsData||{};return t[n]||(t[n]=!0,e.downloadsData=t,e.downloads=Object.keys(t).length),e}catch(t){return e}}),(function(){t()}))}catch(e){t()}}))}function addBookFavorite(e){return new Promise((function(t,n){try{var a=auth.currentUser?auth.currentUser.uid:null;if(!a)return void n(new Error("يرجى تسجيل الدخول"));db.ref("books/"+e).transaction((function(e){try{if(!e)return e;var t=e.favoritesData||{};return t[a]||(t[a]=!0,e.favoritesData=t,e.favorites=Object.keys(t).length),e}catch(t){return e}}),(function(e,a,o){e?n(e):t()}))}catch(e){n(e)}}))}function removeBookFavorite(e){return new Promise((function(t,n){try{var a=auth.currentUser?auth.currentUser.uid:null;if(!a)return void n(new Error("يرجى تسجيل الدخول"));db.ref("books/"+e).transaction((function(e){try{if(!e)return e;var t=e.favoritesData||{};return t[a]&&(delete t[a],e.favoritesData=t,e.favorites=Object.keys(t).length),e}catch(t){return e}}),(function(e,a,o){e?n(e):t()}))}catch(e){n(e)}}))}function navigateTo(e){if(!isNavigating)if(isBannedUser||isInactiveUser)showToast("⛔ حسابك غير نشط، لا يمكنك استخدام هذه الصفحة","error");else{isNavigating=!0;try{document.querySelectorAll(".page").forEach((function(e){e.classList.remove("active")}));var t=document.getElementById("page-"+e);switch(t&&t.classList.add("active"),window.scrollTo(0,0),e){case"forum":loadForumPosts();break;case"teamPosts":loadTeamPosts();break;case"favorites":loadFavorites();break;case"profile":loadProfile();break;case"youtube":loadYoutubeChannels();break;case"home":loadAllData()}}catch(e){console.error("خطأ في التنقل:",e)}finally{setTimeout((function(){isNavigating=!1}),300)}}}function loadForumPosts(){try{var e=document.getElementById("forumPosts");if(!e)return;e.innerHTML='<div class="loading-container"><div class="spinner"></div></div>',forumListener&&(db.ref("forum_posts").off("value",forumListener),forumListener=null),forumListener=function(t){try{var n=t.val(),a=[];n&&Object.keys(n).forEach((function(e){var t=n[e];t.id=e,a.push(t)})),a.sort((function(e,t){return(t.createdAt||0)-(e.createdAt||0)}));var o=a.filter((function(e){return"approved"===e.status}));if(0===o.length)return void(e.innerHTML='<div class="empty-state"><div class="icon">💬</div><h3>لا توجد منشورات مقبولة حالياً</h3><p>كن أول من يسأل بعد موافقة الإدارة!</p></div>');e.innerHTML="",o.forEach((function(t){var n=createForumPostHTML(t);e.innerHTML+=n})),bindForumEvents()}catch(t){console.error("خطأ معالجة المنشورات:",t),e.innerHTML='<div class="empty-state"><div class="icon">❌</div><h3>حدث خطأ في عرض المنشورات</h3></div>'}},db.ref("forum_posts").orderByChild("createdAt").on("value",forumListener,(function(t){console.error("خطأ قراءة قاعدة البيانات:",t),e.innerHTML='<div class="empty-state"><div class="icon">❌</div><h3>حدث خطأ في الاتصال بقاعدة البيانات</h3></div>'}))}catch(e){console.error("خطأ عام:",e)}}function createForumPostHTML(e){try{var t=!1;auth.currentUser&&e.likesData&&(t=e.likesData[auth.currentUser.uid]||!1);var n=e.likesCount||0,a="";e.imageUrl&&(a=`<img src="${e.imageUrl}" class="post-image" loading="lazy" onerror="this.style.display='none'">`);var o=[];e.comments&&(Array.isArray(e.comments)?o=e.comments:"object"==typeof e.comments&&Object.keys(e.comments).forEach((function(t){var n=e.comments[t];n&&(n.commentKey=t,o.push(n))})));var r=o.filter((function(e){return"approved"===e.status})),i="";0===r.length?i='<div style="color:#888;font-size:12px;padding:8px 0;text-align:center;">💬 لا توجد تعليقات مقبولة حتى الآن</div>':r.forEach((function(e,t){var n=e.isAdminReply||e.isOfficialReply||e.user===TEAM_NAME;i+=n?`\n                                <div style="background:#e8f0fe;border-right:4px solid #1a237e;padding:10px 14px;border-radius:10px;margin:6px 0;width:100%;">\n                                    <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;">\n                                        <img src="${TEAM_LOGO}" style="width:28px;height:28px;border-radius:50%;object-fit:cover;border:2px solid #1a237e;">\n                                        <span style="font-weight:800;font-size:13px;color:#1a237e;">${TEAM_NAME} ${VERIFIED_BADGE_SVG}</span>\n                                    </div>\n                                    <div style="font-size:13px;color:#1a237e;line-height:1.6;">${safeText(e.text||"")}</div>\n                                </div>`:`\n                                <div class="comment">\n                                    <div class="avatar" style="${e.userPhoto?`background-image:url('${e.userPhoto}');background-size:cover;`:"background:#3498db;"}">\n                                        ${e.userPhoto?"":e.user?e.user.charAt(0).toUpperCase():"؟"}\n                                    </div>\n                                    <div class="comment-text">\n                                        <div class="name">${safeText(e.user||"طالب")}</div>\n                                        <div>${safeText(e.text||"")}</div>\n                                    </div>\n                                </div>`}));var s=`\n                    <div class="comment-input">\n                        <input type="text" placeholder="اكتب تعليقك (يخضع لمراجعة الإدارة)..." class="forum-comment-input" data-post="${e.id}">\n                        <button class="forum-comment-submit" data-post="${e.id}">نشر</button>\n                    </div>\n                `;return`\n                    <div class="forum-post">\n                        <div class="post-header">\n                            <span class="user">\n                                ${e.authorPhoto?`<img src="${e.authorPhoto}" class="user-avatar">`:"👤"}\n                                ${safeText(e.author||"طالب")}\n                                ${e.isAdminPost?VERIFIED_BADGE_SVG:""}\n                            </span>\n                            <span class="date">${e.createdAt?new Date(e.createdAt).toLocaleString("ar"):""}</span>\n                        </div>\n                        <h4 style="color:#2ecc71;">${safeText(e.title||"سؤال")}</h4>\n                        <div class="post-content">${safeText(e.content||"")}</div>\n                        ${a}\n                        <div class="post-actions">\n                            <button onclick="likeForumPost('${e.id}', this)" ${t?'style="color:#e74c3c;"':""}>\n                                ${t?"❤️":"🤍"} <span>${n}</span>\n                            </button>\n                            <button>💬 <span>${r.length}</span></button>\n                        </div>\n                        <div class="comments-section">\n                            ${i}\n                            ${s}\n                        </div>\n                    </div>\n                `}catch(e){return console.error("خطأ في تصميم البوست:",e),""}}function bindForumEvents(){try{document.querySelectorAll(".forum-comment-submit").forEach((function(e){e.removeEventListener("click",handleForumComment),e.addEventListener("click",handleForumComment)})),document.querySelectorAll(".forum-comment-input").forEach((function(e){e.removeEventListener("keypress",handleForumCommentKeypress),e.addEventListener("keypress",handleForumCommentKeypress)}))}catch(e){}}function handleForumComment(e){try{var t=e.currentTarget,n=t.dataset.post,a=t.closest(".forum-post").querySelector(".forum-comment-input"),o=a.value.trim();if(!o)return;if(!auth.currentUser)return alert("🔐 يرجى تسجيل الدخول أولاً"),void(window.location.href="login.html");checkUserStatus(auth.currentUser.uid).then((function(e){if(!e.isBanned&&e.isActive){var t=auth.currentUser.uid;getUser(t).then((function(e){e&&("admin"===e.role||"superAdmin"===e.role);var a=e&&e.photoURL||auth.currentUser.photoURL||"";return db.ref("forum_posts/"+n+"/comments").push().set({text:o,user:auth.currentUser.displayName||auth.currentUser.email||"طالب",userPhoto:a||"",userId:t,status:"pending",isAdminReply:!1,isOfficialReply:!1,likes:0,likesData:{},createdAt:firebase.database.ServerValue.TIMESTAMP})})).then((function(){a.value="",showPopup("✅","تم إرسال تعليقك!","سيتم مراجعة تعليقك من قبل الإدارة"),loadForumPosts()})).catch((function(e){showToast("❌ خطأ: "+e.message,"error")}))}else showToast("⛔ لا يمكنك التعليق، حسابك غير نشط","error")}))}catch(e){showToast("❌ حدث خطأ","error")}}function handleForumCommentKeypress(e){try{if("Enter"===e.key){e.preventDefault();var t=e.currentTarget.closest(".comment-input").querySelector(".forum-comment-submit");t&&t.click()}}catch(e){}}function loadTeamPosts(){try{if(!(t=document.getElementById("teamPostsContainer")))return;t.innerHTML='<div class="loading-container"><div class="spinner"></div></div>';var e=(allTeamPostsCache||[]).sort((function(e,t){return(t.createdAt||0)-(e.createdAt||0)}));if(0===e.length)return void(t.innerHTML='<div class="empty-state"><div class="icon">📢</div><h3>لا توجد منشورات</h3></div>');t.innerHTML="",e.forEach((function(e){var n=createTeamPostHTML(e);t.innerHTML+=n})),bindTeamPostEvents()}catch(e){var t;(t=document.getElementById("teamPostsContainer"))&&(t.innerHTML='<div class="empty-state"><div class="icon">❌</div><h3>حدث خطأ في تحميل المنشورات</h3></div>')}}functio
