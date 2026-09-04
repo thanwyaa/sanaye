@@ -1,6 +1,6 @@
 {
-  "redirects": [
-    { "source": "/app.html", "destination": "/404.html" }
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
   ],
   "headers": [
     {
