@@ -1,5 +1,7 @@
 {
   "redirects": [
-    { "source": "/app.html", "destination": "/404.html" }
+    { "source": "/app.html", "destination": "/404.html" },
+    { "source": "/main.html", "destination": "/404.html" },
+    { "source": "/dashboard.html", "destination": "/404.html" }
   ]
 }
